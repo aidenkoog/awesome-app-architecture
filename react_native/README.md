@@ -17,3 +17,12 @@
 ## Set-up Team account about Cocoapods AccessibilityReources 
 ## npx react-native run-ios
 
+# How To Install Fastlane
+## brew install ruby
+## sudo gem install fastlane
+## sudo gem install bundler
+## bundle init
+## Write 'gem "fastlane"' to Gemfile
+## cd ios
+## fastlane init
+
