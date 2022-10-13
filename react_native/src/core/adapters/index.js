@@ -1,1 +1,1 @@
-export * from './redux';
+export * from './redux/saga/ProfileSaga';

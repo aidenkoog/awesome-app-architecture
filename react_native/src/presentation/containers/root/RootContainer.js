@@ -1,40 +1,80 @@
-import { useState } from "react"
-import { AppState } from "react-native"
-import styles from "../../stylesheets/styles"
+import { useEffect, useRef } from "react"
+import { AppState, View, Text } from "react-native"
+import styles from "../../stylesheets/StyleSet"
+import Constants from "../../../constants/Constants"
+import allActions from "../../../core/adapters/redux/actions"
+import { connect, useDispatch, useSelector } from "react-redux";
+import { saveProfile } from "../../../core/adapters/redux/actions/ProfileAction"
 
 function RootContainer() {
 
-    // component mount state
-    const [isComponentMount, setIsComponentMount] = useState(false)
+    /* redux saga test */
+    const result = useSelector(state => state.profile);
+    const dispatch = useDispatch();
 
-    // app state
-    const [appState, setAppState] = useState(AppState.currentState)
+    /* appState (useRef) is not changed even though rendering is executed again. */
+    const appState = useRef(AppState.currentState);
 
-    useLayoutEffect(() => {
+    /* detect current app state change */
+    const onHandleAppStateChange = nextAppState => {
+        console.log("root", 'appState nextAppState'
+            + ' current: ', appState.current, ", next: ", nextAppState)
+        if (
+            appState.current.match(/inactive|background/) &&
+            nextAppState === Constants.ROOT.APP_ACTIVE
+        ) {
+            console.log("root", 'app has come to the foreground!')
+        }
+        if (
+            appState.current.match(/inactive|active/) &&
+            nextAppState === Constants.ROOT.APP_BACKGROUND
+        ) {
+            console.log("root", 'app has come to the background!')
+        }
+        appState.current = nextAppState
+    }
+
+    useEffect(() => {
         /* when component is mounted */
-        setIsComponentMount(true)
-        this.appStateListener = AppState.addEventListener("change", nextAppState => {
-            if (appState.match(/inactive|background/) && nextAppState === "active") {
-                console.log("foreground!")
-            } else {
-                console.log("background!")
-            }
-            if (isComponentMount) {
-                setAppState(nextAppState)
-            }
-        })
+        console.log("root", "component is mounted!")
+        AppState.addEventListener(Constants.ROOT.APP_EVENT_TYPE, onHandleAppStateChange)
+
+        /* redux saga test */
+        dispatch(allActions.saveProfile());
+
         /* when component is unmounted */
         return () => {
-            setIsComponentMount(false)
-            if (appStateListener) {
-                appStateListener.remove()
-            }
+            console.log("root", "component is unmounted !!!")
+            AppState.removeEventListener(Constants.ROOT.APP_EVENT_TYPE, onHandleAppStateChange);
         }
     }, [])
 
     return (
-        <View style={styles} />
+        <View style={styles.root_container}>
+            <Text>Root</Text>
+        </View>
     )
 }
 
-export default RootContainer
+/* 
+ * bring state from store and put it to props. 
+ * first argument : state from store
+ * second argument : all props component currently have (possible to omit) 
+ */
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+/*
+ * send dispatch to props
+ * dispatch role : send action to reducer
+ * first argument : it's the same with store.dispatch() of Redux
+ * second argument : all props component current have (possible to omit)
+ */
+const mapDispatchToProps = (dispatch) => ({
+    saveProfile: () => dispatch(allActions.saveProfile())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);

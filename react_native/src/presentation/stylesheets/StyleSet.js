@@ -1,8 +1,11 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable import/no-import-module-exports */
 /* eslint-disable import/prefer-default-export */
 // eslint-disable-next-line prettier/prettier
+
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export default StyleSheet.create({
   root_container: {
     flex: 1,
   },
