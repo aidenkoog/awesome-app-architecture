@@ -1,15 +1,21 @@
+/* eslint-disable no-shadow */
 /* eslint-disable arrow-parens */
 /* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
+
 const React = require('react-native');
 
+/* load ble manager from native modules. */
 const bleManager = React.NativeModules.BleManager;
 
+/* ble manager class. */
 class BleManager {
   constructor() {
+    /* represent if peripheral is connected or not. */
     this.isPeripheralConnected = this.isPeripheralConnected.bind(this);
   }
 
+  /* read characteristic data. */
   read(peripheralId, serviceUUID, characteristicUUID) {
     return new Promise((fulfill, reject) => {
       bleManager.read(
@@ -27,6 +33,7 @@ class BleManager {
     });
   }
 
+  /* read rssi ( received signal strength indication ) */
   readRSSI(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.readRSSI(peripheralId, (error, rssi) => {
@@ -39,6 +46,7 @@ class BleManager {
     });
   }
 
+  /* refresh cache which ble manager has. */
   refreshCache(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.refreshCache(peripheralId, (error, result) => {
@@ -51,6 +59,7 @@ class BleManager {
     });
   }
 
+  /* retrieve services corresponding to peripheral from parameter. */
   retrieveServices(peripheralId, services) {
     return new Promise((fulfill, reject) => {
       bleManager.retrieveServices(
@@ -67,6 +76,7 @@ class BleManager {
     });
   }
 
+  /* write characteristic data. */
   write(peripheralId, serviceUUID, characteristicUUID, data, maxByteSize) {
     if (maxByteSize == null) {
       maxByteSize = 20;
@@ -89,6 +99,7 @@ class BleManager {
     });
   }
 
+  /* write characteristic data with no response. */
   writeWithoutResponse(
     peripheralId,
     serviceUUID,
@@ -122,6 +133,7 @@ class BleManager {
     });
   }
 
+  /* connect ble device corresponding to peripheral id from parameter. */
   connect(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.connect(peripheralId, error => {
@@ -134,6 +146,7 @@ class BleManager {
     });
   }
 
+  /* create bond about peripheral. */
   createBond(peripheralId, peripheralPin = null) {
     return new Promise((fulfill, reject) => {
       bleManager.createBond(peripheralId, peripheralPin, error => {
@@ -146,6 +159,7 @@ class BleManager {
     });
   }
 
+  /* remove bond about peripheral. */
   removeBond(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.removeBond(peripheralId, error => {
@@ -158,6 +172,10 @@ class BleManager {
     });
   }
 
+  /*
+   * diconnect ble device corresponding to peripheral id from parameter.
+   * (default option force : true)
+   */
   disconnect(peripheralId, force = true) {
     return new Promise((fulfill, reject) => {
       bleManager.disconnect(peripheralId, force, error => {
@@ -170,6 +188,7 @@ class BleManager {
     });
   }
 
+  /* set-up notification about characteristic uuid. */
   startNotification(peripheralId, serviceUUID, characteristicUUID) {
     return new Promise((fulfill, reject) => {
       bleManager.startNotification(
@@ -187,6 +206,7 @@ class BleManager {
     });
   }
 
+  /* enable notification about characteristic uuid with using buffer. */
   startNotificationUseBuffer(
     peripheralId,
     serviceUUID,
@@ -210,6 +230,7 @@ class BleManager {
     });
   }
 
+  /* disable notification about characteristic uuid. */
   stopNotification(peripheralId, serviceUUID, characteristicUUID) {
     return new Promise((fulfill, reject) => {
       bleManager.stopNotification(
@@ -227,10 +248,12 @@ class BleManager {
     });
   }
 
+  /* check ble manager state. */
   checkState() {
     bleManager.checkState();
   }
 
+  /* initialize ble manager module. */
   start(options) {
     return new Promise((fulfill, reject) => {
       if (options == null) {
@@ -246,6 +269,7 @@ class BleManager {
     });
   }
 
+  /* start to scan ble devices. */
   scan(serviceUUIDs, seconds, allowDuplicates, scanningOptions = {}) {
     return new Promise((fulfill, reject) => {
       if (allowDuplicates == null) {
@@ -288,6 +312,7 @@ class BleManager {
     });
   }
 
+  /* stop to scan ble device. */
   stopScan() {
     return new Promise((fulfill, reject) => {
       bleManager.stopScan(error => {
@@ -300,6 +325,7 @@ class BleManager {
     });
   }
 
+  /* enable bluetooth option. */
   enableBluetooth() {
     return new Promise((fulfill, reject) => {
       bleManager.enableBluetooth(error => {
@@ -312,6 +338,7 @@ class BleManager {
     });
   }
 
+  /* get the connected peripheral device data. */
   getConnectedPeripherals(serviceUUIDs) {
     return new Promise((fulfill, reject) => {
       bleManager.getConnectedPeripherals(serviceUUIDs, (error, result) => {
@@ -326,6 +353,7 @@ class BleManager {
     });
   }
 
+  /* get the bonded peripheral device data. */
   getBondedPeripherals() {
     return new Promise((fulfill, reject) => {
       bleManager.getBondedPeripherals((error, result) => {
@@ -340,6 +368,7 @@ class BleManager {
     });
   }
 
+  /* get the peripheral devices that is discovered after scanning. */
   getDiscoveredPeripherals() {
     return new Promise((fulfill, reject) => {
       bleManager.getDiscoveredPeripherals((error, result) => {
@@ -354,6 +383,7 @@ class BleManager {
     });
   }
 
+  /* remove cached peripheral device. */
   removePeripheral(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.removePeripheral(peripheralId, error => {
@@ -366,6 +396,7 @@ class BleManager {
     });
   }
 
+  /* check if peripheral device corresponding to peripheral id is connected or not. */
   isPeripheralConnected(peripheralId, serviceUUIDs) {
     return this.getConnectedPeripherals(serviceUUIDs).then(result => {
       if (result.find(p => p.id === peripheralId)) {
@@ -375,6 +406,7 @@ class BleManager {
     });
   }
 
+  /* set-up the priority of peripheral device connection. */
   requestConnectionPriority(peripheralId, connectionPriority) {
     return new Promise((fulfill, reject) => {
       bleManager.requestConnectionPriority(
@@ -391,6 +423,7 @@ class BleManager {
     });
   }
 
+  /* set mtu ( maximum transmission unit ) */
   requestMTU(peripheralId, mtu) {
     return new Promise((fulfill, reject) => {
       bleManager.requestMTU(peripheralId, mtu, (error, mtu) => {
@@ -403,9 +436,11 @@ class BleManager {
     });
   }
 
+  /* set-up name. */
   setName(name) {
     bleManager.setName(name);
   }
 }
 
+/* export ble manager module. */
 module.exports = new BleManager();

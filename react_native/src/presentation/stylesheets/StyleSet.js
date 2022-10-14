@@ -12,11 +12,16 @@ export default StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  root_text: {
-    fontSize: 20,
-  },
   splash_container: {
+    flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
     backgroundColor: '#000000',
+  },
+  splash_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   settings_container: {},
   qr_scan_container: {},

@@ -13,8 +13,11 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
+    "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-gesture-handler": "^2.7.1",
+    "react-navigation": "^4.4.4",
     "react-redux": "^8.0.4",
     "recoil": "^0.7.6",
     "redux": "^4.2.0",
