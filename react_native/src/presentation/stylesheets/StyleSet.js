@@ -8,6 +8,12 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   root_container: {
     flex: 1,
+    alignSelf: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  root_text: {
+    fontSize: 20,
   },
   splash_container: {
     backgroundColor: '#000000',

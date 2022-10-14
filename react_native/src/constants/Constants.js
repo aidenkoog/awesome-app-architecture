@@ -4,4 +4,9 @@ export default {
         APP_ACTIVE: 'active',
         APP_BACKGROUND: 'background',
     },
+    COMMON: {
+        DEFAULT_DATA: '',
+        DEFAULT_STATE: false,
+        DEFAULT_LIST_STATE: [],
+    },
 };

@@ -2,15 +2,16 @@ import { useEffect, useRef } from "react"
 import { AppState, View, Text } from "react-native"
 import styles from "../../stylesheets/StyleSet"
 import Constants from "../../../constants/Constants"
-import allActions from "../../../core/adapters/redux/actions"
-import { connect, useDispatch, useSelector } from "react-redux";
-import { saveProfile } from "../../../core/adapters/redux/actions/ProfileAction"
+import { atom, selector, useSetRecoilState, useRecoilState, useRecoilValue } from 'recoil'
 
 function RootContainer() {
 
-    /* redux saga test */
-    const result = useSelector(state => state.profile);
-    const dispatch = useDispatch();
+    /* recoil test */
+    const setCount = useSetRecoilState(counting)
+    const count = useRecoilValue(counting)
+    const onPressed = () => {
+        setCount((prev) => (prev) + 1)
+    }
 
     /* appState (useRef) is not changed even though rendering is executed again. */
     const appState = useRef(AppState.currentState);
@@ -39,9 +40,6 @@ function RootContainer() {
         console.log("root", "component is mounted!")
         AppState.addEventListener(Constants.ROOT.APP_EVENT_TYPE, onHandleAppStateChange)
 
-        /* redux saga test */
-        dispatch(allActions.saveProfile());
-
         /* when component is unmounted */
         return () => {
             console.log("root", "component is unmounted !!!")
@@ -51,12 +49,25 @@ function RootContainer() {
 
     return (
         <View style={styles.root_container}>
-            <Text>Root</Text>
+            <Text style={styles.root_text} onPress={onPressed}>Root-{count}</Text>
         </View>
     )
 }
 
+export const textState = atom({
+    /* unique id (with respect to other atoms/selectors) */
+    key: 'textState',
+    /* default value */
+    default: 'default-value'
+})
+
+export const counting = atom({
+    key: "counting",
+    default: 0,
+})
+
 /* 
+ * if component type is class's, use the mapStateToProps function
  * bring state from store and put it to props. 
  * first argument : state from store
  * second argument : all props component currently have (possible to omit) 
@@ -68,6 +79,7 @@ const mapStateToProps = (state) => {
 }
 
 /*
+ * if component type is class's, use the mapDispatchToProps function
  * send dispatch to props
  * dispatch role : send action to reducer
  * first argument : it's the same with store.dispatch() of Redux
@@ -77,4 +89,4 @@ const mapDispatchToProps = (dispatch) => ({
     saveProfile: () => dispatch(allActions.saveProfile())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootContainer);
+export default RootContainer;
