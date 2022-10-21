@@ -1,1 +1,1 @@
-export * from "./bluetooth"
+export * from "./BleManager"

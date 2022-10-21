@@ -9,4 +9,7 @@ export default {
         DEFAULT_STATE: false,
         DEFAULT_LIST_STATE: [],
     },
+    LOG: {
+        BT_REPO_LOG: 'bt_repo_log'
+    }
 };

@@ -1,8 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable arrow-parens */
-/* eslint-disable no-param-reassign */
-/* eslint-disable class-methods-use-this */
-
 const React = require('react-native');
 
 /* load ble manager from native modules. */
@@ -439,6 +434,68 @@ class BleManager {
   /* set-up name. */
   setName(name) {
     bleManager.setName(name);
+  }
+
+  /* get uuid list ( notify, read, write, writeWithoutResponse service uuid, characteristic uuid ) */
+  getUuidList(peripheralInfo) {
+    for (let item of peripheralInfo.characteristics) {
+      item.characteristic = fullUUID(item.characteristic);
+      if (Platform.OS == "android") {
+        if (item.properties.Notify == "Notify") {
+          nofityServiceUUID.push(item.service);
+          nofityCharacteristicUUID.push(item.characteristic);
+        }
+        if (item.properties.Read == "Read") {
+          readServiceUUID.push(item.service);
+          readCharacteristicUUID.push(item.characteristic);
+        }
+        if (item.properties.Write == "Write") {
+          writeWithResponseServiceUUID.push(item.service);
+          writeWithResponseCharacteristicUUID.push(item.characteristic);
+        }
+        if (item.properties.Write == "WriteWithoutResponse") {
+          writeWithoutResponseServiceUUID.push(item.service);
+          writeWithoutResponseCharacteristicUUID.push(item.characteristic);
+        }
+
+      } else {
+        for (let property of item.properties) {
+          if (property == "Notify") {
+            nofityServiceUUID.push(item.service);
+            nofityCharacteristicUUID.push(item.characteristic);
+          }
+          if (property == "Read") {
+            readServiceUUID.push(item.service);
+            readCharacteristicUUID.push(item.characteristic);
+          }
+          if (property == "Write") {
+            writeWithResponseServiceUUID.push(item.service);
+            writeWithResponseCharacteristicUUID.push(item.characteristic);
+          }
+          if (property == "WriteWithoutResponse") {
+            writeWithoutResponseServiceUUID.push(item.service);
+            writeWithoutResponseCharacteristicUUID.push(item.characteristic);
+          }
+        }
+      }
+    }
+    //TODO:
+    return ""
+  }
+
+  /**
+   * convert uuid to full 128bit.
+   * @param {UUID} uuid 16bit, 32bit or 128bit UUID.
+   * @returns {UUID} 128bit UUID.
+   */
+  getFullUuid(uuid) {
+    if (uuid.length === 4) {
+      return "0000" + uuid.toUpperCase() + "-0000-1000-8000-00805F9B34FB";
+    }
+    if (uuid.length === 8) {
+      return uuid.toUpperCase() + "-0000-1000-8000-00805F9B34FB";
+    }
+    return uuid.toUpperCase();
   }
 }
 
