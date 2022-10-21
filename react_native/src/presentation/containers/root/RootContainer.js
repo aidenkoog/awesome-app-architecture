@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react"
 import { AppState, View, Text } from "react-native"
 import styles from "../../stylesheets/StyleSet"
 import Constants from "../../../constants/Constants"
-import NavigationService from '../../../core/services/navigation/NavigationService'
-import AppNavigator from "../../../core/services/navigation/AppNavigator"
 
 function RootContainer() {
 
@@ -43,11 +41,7 @@ function RootContainer() {
 
     return (
         <View style={styles.root_container}>
-            <AppNavigator>
-                ref={(navigatorRef) => {
-                    NavigationService.setTopLevelNavigator(navigatorRef)
-                }}
-            </AppNavigator>
+            <Text>Root Page</Text>
         </View>
     )
 }
