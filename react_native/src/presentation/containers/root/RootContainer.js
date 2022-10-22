@@ -41,7 +41,7 @@ function RootContainer() {
 
     return (
         <View style={styles.root_container}>
-            <Text>Root Page</Text>
+            <Text>Aiden Koo's Page</Text>
         </View>
     )
 }
