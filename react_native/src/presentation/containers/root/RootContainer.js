@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { AppState, View, Text } from "react-native"
 import styles from "../../stylesheets/StyleSet"
-import Constants from "../../../constants/Constants"
+import Constants from "../../../utils/Constants"
 
 function RootContainer() {
 

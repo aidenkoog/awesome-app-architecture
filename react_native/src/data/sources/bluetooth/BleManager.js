@@ -1,22 +1,34 @@
-const React = require('react-native');
+import { NativeModules } from 'react-native';
 
-/* load ble manager from native modules. */
-const bleManager = React.NativeModules.BleManager;
+/**
+ * load ble manager from native modules.
+ */
+const bleManager = NativeModules.BleManager;
 
-/* ble manager class. */
+/**
+ * ble manager class.
+ */
 class BleManager {
   constructor() {
-    /* represent if peripheral is connected or not. */
+    /**
+     * represent if peripheral is connected or not.
+     */
     this.isPeripheralConnected = this.isPeripheralConnected.bind(this);
   }
 
-  /* read characteristic data. */
-  read(peripheralId, serviceUUID, characteristicUUID) {
+  /**
+   * read characteristic data.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @returns {Promise} 
+   */
+  read(peripheralId, serviceUuid, characteristicUuid) {
     return new Promise((fulfill, reject) => {
       bleManager.read(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         (error, data) => {
           if (error) {
             reject(error);
@@ -28,7 +40,11 @@ class BleManager {
     });
   }
 
-  /* read rssi ( received signal strength indication ) */
+  /**
+   * read rssi ( received signal strength indication )
+   * @param {string} peripheralId 
+   * @returns {Promise} 
+   */
   readRSSI(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.readRSSI(peripheralId, (error, rssi) => {
@@ -41,7 +57,11 @@ class BleManager {
     });
   }
 
-  /* refresh cache which ble manager has. */
+  /**
+   * refresh cache which ble manager has.
+   * @param {string} peripheralId 
+   * @returns {Promise} 
+   */
   refreshCache(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.refreshCache(peripheralId, (error, result) => {
@@ -54,7 +74,12 @@ class BleManager {
     });
   }
 
-  /* retrieve services corresponding to peripheral from parameter. */
+  /**
+   * retrieve services corresponding to peripheral from parameter.
+   * @param {string} peripheralId 
+   * @param {string[]} services 
+   * @returns {Promise} 
+   */
   retrieveServices(peripheralId, services) {
     return new Promise((fulfill, reject) => {
       bleManager.retrieveServices(
@@ -71,16 +96,24 @@ class BleManager {
     });
   }
 
-  /* write characteristic data. */
-  write(peripheralId, serviceUUID, characteristicUUID, data, maxByteSize) {
+  /**
+   * write characteristic data.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @param {Any} data 
+   * @param {Any} maxByteSize 
+   * @returns {Promise} 
+   */
+  write(peripheralId, serviceUuid, characteristicUuid, data, maxByteSize) {
     if (maxByteSize == null) {
       maxByteSize = 20;
     }
     return new Promise((fulfill, reject) => {
       bleManager.write(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         data,
         maxByteSize,
         error => {
@@ -94,11 +127,20 @@ class BleManager {
     });
   }
 
-  /* write characteristic data with no response. */
+  /**
+   * write characteristic data with no response.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @param {Any} data 
+   * @param {Any} maxByteSize 
+   * @param {Any} queueSleepTime 
+   * @returns {Promise} 
+   */
   writeWithoutResponse(
     peripheralId,
-    serviceUUID,
-    characteristicUUID,
+    serviceUuid,
+    characteristicUuid,
     data,
     maxByteSize,
     queueSleepTime,
@@ -112,8 +154,8 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.writeWithoutResponse(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         data,
         maxByteSize,
         queueSleepTime,
@@ -128,7 +170,11 @@ class BleManager {
     });
   }
 
-  /* connect ble device corresponding to peripheral id from parameter. */
+  /**
+   * connect ble device corresponding to peripheral id from parameter.
+   * @param {string} peripheralId 
+   * @returns {Promise}
+   */
   connect(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.connect(peripheralId, error => {
@@ -141,7 +187,12 @@ class BleManager {
     });
   }
 
-  /* create bond about peripheral. */
+  /**
+   * create bond about peripheral.
+   * @param {string} peripheralId 
+   * @param {Any} peripheralPin 
+   * @returns {Promise}
+   */
   createBond(peripheralId, peripheralPin = null) {
     return new Promise((fulfill, reject) => {
       bleManager.createBond(peripheralId, peripheralPin, error => {
@@ -154,7 +205,11 @@ class BleManager {
     });
   }
 
-  /* remove bond about peripheral. */
+  /**
+   * remove bond about peripheral.
+   * @param {string} peripheralId 
+   * @returns {Promise}
+   */
   removeBond(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.removeBond(peripheralId, error => {
@@ -167,9 +222,12 @@ class BleManager {
     });
   }
 
-  /*
+  /**
    * diconnect ble device corresponding to peripheral id from parameter.
    * (default option force : true)
+   * @param {string} peripheralId 
+   * @param {boolean} force 
+   * @returns {Promise}
    */
   disconnect(peripheralId, force = true) {
     return new Promise((fulfill, reject) => {
@@ -183,13 +241,19 @@ class BleManager {
     });
   }
 
-  /* set-up notification about characteristic uuid. */
-  startNotification(peripheralId, serviceUUID, characteristicUUID) {
+  /**
+   * set-up notification about characteristic uuid.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @returns {Promise}
+   */
+  startNotification(peripheralId, serviceUuid, characteristicUuid) {
     return new Promise((fulfill, reject) => {
       bleManager.startNotification(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         error => {
           if (error) {
             reject(error);
@@ -201,18 +265,25 @@ class BleManager {
     });
   }
 
-  /* enable notification about characteristic uuid with using buffer. */
+  /**
+   * enable notification about characteristic uuid with using buffer.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @param {Any} buffer 
+   * @returns {Promise}
+   */
   startNotificationUseBuffer(
     peripheralId,
-    serviceUUID,
-    characteristicUUID,
+    serviceUuid,
+    characteristicUuid,
     buffer,
   ) {
     return new Promise((fulfill, reject) => {
       bleManager.startNotificationUseBuffer(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         buffer,
         error => {
           if (error) {
@@ -225,13 +296,19 @@ class BleManager {
     });
   }
 
-  /* disable notification about characteristic uuid. */
-  stopNotification(peripheralId, serviceUUID, characteristicUUID) {
+  /**
+   * disable notification about characteristic uuid.
+   * @param {string} peripheralId 
+   * @param {string} serviceUuid 
+   * @param {string} characteristicUuid 
+   * @returns {Promise}
+   */
+  stopNotification(peripheralId, serviceUuid, characteristicUuid) {
     return new Promise((fulfill, reject) => {
       bleManager.stopNotification(
         peripheralId,
-        serviceUUID,
-        characteristicUUID,
+        serviceUuid,
+        characteristicUuid,
         error => {
           if (error) {
             reject(error);
@@ -243,12 +320,18 @@ class BleManager {
     });
   }
 
-  /* check ble manager state. */
+  /**
+   * check ble manager state.
+   */
   checkState() {
     bleManager.checkState();
   }
 
-  /* initialize ble manager module. */
+  /**
+   * initialize ble manager module.
+   * @param {Any} options 
+   * @returns {Promise}
+   */
   start(options) {
     return new Promise((fulfill, reject) => {
       if (options == null) {
@@ -264,8 +347,15 @@ class BleManager {
     });
   }
 
-  /* start to scan ble devices. */
-  scan(serviceUUIDs, seconds, allowDuplicates, scanningOptions = {}) {
+  /**
+   * start to scan ble devices.
+   * @param {string[]} serviceUuids 
+   * @param {number} seconds 
+   * @param {boolean} allowDuplicates 
+   * @param {Any} scanningOptions 
+   * @returns {Promise}
+   */
+  scan(serviceUuids, seconds, allowDuplicates, scanningOptions = {}) {
     return new Promise((fulfill, reject) => {
       if (allowDuplicates == null) {
         allowDuplicates = false;
@@ -292,7 +382,7 @@ class BleManager {
       }
 
       bleManager.scan(
-        serviceUUIDs,
+        serviceUuids,
         seconds,
         allowDuplicates,
         scanningOptions,
@@ -307,7 +397,10 @@ class BleManager {
     });
   }
 
-  /* stop to scan ble device. */
+  /**
+   * stop to scan ble device.
+   * @returns {Promise}
+   */
   stopScan() {
     return new Promise((fulfill, reject) => {
       bleManager.stopScan(error => {
@@ -320,7 +413,10 @@ class BleManager {
     });
   }
 
-  /* enable bluetooth option. */
+  /**
+   * enable bluetooth option.
+   * @returns {Promise}
+   */
   enableBluetooth() {
     return new Promise((fulfill, reject) => {
       bleManager.enableBluetooth(error => {
@@ -333,10 +429,14 @@ class BleManager {
     });
   }
 
-  /* get the connected peripheral device data. */
-  getConnectedPeripherals(serviceUUIDs) {
+  /**
+   * get the connected peripheral device data.
+   * @param {string[]} serviceUuids 
+   * @returns {Promise}
+   */
+  getConnectedPeripherals(serviceUuids) {
     return new Promise((fulfill, reject) => {
-      bleManager.getConnectedPeripherals(serviceUUIDs, (error, result) => {
+      bleManager.getConnectedPeripherals(serviceUuids, (error, result) => {
         if (error) {
           reject(error);
         } else if (result != null) {
@@ -348,7 +448,10 @@ class BleManager {
     });
   }
 
-  /* get the bonded peripheral device data. */
+  /**
+   * get the bonded peripheral device data.
+   * @returns {Promise}
+   */
   getBondedPeripherals() {
     return new Promise((fulfill, reject) => {
       bleManager.getBondedPeripherals((error, result) => {
@@ -363,7 +466,10 @@ class BleManager {
     });
   }
 
-  /* get the peripheral devices that is discovered after scanning. */
+  /**
+   * get the peripheral devices that is discovered after scanning.
+   * @returns {Promise}
+   */
   getDiscoveredPeripherals() {
     return new Promise((fulfill, reject) => {
       bleManager.getDiscoveredPeripherals((error, result) => {
@@ -378,7 +484,11 @@ class BleManager {
     });
   }
 
-  /* remove cached peripheral device. */
+  /**
+   * remove cached peripheral device.
+   * @param {string} peripheralId 
+   * @returns {Promise}
+   */
   removePeripheral(peripheralId) {
     return new Promise((fulfill, reject) => {
       bleManager.removePeripheral(peripheralId, error => {
@@ -391,9 +501,14 @@ class BleManager {
     });
   }
 
-  /* check if peripheral device corresponding to peripheral id is connected or not. */
-  isPeripheralConnected(peripheralId, serviceUUIDs) {
-    return this.getConnectedPeripherals(serviceUUIDs).then(result => {
+  /**
+   * check if peripheral device corresponding to peripheral id is connected or not.
+   * @param {string} peripheralId 
+   * @param {string[]} serviceUuids 
+   * @returns {boolean}
+   */
+  isPeripheralConnected(peripheralId, serviceUuids) {
+    return this.getConnectedPeripherals(serviceUuids).then(result => {
       if (result.find(p => p.id === peripheralId)) {
         return true;
       }
@@ -401,7 +516,12 @@ class BleManager {
     });
   }
 
-  /* set-up the priority of peripheral device connection. */
+  /**
+   * set-up the priority of peripheral device connection.
+   * @param {string} peripheralId 
+   * @param {number} connectionPriority 
+   * @returns {Promise}
+   */
   requestConnectionPriority(peripheralId, connectionPriority) {
     return new Promise((fulfill, reject) => {
       bleManager.requestConnectionPriority(
@@ -418,10 +538,15 @@ class BleManager {
     });
   }
 
-  /* set mtu ( maximum transmission unit ) */
-  requestMTU(peripheralId, mtu) {
+  /**
+   * set ble mtu ( maximum transmission unit )
+   * @param {string} peripheralId 
+   * @param {number} mtu 
+   * @returns {Promise}
+   */
+  requestMtu(peripheralId, mtu) {
     return new Promise((fulfill, reject) => {
-      bleManager.requestMTU(peripheralId, mtu, (error, mtu) => {
+      bleManager.requestMtu(peripheralId, mtu, (error, mtu) => {
         if (error) {
           reject(error);
         } else {
@@ -431,62 +556,68 @@ class BleManager {
     });
   }
 
-  /* set-up name. */
+  /**
+   * set-up name.
+   * @param {string} name 
+   */
   setName(name) {
     bleManager.setName(name);
   }
 
-  /* get uuid list ( notify, read, write, writeWithoutResponse service uuid, characteristic uuid ) */
+  /**
+   * get uuid list ( notify, read, write, writeWithoutResponse service uuid, characteristic uuid )
+   * @param {Any} peripheralInfo 
+   * @returns {string[]}
+   */
   getUuidList(peripheralInfo) {
     for (let item of peripheralInfo.characteristics) {
-      item.characteristic = fullUUID(item.characteristic);
+      item.characteristic = fullUuid(item.characteristic);
       if (Platform.OS == "android") {
         if (item.properties.Notify == "Notify") {
-          nofityServiceUUID.push(item.service);
-          nofityCharacteristicUUID.push(item.characteristic);
+          nofityserviceUuid.push(item.service);
+          nofitycharacteristicUuid.push(item.characteristic);
         }
         if (item.properties.Read == "Read") {
-          readServiceUUID.push(item.service);
-          readCharacteristicUUID.push(item.characteristic);
+          readserviceUuid.push(item.service);
+          readcharacteristicUuid.push(item.characteristic);
         }
         if (item.properties.Write == "Write") {
-          writeWithResponseServiceUUID.push(item.service);
-          writeWithResponseCharacteristicUUID.push(item.characteristic);
+          writeWithResponseserviceUuid.push(item.service);
+          writeWithResponsecharacteristicUuid.push(item.characteristic);
         }
         if (item.properties.Write == "WriteWithoutResponse") {
-          writeWithoutResponseServiceUUID.push(item.service);
-          writeWithoutResponseCharacteristicUUID.push(item.characteristic);
+          writeWithoutResponseserviceUuid.push(item.service);
+          writeWithoutResponsecharacteristicUuid.push(item.characteristic);
         }
 
       } else {
         for (let property of item.properties) {
           if (property == "Notify") {
-            nofityServiceUUID.push(item.service);
-            nofityCharacteristicUUID.push(item.characteristic);
+            nofityserviceUuid.push(item.service);
+            nofitycharacteristicUuid.push(item.characteristic);
           }
           if (property == "Read") {
-            readServiceUUID.push(item.service);
-            readCharacteristicUUID.push(item.characteristic);
+            readserviceUuid.push(item.service);
+            readcharacteristicUuid.push(item.characteristic);
           }
           if (property == "Write") {
-            writeWithResponseServiceUUID.push(item.service);
-            writeWithResponseCharacteristicUUID.push(item.characteristic);
+            writeWithResponseserviceUuid.push(item.service);
+            writeWithResponsecharacteristicUuid.push(item.characteristic);
           }
           if (property == "WriteWithoutResponse") {
-            writeWithoutResponseServiceUUID.push(item.service);
-            writeWithoutResponseCharacteristicUUID.push(item.characteristic);
+            writeWithoutResponseserviceUuid.push(item.service);
+            writeWithoutResponsecharacteristicUuid.push(item.characteristic);
           }
         }
       }
     }
-    //TODO:
     return ""
   }
 
   /**
    * convert uuid to full 128bit.
-   * @param {UUID} uuid 16bit, 32bit or 128bit UUID.
-   * @returns {UUID} 128bit UUID.
+   * @param {string} uuid 16bit, 32bit or 128bit UUID.
+   * @returns {string} 128bit UUID.
    */
   getFullUuid(uuid) {
     if (uuid.length === 4) {
@@ -499,5 +630,7 @@ class BleManager {
   }
 }
 
-/* export ble manager module. */
-module.exports = new BleManager();
+/**
+ * export ble manager module.
+ */
+export default new BleManager();

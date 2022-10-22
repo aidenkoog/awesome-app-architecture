@@ -1,7 +1,7 @@
-import Constants from '../../constants/Constants.js'
+import Constants from '../../utils/Constants.js'
 import { debugLog, errorLog } from '../../utils/Logger.js'
 
-const bleManager = require('../services/BleManager.js')
+const bleManager = require('../sources/bluetooth/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
 
 /**
@@ -79,11 +79,11 @@ const BluetoothRepository = () => {
     /**
      * get battery level of ble device.
      * @param {string} peripheralId 
-     * @param {string} batteryServiceUuid 
-     * @param {string} batteryCharacteristicUuid 
+     * @param {string} batteryserviceUuid 
+     * @param {string} batterycharacteristicUuid 
      */
-    function getBatteryLevel(peripheralId, batteryServiceUuid, batteryCharacteristicUuid) {
-        bleManager.read(peripheralId, batteryServiceUuid, batteryCharacteristicUuid).then((batteryLevel) => {
+    function getBatteryLevel(peripheralId, batteryserviceUuid, batterycharacteristicUuid) {
+        bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
             console.log(LOG_TAG, "succeeded to get battery level-", batteryLevel)
         }).catch((e) => {
             outputErrorLog(e)
@@ -119,6 +119,7 @@ const BluetoothRepository = () => {
             outputErrorLog(e)
         })
     }
+
     /**
      * get all uuid list that exists in ble device.
      * @param {Any} peripheral 
@@ -174,4 +175,7 @@ const BluetoothRepository = () => {
 
 }
 
+/**
+ * export bluetooth repository object.
+ */
 module.exports = new BluetoothRepository();

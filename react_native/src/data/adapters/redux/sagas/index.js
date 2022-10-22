@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable indent */
-/* eslint-disable prettier/prettier */
-/* eslint-disable default-param-last */
-
 import { takeEvery, put } from 'redux-saga/effects';
 import allAction from '../actions/index';
 

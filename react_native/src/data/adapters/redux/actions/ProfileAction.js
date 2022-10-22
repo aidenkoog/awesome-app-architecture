@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/prefer-default-export */
-
 export const saveProfile = () => ({
     type: 'SAVE_PROFILE',
 });

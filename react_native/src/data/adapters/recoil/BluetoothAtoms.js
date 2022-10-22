@@ -1,9 +1,5 @@
-/* eslint-disable indent */
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/prefer-default-export */
-
 import { atom } from 'recoil';
-import Constants from '../../../constants/Constants';
+import Constants from '../../../utils/Constants';
 
 /*-----------------------------------------------------------------------------------
  * necessary bluetooth related states.

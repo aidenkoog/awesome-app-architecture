@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable prettier/prettier */
-/* eslint-disable default-param-last */
-
 const profile = (state = [], action) => {
     switch (action.type) {
         case 'SAVE_PROFILE':
