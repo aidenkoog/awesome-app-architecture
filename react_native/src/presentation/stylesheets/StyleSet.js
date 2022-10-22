@@ -1,8 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/no-import-module-exports */
-/* eslint-disable import/prefer-default-export */
-// eslint-disable-next-line prettier/prettier
-
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
