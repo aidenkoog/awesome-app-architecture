@@ -1,3 +1,6 @@
+# Release Note
+### 2022/10/22 : Fixed 1st source code architecture (presentation / core / test / config / constants)
+
 # How To Intialize New App
 
 ## Visit https://reactnative.dev/docs/environment-setup
