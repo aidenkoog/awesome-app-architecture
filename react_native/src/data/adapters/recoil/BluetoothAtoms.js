@@ -16,55 +16,73 @@ import Constants from '../../../utils/Constants';
  * 11. ble device mac address or uuid (ios).
  *----------------------------------------------------------------------------------*/
 
-/* provides whether a scan operation is currently being performed or not. */
+/**
+ * provides whether a scan operation is currently being performed or not.
+ */
 export const bluetoothScanningState = atom({
     key: 'bluetoothScanningState',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* represent whether ble device has been found. */
+/**
+ * represent whether ble device has been found.
+ */
 export const bluetoothDeviceFound = atom({
     key: 'bluetoothDeviceFound',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* represent bluetooth gatt connection state. */
+/**
+ * represent bluetooth gatt connection state.
+ */
 export const bluetoothConnectionState = atom({
     key: 'bluetoothConnectionState',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* indicate the saved imei obtained after qr scan. */
+/**
+ * indicate the saved imei obtained after qr scan.
+ */
 export const bluetoothDeviceImei = atom({
     key: 'bluetoothDeviceImei',
     default: Constants.COMMON.DEFAULT_DATA,
 });
 
-/* represent if services corresponding to mac or uuid (ios) are retrieved. */
+/**
+ * represent if services corresponding to mac or uuid (ios) are retrieved.
+ */
 export const bluetoothServiceRetrieved = atom({
     key: 'bluetoothServiceRetrieved',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* indicate whether or not the notification activation about tx uuid is successful. */
+/**
+ * indicate whether or not the notification activation about tx uuid is successful.
+ */
 export const bluetoothTxUuidNotificationEnabled = atom({
     key: 'bluetoothTxUuidNotificationEnabled',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* indicate whether or not the notification activation about flow control uuid is successful. */
+/**
+ * indicate whether or not the notification activation about flow control uuid is successful.
+ */
 export const bluetoothFlowControlUuidNotificationEnabled = atom({
     key: 'bluetoothFlowControlUuidNotificationEnabled',
     default: Constants.COMMON.DEFAULT_STATE,
 });
 
-/* indicate list of scanned bluetooth devices. */
+/**
+ * indicate list of scanned bluetooth devices.
+ */
 export const scannedBluetoothDeviceList = atom({
     key: 'scannedBluetoothDeviceList',
     default: Constants.COMMON.DEFAULT_LIST_STATE,
 });
 
-/* represent device info. */
+/**
+ * represent device info.
+ */
 export const bluetoothDeviceInfo = atom({
     key: 'bluetoothDeviceInfo',
     default: {
@@ -74,7 +92,9 @@ export const bluetoothDeviceInfo = atom({
     },
 });
 
-/* represent mac or uuid (ios) of the connected bluetooth device. */
+/**
+ * represent mac or uuid (ios) of the connected bluetooth device.
+ */
 export const bluetoothMacOrUuidAtom = atom({
     key: 'bluetoothMacOrUuidAtom',
     default: Constants.COMMON.DEFAULT_DATA,

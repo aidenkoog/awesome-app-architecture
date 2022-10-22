@@ -11,7 +11,9 @@ import Constants from '../../../utils/Constants';
  * 6. profile weight.
  *----------------------------------------------------------------------------------*/
 
-/* represent the prefile info used when user set or edit it. */
+/**
+ * represent the prefile info used when user set or edit it.
+ */
 export const profileInfo = atom({
     key: 'profileInfo',
     default: {
