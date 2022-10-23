@@ -1,6 +1,7 @@
 # Release Note
 ### 2022/10/22 : Fixed 1st source code architecture (presentation / core / test / config / constants)
-### 2022/10/23 : Fixed logging errors and changed log function's name
+### 2022/10/23 : (1st) Fixed logging errors and changed log function's name
+### 2022/10/23 : (2nd) Add Bluetooth related usecase source code / Separate container and component ui of root.
 
 
 # How To Intialize New App
