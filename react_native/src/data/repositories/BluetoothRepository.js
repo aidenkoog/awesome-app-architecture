@@ -7,16 +7,26 @@ const LOG_TAG = Constants.LOG.BT_REPO_LOG
 /**
  * bluetooth api implementation.
  */
-const BluetoothRepository = () => {
+class BluetoothRepository {
+
+    /**
+     * BluetoothRepository constructor.
+     */
+    constructor() { }
+
     /** 
      * connect ble device. 
      * @param {string} peripheralId
      */
-    function connectDevice(peripheralId) {
-        bleManager.connect(peripheralId).then(() => {
-            logDebug(LOG_TAG, "succeeded to connect " + peripheralId)
-        }).catch((e) => {
-            outputErrorLog(e)
+    connectDevice(peripheralId) {
+        return new Promise((fulfill, reject) => {
+            bleManager.connect(peripheralId).then(() => {
+                logDebug(LOG_TAG, "succeeded to connect " + peripheralId)
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
@@ -26,11 +36,15 @@ const BluetoothRepository = () => {
      * @param {string} serviceUuid 
      * @param {string} characteristicUuid 
      */
-    function disableNotification(peripheralId, serviceUuid, characteristicUuid) {
-        bleManager.stopNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
-            logDebug(LOG_TAG, "succeeded to disable notification of " + characteristicUuid)
-        }).catch((e) => {
-            outputErrorLog(e)
+    disableNotification(peripheralId, serviceUuid, characteristicUuid) {
+        return new Promise((fulfill, reject) => {
+            bleManager.stopNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
+                logDebug(LOG_TAG, "succeeded to disable notification of " + characteristicUuid)
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
@@ -38,11 +52,11 @@ const BluetoothRepository = () => {
      * disconnect ble device.
      * @param {string} peripheralId 
      */
-    function disconnectDevice(peripheralId) {
+    disconnectDevice(peripheralId) {
         bleManager.disconnect(peripheralId).then(() => {
             logDebug(LOG_TAG, "succeeded to disconnect " + peripheralId)
         }).catch((e) => {
-            outputErrorLog(e)
+            this.outputErrorLog(e)
         })
     }
 
@@ -52,27 +66,27 @@ const BluetoothRepository = () => {
      * @param {string} serviceUuid 
      * @param {string} characteristicUuid 
      */
-    function enableNotification(peripheralId, serviceUuid, characteristicUuid) {
+    enableNotification(peripheralId, serviceUuid, characteristicUuid) {
         bleManager.startNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
             logDebug(LOG_TAG, "succeeded to enable notification of " + characteristicUuid)
         }).catch((e) => {
-            outputErrorLog(e)
+            this.outputErrorLog(e)
         })
     }
 
     /**
      * initialize ble manager and enable bluetooth feature.
      */
-    function initializeBleModule() {
+    initializeBleModule() {
         bleManager.start(null).then(() => {
             logDebug(LOG_TAG, "succeeded to initialize ble manager")
             bleManager.enableBluetooth().then(() => {
                 logDebug(LOG_TAG, "succeeded to enable bluetooth feature")
             }).catch((e) => {
-                outputErrorLog(e)
+                this.outputErrorLog(e)
             })
         }).catch((e) => {
-            outputErrorLog(e)
+            this.outputErrorLog(e)
         })
     }
 
@@ -82,12 +96,12 @@ const BluetoothRepository = () => {
      * @param {string} batteryserviceUuid 
      * @param {string} batterycharacteristicUuid 
      */
-    function getBatteryLevel(peripheralId, batteryserviceUuid, batterycharacteristicUuid) {
+    getBatteryLevel(peripheralId, batteryserviceUuid, batterycharacteristicUuid) {
         bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
             logDebug(LOG_TAG, "succeeded to get battery level-" + batteryLevel)
         }).catch((e) => {
-            outputErrorLog(e)
-        });
+            this.outputErrorLog(e)
+        })
     }
 
     /**
@@ -95,7 +109,7 @@ const BluetoothRepository = () => {
      * @param {string} serviceUuid 
      * @param {number} duration 
      */
-    function startScan(serviceUuid, duration) {
+    startScan(serviceUuid, duration) {
         var serviceUuids = []
         if (serviceUuid != null || serviceUuid != "" || serviceUuid != "undefined") {
             serviceUuids.push(serviceUuid)
@@ -105,18 +119,18 @@ const BluetoothRepository = () => {
         bleManager.scan(serviceUuids, duration, true).then(() => {
             logDebug(LOG_TAG, "succeeded to execute scanning")
         }).catch((e) => {
-            outputErrorLog(e)
-        });
+            this.outputErrorLog(e)
+        })
     }
 
     /**
      * stop scanning ble device.
      */
-    function stopScan() {
+    stopScan() {
         bleManager.stopScan().then(() => {
             logDebug(LOG_TAG, "succeeded in stopping the device scan")
         }).catch((e) => {
-            outputErrorLog(e)
+            this.outputErrorLog(e)
         })
     }
 
@@ -124,7 +138,7 @@ const BluetoothRepository = () => {
      * get all uuid list that exists in ble device.
      * @param {Any} peripheral 
      */
-    function getUuidList(peripheral) {
+    getUuidList(peripheral) {
         return bleManager.getUuidList(peripheral)
     }
 
@@ -132,44 +146,44 @@ const BluetoothRepository = () => {
      * retrieve services of ble device.
      * @param {string} peripheralId 
      */
-    function retrieveServices(peripheralId) {
+    retrieveServices(peripheralId) {
         bleManager.retrieveServices(peripheralId).then(() => {
             logDebug(LOG_TAG, "succeeded in retrieving services")
         }).catch((e) => {
-            outputErrorLog(e)
+            this.outputErrorLog(e)
         })
     }
 
     /**
      * it's not implemented yet.
      */
-    function getHrInfo() { }
+    getHrInfo() { }
 
     /**
      * it's not implemented yet.
      */
-    function getSleepInfo() { }
+    getSleepInfo() { }
 
     /**
      * it's not implemented yet.
      */
-    function getStepInfo() { }
+    getStepInfo() { }
 
     /**
      * it's not implemented yet.
      */
-    function refreshDeviceInfo() { }
+    refreshDeviceInfo() { }
 
     /**
      * it's not implemented yet.
      */
-    function upgradeFirmware() { }
+    upgradeFirmware() { }
 
     /**
      * print error log delivered from ble manager.
      * @param {string} error 
      */
-    function outputErrorLog(error) {
+    outputErrorLog(error) {
         logError(LOG_TAG, error)
     }
 
@@ -178,4 +192,4 @@ const BluetoothRepository = () => {
 /**
  * export bluetooth repository object.
  */
-module.exports = new BluetoothRepository();
+export default new BluetoothRepository()
