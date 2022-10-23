@@ -1,5 +1,5 @@
 import Constants from '../../utils/Constants.js'
-import { debugLog, errorLog } from '../../utils/Logger.js'
+import { logDebug, logError } from '../../utils/Logger.js'
 
 const bleManager = require('../sources/bluetooth/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
@@ -14,7 +14,7 @@ const BluetoothRepository = () => {
      */
     function connectDevice(peripheralId) {
         bleManager.connect(peripheralId).then(() => {
-            debugLog(LOG_TAG, "succeeded to connect ", peripheralId)
+            logDebug(LOG_TAG, "succeeded to connect " + peripheralId)
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -28,7 +28,7 @@ const BluetoothRepository = () => {
      */
     function disableNotification(peripheralId, serviceUuid, characteristicUuid) {
         bleManager.stopNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
-            debugLog(LOG_TAG, "succeeded to disable notification of ", characteristicUuid)
+            logDebug(LOG_TAG, "succeeded to disable notification of " + characteristicUuid)
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -40,7 +40,7 @@ const BluetoothRepository = () => {
      */
     function disconnectDevice(peripheralId) {
         bleManager.disconnect(peripheralId).then(() => {
-            debugLog(LOG_TAG, "succeeded to disconnect ", peripheralId)
+            logDebug(LOG_TAG, "succeeded to disconnect " + peripheralId)
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -54,7 +54,7 @@ const BluetoothRepository = () => {
      */
     function enableNotification(peripheralId, serviceUuid, characteristicUuid) {
         bleManager.startNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
-            debugLog(LOG_TAG, "succeeded to enable notification of ", characteristicUuid)
+            logDebug(LOG_TAG, "succeeded to enable notification of " + characteristicUuid)
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -65,9 +65,9 @@ const BluetoothRepository = () => {
      */
     function initializeBleModule() {
         bleManager.start(null).then(() => {
-            debugLog(LOG_TAG, "succeeded to initialize ble manager")
+            logDebug(LOG_TAG, "succeeded to initialize ble manager")
             bleManager.enableBluetooth().then(() => {
-                debugLog(LOG_TAG, "succeeded to enable bluetooth feature")
+                logDebug(LOG_TAG, "succeeded to enable bluetooth feature")
             }).catch((e) => {
                 outputErrorLog(e)
             })
@@ -84,7 +84,7 @@ const BluetoothRepository = () => {
      */
     function getBatteryLevel(peripheralId, batteryserviceUuid, batterycharacteristicUuid) {
         bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
-            console.log(LOG_TAG, "succeeded to get battery level-", batteryLevel)
+            logDebug(LOG_TAG, "succeeded to get battery level-" + batteryLevel)
         }).catch((e) => {
             outputErrorLog(e)
         });
@@ -100,10 +100,10 @@ const BluetoothRepository = () => {
         if (serviceUuid != null || serviceUuid != "" || serviceUuid != "undefined") {
             serviceUuids.push(serviceUuid)
         }
-        console.log(LOG_TAG, "service uuids for scanning: ", serviceUuids)
+        logDebug(LOG_TAG, "service uuids for scanning: " + serviceUuids)
 
         bleManager.scan(serviceUuids, duration, true).then(() => {
-            console.log(LOG_TAG, "succeeded to execute scanning")
+            logDebug(LOG_TAG, "succeeded to execute scanning")
         }).catch((e) => {
             outputErrorLog(e)
         });
@@ -114,7 +114,7 @@ const BluetoothRepository = () => {
      */
     function stopScan() {
         bleManager.stopScan().then(() => {
-            console.log(LOG_TAG, "succeeded in stopping the device scan")
+            logDebug(LOG_TAG, "succeeded in stopping the device scan")
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -134,7 +134,7 @@ const BluetoothRepository = () => {
      */
     function retrieveServices(peripheralId) {
         bleManager.retrieveServices(peripheralId).then(() => {
-            console.log(LOG_TAG, "succeeded in retrieving services")
+            logDebug(LOG_TAG, "succeeded in retrieving services")
         }).catch((e) => {
             outputErrorLog(e)
         })
@@ -170,7 +170,7 @@ const BluetoothRepository = () => {
      * @param {string} error 
      */
     function outputErrorLog(error) {
-        errorLog(LOG_TAG, error)
+        logError(LOG_TAG, error)
     }
 
 }
