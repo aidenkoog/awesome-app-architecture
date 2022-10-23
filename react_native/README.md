@@ -1,5 +1,6 @@
 # Release Note
 ### 2022/10/22 : Fixed 1st source code architecture (presentation / core / test / config / constants)
+### 2022/10/23 : Fixed logging errors and changed log function's name
 
 
 # How To Intialize New App
