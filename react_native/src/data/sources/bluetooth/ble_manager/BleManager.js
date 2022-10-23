@@ -7,6 +7,7 @@ const bleManager = NativeModules.BleManager
 
 /**
  * ble manager class.
+ * library: react-native-ble-manager
  */
 class BleManager {
   constructor() {

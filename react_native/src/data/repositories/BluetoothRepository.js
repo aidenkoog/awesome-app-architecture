@@ -1,7 +1,7 @@
 import Constants from '../../utils/Constants.js'
 import { logDebug, logError } from '../../utils/Logger.js'
 
-const bleManager = require('../sources/bluetooth/BleManager.js').default
+const bleManager = require('../sources/bluetooth/ble_manager/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
 
 /**
