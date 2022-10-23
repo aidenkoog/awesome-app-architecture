@@ -17,6 +17,7 @@ class BluetoothRepository {
     /** 
      * connect ble device. 
      * @param {string} peripheralId
+     * @returns {Promise}
      */
     connectDevice(peripheralId) {
         return new Promise((fulfill, reject) => {
@@ -34,7 +35,8 @@ class BluetoothRepository {
      * disable notification of ble device.
      * @param {string} peripheralId 
      * @param {string} serviceUuid 
-     * @param {string} characteristicUuid 
+     * @param {string} characteristicUuid
+     * @returns {Promise}
      */
     disableNotification(peripheralId, serviceUuid, characteristicUuid) {
         return new Promise((fulfill, reject) => {
@@ -51,13 +53,19 @@ class BluetoothRepository {
     /**
      * disconnect ble device.
      * @param {string} peripheralId 
+     * @returns {Promise}
      */
     disconnectDevice(peripheralId) {
-        bleManager.disconnect(peripheralId).then(() => {
-            logDebug(LOG_TAG, "succeeded to disconnect " + peripheralId)
-        }).catch((e) => {
-            this.outputErrorLog(e)
+        return new Promise((fulfill, reject) => {
+            bleManager.disconnect(peripheralId).then(() => {
+                logDebug(LOG_TAG, "succeeded to disconnect " + peripheralId)
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
+
     }
 
     /**
@@ -65,28 +73,49 @@ class BluetoothRepository {
      * @param {string} peripheralId 
      * @param {string} serviceUuid 
      * @param {string} characteristicUuid 
+     * @returns {Promise}
      */
     enableNotification(peripheralId, serviceUuid, characteristicUuid) {
-        bleManager.startNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
-            logDebug(LOG_TAG, "succeeded to enable notification of " + characteristicUuid)
-        }).catch((e) => {
-            this.outputErrorLog(e)
+        return new Promise((fulfill, reject) => {
+            bleManager.startNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
+                logDebug(LOG_TAG, "succeeded to enable notification of " + characteristicUuid)
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
     /**
      * initialize ble manager and enable bluetooth feature.
+     * @returns {Promise}
      */
     initializeBleModule() {
-        bleManager.start(null).then(() => {
-            logDebug(LOG_TAG, "succeeded to initialize ble manager")
-            bleManager.enableBluetooth().then(() => {
-                logDebug(LOG_TAG, "succeeded to enable bluetooth feature")
+        return new Promise((fulfill, reject) => {
+            bleManager.start(null).then(() => {
+                logDebug(LOG_TAG, "succeeded to initialize ble manager")
+                fulfill()
             }).catch((e) => {
                 this.outputErrorLog(e)
+                reject(e)
             })
-        }).catch((e) => {
-            this.outputErrorLog(e)
+        })
+    }
+
+    /**
+     * enable bluetooth (Android only)
+     * @returns {Promise}
+     */
+    enableBluetooth() {
+        return new Promise((fulfill, reject) => {
+            bleManager.enableBluetooth().then(() => {
+                logDebug(LOG_TAG, "succeeded to enable bluetooth feature")
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
@@ -94,13 +123,18 @@ class BluetoothRepository {
      * get battery level of ble device.
      * @param {string} peripheralId 
      * @param {string} batteryserviceUuid 
-     * @param {string} batterycharacteristicUuid 
+     * @param {string} batterycharacteristicUuid
+     * @returns {Promise}
      */
     getBatteryLevel(peripheralId, batteryserviceUuid, batterycharacteristicUuid) {
-        bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
-            logDebug(LOG_TAG, "succeeded to get battery level-" + batteryLevel)
-        }).catch((e) => {
-            this.outputErrorLog(e)
+        return new Promise((fulfill, reject) => {
+            bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
+                logDebug(LOG_TAG, "succeeded to get battery level-" + batteryLevel)
+                fulfill(batteryLevel)
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
@@ -110,16 +144,25 @@ class BluetoothRepository {
      * @param {number} duration 
      */
     startScan(serviceUuid, duration) {
-        var serviceUuids = []
-        if (serviceUuid != null || serviceUuid != "" || serviceUuid != "undefined") {
-            serviceUuids.push(serviceUuid)
-        }
-        logDebug(LOG_TAG, "service uuids for scanning: " + serviceUuids)
+        return new Promise((fulfill, reject) => {
+            var serviceUuids = []
+            if (serviceUuid != null && serviceUuid != "" && serviceUuid && "undefined") {
+                serviceUuids.push(serviceUuid)
+            } else {
+                const errorMessage = "wrong service uuids !!!"
+                this.outputErrorLog(errorMessage)
+                reject(errorMessage)
+                return
+            }
+            logDebug(LOG_TAG, "service uuids for scanning: " + serviceUuids)
 
-        bleManager.scan(serviceUuids, duration, true).then(() => {
-            logDebug(LOG_TAG, "succeeded to execute scanning")
-        }).catch((e) => {
-            this.outputErrorLog(e)
+            bleManager.scan(serviceUuids, duration, true).then(() => {
+                logDebug(LOG_TAG, "succeeded to execute scanning")
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 
@@ -127,10 +170,14 @@ class BluetoothRepository {
      * stop scanning ble device.
      */
     stopScan() {
-        bleManager.stopScan().then(() => {
-            logDebug(LOG_TAG, "succeeded in stopping the device scan")
-        }).catch((e) => {
-            this.outputErrorLog(e)
+        return new Promise((fulfill, reject) => {
+            bleManager.stopScan().then(() => {
+                logDebug(LOG_TAG, "succeeded in stopping the device scan")
+                fulfill()
+            }).catch((e) => {
+                this.outputErrorLog(e)
+                reject(e)
+            })
         })
     }
 

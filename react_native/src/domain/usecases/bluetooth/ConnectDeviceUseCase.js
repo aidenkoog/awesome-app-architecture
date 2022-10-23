@@ -9,11 +9,12 @@ class ConnectDeviceUseCase {
     /**
      * Execute the use case of connecting devices. 
      * @param {string} peripheralId 
+     * @returns {Promise}
      */
     execute(peripheralId) {
         return new Promise((fulfill, reject) => {
             bluetoothRepository.connectDevice(peripheralId).then(() => {
-                logDebug(LOG_TAG, "succeeded to execute connectDevice")
+                logDebug(LOG_TAG, "succeeded to execute connectDevice " + peripheralId)
                 fulfill()
             }).catch((e) => {
                 this.outputErrorLog(e)

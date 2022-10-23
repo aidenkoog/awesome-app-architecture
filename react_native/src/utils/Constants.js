@@ -10,6 +10,9 @@ export default {
         DEFAULT_STATE: false,
         DEFAULT_LIST_STATE: [],
     },
+    BT: {
+        SCAN_DURATION: 3 
+    },
     LOG: {
         // repository log
         BT_REPO_LOG: 'bt_repo_log',
