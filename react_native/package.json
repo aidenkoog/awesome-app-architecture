@@ -16,6 +16,7 @@
     "lodash": "^4.17.21",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-ble-manager": "^8.4.3",
     "react-native-ble-plx": "^2.0.3",
     "react-native-gesture-handler": "^2.7.1",
     "react-navigation": "^4.4.4",

@@ -1,9 +1,12 @@
 import { NativeModules } from 'react-native'
+import Constants from '../../../../utils/Constants'
+import { logDebug } from '../../../../utils/Logger'
 
 /**
  * load ble manager from native modules.
  */
 const bleManager = NativeModules.BleManager
+const LOG_TAG = Constants.LOG.BT_BLE_MANAGER
 
 /**
  * ble manager class.
@@ -365,6 +368,7 @@ class BleManager {
    * @returns {Promise}
    */
   scan(serviceUuids, seconds, allowDuplicates, scanningOptions = {}) {
+    logDebug(LOG_TAG, "start scanning the device")
     return new Promise((fulfill, reject) => {
       if (allowDuplicates == null) {
         allowDuplicates = false

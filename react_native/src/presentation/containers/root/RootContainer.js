@@ -5,7 +5,12 @@ import Constants from "../../../utils/Constants"
 import RootComponent from "./RootComponent"
 import { logDebug, logError } from "../../../utils/Logger"
 
+/**
+ * bluetooth related usecases.
+ */
 const startScanUseCase = require('../../../domain/usecases/bluetooth/StartScanUseCase.js').default
+const executeBleModuleUseCase = require('../../../domain/usecases/bluetooth/ExecuteBleModuleUseCase').default
+
 const LOG_TAG = Constants.LOG.ROOT_UI_LOG
 
 /**
@@ -38,8 +43,13 @@ export default function RootContainer() {
      * test code for checking if usecase, repository and core module work well or not.
      */
     const testBluetoothFeature = () => {
-        startScanUseCase.execute(SERVICE_UUID, Constants.BT.SCAN_DURATION).then(() => {
-            logDebug(LOG_TAG, "succeeded in starting the device scan")
+        executeBleModuleUseCase.execute().then(() => {
+            logDebug(LOG_TAG, "succeeded in executing ble module")
+            startScanUseCase.execute(SERVICE_UUID, Constants.BT.SCAN_DURATION).then(() => {
+                logDebug(LOG_TAG, "succeeded in starting the device scan")
+            }).catch((e) => {
+                logError(LOG_TAG, e)
+            })
         }).catch((e) => {
             logError(LOG_TAG, e)
         })
@@ -49,6 +59,9 @@ export default function RootContainer() {
         // when component is mounted
         console.log("root", "component is mounted!")
         AppState.addEventListener(Constants.ROOT.APP_EVENT_TYPE, onHandleAppStateChange)
+
+        // test code for ble test
+        testBluetoothFeature()
 
         // when component is unmounted
         return () => {

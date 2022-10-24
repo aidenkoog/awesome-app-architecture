@@ -11,9 +11,12 @@ export default {
         DEFAULT_LIST_STATE: [],
     },
     BT: {
-        SCAN_DURATION: 3 
+        SCAN_DURATION: 5
     },
     LOG: {
+        // ble manager log
+        BT_BLE_MANAGER: 'bt_ble_manager',
+
         // repository log
         BT_REPO_LOG: 'bt_repo_log',
         COMMON_REPO_LOG: 'common_repo_log',
