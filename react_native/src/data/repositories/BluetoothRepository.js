@@ -2,6 +2,8 @@ import Constants from '../../utils/Constants.js'
 import { logDebug, logError } from '../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { bluetoothScanningState } from '../../data/adapters/recoil/BluetoothAtoms'
 
 const bleManager = require('../sources/bluetooth/ble_manager/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
@@ -22,6 +24,12 @@ let repositoryState = false
  * bluetooth api implementation.
  */
 const BluetoothRepository = () => {
+
+    /**
+     * state handling code to set data as a global variable according to ble state change 
+     * and make it available to other components
+     */
+    const setBleScanningState = useSetRecoilState(bluetoothScanningState)
 
     /**
      * listeners for catching the ble events.
@@ -65,6 +73,7 @@ const BluetoothRepository = () => {
     onScanStopped = () => {
         logDebug(LOG_TAG, "stopped device scan")
         logDebug(LOG_TAG, "repositoryState: " + repositoryState)
+        setBleScanningState(false)
     }
 
     /**
@@ -234,6 +243,7 @@ const BluetoothRepository = () => {
                 reject(errorMessage)
                 return
             }
+            setBleScanningState(true)
             logDebug(LOG_TAG, "service uuids for scanning: " + serviceUuids)
 
             bleManager.scan(serviceUuids, duration, true).then(() => {
@@ -310,7 +320,7 @@ const BluetoothRepository = () => {
         logDebug(LOG_TAG, "refresh ble event listeners")
         this.refreshBleEventListeners()
 
-        return () => { };
+        return () => { }
     }, [])
 
     /**

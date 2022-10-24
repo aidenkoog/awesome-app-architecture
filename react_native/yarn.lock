@@ -5932,6 +5932,11 @@ recast@^0.20.4:
     source-map "~0.6.1"
     tslib "^2.0.1"
 
+recoil-nexus@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/recoil-nexus/-/recoil-nexus-0.4.0.tgz#3d69b197a6006d287ee4457dd774eb98950dc5be"
+  integrity sha512-4ZgTXy+e5WvO54qh6Oir4LAYNevuxVxldyCTovevMVjU7fM/UO9t7RzY26G3tKGlHbFaECL3l25Kezl9ZLos6g==
+
 recoil@^0.7.6:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.7.6.tgz#75297ecd70bbfeeb72e861aa6141a86bb6dfcd5e"

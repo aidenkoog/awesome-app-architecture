@@ -1,5 +1,5 @@
-import { atom } from 'recoil';
-import Constants from '../../../utils/Constants';
+import { atom, selector } from 'recoil'
+import Constants from '../../../utils/Constants'
 
 /*-----------------------------------------------------------------------------------
  * necessary bluetooth related states.
@@ -19,83 +19,104 @@ import Constants from '../../../utils/Constants';
 /**
  * provides whether a scan operation is currently being performed or not.
  */
-export const bluetoothScanningState = atom({
+let bluetoothScanningState = atom({
     key: 'bluetoothScanningState',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
+
+let scanningStateSelector = selector({
+    key: 'scanningStateSelector',
+    get: ({ get }) => {
+        return get(bluetoothScanningState)
+    }
+})
 
 /**
  * represent whether ble device has been found.
  */
-export const bluetoothDeviceFound = atom({
+let bluetoothDeviceFound = atom({
     key: 'bluetoothDeviceFound',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
 
 /**
  * represent bluetooth gatt connection state.
  */
-export const bluetoothConnectionState = atom({
+let bluetoothConnectionState = atom({
     key: 'bluetoothConnectionState',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
 
 /**
  * indicate the saved imei obtained after qr scan.
  */
-export const bluetoothDeviceImei = atom({
+let bluetoothDeviceImei = atom({
     key: 'bluetoothDeviceImei',
     default: Constants.COMMON.DEFAULT_DATA,
-});
+})
 
 /**
  * represent if services corresponding to mac or uuid (ios) are retrieved.
  */
-export const bluetoothServiceRetrieved = atom({
+let bluetoothServiceRetrieved = atom({
     key: 'bluetoothServiceRetrieved',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
 
 /**
  * indicate whether or not the notification activation about tx uuid is successful.
  */
-export const bluetoothTxUuidNotificationEnabled = atom({
+let bluetoothTxUuidNotificationEnabled = atom({
     key: 'bluetoothTxUuidNotificationEnabled',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
 
 /**
  * indicate whether or not the notification activation about flow control uuid is successful.
  */
-export const bluetoothFlowControlUuidNotificationEnabled = atom({
+let bluetoothFlowControlUuidNotificationEnabled = atom({
     key: 'bluetoothFlowControlUuidNotificationEnabled',
     default: Constants.COMMON.DEFAULT_STATE,
-});
+})
 
 /**
  * indicate list of scanned bluetooth devices.
  */
-export const scannedBluetoothDeviceList = atom({
+let scannedBluetoothDeviceList = atom({
     key: 'scannedBluetoothDeviceList',
     default: Constants.COMMON.DEFAULT_LIST_STATE,
-});
+})
 
 /**
  * represent device info.
  */
-export const bluetoothDeviceInfo = atom({
+let bluetoothDeviceInfo = atom({
     key: 'bluetoothDeviceInfo',
     default: {
         info1: Constants.COMMON.DEFAULT_DATA,
         info2: Constants.COMMON.DEFAULT_DATA,
         info3: Constants.COMMON.DEFAULT_DATA,
     },
-});
+})
 
 /**
  * represent mac or uuid (ios) of the connected bluetooth device.
  */
-export const bluetoothMacOrUuidAtom = atom({
+let bluetoothMacOrUuidAtom = atom({
     key: 'bluetoothMacOrUuidAtom',
     default: Constants.COMMON.DEFAULT_DATA,
-});
+})
+
+export default {
+    bluetoothScanningState,
+    scanningStateSelector,
+    bluetoothDeviceFound,
+    bluetoothConnectionState,
+    bluetoothDeviceImei,
+    bluetoothServiceRetrieved,
+    bluetoothTxUuidNotificationEnabled,
+    bluetoothFlowControlUuidNotificationEnabled,
+    scannedBluetoothDeviceList,
+    bluetoothDeviceInfo,
+    bluetoothMacOrUuidAtom
+}
