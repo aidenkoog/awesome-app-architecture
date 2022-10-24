@@ -1,11 +1,9 @@
 
-class CommonRepository {
-
-    constructor() { }
+const CommonRepository = () => {
 
 }
 
 /**
  * export common repository object.
  */
-export default new CommonRepository();
+export default CommonRepository

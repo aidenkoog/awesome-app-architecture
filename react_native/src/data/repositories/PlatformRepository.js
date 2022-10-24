@@ -1,11 +1,9 @@
 
-class PlatformRepository {
-
-    constructor() { }
+const PlatformRepository = () => {
 
 }
 
 /**
  * export platform repository object.
  */
-export default new PlatformRepository();
+ export default PlatformRepository

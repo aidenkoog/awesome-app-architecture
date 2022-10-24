@@ -42,7 +42,7 @@ const BluetoothRepository = () => {
     }
 
     /**
-     * release listeners and subscription about ble events.
+     * release ble event listeners.
      */
     releaseBleEventListeners = () => {
         bleManagerEmitter.removeAllListeners("BleManagerDiscoverPeripheral")
