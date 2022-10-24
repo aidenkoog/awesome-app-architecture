@@ -2,7 +2,7 @@ import { View, Text } from "react-native"
 import styles from "../../stylesheets/StyleSet"
 
 /**
- * root component ui that is used in root container.
+ * component ui that is used in container.
  * @returns {JSX.Element}
  */
 export default function RootComponent(scanningState) {
