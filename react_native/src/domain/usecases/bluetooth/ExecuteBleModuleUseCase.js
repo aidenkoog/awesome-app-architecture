@@ -1,19 +1,22 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, logError } from '../../../utils/Logger.js'
+import BluetoothRepository from '../../../data/repositories/BluetoothRepository'
 
-const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
+// const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-class ExecuteBleModuleUseCase {
+const ExecuteBleModuleUseCase = () => {
+
+    const { initializeBleModule } = BluetoothRepository()
 
     /**
      * Execute the use case of initializing ble module. 
      * @param {string} peripheralId 
      * @returns {Promise}
      */
-    execute() {
+    executeBleModuleUseCase = () => {
         return new Promise((fulfill, reject) => {
-            bluetoothRepository.initializeBleModule().then(() => {
+            initializeBleModule().then(() => {
                 logDebug(LOG_TAG, "succeeded to execute initializeBleModule")
                 fulfill()
             }).catch((e) => {
@@ -27,12 +30,14 @@ class ExecuteBleModuleUseCase {
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeBleModuleUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new ExecuteBleModuleUseCase()
+export default ExecuteBleModuleUseCase

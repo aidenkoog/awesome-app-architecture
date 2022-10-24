@@ -1,28 +1,30 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, logError } from '../../../utils/Logger.js'
+import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
-const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-class GetSleepInfoUseCase {
+const GetSleepInfoUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeGetSleepInfoUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeGetSleepInfoUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new GetSleepInfoUseCase()
+export default GetSleepInfoUseCase

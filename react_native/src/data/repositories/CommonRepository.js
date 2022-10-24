@@ -1,11 +1,11 @@
 
 class CommonRepository {
 
-    constructor() {}
+    constructor() { }
 
 }
 
 /**
  * export common repository object.
  */
-module.exports = new CommonRepository();
+export default new CommonRepository();

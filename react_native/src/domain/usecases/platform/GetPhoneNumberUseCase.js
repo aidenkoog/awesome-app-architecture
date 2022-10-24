@@ -3,25 +3,27 @@ import { logDebug, logError } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
-class GetPhoneNumberUseCase {
+const GetPhoneNumberUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeGetPhoneNumberUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeGetPhoneNumberUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new GetPhoneNumberUseCase()
+export default GetPhoneNumberUseCase

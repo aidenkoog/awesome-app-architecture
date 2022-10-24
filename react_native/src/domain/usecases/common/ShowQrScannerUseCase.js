@@ -3,22 +3,24 @@ import { logDebug, logError } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
-class ShowQrScannerUseCase {
+const ShowQrScannerUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeShowQrScannerUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeShowQrScannerUseCase }
 }
 
 /**

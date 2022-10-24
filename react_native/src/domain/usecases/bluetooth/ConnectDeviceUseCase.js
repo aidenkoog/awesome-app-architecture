@@ -1,19 +1,21 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, logError } from '../../../utils/Logger.js'
+import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
-const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-class ConnectDeviceUseCase {
+const ConnectDeviceUseCase = () => {
+
+    const { connectDevice } = BluetoothRepository()
 
     /**
      * Execute the use case of connecting devices. 
      * @param {string} peripheralId 
      * @returns {Promise}
      */
-    execute(peripheralId) {
+    executeConnectDeviceUseCase = (peripheralId) => {
         return new Promise((fulfill, reject) => {
-            bluetoothRepository.connectDevice(peripheralId).then(() => {
+            connectDevice(peripheralId).then(() => {
                 logDebug(LOG_TAG, "succeeded to execute connectDevice " + peripheralId)
                 fulfill()
             }).catch((e) => {
@@ -27,12 +29,14 @@ class ConnectDeviceUseCase {
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeConnectDeviceUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
- export default new ConnectDeviceUseCase()
+export default ConnectDeviceUseCase

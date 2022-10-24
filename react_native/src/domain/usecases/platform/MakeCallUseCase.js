@@ -3,25 +3,27 @@ import { logDebug, logError } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
-class MakeCallUseCase {
+const MakeCallUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeMakeCallUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeMakeCallUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new MakeCallUseCase()
+export default MakeCallUseCase

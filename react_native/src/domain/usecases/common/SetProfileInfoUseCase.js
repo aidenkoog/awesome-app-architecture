@@ -3,25 +3,27 @@ import { logDebug, logError } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
-class SetProfileInfoUseCase {
+const SetProfileInfoUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeSetProfileInfoUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeSetProfileInfoUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new SetProfileInfoUseCase()
+export default SetProfileInfoUseCase

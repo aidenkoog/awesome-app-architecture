@@ -1,11 +1,11 @@
 
 class PlatformRepository {
 
-    constructor() {}
+    constructor() { }
 
 }
 
 /**
  * export platform repository object.
  */
- module.exports = new PlatformRepository();
+export default new PlatformRepository();

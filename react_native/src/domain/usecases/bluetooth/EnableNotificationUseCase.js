@@ -1,10 +1,12 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, logError } from '../../../utils/Logger.js'
+import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
-const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-class EnableNotificationUseCase {
+const EnableNotificationUseCase = () => {
+
+    const { enableNotification } = BluetoothRepository()
 
     /**
      * Execute the use case of enabling notifications.
@@ -13,9 +15,9 @@ class EnableNotificationUseCase {
      * @param {string} characteristicUuid 
      * @returns {Promise}
      */
-    execute(peripheralId, serviceUuid, characteristicUuid) {
+    executeEnableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
         return new Promise((fulfill, reject) => {
-            bluetoothRepository.enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
+            enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
                 logDebug(LOG_TAG, "succeeded to execute disconnectDevice " + peripheralId)
                 fulfill()
             }).catch((e) => {
@@ -29,12 +31,14 @@ class EnableNotificationUseCase {
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeEnableNotificationUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new EnableNotificationUseCase()
+export default EnableNotificationUseCase

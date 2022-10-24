@@ -1,10 +1,8 @@
-import { Text, View } from 'react-native'
+import SplashComponent from './RootComponent'
 
 const SplashContainer = () => {
     return (
-        <View>
-            <Text> Splash </Text>
-        </View>
+        <SplashComponent />
     )
 }
 export default SplashContainer

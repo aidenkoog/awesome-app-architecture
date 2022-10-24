@@ -1,28 +1,30 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, logError } from '../../../utils/Logger.js'
+import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
-const bluetoothRepository = require('../../../data/repositories/BluetoothRepository.js').default
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-class GetStepInfoUseCase {
+const GetStepInfoUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    execute() {
-        
+    executeGetStepInfoUseCase = () => {
+
     }
 
     /**
      * print error log delivered from bluetooth repository.
      * @param {string} error 
      */
-    outputErrorLog(error) {
+    outputErrorLog = (error) => {
         logError(LOG_TAG, error)
     }
+
+    return { executeGetStepInfoUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default new GetStepInfoUseCase()
+export default GetStepInfoUseCase
