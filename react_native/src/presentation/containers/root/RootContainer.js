@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { AppState } from "react-native"
+import { AppState, Platform, PermissionsAndroid } from "react-native"
 import { SERVICE_UUID } from "../../../utils/Config"
 import Constants from "../../../utils/Constants"
 import RootComponent from "./RootComponent"
@@ -17,7 +17,7 @@ const LOG_TAG = Constants.LOG.ROOT_UI_LOG
 export default function RootContainer() {
 
     /**
-     * ble scanning state
+     * ble scanning state from recoil atom.
      */
     const bleScanningState = useRecoilValue(bleScanningStateAtom)
 
@@ -50,13 +50,44 @@ export default function RootContainer() {
      * test code for checking if usecase, repository and core module work well or not.
      */
     const testBluetoothFeature = () => {
+        if (Platform.OS == "android") {
+            if (Platform.Version >= 23) {
+                // check if user had accepted permission or not.
+                PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((permitted) => {
+                    if (permitted) {
+                        logDebug(LOG_TAG, "<<< user had already accepted permission")
+                        startScanJob()
+
+                    } else {
+                        // request permission
+                        PermissionsAndroid.request(
+                            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((permitted) => {
+                                if (permitted) {
+                                    logDebug(LOG_TAG, "<<< user accepted permission")
+                                    startScanJob()
+                                } else {
+                                    outputErrorLog(LOG_TAG, "<<< user refused permission")
+                                }
+                            });
+                    }
+                })
+            }
+        } else {
+            startScanJob()
+        }
+    }
+
+    const startScanJob = () => {
         executeBleModuleUseCase().then(() => {
             logDebug(LOG_TAG, "<<< succeeded in executing ble module")
+
             executeStartScanUseCase(SERVICE_UUID, Constants.BT.SCAN_DURATION).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded in starting the device scan")
+
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e)
             })
+
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e)
         })

@@ -609,7 +609,7 @@ class BleManager {
    */
   getUuidList(peripheralInfo) {
     for (let item of peripheralInfo.characteristics) {
-      item.characteristic = fullUuid(item.characteristic)
+      item.characteristic = this.getFullUuid(item.characteristic)
       if (Platform.OS == "android") {
         if (item.properties.Notify == "Notify") {
           nofityServiceUuids.push(item.service)
