@@ -10,7 +10,7 @@ export default {
         DEFAULT_LIST_STATE: [],
     },
     BT: {
-        SCAN_DURATION: 5
+        SCAN_DURATION: 3
     },
     LOG: {
         // ble manager log.

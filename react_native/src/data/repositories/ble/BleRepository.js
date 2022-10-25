@@ -141,6 +141,7 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "<<< stopped device scan")
         logDebug(LOG_TAG, "<<< repositoryState: " + repositoryState)
         setBleScanningStateAtom(false)
+        this.restartScan()
     }
 
     /**
@@ -165,6 +166,31 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(characteristicCustomData.value))
         logDebug(LOG_TAG, ">>> received perfectly\n")
         logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
+    }
+
+    /**
+     * restart scanning ble device.
+     */
+    restartScan = () => {
+        bleManager.getConnectedPeripherals([]).then((peripherals) => {
+
+            if (peripherals.length == 0) {
+                outputErrorLog(LOG_TAG, "<<< there's no any connected peripheral")
+
+                // start scanning after 1 second.
+                setTimeout(() => {
+                    this.startScan().then(() => {
+                        logDebug(LOG_TAG, "<<< succeeded to execute re-scanning")
+
+                    }).catch((e) => {
+                        outputErrorLog(LOG_TAG, e)
+                    })
+                }, 1000)
+            }
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e)
+        })
     }
 
     /** 
@@ -300,7 +326,7 @@ const BleRepository = () => {
      * @param {string} serviceUuid 
      * @param {number} duration 
      */
-    startScan = (serviceUuid, duration) => {
+    startScan = (serviceUuid = SERVICE_UUID, duration = 3) => {
         logDebug(LOG_TAG, ">>> repositoryState: " + repositoryState)
 
         return new Promise((fulfill, reject) => {
