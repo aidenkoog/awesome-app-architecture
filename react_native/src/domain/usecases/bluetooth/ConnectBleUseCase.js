@@ -175,6 +175,7 @@ const ConnectBleUseCase = () => {
 
     /**
      * Execute the use case of stopping the device scan. 
+     * @Deprecated
      * @returns {Promise}
      */
     executeStopScanUseCase = () => {

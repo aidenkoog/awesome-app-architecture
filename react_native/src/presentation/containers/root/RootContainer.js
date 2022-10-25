@@ -7,6 +7,7 @@ import { logDebug, outputErrorLog } from "../../../utils/Logger"
 import ConnectBleUseCase from "../../../domain/usecases/bluetooth/ConnectBleUseCase"
 import { bleScanningStateAtom } from "../../../data/adapters/recoil/bluetooth/ScanningStateAtom"
 import { useRecoilValue } from "recoil"
+import { storeBleDeviceName } from "../../../utils/StorageUtil"
 
 const LOG_TAG = Constants.LOG.ROOT_UI_LOG
 
@@ -78,6 +79,7 @@ export default function RootContainer() {
     }
 
     const startScanJob = () => {
+        storeBleDeviceName("356752050075627")
         executeBleModuleUseCase().then(() => {
             logDebug(LOG_TAG, "<<< succeeded in executing ble module")
 

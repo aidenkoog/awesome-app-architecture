@@ -1,10 +1,13 @@
+import { useEffect } from 'react'
+import { useSetRecoilState } from 'recoil'
 import Constants from '../../../utils/Constants.js'
+import { isValid } from '../../../utils/CommonUtil.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
-import { useEffect } from 'react'
 import { bleScanningStateAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
-import { useSetRecoilState } from 'recoil'
-import { getBleDeviceNameFromQrScan, storeBleDeviceMacAddress } from '../../../utils/StorageUtil'
+import { convertBleCustomToHexData, getBleCustomData } from '../../../utils/BleUtil.js'
+
+import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/StorageUtil'
 import {
     BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID,
     FLOW_CONTROL_CHARACTERISTIC_UUID, SERVICE_UUID, TX_CHARACTERISTIC_UUID
@@ -15,7 +18,6 @@ import {
 } from '../../adapters/recoil/bluetooth/BleNotificationAtom'
 import { bleConnectionStateAtom, bleServiceRetrievedAtom, bleDeviceNameAtom, bleMacOrUuidAtom }
     from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
-import { convertBleCustomToHexData, getBleCustomData } from '../../../utils/BleUtil.js'
 
 
 /**
@@ -36,6 +38,13 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
  * reason : check if state I set as true is continued to keep.
  */
 let repositoryState = false
+
+/**
+ * cached ble device name and mac address.
+ * they are
+ */
+let cachedBleDeviceName = null
+let cachedBleMacAddress = null
 
 /**
  * bluetooth api implementation.
@@ -107,17 +116,13 @@ const BleRepository = () => {
         const peripheralName = peripheral?.name
         const peripheralId = peripheral?.id
         logDebug(LOG_TAG, "<<< discovered " + peripheralName + " (" + peripheralId + ")")
+        logDebug(LOG_TAG, ">>> cachedBleDeviceName: " + cachedBleDeviceName)
 
-        if (peripheralName == getBleDeviceNameFromQrScan()
-            || peripheralName == "356752050075627"
-            || peripheralName == "000000000000000") {
-
-            logDebug(LOG_TAG, "<<< found my device (" + peripheralName + ") start to connect device")
+        if (peripheralName == cachedBleDeviceName) {
+            logDebug(LOG_TAG, "<<< found my device (" + peripheralName + "). start to connect device")
             setBleDeviceNameAtom(peripheralName)
             setBleMacOrUuidAtom(peripheralId)
-            storeBleDeviceMacAddress(peripheralId)
-
-            connectDeviceWhenFound(peripheralId)
+            this.connectDeviceWhenFound(peripheralId)
         }
     }
 
@@ -127,10 +132,10 @@ const BleRepository = () => {
      */
     connectDeviceWhenFound = (peripheralId) => {
         bleManager.connect(peripheralId).then(() => {
-            logDebug(LOG_TAG, "<<< succeeded to connect " + peripheralId)
+            logDebug(LOG_TAG, "<<< succeeded to connect " + peripheralId + " when found")
             this.retrieveServices(peripheralId)
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e)
+            outputErrorLog(LOG_TAG, e + " occured by connect of ble manager")
         })
     }
 
@@ -149,7 +154,7 @@ const BleRepository = () => {
      * @param {Any} peripheral 
      */
     onPeripheralDisconnecrted = (peripheral) => {
-        logDebug(LOG_TAG, "<<< disconnected " + peripheral)
+        logDebug(LOG_TAG, "<<< disconnected " + peripheral.name + " (" + peripheral.id + ")")
         setBleConnectionStateAtom(false)
     }
 
@@ -170,26 +175,28 @@ const BleRepository = () => {
 
     /**
      * restart scanning ble device.
+     * currently, here are some issues.
+     * needed to have a flag that represents scanning job is completed and not necessary anymore.
      */
     restartScan = () => {
         bleManager.getConnectedPeripherals([]).then((peripherals) => {
 
             if (peripherals.length == 0) {
                 outputErrorLog(LOG_TAG, "<<< there's no any connected peripheral")
+                setTimeout(() => { this.startScan() }, 1500)
 
-                // start scanning after 1 second.
-                setTimeout(() => {
-                    this.startScan().then(() => {
-                        logDebug(LOG_TAG, "<<< succeeded to execute re-scanning")
+            } else {
+                if (!isValid(cachedBleDeviceName) || !isValid(cachedBleMacAddress)) {
+                    setTimeout(() => { this.startScan() }, 1500)
 
-                    }).catch((e) => {
-                        outputErrorLog(LOG_TAG, e)
-                    })
-                }, 1000)
+                } else {
+                    logDebug(LOG_TAG, "there's already cached ble device name and mac address. connect device directly")
+                    this.connectDevice(cachedBleMacAddress)
+                }
             }
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e)
+            outputErrorLog(LOG_TAG, e + " occured by getConnectedPeripherals of ble manager")
         })
     }
 
@@ -203,8 +210,9 @@ const BleRepository = () => {
             bleManager.connect(peripheralId).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded to connect " + peripheralId)
                 fulfill()
+
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by connect of ble manager")
                 setBleConnectionStateAtom(false)
                 reject(e)
             })
@@ -224,7 +232,7 @@ const BleRepository = () => {
                 logDebug(LOG_TAG, "<<< succeeded to disable notification of " + characteristicUuid)
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by stopNotification of ble manager")
                 reject(e)
             })
         })
@@ -242,7 +250,7 @@ const BleRepository = () => {
                 setBleConnectionStateAtom(false)
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by disconnect of ble manager")
                 reject(e)
             })
         })
@@ -261,7 +269,7 @@ const BleRepository = () => {
                 logDebug(LOG_TAG, "<<< succeeded to enable notification of " + characteristicUuid)
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by startNotification of ble manager")
                 reject(e)
             })
         })
@@ -280,7 +288,7 @@ const BleRepository = () => {
                 this.refreshBleEventListeners()
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by start of ble manager")
                 reject(e)
             })
         })
@@ -296,7 +304,7 @@ const BleRepository = () => {
                 logDebug(LOG_TAG, "<<< succeeded to enable bluetooth feature")
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by enableBluetooth of ble manager")
                 reject(e)
             })
         })
@@ -315,7 +323,7 @@ const BleRepository = () => {
                 logDebug(LOG_TAG, "<<< succeeded to get battery level-" + batteryLevel)
                 fulfill(batteryLevel)
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by read of ble manager")
                 reject(e)
             })
         })
@@ -352,12 +360,12 @@ const BleRepository = () => {
                     fulfill()
 
                 }).catch((e) => {
-                    outputErrorLog(LOG_TAG, e)
+                    outputErrorLog(LOG_TAG, e + " occured by scan of ble manager")
                     reject(e)
                 })
 
             }).catch((e) => {
-                outputErrorLog(e)
+                outputErrorLog(LOG_TAG, e + " occured by enableBluetooth of ble manager")
                 reject(e)
             })
         })
@@ -373,7 +381,7 @@ const BleRepository = () => {
                 setBleScanningStateAtom(false)
                 fulfill()
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, e + " occured by stopScan of ble manager")
                 reject(e)
             })
         })
@@ -401,7 +409,7 @@ const BleRepository = () => {
             executeEnableAllNotificationPromise(peripheralId)
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e)
+            outputErrorLog(LOG_TAG, e + " occured by retrieveServices of ble manager")
             setBleServiceRetrieveStateAtom(false)
         })
     }
@@ -417,9 +425,10 @@ const BleRepository = () => {
             setBleTxUuidNotificationStateAtom(true)
             setBleFlowControlUuidNotificationStateAtom(true)
             setBleConnectionStateAtom(true)
+            storeBleDeviceMacAddress(peripheralId)
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e)
+            outputErrorLog(LOG_TAG, e + " occured by enableAllNotificationPromise")
         })
     }
 
@@ -448,7 +457,7 @@ const BleRepository = () => {
                     logDebug(LOG_TAG, "<<< succeeded to write ble custom characteristic data")
                     fulfill()
                 }).catch((e) => {
-                    outputErrorLog(LOG_TAG, e)
+                    outputErrorLog(LOG_TAG, e + " occured by writeWithoutResponse of ble manager")
                     reject(e)
                 })
         })
@@ -481,6 +490,16 @@ const BleRepository = () => {
 
     useEffect(() => {
         this.refreshBleEventListeners()
+
+        // AsyncStorage itself has some issues, so it has to be used like Promise.
+        getBleDeviceName().then((deviceName) => {
+            cachedBleDeviceName = deviceName
+            logDebug(LOG_TAG)
+        })
+        getBleDeviceMacAddress().then((macAddress) => {
+            cachedBleMacAddress = macAddress
+        })
+
         return () => { }
     }, [])
 

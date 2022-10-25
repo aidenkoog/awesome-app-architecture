@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from './Constants'
-import { logDebug } from './Logger'
 
 /**
  * storage utility
@@ -8,7 +7,6 @@ import { logDebug } from './Logger'
  * example. getProfileName, storeProfileName
  */
 
-const LOG_TAG = Constants.LOG.STORAGE_LOG_TAG
 const KEY_PROFILE_NAME = Constants.STORAGE.KEY_PROFILE_NAME
 const KEY_BLE_DEVICE_NAME = Constants.STORAGE.KEY_BLE_DEVICE_NAME
 const KEY_BLE_DEVICE_MAC_ADDRESS = Constants.STORAGE.KEY_BLE_DEVICE_MAC_ADDRESS
@@ -26,9 +24,7 @@ export const storeProfileName = async (name) => {
  * @returns {string}
  */
 export const getProfileName = async () => {
-    const profileName = await AsyncStorage.getItem(KEY_PROFILE_NAME)
-    logDebug(LOG_TAG, "<<< profileName: " + profileName)
-    return profileName
+    return AsyncStorage.getItem(KEY_PROFILE_NAME)
 }
 
 /**
@@ -36,7 +32,7 @@ export const getProfileName = async () => {
  * device name is saved when qr scan is executed first.
  * @param {string} name 
  */
-export const storeBleDeviceNameFromQrScan = async (name) => {
+export const storeBleDeviceName = async (name) => {
     await AsyncStorage.setItem(KEY_BLE_DEVICE_NAME, name)
 }
 
@@ -44,10 +40,8 @@ export const storeBleDeviceNameFromQrScan = async (name) => {
  * get ble device name from storage.
  * @returns {string}
  */
-export const getBleDeviceNameFromQrScan = async () => {
-    const bleDeviceName = await AsyncStorage.getItem(KEY_BLE_DEVICE_NAME)
-    logDebug(LOG_TAG, "<<< bleDeviceName: " + bleDeviceName)
-    return bleDeviceName
+export const getBleDeviceName = async () => {
+    return AsyncStorage.getItem(KEY_BLE_DEVICE_NAME)
 }
 
 /**
@@ -64,8 +58,6 @@ export const storeBleDeviceMacAddress = async (address) => {
  * @returns {string}
  */
 export const getBleDeviceMacAddress = async () => {
-    const bleDeviceMacAddress = await AsyncStorage.getItem(KEY_BLE_DEVICE_MAC_ADDRESS)
-    logDebug(LOG_TAG, "<<< bleDeviceMacAddress: " + bleDeviceMacAddress)
-    return bleDeviceMacAddress
+    return AsyncStorage.getItem(KEY_BLE_DEVICE_MAC_ADDRESS)
 }
 
