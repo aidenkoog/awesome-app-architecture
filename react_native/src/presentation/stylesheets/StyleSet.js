@@ -13,6 +13,10 @@ export default StyleSheet.create(
       flexDirection: 'column',
       justifyContent: 'center',
     },
+    root_text: {
+      color: '#ffffff',
+      alignSelf: 'center'
+    },
 
     // splash
     splash_container: {

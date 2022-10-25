@@ -6,8 +6,8 @@ import RootComponent from "./RootComponent"
 import { logDebug, logError } from "../../../utils/Logger"
 import ExecuteBleModuleUseCase from "../../../domain/usecases/bluetooth/ExecuteBleModuleUseCase"
 import StartScanUseCase from "../../../domain/usecases/bluetooth/StartScanUseCase"
-import { getRecoil } from 'recoil-nexus'
 import { bluetoothScanningState } from "../../../data/adapters/recoil/BluetoothAtoms"
+import { useRecoilValue } from "recoil"
 
 const LOG_TAG = Constants.LOG.ROOT_UI_LOG
 
@@ -20,7 +20,7 @@ export default function RootContainer() {
     /**
      * ble scanning state
      */
-    const bleScanningState = getRecoil(bluetoothScanningState)
+    const bleScanningState = useRecoilValue(bluetoothScanningState)
 
     /**
      * funtional usecase declaration test.

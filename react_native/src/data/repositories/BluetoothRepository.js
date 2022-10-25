@@ -2,8 +2,8 @@ import Constants from '../../utils/Constants.js'
 import { logDebug, logError } from '../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { useEffect } from 'react'
-import { setRecoil } from 'recoil-nexus'
 import { bluetoothScanningState } from '../../data/adapters/recoil/BluetoothAtoms'
+import { useSetRecoilState } from 'recoil'
 
 const bleManager = require('../sources/bluetooth/ble_manager/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
@@ -28,9 +28,9 @@ const BluetoothRepository = () => {
     /**
      * state handling code to set data as a global variable according to ble state change 
      * and make it available to other components.
-     * comment this code because recoil state cannot be refered outside.
+     * (canceled) comment this code because recoil state cannot be refered outside.
      */
-    // const setBleScanningState = useSetRecoilState(bluetoothScanningState)
+    const setBleScanningState = useSetRecoilState(bluetoothScanningState)
 
     /**
      * listeners for catching the ble events.
@@ -74,7 +74,7 @@ const BluetoothRepository = () => {
     onScanStopped = () => {
         logDebug(LOG_TAG, "stopped device scan")
         logDebug(LOG_TAG, "repositoryState: " + repositoryState)
-        setRecoil(bluetoothScanningState, false)
+        setBleScanningState(false)
     }
 
     /**
@@ -244,7 +244,7 @@ const BluetoothRepository = () => {
                 reject(errorMessage)
                 return
             }
-            setRecoil(bluetoothScanningState, true)
+            setBleScanningState(true)
             logDebug(LOG_TAG, "service uuids for scanning: " + serviceUuids)
 
             bleManager.scan(serviceUuids, duration, true).then(() => {
