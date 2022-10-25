@@ -4,6 +4,7 @@
 ### 2022/10/23 : (2nd) Add Bluetooth related usecase source code / Separate container and component ui of root.
 ### 2022/10/25 : (1st) Arranged recoil atoms, logger, usecases and repositories.
 ### 2022/10/25 : (2nd) Enforce ble repository logic, merge detailed ble usecases, rearrange recoil atoms and add storage util
+### 2022/10/26 : Rearranged usecases, added navigation library and add additional comment to entire source code.
 
 
 # How To Intialize New App
