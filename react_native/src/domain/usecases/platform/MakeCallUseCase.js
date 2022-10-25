@@ -9,7 +9,7 @@ const MakeCallUseCase = () => {
      * Execute the use case. 
      */
     executeMakeCallUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeMakeCallUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeMakeCallUseCase")
     }
     return { executeMakeCallUseCase }
 }

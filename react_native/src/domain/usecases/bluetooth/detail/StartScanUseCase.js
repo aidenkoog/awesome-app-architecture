@@ -1,12 +1,17 @@
+/**
+ * detailed bluetooth usecase.
+ * currently, it's not used.
+ */
+
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository'
+import BleRepository from '../../../data/repositories/ble/BleRepository'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const StartScanUseCase = () => {
 
-    const { startScan } = BluetoothRepository()
+    const { startScan } = BleRepository()
 
     /**
      * Execute the use case of starting the device scan. 
@@ -15,7 +20,7 @@ const StartScanUseCase = () => {
      * @returns {Promise}
      */
     executeStartScanUseCase = (serviceUuid, duration) => {
-        logDebug(LOG_TAG, ">>> triggered executeStartScanUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
 
         return new Promise((fulfill, reject) => {
             startScan(serviceUuid, duration).then(() => {

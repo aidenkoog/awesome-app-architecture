@@ -9,7 +9,7 @@ const SendTextMessageUseCase = () => {
      * Execute the use case. 
      */
     executeSendTextMessageUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeSendTextMessageUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeSendTextMessageUseCase")
     }
     return { executeSendTextMessageUseCase }
 }

@@ -11,7 +11,7 @@ const LOG_TAG = Constants.LOG.ROOT_UI_LOG
  */
 export default function RootComponent(props) {
     const { scanningState } = props
-    logDebug(LOG_TAG, "scanningState: " + scanningState)
+    logDebug(LOG_TAG, "<<< scanningState: " + scanningState)
 
     const rootTextMessage = "Scanning State: " + scanningState
 

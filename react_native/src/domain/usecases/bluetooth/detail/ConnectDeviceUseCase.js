@@ -1,12 +1,12 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
+import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const ConnectDeviceUseCase = () => {
 
-    const { connectDevice } = BluetoothRepository()
+    const { connectDevice } = BleRepository()
 
     /**
      * Execute the use case of connecting devices. 
@@ -14,7 +14,7 @@ const ConnectDeviceUseCase = () => {
      * @returns {Promise}
      */
     executeConnectDeviceUseCase = (peripheralId) => {
-        logDebug(LOG_TAG, ">>> triggered executeConnectDeviceUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeConnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
             connectDevice(peripheralId).then(() => {
@@ -22,7 +22,7 @@ const ConnectDeviceUseCase = () => {
                 fulfill()
 
             }).catch((e) => {
-                outputErrorLog(e)
+                outputErrorLog(LOG_TAG, e)
                 reject(e)
             })
         })

@@ -4,7 +4,7 @@ import Constants from '../../../../utils/Constants'
 /**
  * represent device info.
  */
-export const bluetoothDeviceInfo = atom({
+export const bleDeviceInfoAtom = atom({
     key: 'bluetoothDeviceInfo',
     default: {
         info1: Constants.COMMON.DEFAULT_DATA,

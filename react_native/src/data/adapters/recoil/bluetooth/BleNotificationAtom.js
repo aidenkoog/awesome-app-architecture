@@ -4,15 +4,15 @@ import Constants from '../../../../utils/Constants'
 /**
  * indicate whether or not the notification activation about tx uuid is successful.
  */
-export const bluetoothTxUuidNotificationEnabled = atom({
-    key: 'bluetoothTxUuidNotificationEnabled',
+export const bleTxUuidNotificationStateAtom = atom({
+    key: 'bleTxUuidNotificationStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
 
 /**
  * indicate whether or not the notification activation about flow control uuid is successful.
  */
-export const bluetoothFlowControlUuidNotificationEnabled = atom({
-    key: 'bluetoothFlowControlUuidNotificationEnabled',
+export const bleFlowControlUuidNotificationStateAtom = atom({
+    key: 'bleFlowControlUuidNotificationStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })

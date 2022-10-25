@@ -9,7 +9,7 @@ const WriteEmailUseCase = () => {
      * Execute the use case. 
      */
     executeWriteEmailUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeWriteEmailUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeWriteEmailUseCase")
     }
     return { executeWriteEmailUseCase }
 }

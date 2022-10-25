@@ -9,7 +9,7 @@ const GetUserInfoUseCase = () => {
      * Execute the use case. 
      */
     executeGetUserInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetUserInfoUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetUserInfoUseCase")
     }
     return { executeGetUserInfoUseCase }
 }

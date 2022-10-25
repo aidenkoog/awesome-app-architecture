@@ -9,7 +9,7 @@ const UpgradeFirewareUseCase = () => {
      * Execute the use case. 
      */
     executeUpgradeFirewareUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeUpgradeFirewareUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeUpgradeFirewareUseCase")
     }
     return { executeUpgradeFirewareUseCase }
 }

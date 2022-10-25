@@ -9,7 +9,7 @@ const GetManufacturerUseCase = () => {
      * Execute the use case. 
      */
     executeGetManufacturerUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetManufacturerUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetManufacturerUseCase")
     }
     return { executeGetManufacturerUseCase }
 }

@@ -9,7 +9,7 @@ const GetDeviceUniqueIdUseCase = () => {
      * Execute the use case. 
      */
     executeGetDeviceUniqueIdUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetDeviceUniqueIdUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetDeviceUniqueIdUseCase")
     }
     return { executeGetDeviceUniqueIdUseCase }
 }

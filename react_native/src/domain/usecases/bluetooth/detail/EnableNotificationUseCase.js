@@ -1,12 +1,17 @@
+/**
+ * detailed bluetooth usecase.
+ * currently, it's not used.
+ */
+
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
+import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const EnableNotificationUseCase = () => {
 
-    const { enableNotification } = BluetoothRepository()
+    const { enableNotification } = BleRepository()
 
     /**
      * Execute the use case of enabling notifications.
@@ -16,7 +21,7 @@ const EnableNotificationUseCase = () => {
      * @returns {Promise}
      */
     executeEnableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> triggered executeEnableNotificationUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeEnableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {

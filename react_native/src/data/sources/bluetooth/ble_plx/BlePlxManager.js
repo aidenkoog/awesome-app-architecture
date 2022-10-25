@@ -3,6 +3,7 @@ import { BleManager } from 'react-native-ble-plx';
 /**
  * ble manager class.
  * library: react-native-ble-plx
+ * To be implemented perfectly.
  */
 class BlePlxManager {
     constructor() {

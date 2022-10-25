@@ -4,7 +4,7 @@ import Constants from '../../../../utils/Constants'
 /**
  * represent the prefile info used when user set or edit it.
  */
-export const profileInfo = atom({
+export const profileInfoAtom = atom({
     key: 'profileInfo',
     default: {
         profileImage: Constants.COMMON.DEFAULT_DATA,

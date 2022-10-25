@@ -1,12 +1,17 @@
+/**
+ * detailed bluetooth usecase.
+ * currently, it's not used.
+ */
+
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
+import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const DisconnectDeviceUseCase = () => {
 
-    const { disconnectDevice } = BluetoothRepository()
+    const { disconnectDevice } = BleRepository()
 
     /**
      * Execute the use case of disconnecting devices. 
@@ -14,7 +19,7 @@ const DisconnectDeviceUseCase = () => {
      * @returns {Promise}
      */
     executeDisconnectDeviceUseCase = (peripheralId) => {
-        logDebug(LOG_TAG, ">>> triggered executeDisconnectDeviceUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeDisconnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
             disconnectDevice(peripheralId).then(() => {

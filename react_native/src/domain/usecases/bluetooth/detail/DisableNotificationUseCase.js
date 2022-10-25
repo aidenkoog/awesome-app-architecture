@@ -1,12 +1,17 @@
+/**
+ * detailed bluetooth usecase.
+ * currently, it's not used.
+ */
+
 import Constants from '../../../utils/Constants.js'
-import { logDebug, logError, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
+import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const DisableNotificationUseCase = () => {
 
-    const { disableNotification } = BluetoothRepository()
+    const { disableNotification } = BleRepository()
 
     /**
      * Execute the use case of disabling notifications. 
@@ -16,7 +21,7 @@ const DisableNotificationUseCase = () => {
      * @returns {Promise}
      */
     executeDisableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> triggered executeDisableNotificationUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeDisableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             disableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
@@ -24,7 +29,7 @@ const DisableNotificationUseCase = () => {
                 fulfill()
 
             }).catch((e) => {
-                outputErrorLog(e)
+                outputErrorLog(LOG_TAG, e)
                 reject(e)
             })
         })

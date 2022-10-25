@@ -9,7 +9,7 @@ const SetProfileInfoUseCase = () => {
      * Execute the use case. 
      */
     executeSetProfileInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeSetProfileInfoUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeSetProfileInfoUseCase")
     }
     return { executeSetProfileInfoUseCase }
 }

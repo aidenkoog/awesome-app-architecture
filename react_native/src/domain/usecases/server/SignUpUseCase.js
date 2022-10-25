@@ -9,7 +9,7 @@ const SignUpUseCase = () => {
      * Execute the use case. 
      */
     executeSignUpUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeSignUpUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeSignUpUseCase")
     }
     return { executeSignUpUseCase }
 }

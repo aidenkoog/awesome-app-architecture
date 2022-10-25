@@ -9,7 +9,7 @@ const AddDeviceUseCase = () => {
      * Execute the use case. 
      */
     executeAddDeviceUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeAddDeviceUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeAddDeviceUseCase")
     }
     return { executeAddDeviceUseCase }
 }

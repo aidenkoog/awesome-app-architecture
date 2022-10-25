@@ -9,6 +9,18 @@ const bleManager = NativeModules.BleManager
 const LOG_TAG = Constants.LOG.BT_BLE_MANAGER
 
 /**
+ * uuid information that exists in ble device.
+ */
+let readServiceUuids = []
+let readCharacteristicUuids = []
+let writeWithResponseServiceUuids = []
+let writeWithResponseCharacteristicUuids = []
+let writeWithoutResponseServiceUuids = []
+let writeWithoutResponseCharacteristicUuids = []
+let nofityServiceUuids = []
+let nofityCharacteristicUuids = []
+
+/**
  * ble manager class.
  * library: react-native-ble-manager
  */
@@ -600,44 +612,47 @@ class BleManager {
       item.characteristic = fullUuid(item.characteristic)
       if (Platform.OS == "android") {
         if (item.properties.Notify == "Notify") {
-          nofityserviceUuid.push(item.service)
-          nofitycharacteristicUuid.push(item.characteristic)
+          nofityServiceUuids.push(item.service)
+          nofityCharacteristicUuids.push(item.characteristic)
         }
         if (item.properties.Read == "Read") {
-          readserviceUuid.push(item.service)
-          readcharacteristicUuid.push(item.characteristic)
+          readServiceUuids.push(item.service)
+          readCharacteristicUuids.push(item.characteristic)
         }
         if (item.properties.Write == "Write") {
-          writeWithResponseserviceUuid.push(item.service)
-          writeWithResponsecharacteristicUuid.push(item.characteristic)
+          writeWithResponseServiceUuids.push(item.service)
+          writeWithResponseCharacteristicUuids.push(item.characteristic)
         }
         if (item.properties.Write == "WriteWithoutResponse") {
-          writeWithoutResponseserviceUuid.push(item.service)
-          writeWithoutResponsecharacteristicUuid.push(item.characteristic)
+          writeWithoutResponseServiceUuids.push(item.service)
+          writeWithoutResponseCharacteristicUuids.push(item.characteristic)
         }
 
       } else {
         for (let property of item.properties) {
           if (property == "Notify") {
-            nofityserviceUuid.push(item.service)
-            nofitycharacteristicUuid.push(item.characteristic)
+            nofityServiceUuids.push(item.service)
+            nofityCharacteristicUuids.push(item.characteristic)
           }
           if (property == "Read") {
-            readserviceUuid.push(item.service)
-            readcharacteristicUuid.push(item.characteristic)
+            readServiceUuids.push(item.service)
+            readCharacteristicUuids.push(item.characteristic)
           }
           if (property == "Write") {
-            writeWithResponseserviceUuid.push(item.service)
-            writeWithResponsecharacteristicUuid.push(item.characteristic)
+            writeWithResponseServiceUuids.push(item.service)
+            writeWithResponseCharacteristicUuids.push(item.characteristic)
           }
           if (property == "WriteWithoutResponse") {
-            writeWithoutResponseserviceUuid.push(item.service)
-            writeWithoutResponsecharacteristicUuid.push(item.characteristic)
+            writeWithoutResponseServiceUuids.push(item.service)
+            writeWithoutResponseCharacteristicUuids.push(item.characteristic)
           }
         }
       }
     }
-    return ""
+    return JSON.stringify(nofityServiceUuids) + "\n" + JSON.stringify(nofityCharacteristicUuids) + "\n"
+      + JSON.stringify(readServiceUuids) + "\n" + JSON.stringify(readCharacteristicUuids) + "\n"
+      + JSON.stringify(writeWithResponseServiceUuids) + "\n" + JSON.stringify(writeWithResponseCharacteristicUuids) + "\n"
+      + JSON.stringify(writeWithoutResponseServiceUuids) + "\n" + JSON.stringify(writeWithoutResponseCharacteristicUuids) + "\n"
   }
 
   /**

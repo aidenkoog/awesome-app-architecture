@@ -9,7 +9,7 @@ const GetSerialNumberUseCase = () => {
      * Execute the use case. 
      */
     executeGetSerialNumberUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetSerialNumberUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetSerialNumberUseCase")
     }
     return { executeGetSerialNumberUseCase }
 }

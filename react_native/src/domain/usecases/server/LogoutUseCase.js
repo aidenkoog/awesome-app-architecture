@@ -9,7 +9,7 @@ const LogoutUseCase = () => {
      * Execute the use case. 
      */
     executeLogoutUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeLogoutUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeLogoutUseCase")
     }
     return { executeLogoutUseCase }
 }

@@ -4,33 +4,33 @@ import Constants from '../../../../utils/Constants'
 /**
  * provides whether a scan operation is currently being performed or not.
  */
-export const bluetoothScanningState = atom({
-    key: 'bluetoothScanningState',
+export const bleScanningStateAtom = atom({
+    key: 'bleScanningStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
 
 /**
  * custom selector about scanning state.
  */
-export const scanningStateSelector = selector({
-    key: 'scanningStateSelector',
+export const bleScanningStateSelector = selector({
+    key: 'bleScanningStateSelector',
     get: ({ get }) => {
-        return get(bluetoothScanningState)
+        return get(bleScanningStateAtom)
     }
 })
 
 /**
  * indicate list of scanned bluetooth devices.
  */
-export const scannedBluetoothDeviceList = atom({
-    key: 'scannedBluetoothDeviceList',
+export const foundBleDeviceListAtom = atom({
+    key: 'foundBleDeviceListAtom',
     default: Constants.COMMON.DEFAULT_LIST_STATE,
 })
 
 /**
  * represent whether ble device has been found.
  */
-export const bluetoothDeviceFound = atom({
-    key: 'bluetoothDeviceFound',
+export const bleDeviceFoundAtom = atom({
+    key: 'bleDeviceFoundAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })

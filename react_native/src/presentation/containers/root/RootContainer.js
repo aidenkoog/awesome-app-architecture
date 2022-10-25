@@ -4,9 +4,8 @@ import { SERVICE_UUID } from "../../../utils/Config"
 import Constants from "../../../utils/Constants"
 import RootComponent from "./RootComponent"
 import { logDebug, outputErrorLog } from "../../../utils/Logger"
-import ExecuteBleModuleUseCase from "../../../domain/usecases/bluetooth/ExecuteBleModuleUseCase"
-import StartScanUseCase from "../../../domain/usecases/bluetooth/StartScanUseCase"
-import { bluetoothScanningState } from "../../../data/adapters/recoil/bluetooth/ScanningStateAtom"
+import ConnectBleUseCase from "../../../domain/usecases/bluetooth/ConnectBleUseCase"
+import { bleScanningStateAtom } from "../../../data/adapters/recoil/bluetooth/ScanningStateAtom"
 import { useRecoilValue } from "recoil"
 
 const LOG_TAG = Constants.LOG.ROOT_UI_LOG
@@ -20,18 +19,17 @@ export default function RootContainer() {
     /**
      * ble scanning state
      */
-    const bleScanningState = useRecoilValue(bluetoothScanningState)
+    const bleScanningState = useRecoilValue(bleScanningStateAtom)
 
     /**
      * funtional usecase declaration test.
      */
-    const { executeBleModuleUseCase } = ExecuteBleModuleUseCase()
-    const { executeStartScanUseCase } = StartScanUseCase()
+    const { executeStartScanUseCase, executeBleModuleUseCase } = ConnectBleUseCase()
 
     /**
      * appState (useRef) is not changed even though rendering is executed again.
      */
-    const appState = useRef(AppState.currentState);
+    const appState = useRef(AppState.currentState)
 
     /**
      * detect current app state change.
@@ -80,11 +78,9 @@ export default function RootContainer() {
     }, [])
 
     return (
-        <>
-            <RootComponent
-                scanningState={bleScanningState}
-            >
-            </RootComponent>
-        </>
+        <RootComponent
+            scanningState={bleScanningState}
+        >
+        </RootComponent>
     )
 }

@@ -1,13 +1,13 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID } from '../../../utils/Config.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
+import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const GetBatteryLevelUseCase = () => {
 
-    const { getBatteryLevel } = BluetoothRepository()
+    const { getBatteryLevel } = BleRepository()
 
     /**
      * Execute the use case of getting ble device's battery level.
@@ -21,7 +21,7 @@ const GetBatteryLevelUseCase = () => {
         batteryserviceUuid = BATTERY_SERVICE_UUID,
         batterycharacteristicUuid = BATTERY_CHARACTERISTIC_UUID) => {
 
-        logDebug(LOG_TAG, ">>> triggered executeGetBatteryLevelUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetBatteryLevelUseCase")
 
         return new Promise((fulfill, reject) => {
             getBatteryLevel(

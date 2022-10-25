@@ -9,7 +9,7 @@ const GetPackageNameUseCase = () => {
      * Execute the use case. 
      */
     executeGetPackageNameUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetPackageNameUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetPackageNameUseCase")
     }
     return { executeGetPackageNameUseCase }
 }

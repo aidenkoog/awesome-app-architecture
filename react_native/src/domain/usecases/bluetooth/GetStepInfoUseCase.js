@@ -9,7 +9,7 @@ const GetStepInfoUseCase = () => {
      * Execute the use case. 
      */
     executeGetStepInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetStepInfoUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetStepInfoUseCase")
     }
     return { executeGetStepInfoUseCase }
 }

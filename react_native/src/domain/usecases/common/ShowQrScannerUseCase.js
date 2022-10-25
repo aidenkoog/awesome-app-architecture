@@ -9,7 +9,7 @@ const ShowQrScannerUseCase = () => {
      * Execute the use case. 
      */
     executeShowQrScannerUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeShowQrScannerUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeShowQrScannerUseCase")
     }
     return { executeShowQrScannerUseCase }
 }

@@ -1,12 +1,17 @@
+/**
+ * detailed bluetooth usecase.
+ * currently, it's not used.
+ */
+
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BluetoothRepository from '../../../data/repositories/BluetoothRepository'
+import BleRepository from '../../../data/repositories/ble/BleRepository'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const ExecuteBleModuleUseCase = () => {
 
-    const { initializeBleModule } = BluetoothRepository()
+    const { initializeBleModule } = BleRepository()
 
     /**
      * Execute the use case of initializing ble module. 
@@ -14,7 +19,7 @@ const ExecuteBleModuleUseCase = () => {
      * @returns {Promise}
      */
     executeBleModuleUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeBleModuleUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeBleModuleUseCase")
 
         return new Promise((fulfill, reject) => {
             initializeBleModule().then(() => {

@@ -9,7 +9,7 @@ const GetDeviceNameUseCase = () => {
      * Execute the use case. 
      */
     executeGetDeviceNameUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeGetDeviceNameUseCase")
+        logDebug(LOG_TAG, ">>> ### triggered executeGetDeviceNameUseCase")
     }
     return { executeGetDeviceNameUseCase }
 }
