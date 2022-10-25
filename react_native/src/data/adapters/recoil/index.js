@@ -1,2 +1,2 @@
-export * from './BluetoothAtoms';
-export * from './ProfileAtoms';
+export * from './bluetooth';
+export * from './profile';

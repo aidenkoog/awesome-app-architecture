@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 import Constants from '../../../../utils/Constants'
-import { logDebug, logError } from '../../../../utils/Logger'
+import { logDebug, outputErrorLog } from '../../../../utils/Logger'
 
 /**
  * load ble manager from native modules.
@@ -21,14 +21,6 @@ class BleManager {
   }
 
   /**
-     * print error log delivered from bluetooth repository.
-     * @param {string} error 
-     */
-  outputErrorLog(error) {
-    logError(LOG_TAG, error)
-  }
-
-  /**
    * read characteristic data.
    * @param {string} peripheralId 
    * @param {string} serviceUuid 
@@ -43,7 +35,7 @@ class BleManager {
         characteristicUuid,
         (error, data) => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill(data)
@@ -62,7 +54,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.readRSSI(peripheralId, (error, rssi) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill(rssi)
@@ -80,7 +72,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.refreshCache(peripheralId, (error, result) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill(result)
@@ -133,7 +125,7 @@ class BleManager {
         maxByteSize,
         error => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill()
@@ -177,7 +169,7 @@ class BleManager {
         queueSleepTime,
         error => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill()
@@ -214,7 +206,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.createBond(peripheralId, peripheralPin, error => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -232,7 +224,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.removeBond(peripheralId, error => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -252,7 +244,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.disconnect(peripheralId, force, error => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -307,7 +299,7 @@ class BleManager {
         buffer,
         error => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill()
@@ -332,7 +324,7 @@ class BleManager {
         characteristicUuid,
         error => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill()
@@ -413,7 +405,7 @@ class BleManager {
         scanningOptions,
         error => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill()
@@ -431,6 +423,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.stopScan(error => {
         if (error != null) {
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -447,7 +440,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.enableBluetooth(error => {
         if (error != null) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -465,7 +458,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.getConnectedPeripherals(serviceUuids, (error, result) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else if (result != null) {
           fulfill(result)
@@ -484,7 +477,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.getBondedPeripherals((error, result) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else if (result != null) {
           fulfill(result)
@@ -503,7 +496,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.getDiscoveredPeripherals((error, result) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else if (result != null) {
           fulfill(result)
@@ -523,7 +516,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.removePeripheral(peripheralId, error => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill()
@@ -560,7 +553,7 @@ class BleManager {
         connectionPriority,
         (error, status) => {
           if (error) {
-            this.outputErrorLog(error)
+            outputErrorLog(LOG_TAG, error)
             reject(error)
           } else {
             fulfill(status)
@@ -580,7 +573,7 @@ class BleManager {
     return new Promise((fulfill, reject) => {
       bleManager.requestMtu(peripheralId, mtu, (error, mtu) => {
         if (error) {
-          this.outputErrorLog(error)
+          outputErrorLog(LOG_TAG, error)
           reject(error)
         } else {
           fulfill(mtu)

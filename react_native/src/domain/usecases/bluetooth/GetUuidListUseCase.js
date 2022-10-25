@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, logError } from '../../../utils/Logger.js'
+import { logDebug } from '../../../utils/Logger.js'
 import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -14,19 +14,12 @@ const GetUuidListUseCase = () => {
      * @returns {Any}
      */
     executeGetUuidListUseCase = (peripheral) => {
+        logDebug(LOG_TAG, ">>> triggered executeGetUuidListUseCase")
+
         const uuidList = getUuidList(peripheral)
-        logDebug(LOG_TAG, "succeeded to execute getUuidList: " + uuidList)
+        logDebug(LOG_TAG, "<<< succeeded to execute getUuidList: " + uuidList)
         return uuidList
     }
-
-    /**
-     * print error log delivered from bluetooth repository.
-     * @param {string} error 
-     */
-    outputErrorLog = (error) => {
-        logError(LOG_TAG, error)
-    }
-
     return { executeGetUuidListUseCase }
 }
 

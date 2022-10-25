@@ -1,15 +1,5 @@
-import { atom } from 'recoil';
-import Constants from '../../../utils/Constants';
-
-/*-----------------------------------------------------------------------------------
- * necessary profile related states.
- * 1. profile image.
- * 2. profile name.
- * 3. profile gender.
- * 4. profile birthday.
- * 5. profile height.
- * 6. profile weight.
- *----------------------------------------------------------------------------------*/
+import { atom } from 'recoil'
+import Constants from '../../../../utils/Constants'
 
 /**
  * represent the prefile info used when user set or edit it.

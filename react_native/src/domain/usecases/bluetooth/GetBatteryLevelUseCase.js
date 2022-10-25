@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, logError } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID } from '../../../utils/Config.js'
 import BluetoothRepository from '../../../data/repositories/BluetoothRepository.js'
 
@@ -20,26 +20,21 @@ const GetBatteryLevelUseCase = () => {
         peripheralId,
         batteryserviceUuid = BATTERY_SERVICE_UUID,
         batterycharacteristicUuid = BATTERY_CHARACTERISTIC_UUID) => {
+
+        logDebug(LOG_TAG, ">>> triggered executeGetBatteryLevelUseCase")
+
         return new Promise((fulfill, reject) => {
             getBatteryLevel(
                 peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
-                    logDebug(LOG_TAG, "succeeded to execute getBatteryLevel " + batteryLevel)
+                    logDebug(LOG_TAG, "<<< succeeded to execute getBatteryLevel " + batteryLevel)
                     fulfill(batteryLevel)
+
                 }).catch((e) => {
-                    this.outputErrorLog(e)
+                    outputErrorLog(LOG_TAG, e)
                     reject(e)
                 })
         })
     }
-
-    /**
-     * print error log delivered from bluetooth repository.
-     * @param {string} error 
-     */
-    outputErrorLog = (error) => {
-        logError(LOG_TAG, error)
-    }
-
     return { executeGetBatteryLevelUseCase }
 }
 

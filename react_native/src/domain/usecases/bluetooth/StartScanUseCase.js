@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, logError } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import BluetoothRepository from '../../../data/repositories/BluetoothRepository'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -15,25 +15,19 @@ const StartScanUseCase = () => {
      * @returns {Promise}
      */
     executeStartScanUseCase = (serviceUuid, duration) => {
+        logDebug(LOG_TAG, ">>> triggered executeStartScanUseCase")
+
         return new Promise((fulfill, reject) => {
             startScan(serviceUuid, duration).then(() => {
-                logDebug(LOG_TAG, "succeeded to execute startScan with " + serviceUuid + " for " + duration + "seconds")
+                logDebug(LOG_TAG, "<<< succeeded to execute startScan with " + serviceUuid + " for " + duration + "seconds")
                 fulfill()
+
             }).catch((e) => {
-                this.outputErrorLog(e)
+                outputErrorLog(LOG_TAG, e)
                 reject(e)
             })
         })
     }
-
-    /**
-     * print error log delivered from bluetooth repository.
-     * @param {string} error 
-     */
-    outputErrorLog = (error) => {
-        logError(LOG_TAG, error)
-    }
-
     return { executeStartScanUseCase }
 }
 

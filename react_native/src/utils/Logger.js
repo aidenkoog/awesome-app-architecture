@@ -4,7 +4,7 @@
  * @param {string} logTag 
  * @param {string} logMessage 
  */
-export function logDebug(logTag, logMessage) {
+export const logDebug = (logTag, logMessage) => {
     console.log(logTag, logMessage)
 }
 
@@ -13,6 +13,15 @@ export function logDebug(logTag, logMessage) {
  * @param {string} logTag 
  * @param {string} logMessage 
  */
-export function logError(logTag, logMessage) {
+export const logError = (logTag, logMessage) => {
     console.error(logTag, logMessage)
+}
+
+/**
+     * print common error log.
+     * @param {string} logTag
+     * @param {string} error 
+     */
+export const outputErrorLog = (logTag, error) => {
+    logError(logTag, "<<<[E] " + error)
 }
