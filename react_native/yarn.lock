@@ -5937,6 +5937,13 @@ recoil-nexus@^0.4.0:
   resolved "https://registry.yarnpkg.com/recoil-nexus/-/recoil-nexus-0.4.0.tgz#3d69b197a6006d287ee4457dd774eb98950dc5be"
   integrity sha512-4ZgTXy+e5WvO54qh6Oir4LAYNevuxVxldyCTovevMVjU7fM/UO9t7RzY26G3tKGlHbFaECL3l25Kezl9ZLos6g==
 
+recoil-outside@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/recoil-outside/-/recoil-outside-0.1.1.tgz#5f02e9cc587f5ede6c0409fa2beaa77b80833dfc"
+  integrity sha512-Rs/VJHzIIcg4B1AGYZoAiZXZ2A8ktySG2Y/EdecvN+TRxLkW/oF97Jfa/L7i9EPpQlBHgqffzNY7dIXEcrarvQ==
+  dependencies:
+    rxjs "^6.6.3"
+
 recoil@^0.7.6:
   version "0.7.6"
   resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.7.6.tgz#75297ecd70bbfeeb72e861aa6141a86bb6dfcd5e"
@@ -6178,6 +6185,13 @@ run-parallel@^1.1.9:
   integrity sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==
   dependencies:
     queue-microtask "^1.2.2"
+
+rxjs@^6.6.3:
+  version "6.6.7"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.6.7.tgz#90ac018acabf491bf65044235d5863c4dab804c9"
+  integrity sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==
+  dependencies:
+    tslib "^1.9.0"
 
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
@@ -6773,7 +6787,7 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^1.8.1:
+tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
