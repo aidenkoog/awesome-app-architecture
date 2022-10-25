@@ -47,12 +47,12 @@ const BleRepository = () => {
      * and make it available to other components.
      * (resolved issue) comment this code because recoil state cannot be refered outside.
      * 
-     * [ scanning ]
+     * [ scanning atoms ]
      */
     const setBleScanningStateAtom = useSetRecoilState(bleScanningStateAtom)
 
     /**
-     * [ connection ]
+     * [ connection atoms ]
      */
     const setBleConnectionStateAtom = useSetRecoilState(bleConnectionStateAtom)
     const setBleServiceRetrieveStateAtom = useSetRecoilState(bleServiceRetrievedAtom)
@@ -60,7 +60,7 @@ const BleRepository = () => {
     const setBleMacOrUuidAtom = useSetRecoilState(bleMacOrUuidAtom)
 
     /**
-     * [ notification ]
+     * [ notification atoms ]
      */
     const setBleTxUuidNotificationStateAtom = useSetRecoilState(bleTxUuidNotificationStateAtom)
     const setBleFlowControlUuidNotificationStateAtom = useSetRecoilState(bleFlowControlUuidNotificationStateAtom)
@@ -354,7 +354,7 @@ const BleRepository = () => {
             setBleServiceRetrieveStateAtom(true)
 
             const uuidList = getUuidList(peripheral)
-            logDebug(LOG_TAG, "uuidList: " + uuidList)
+            logDebug(LOG_TAG, "<<< uuidList: " + uuidList)
 
             executeEnableAllNotificationPromise()
 
@@ -369,7 +369,7 @@ const BleRepository = () => {
      */
     const executeEnableAllNotificationPromise = async () => {
         await enableAllNotificationPromise().then(() => {
-            logDebug("succeeded to enable all notifications")
+            logDebug("<<< succeeded to enable all notifications")
 
             setBleTxUuidNotificationStateAtom(true)
             setBleFlowControlUuidNotificationStateAtom(true)
