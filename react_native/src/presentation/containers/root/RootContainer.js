@@ -15,7 +15,7 @@ const LOG_TAG = Constants.LOG.ROOT_UI_LOG
  * root container that includes logic and root component ui.
  * @returns {JSX.Element}
  */
-export default function RootContainer() {
+export default function RootContainer({navigation}) {
 
     /**
      * ble scanning state from recoil atom.

@@ -18,10 +18,10 @@ export const logError = (logTag, logMessage) => {
 }
 
 /**
-     * print common error log.
-     * @param {string} logTag
-     * @param {string} error 
-     */
+ * print common error log.
+ * @param {string} logTag
+ * @param {string} error 
+ */
 export const outputErrorLog = (logTag, error) => {
     logError(logTag, "<<<[E] " + error)
 }

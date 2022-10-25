@@ -8,18 +8,18 @@ const LOG_TAG = Constants.LOG.BT_USECASE_LOG
  * usecase's prefix: execute
  * example. executeConnectDeviceUseCase
  */
-const RefreshDeviceInfoUseCase = () => {
+const RequestHrInfoUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    executeRefreshDeviceInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> triggered executeRefreshDeviceInfoUseCase")
+    executeRequestHrInfoUseCase = () => {
+        logDebug(LOG_TAG, ">>> triggered executeRequestHrInfoUseCase")
     }
-    return { executeRefreshDeviceInfoUseCase }
+    return { executeRequestHrInfoUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default RefreshDeviceInfoUseCase
+export default RequestHrInfoUseCase

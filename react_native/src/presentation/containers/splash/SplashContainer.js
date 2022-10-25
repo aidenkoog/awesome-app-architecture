@@ -1,6 +1,6 @@
 import SplashComponent from './RootComponent'
 
-const SplashContainer = () => {
+const SplashContainer = ({navigation}) => {
     return (
         <SplashComponent />
     )

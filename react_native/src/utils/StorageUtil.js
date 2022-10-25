@@ -2,9 +2,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from './Constants'
 
 /**
- * storage utility
- * rule. GET: get, SET: store
+ * [ storage utility ]
+ * function's prefix naming rule. GET: get, SET: store
  * example. getProfileName, storeProfileName
+ * 
+ * [ notice. ]
+ * use Promise return style.
+ * example. 
+ * getProfileName().then(() => {}).catch((e) => {})
  */
 
 const KEY_PROFILE_NAME = Constants.STORAGE.KEY_PROFILE_NAME
@@ -21,7 +26,7 @@ export const storeProfileName = async (name) => {
 
 /**
  * get profile name from storage.
- * @returns {string}
+ * @returns {Promise}
  */
 export const getProfileName = async () => {
     return AsyncStorage.getItem(KEY_PROFILE_NAME)
@@ -38,7 +43,7 @@ export const storeBleDeviceName = async (name) => {
 
 /**
  * get ble device name from storage.
- * @returns {string}
+ * @returns {Promise}
  */
 export const getBleDeviceName = async () => {
     return AsyncStorage.getItem(KEY_BLE_DEVICE_NAME)
@@ -55,7 +60,7 @@ export const storeBleDeviceMacAddress = async (address) => {
 
 /**
  * get ble device mac address from storage.
- * @returns {string}
+ * @returns {Promise}
  */
 export const getBleDeviceMacAddress = async () => {
     return AsyncStorage.getItem(KEY_BLE_DEVICE_MAC_ADDRESS)

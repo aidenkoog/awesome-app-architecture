@@ -10,6 +10,9 @@ const LOG_TAG = Constants.LOG.BLE_UTIL_LOG_TAG
  */
 export const getBleCustomData = (customData) => {
     logDebug(LOG_TAG, "customData: " + customData)
+    // combine header, payload
+    // encoding them
+    // return
     return customData
 }
 

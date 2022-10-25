@@ -3,6 +3,11 @@ import { logDebug } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
+/**
+ * [ usecase naming rule. ]
+ * usecase's prefix: execute
+ * example. executeConnectDeviceUseCase
+ */
 const UpgradeFirewareUseCase = () => {
 
     /**
@@ -10,6 +15,10 @@ const UpgradeFirewareUseCase = () => {
      */
     executeUpgradeFirewareUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeUpgradeFirewareUseCase")
+
+        return new Promise((fulfill, reject) => {
+            
+        })
     }
     return { executeUpgradeFirewareUseCase }
 }

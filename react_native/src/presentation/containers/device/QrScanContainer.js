@@ -1,6 +1,6 @@
 import QrScanComponent from './QrScanComponent'
 
-const QrScanContainer = () => {
+const QrScanContainer = ({navigation}) => {
     return (
         <QrScanComponent />
     )

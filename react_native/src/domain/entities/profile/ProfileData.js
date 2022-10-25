@@ -1,4 +1,4 @@
-export class ProfileData {
+export default class ProfileData {
     constructor(name, picture, gender, birthday, weight, height) {
         this.name = name
         this.picture = picture

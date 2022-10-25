@@ -1,6 +1,6 @@
 import HomeComponent from './HomeComponent'
 
-const HomeContainer = () => {
+const HomeContainer = ({navigation}) => {
     return (
         <HomeComponent />
     )

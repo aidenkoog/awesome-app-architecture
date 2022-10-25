@@ -5,9 +5,16 @@ import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 /**
- * this usecase includes functions below.
- * scanning start / stop, connect / disconnect, enable / disable notification.
- * getting uuid list, executing ble module.
+ * [ usecase naming rule. ]
+ * usecase's prefix: execute
+ * example. executeConnectDeviceUseCase
+ * 
+ * [ this usecase provides functions below. ]
+ * scanning start / stop, 
+ * connect / disconnect, 
+ * enable / disable notification,
+ * getting uuid list,
+ * executing ble module.
  * @returns 
  */
 const ConnectBleUseCase = () => {

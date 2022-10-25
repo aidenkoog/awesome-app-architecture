@@ -9,6 +9,11 @@ import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
+/**
+ * [ usecase naming rule. ]
+ * usecase's prefix: execute
+ * example. executeConnectDeviceUseCase
+ */
 const StopScanUseCase = () => {
 
     const { stopScan } = BleRepository()

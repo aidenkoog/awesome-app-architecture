@@ -1,8 +1,8 @@
-import QrScanComponent from './QrScanComponent'
+import BluetoothComponent from './BluetoothComponent'
 
-const QrScanContainer = () => {
+const BluetoothContainer = ({navigation}) => {
     return (
-        <QrScanComponent />
+        <BluetoothComponent />
     )
 }
-export default QrScanContainer
+export default BluetoothContainer

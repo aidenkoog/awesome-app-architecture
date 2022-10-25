@@ -1,4 +1,20 @@
 export default {
+    SCREEN: {
+        ROOT: "Root",
+        SPLASH: "Splash",
+        PROFILE: "Profile",
+        QR_SCAN: "QrScan",
+        BLUETOOTH: "Bluetooth",
+        HOME: "Home",
+        HIDDEN: {
+            SPLASH: "HiddenSplash",
+            HOME: "HiddenHome",
+            BLUETOOTH: "Bluetooth",
+            COMMON: "Common",
+            PLATFORM: "Platform",
+            SERVER: "Server"
+        }
+    },
     ROOT: {
         APP_EVENT_TYPE: 'change',
         APP_ACTIVE: 'active',
@@ -52,6 +68,5 @@ export default {
         KEY_PROFILE_NAME: 'KEY_PROFILE_NAME',
         KEY_BLE_DEVICE_MAC_ADDRESS: 'KEY_BLE_DEVICE_MAC_ADDRESS',
         KEY_BLE_DEVICE_NAME: 'KEY_BLE_DEVICE_NAME',
-        KEY_BLE_DEVICE_MAC_ADDRESS: 'KEY_BLE_DEVICE_MAC_ADDRESS',
     }
 };

@@ -3,18 +3,18 @@ import { logDebug } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-const GetStepInfoUseCase = () => {
+const RequestSleepInfoUseCase = () => {
 
     /**
      * Execute the use case. 
      */
-    executeGetStepInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetStepInfoUseCase")
+    executeRequestSleepInfoUseCase = () => {
+        logDebug(LOG_TAG, ">>> triggered executeRequestSleepInfoUseCase")
     }
-    return { executeGetStepInfoUseCase }
+    return { executeRequestSleepInfoUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default GetStepInfoUseCase
+export default RequestSleepInfoUseCase

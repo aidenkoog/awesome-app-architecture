@@ -1,6 +1,6 @@
 import ProfileComponent from './ProfileComponent'
 
-const ProfileContainer = () => {
+const ProfileContainer = ({navigation}) => {
     return (
         <ProfileComponent />
     )

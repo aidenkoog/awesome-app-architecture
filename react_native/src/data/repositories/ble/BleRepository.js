@@ -34,14 +34,7 @@ const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
 
 /**
- * flag for checking repository state.
- * reason : check if state I set as true is continued to keep.
- */
-let repositoryState = false
-
-/**
  * cached ble device name and mac address.
- * they are
  */
 let cachedBleDeviceName = null
 let cachedBleMacAddress = null
@@ -144,7 +137,6 @@ const BleRepository = () => {
      */
     onScanStopped = () => {
         logDebug(LOG_TAG, "<<< stopped device scan")
-        logDebug(LOG_TAG, "<<< repositoryState: " + repositoryState)
         setBleScanningStateAtom(false)
         this.restartScan()
     }
@@ -169,7 +161,7 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "characteristic: " + characteristicCustomData.characteristic)
         logDebug(LOG_TAG, "value: " + characteristicCustomData.value)
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(characteristicCustomData.value))
-        logDebug(LOG_TAG, ">>> received perfectly\n")
+        logDebug(LOG_TAG, ">>> received perfectly")
         logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
     }
 
@@ -280,8 +272,6 @@ const BleRepository = () => {
      * @returns {Promise}
      */
     initializeBleModule = () => {
-        logDebug(LOG_TAG, ">>> repositoryState: " + repositoryState)
-        repositoryState = true
         return new Promise((fulfill, reject) => {
             bleManager.start(null).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded to initialize ble manager")
@@ -332,11 +322,10 @@ const BleRepository = () => {
     /**
      * start scanning ble device.
      * @param {string} serviceUuid 
-     * @param {number} duration 
+     * @param {number} duration
+     * @returns {Promise}
      */
     startScan = (serviceUuid = SERVICE_UUID, duration = 3) => {
-        logDebug(LOG_TAG, ">>> repositoryState: " + repositoryState)
-
         return new Promise((fulfill, reject) => {
             let serviceUuids = []
             if (serviceUuid != null && serviceUuid != "" && serviceUuid && "undefined") {
@@ -373,6 +362,7 @@ const BleRepository = () => {
 
     /**
      * stop scanning ble device.
+     * @returns {Promise}
      */
     stopScan = () => {
         return new Promise((fulfill, reject) => {
@@ -448,7 +438,8 @@ const BleRepository = () => {
 
     /**
      * send custom characteristic data.
-     * @param {bytes} customData 
+     * @param {bytes} customData
+     * @returns {Promise}
      */
     sendBleCustomData = (customData) => {
         return new Promise((fulfill, reject) => {
@@ -491,13 +482,13 @@ const BleRepository = () => {
     useEffect(() => {
         this.refreshBleEventListeners()
 
-        // AsyncStorage itself has some issues, so it has to be used like Promise.
         getBleDeviceName().then((deviceName) => {
             cachedBleDeviceName = deviceName
-            logDebug(LOG_TAG)
+            logDebug(LOG_TAG, "cachedBleDeviceName: " + cachedBleDeviceName)
         })
         getBleDeviceMacAddress().then((macAddress) => {
             cachedBleMacAddress = macAddress
+            logDebug(LOG_TAG, "cachedBleMacAddress: " + cachedBleMacAddress)
         })
 
         return () => { }

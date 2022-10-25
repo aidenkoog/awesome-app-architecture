@@ -1,4 +1,3 @@
-
 /**
  * check if the data is valid.
  * @param {string} data 
