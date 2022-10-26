@@ -4,6 +4,48 @@ import { logDebug } from "./Logger"
 
 const LOG_TAG = Constants.LOG.BLE_UTIL_LOG_TAG
 
+
+/**
+ * get version information, which is one of the header contents.
+ * default: 1
+ * @returns {string}
+ */
+export const getVersionAsHexString = () => {
+    return convertDecimalToHexString(1)
+}
+
+/**
+ * get device name information, which is one of the header contents.
+ * @param {string} deviceName
+ * @returns {string}
+ */
+export const getDeviceNameAsHexString = (deviceName) => {
+    let deviceNameAsHexString = ""
+
+    for (const item of deviceName) {
+        var itemAsInt = parseInt(item, 10) + 48
+        deviceNameAsHexString += (convertDecimalToHexString(itemAsInt) + "")
+    }
+    return deviceNameAsHexString
+}
+
+/**
+ * get device message id information, which is one of the header contents.
+ * this method has some problems. under construction.
+ */
+export const getMessageIdAsHexString = () => {
+    return "\x12" + "\x34" + "\x56" + "\x78"
+}
+
+/**
+ * convert hex string to decimal.
+ * @param {string} hex 
+ * @returns {number}
+ */
+export const convertHexStringToDecimal = (hex) => {
+    return parseInt(hex, 10)
+}
+
 /**
  * Returns the notification feature name according to the uuid passed as an argument.
  * @param {string} uuid 
@@ -49,6 +91,7 @@ export const convertBleCustomToHexData = (customData) => {
     // print hex string with no space character.
     // currently, it's not used.
     let replacedHexStringData = replaceAll(hexStringData, " ", "");
+    logDebug(LOG_TAG, "hex without space: " + replacedHexStringData)
 
     return hexStringData;
 }

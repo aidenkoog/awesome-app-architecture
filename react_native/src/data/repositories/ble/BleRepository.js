@@ -483,6 +483,7 @@ const BleRepository = () => {
 
             this.enableAllNotificationAtoms()
             this.releaseAtomStateAfterCompleted()
+
             storeBleDeviceMacAddress(peripheralId)
 
         }).catch((e) => {
@@ -495,17 +496,22 @@ const BleRepository = () => {
      * case. when device is disconnected. / before the device scan.
      */
     releaseAllAtomStates = () => {
+        // connection state.
         setBleConnectionStateAtom(false)
 
+        // scanning state.
         setBleDeviceFoundAtom(false)
         setBleScanningStateAtom(false)
 
+        // found device's name.
         setBleDeviceNameAtom(Constants.COMMON.DEFAULT_DATA)
 
+        // notification states.
         setBleBatteryUuidNotificationStateAtom(false)
         setBleFlowControlUuidNotificationStateAtom(false)
         setBleTxUuidNotificationStateAtom(false)
 
+        // found device's mac or uuid.
         setBleMacOrUuidAtom(Constants.COMMON.DEFAULT_DATA)
     }
 
