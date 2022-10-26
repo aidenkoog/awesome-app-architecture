@@ -6,13 +6,15 @@ export default {
         QR_SCAN: "QrScan",
         BLUETOOTH: "Bluetooth",
         HOME: "Home",
+        SW_UPDATE: "SwUpdate",
+        EDIT_PROFILE: "EditProfile",
         HIDDEN: {
             SPLASH: "HiddenSplash",
             HOME: "HiddenHome",
-            BLUETOOTH: "Bluetooth",
-            COMMON: "Common",
-            PLATFORM: "Platform",
-            SERVER: "Server"
+            BLUETOOTH: "HiddenBluetooth",
+            COMMON: "HiddenCommon",
+            PLATFORM: "HiddenPlatform",
+            SERVER: "HiddenServer"
         }
     },
     ROOT: {
@@ -26,7 +28,8 @@ export default {
         DEFAULT_LIST_STATE: [],
     },
     BT: {
-        SCAN_DURATION: 3
+        SCAN_DURATION: 3,
+        SCAN_DELAY_TIME: 1500,
     },
     LOG: {
         // ble manager log.

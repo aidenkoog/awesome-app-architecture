@@ -5,7 +5,7 @@ import { isValid } from '../../../utils/CommonUtil.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { bleScanningStateAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
-import { convertBleCustomToHexData, getBleCustomData } from '../../../utils/BleUtil.js'
+import { convertBleCustomToHexData, getBleCustomData, getFeatureNameAsUuid } from '../../../utils/BleUtil.js'
 
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/StorageUtil'
 import {
@@ -14,7 +14,8 @@ import {
 } from '../../../utils/Config.js'
 import {
     bleTxUuidNotificationStateAtom,
-    bleFlowControlUuidNotificationStateAtom
+    bleFlowControlUuidNotificationStateAtom,
+    bleBatteryUuidNotificationStateAtom
 } from '../../adapters/recoil/bluetooth/BleNotificationAtom'
 import { bleConnectionStateAtom, bleServiceRetrievedAtom, bleDeviceNameAtom, bleMacOrUuidAtom }
     from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
@@ -23,9 +24,13 @@ import { bleConnectionStateAtom, bleServiceRetrievedAtom, bleDeviceNameAtom, ble
 /**
  * load ble manager module (react-native-ble-manager).
  * set-up debugging log tag.
+ * initialize scan duration and scan restart delay time.
  */
 const bleManager = require('../../sources/bluetooth/ble_manager/BleManager.js').default
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
+const SCAN_DURATION = Constants.BT.SCAN_DURATION
+const SCAN_DELAY_TIME = Constants.BT.SCAN_DELAY_TIME
+
 
 /**
  * standard code for handling ble related callbacks.
@@ -66,6 +71,7 @@ const BleRepository = () => {
      */
     const setBleTxUuidNotificationStateAtom = useSetRecoilState(bleTxUuidNotificationStateAtom)
     const setBleFlowControlUuidNotificationStateAtom = useSetRecoilState(bleFlowControlUuidNotificationStateAtom)
+    const setBleBatteryUuidNotificationStateAtom = useSetRecoilState(bleBatteryUuidNotificationStateAtom)
 
     /**
      * listeners for catching the ble events.
@@ -175,11 +181,11 @@ const BleRepository = () => {
 
             if (peripherals.length == 0) {
                 outputErrorLog(LOG_TAG, "<<< there's no any connected peripheral")
-                setTimeout(() => { this.startScan() }, 1500)
+                setTimeout(() => { this.startScan() }, SCAN_DELAY_TIME)
 
             } else {
                 if (!isValid(cachedBleDeviceName) || !isValid(cachedBleMacAddress)) {
-                    setTimeout(() => { this.startScan() }, 1500)
+                    setTimeout(() => { this.startScan() }, SCAN_DELAY_TIME)
 
                 } else {
                     logDebug(LOG_TAG, "there's already cached ble device name and mac address. connect device directly")
@@ -258,7 +264,8 @@ const BleRepository = () => {
     enableNotification = (peripheralId, serviceUuid, characteristicUuid) => {
         return new Promise((fulfill, reject) => {
             bleManager.startNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
-                logDebug(LOG_TAG, "<<< succeeded to enable notification of " + characteristicUuid)
+                logDebug(LOG_TAG, "<<< succeeded to enable notification of "
+                    + getFeatureNameAsUuid(characteristicUuid) + " : " + characteristicUuid)
                 fulfill()
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occured by startNotification of ble manager")
@@ -325,7 +332,7 @@ const BleRepository = () => {
      * @param {number} duration
      * @returns {Promise}
      */
-    startScan = (serviceUuid = SERVICE_UUID, duration = 3) => {
+    startScan = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
         return new Promise((fulfill, reject) => {
             let serviceUuids = []
             if (serviceUuid != null && serviceUuid != "" && serviceUuid && "undefined") {
@@ -414,6 +421,7 @@ const BleRepository = () => {
 
             setBleTxUuidNotificationStateAtom(true)
             setBleFlowControlUuidNotificationStateAtom(true)
+            setBleBatteryUuidNotificationStateAtom(true)
             setBleConnectionStateAtom(true)
             storeBleDeviceMacAddress(peripheralId)
 

@@ -14,8 +14,8 @@ export default StyleSheet.create(
       justifyContent: 'center',
     },
     root_text: {
-      color: '#ffffff',
-      alignSelf: 'center'
+      color: '#000000',
+      alignSelf: 'center',
     },
 
     // splash

@@ -16,3 +16,11 @@ export const bleFlowControlUuidNotificationStateAtom = atom({
     key: 'bleFlowControlUuidNotificationStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
+
+/**
+ * indicate whether or not the notification activation about battery uuid is successful.
+ */
+export const bleBatteryUuidNotificationStateAtom = atom({
+    key: 'bleBatteryUuidNotificationStateAtom',
+    default: Constants.COMMON.DEFAULT_STATE,
+})

@@ -1,8 +1,8 @@
-import SplashComponent from './RootComponent'
+import SoftwareUpdateComponent from './SoftwareUpdateComponent'
 
-const SplashContainer = () => {
+const SoftwareUpdateContainer = () => {
     return (
-        <SplashComponent />
+        <SoftwareUpdateComponent />
     )
 }
-export default SplashContainer
+export default SoftwareUpdateContainer

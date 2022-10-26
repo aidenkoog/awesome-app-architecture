@@ -1,7 +1,26 @@
+import { BATTERY_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from "./Config"
 import Constants from "./Constants"
 import { logDebug } from "./Logger"
 
 const LOG_TAG = Constants.LOG.BLE_UTIL_LOG_TAG
+
+/**
+ * Returns the notification feature name according to the uuid passed as an argument.
+ * @param {string} uuid 
+ * @returns {string}
+ */
+export const getFeatureNameAsUuid = (uuid) => {
+    switch (uuid) {
+        case TX_CHARACTERISTIC_UUID:
+            return "TX notification"
+        case FLOW_CONTROL_CHARACTERISTIC_UUID:
+            return "Flow Control notification"
+        case BATTERY_CHARACTERISTIC_UUID:
+            return "Battery notification"
+        default:
+            return "Unknown notification"
+    }
+}
 
 /**
  * convert bytes typed custom data to different type's.
