@@ -384,7 +384,6 @@ class BleManager {
    * @returns {Promise}
    */
   scan(serviceUuids, seconds, allowDuplicates, scanningOptions = {}) {
-    logDebug(LOG_TAG, "start scanning the device")
     return new Promise((fulfill, reject) => {
       if (allowDuplicates == null) {
         allowDuplicates = false

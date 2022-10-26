@@ -10,10 +10,10 @@ export const bleConnectionStateAtom = atom({
 })
 
 /**
- * represent if services corresponding to mac or uuid (ios) are retrieved.
+ * represent if all bluetooth connection job is completed.
  */
-export const bleServiceRetrievedAtom = atom({
-    key: 'bleServiceRetrievedAtom',
+export const bleConnectionCompleteStateAtom = atom({
+    key: 'bleConnectionCompleteStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
 
