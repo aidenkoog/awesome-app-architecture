@@ -5,16 +5,10 @@ const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const GetProfileInfoUseCase = () => {
 
-    /**
-     * Execute the use case. 
-     */
     executeGetProfileInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetProfileInfoUseCase")
     }
     return { executeGetProfileInfoUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default GetProfileInfoUseCase

@@ -5,17 +5,13 @@ import { logDebug } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
-/**
- * [ usecase naming rule. ]
- * usecase's prefix: execute
- * example. executeConnectDeviceUseCase
- */
 const SendCallUseCase = () => {
 
     const { sendCall, sendDirectCall } = PlatformRepository()
 
     /**
-     * Execute the use case. 
+     * send phone call
+     * @param {boolean} directCall
      */
     executeSendCallUseCase = (directCall) => {
         logDebug(LOG_TAG, ">>> ### triggered executeSendCallUseCase")
@@ -28,7 +24,4 @@ const SendCallUseCase = () => {
     return { executeSendCallUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default SendCallUseCase

@@ -25,6 +25,7 @@ export default {
     COMMON: {
         DEFAULT_DATA: '',
         DEFAULT_STATE: false,
+        DEFAULT_INT_VALUE: 0,
         DEFAULT_LIST_STATE: [],
     },
     BT: {

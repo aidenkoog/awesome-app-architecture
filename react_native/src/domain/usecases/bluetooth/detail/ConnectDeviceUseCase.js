@@ -30,7 +30,4 @@ const ConnectDeviceUseCase = () => {
     return { executeConnectDeviceUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default ConnectDeviceUseCase

@@ -2,19 +2,16 @@ import Constants from "../../../utils/Constants"
 import { logDebug, outputErrorLog } from "../../../utils/Logger"
 import { Linking, Platform } from "react-native"
 
-/**
- * declare log tag.
- */
 const LOG_TAG = Constants.LOG.PLATFORM_REPO_LOG
 
 /**
- * sms dividor.
  * the dividers used by Android and iOS are different.
  */
 const SMS_DIVIDER = Platform.OS === 'android' ? '?' : '&'
 
 /**
  * implemented apis related to platform.
+ * @returns {Any}
  */
 const PlatformRepository = () => {
 
@@ -24,7 +21,7 @@ const PlatformRepository = () => {
      * @param {string} message
      */
     sendDirectSms = (receiverPhoneNumber, message = "") => {
-        logDebug(LOG_TAG, "receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
+        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
     }
 
     /**
@@ -33,8 +30,9 @@ const PlatformRepository = () => {
      * @param {string} message
      */
     sendSms = (receiverPhoneNumber, message = "") => {
-        logDebug(LOG_TAG, "receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
+        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
         Linking.openURL('sms:' + receiverPhoneNumber + SMS_DIVIDER + 'body=' + message).then(() => {
+            logDebug("<<< succeeded to send sms")
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occured by open url of sendSms")
@@ -46,7 +44,7 @@ const PlatformRepository = () => {
      * @param {string} receiverPhoneNumber
      */
     sendDirectCall = (receiverPhoneNumber) => {
-        logDebug(LOG_TAG, "receiver's phone number: " + receiverPhoneNumber)
+        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber)
     }
 
     /**
@@ -54,8 +52,9 @@ const PlatformRepository = () => {
      * @param {string} receiverPhoneNumber
      */
     sendCall = (receiverPhoneNumber) => {
-        logDebug(LOG_TAG, "receiver's phone number: " + receiverPhoneNumber)
+        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber)
         Linking.openURL('tel:' + receiverPhoneNumber).then(() => {
+            logDebug(LOG_TAG, "<<< succeeded to send call")
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occured by open url of scanCall")
@@ -64,7 +63,7 @@ const PlatformRepository = () => {
 
     getMyPhoneNumber = () => {
         const myPhoneNumber = ""
-        logDebug(LOG_TAG, "my phone number: " + myPhoneNumber)
+        logDebug(LOG_TAG, "<<< my phone number: " + myPhoneNumber)
         return ""
     }
 

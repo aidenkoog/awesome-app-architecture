@@ -5,8 +5,8 @@ import { isValid } from '../../../utils/CommonUtil.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
+import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
 import { convertBleCustomToHexData, getBleCustomData, getFeatureNameAsUuid } from '../../../utils/BleUtil.js'
-
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/StorageUtil'
 import {
     BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID,
@@ -24,7 +24,6 @@ import {
 
 /**
  * load ble manager module (react-native-ble-manager).
- * set-up debugging log tag.
  * initialize scan duration and scan restart delay time.
  */
 const bleManager = require('../../sources/bluetooth/ble_manager/BleManager.js').default
@@ -46,6 +45,7 @@ let cachedBleMacAddress = null
 
 /**
  * bluetooth api implementation.
+ * @returns {Any}
  */
 const BleRepository = () => {
 
@@ -73,6 +73,11 @@ const BleRepository = () => {
 
     const setBleDeviceNameAtom = useSetRecoilState(bleDeviceNameAtom)
     const setBleMacOrUuidAtom = useSetRecoilState(bleMacOrUuidAtom)
+
+    /**
+     * [ battery state atom ]
+     */
+    const setBleBatteryStateAtom = useSetRecoilState(bleBatteryStateAtom)
 
     /**
      * [ notification atoms ]
@@ -105,10 +110,8 @@ const BleRepository = () => {
      * refresh ble event listeners. (release and add them again.)
      */
     refreshBleEventListeners = () => {
-        logDebug(LOG_TAG, ">>> refresh ble event listeners")
         this.releaseBleEventListeners()
         this.addBleEventListeners()
-        logDebug(LOG_TAG, "<<< finished refreshing ble event listeners")
     }
 
     /**
@@ -145,8 +148,6 @@ const BleRepository = () => {
 
         if (peripheralName == cachedBleDeviceName) {
             logDebug(LOG_TAG, "<<< found my device (" + peripheralName + "). start to connect device")
-
-            // store the name and mac address of the device found, and set the device found flag. 
             setBleDeviceFoundAtom(true)
             setBleDeviceNameAtom(peripheralName)
             setBleMacOrUuidAtom(peripheralId)
@@ -165,9 +166,6 @@ const BleRepository = () => {
      */
     connectDeviceWhenFound = (peripheralId) => {
         bleManager.connect(peripheralId).then(() => {
-            logDebug(LOG_TAG, "<<< succeeded to connect " + peripheralId + " when found")
-
-            // enable ble connection state.
             setBleConnectionStateAtom(true)
             this.retrieveServices(peripheralId)
 
@@ -231,7 +229,8 @@ const BleRepository = () => {
         }
         bleManager.getConnectedPeripherals([]).then((peripherals) => {
             if (peripherals.length == 0) {
-                outputErrorLog(LOG_TAG, "<<< there's no any connected peripheral")
+                outputErrorLog(LOG_TAG, "<<< there's no any connected peripheral. "
+                    + "scanning is going to be starting after " + SCAN_DELAY_TIME)
                 setTimeout(() => { this.startScan() }, SCAN_DELAY_TIME)
 
             } else {
@@ -258,16 +257,12 @@ const BleRepository = () => {
         return new Promise((fulfill, reject) => {
             bleManager.connect(peripheralId).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded to connect " + peripheralId)
-
-                // enable ble connection state.
                 setBleConnectionStateAtom(true)
                 this.retrieveServices(peripheralId)
                 fulfill()
 
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occured by connect of ble manager")
-
-                // disable ble connection state.
                 setBleConnectionStateAtom(false)
                 reject(e)
 
@@ -380,7 +375,8 @@ const BleRepository = () => {
     getBatteryLevel = (peripheralId, batteryserviceUuid, batterycharacteristicUuid) => {
         return new Promise((fulfill, reject) => {
             bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
-                logDebug(LOG_TAG, "<<< succeeded to get battery level-" + batteryLevel)
+                logDebug(LOG_TAG, "<<< succeeded to get battery level-" + batteryLevel + "%")
+                setBleBatteryStateAtom(batteryLevel)
                 fulfill(batteryLevel)
 
             }).catch((e) => {
@@ -394,7 +390,7 @@ const BleRepository = () => {
      * start scanning ble device.
      * [ flow sequence ]
      * 1. release all recoil atom state.
-     * 2. check if delivered service uuid is valid. (it will be always valid because of function's parameter style.)
+     * 2. check if delivered service uuid is valid.
      * 3. enable bluetooth feature.
      * 4. start scanning the device.
      * @param {string} serviceUuid 
@@ -415,9 +411,7 @@ const BleRepository = () => {
                 reject(errorMessage)
                 return
             }
-            // enable flag indicates that scanning is now in progress.
             setBleScanningStateAtom(true)
-
             this.enableBluetooth().then(() => {
                 bleManager.scan(serviceUuids, duration, false).then(() => {
                     fulfill()
@@ -441,7 +435,6 @@ const BleRepository = () => {
     stopScan = () => {
         return new Promise((fulfill, reject) => {
             bleManager.stopScan().then(() => {
-                // disable flag indicates that scanning is now in progress.
                 setBleScanningStateAtom(false)
                 fulfill()
 
@@ -482,7 +475,6 @@ const BleRepository = () => {
         await enableAllNotificationPromise(peripheralId).then(() => {
             logDebug(LOG_TAG, "<<< succeeded to enable all notifications")
 
-            // enable flag represents ble connection complete.
             setBleConnectionCompleteStateAtom(true)
 
             this.enableAllNotificationAtoms()

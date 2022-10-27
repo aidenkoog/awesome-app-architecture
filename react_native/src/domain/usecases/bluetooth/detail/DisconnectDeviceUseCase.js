@@ -1,8 +1,3 @@
-/**
- * detailed bluetooth usecase.
- * currently, it's not used.
- */
-
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
@@ -35,7 +30,4 @@ const DisconnectDeviceUseCase = () => {
     return { executeDisconnectDeviceUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default DisconnectDeviceUseCase

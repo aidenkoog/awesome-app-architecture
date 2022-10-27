@@ -1,8 +1,3 @@
-/**
- * detailed bluetooth usecase.
- * currently, it's not used.
- */
-
 import Constants from '../../../utils/Constants.js'
 import { logDebug } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
@@ -28,7 +23,4 @@ const GetUuidListUseCase = () => {
     return { executeGetUuidListUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default GetUuidListUseCase
