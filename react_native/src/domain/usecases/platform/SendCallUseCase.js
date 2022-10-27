@@ -10,21 +10,25 @@ const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
  * usecase's prefix: execute
  * example. executeConnectDeviceUseCase
  */
-const GetPhoneNumberUseCase = () => {
+const SendCallUseCase = () => {
 
-    const { getMyPhoneNumber } = PlatformRepository()
+    const { sendCall, sendDirectCall } = PlatformRepository()
 
     /**
      * Execute the use case. 
      */
-    executeGetPhoneNumberUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetPhoneNumberUseCase")
-        getMyPhoneNumber()
+    executeSendCallUseCase = (directCall) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeSendCallUseCase")
+        if (directCall) {
+            sendDirectCall()
+        } else {
+            sendCall()
+        }
     }
-    return { executeGetPhoneNumberUseCase }
+    return { executeSendCallUseCase }
 }
 
 /**
  * export bluetooth usecase.
  */
-export default GetPhoneNumberUseCase
+export default SendCallUseCase
