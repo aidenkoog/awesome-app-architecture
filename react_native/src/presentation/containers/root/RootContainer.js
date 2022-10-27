@@ -5,8 +5,6 @@ import Constants from "../../../utils/Constants"
 import RootComponent from "./RootComponent"
 import { logDebug, outputErrorLog } from "../../../utils/Logger"
 import ConnectBleUseCase from "../../../domain/usecases/bluetooth/ConnectBleUseCase"
-import { bleScanningStateAtom } from "../../../data/adapters/recoil/bluetooth/ScanningStateAtom"
-import { useRecoilValue } from "recoil"
 import { checkBluetoothPermission } from "../../../utils/PermissionUtil"
 
 
@@ -17,11 +15,6 @@ const LOG_TAG = Constants.LOG.ROOT_UI_LOG
  * @returns {JSX.Element}
  */
 export default function RootContainer({ }) {
-
-    /**
-     * ble scanning state from recoil atom.
-     */
-    const bleScanningState = useRecoilValue(bleScanningStateAtom)
 
     /**
      * funtional usecase declaration test.
@@ -89,9 +82,6 @@ export default function RootContainer({ }) {
     }, [])
 
     return (
-        <RootComponent
-            scanningState={bleScanningState}
-        >
-        </RootComponent>
+        <RootComponent />
     )
 }
