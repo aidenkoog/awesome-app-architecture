@@ -6,6 +6,7 @@
 ### 2022/10/25 : (2nd) Enforce ble repository logic, merge detailed ble usecases, rearrange recoil atoms and add storage util
 ### 2022/10/26 : (1st) Rearranged usecases, added navigation library and add additional comment to entire source code.
 ### 2022/10/26 : (2nd) Hotfix, fixed build errors and hide title bar in the screen.
+### 2022/10/27 : Added permission utils and Added react-native-get-random-values library.
 
 
 # How To Intialize New App
