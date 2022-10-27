@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import { AppState, Platform, PermissionsAndroid } from "react-native"
+import { AppState } from "react-native"
 import { SERVICE_UUID } from "../../../utils/Config"
 import Constants from "../../../utils/Constants"
 import RootComponent from "./RootComponent"
@@ -7,6 +7,7 @@ import { logDebug, outputErrorLog } from "../../../utils/Logger"
 import ConnectBleUseCase from "../../../domain/usecases/bluetooth/ConnectBleUseCase"
 import { bleScanningStateAtom } from "../../../data/adapters/recoil/bluetooth/ScanningStateAtom"
 import { useRecoilValue } from "recoil"
+import { checkBluetoothPermission } from "../../../utils/PermissionUtil"
 
 
 const LOG_TAG = Constants.LOG.ROOT_UI_LOG
@@ -48,36 +49,8 @@ export default function RootContainer({ }) {
     }
 
     /**
-     * test code for checking if usecase, repository and core module work well or not.
+     * start scan (temporary code for testing)
      */
-    const testBluetoothFeature = () => {
-        if (Platform.OS == "android") {
-            if (Platform.Version >= 23) {
-                // check if user had accepted permission or not.
-                PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((permitted) => {
-                    if (permitted) {
-                        logDebug(LOG_TAG, "<<< user had already accepted permission")
-                        startScanJob()
-
-                    } else {
-                        // request permission
-                        PermissionsAndroid.request(
-                            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION).then((permitted) => {
-                                if (permitted) {
-                                    logDebug(LOG_TAG, "<<< user accepted permission")
-                                    startScanJob()
-                                } else {
-                                    outputErrorLog(LOG_TAG, "<<< user refused permission")
-                                }
-                            });
-                    }
-                })
-            }
-        } else {
-            startScanJob()
-        }
-    }
-
     const startScanJob = () => {
         executeBleModuleUseCase().then(() => {
             logDebug(LOG_TAG, "<<< succeeded in executing ble module")
@@ -100,7 +73,13 @@ export default function RootContainer({ }) {
         AppState.addEventListener(Constants.ROOT.APP_EVENT_TYPE, onHandleAppStateChange)
 
         // test code for ble test
-        testBluetoothFeature()
+        checkBluetoothPermission((accepted) => {
+            if (!accepted) {
+                outputErrorLog(LOG_TAG, "<<< user rejected the permission")
+                return
+            }
+            startScanJob()
+        })
 
         // when component is unmounted
         return () => {

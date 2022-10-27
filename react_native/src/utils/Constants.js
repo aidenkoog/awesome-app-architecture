@@ -30,6 +30,8 @@ export default {
     BT: {
         SCAN_DURATION: 3,
         SCAN_DELAY_TIME: 1500,
+        BT_PERMISSION_ACCEPTED: true,
+        BT_PERMISSION_REJECTED: false,
     },
     LOG: {
         // ble manager log.
@@ -66,6 +68,9 @@ export default {
 
         // ble util.
         BLE_UTIL_LOG_TAG: 'BLE_UTIL_LOG_TAG',
+
+        // permisstion util.
+        PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
     },
     STORAGE: {
         KEY_PROFILE_NAME: 'KEY_PROFILE_NAME',

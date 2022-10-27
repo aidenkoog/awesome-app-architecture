@@ -176,6 +176,8 @@ const BleRepository = () => {
 
             // disable ble connection state.
             setBleConnectionStateAtom(false)
+
+            // TODO: logic to retry device scan will be added.
         })
     }
 
@@ -224,7 +226,7 @@ const BleRepository = () => {
             logDebug(LOG_TAG, "cannot restart scanning ("
                 + "device found: " + bleDeviceFound
                 + ", connected: " + bleConnectionState
-                + ", completed: " + bleConnectionCompleteState)
+                + ", completed: " + bleConnectionCompleteState) + ")"
             return
         }
         bleManager.getConnectedPeripherals([]).then((peripherals) => {
@@ -268,6 +270,8 @@ const BleRepository = () => {
                 // disable ble connection state.
                 setBleConnectionStateAtom(false)
                 reject(e)
+
+                // TODO: logic to retry device scan will be added.
             })
         })
     }

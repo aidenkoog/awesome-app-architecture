@@ -26,6 +26,7 @@
     "react-native-crypto": "^2.2.0",
     "react-native-crypto-js": "^1.0.0",
     "react-native-gesture-handler": "^2.7.1",
+    "react-native-get-random-values": "^1.8.0",
     "react-native-randombytes": "^3.6.1",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
