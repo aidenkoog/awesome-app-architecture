@@ -1,6 +1,6 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID } from '../../../utils/Config.js'
+import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
+import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -38,7 +38,4 @@ const GetBatteryLevelUseCase = () => {
     return { executeGetBatteryLevelUseCase }
 }
 
-/**
- * export bluetooth usecase.
- */
 export default GetBatteryLevelUseCase

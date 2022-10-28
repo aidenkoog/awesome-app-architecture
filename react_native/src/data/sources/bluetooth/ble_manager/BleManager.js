@@ -1,6 +1,6 @@
 import { NativeModules } from 'react-native'
 import Constants from '../../../../utils/Constants'
-import { logDebug, outputErrorLog } from '../../../../utils/Logger'
+import { logDebug, outputErrorLog } from '../../../../utils/logger/Logger'
 
 /**
  * load ble manager from native modules.

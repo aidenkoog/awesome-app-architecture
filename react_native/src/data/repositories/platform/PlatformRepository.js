@@ -1,5 +1,5 @@
 import Constants from "../../../utils/Constants"
-import { logDebug, outputErrorLog } from "../../../utils/Logger"
+import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
 import { Linking, Platform } from "react-native"
 
 const LOG_TAG = Constants.LOG.PLATFORM_REPO_LOG
