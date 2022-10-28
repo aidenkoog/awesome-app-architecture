@@ -1,6 +1,6 @@
 import BluetoothComponent from './BluetoothComponent'
 
-const BluetoothContainer = ({ navigation }) => {
+const BluetoothContainer = ({navigation}) => {
     return (
         <BluetoothComponent />
     )

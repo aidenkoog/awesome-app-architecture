@@ -1,23 +1,12 @@
-import CommonRepository from '../../../data/repositories/common/CommonRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebug } from '../../../utils/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
 const SetProfileInfoUseCase = () => {
 
-    const { saveUserProfile } = CommonRepository()
-
-    /**
-     * execute usecase of saving user profile.
-     * @param {Any} userProfileInfo
-     * @param {callback} onResult
-     */
-    executeSetProfileInfoUseCase = (userProfileInfo, onResult) => {
+    executeSetProfileInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeSetProfileInfoUseCase")
-        saveUserProfile(userProfileInfo, onResult, (succeeded) => {
-            onResult(succeeded)
-        })
     }
     return { executeSetProfileInfoUseCase }
 }

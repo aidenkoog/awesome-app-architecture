@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
 import Constants from '../../../utils/Constants.js'
-import { isValid } from '../../../utils/common/CommonUtil.js'
-import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
+import { isValid } from '../../../utils/CommonUtil.js'
+import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
-import { convertBleCustomToHexData, getBleCustomData, getFeatureNameAsUuid } from '../../../utils/ble/BleUtil.js'
-import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
+import { convertBleCustomToHexData, getBleCustomData, getFeatureNameAsUuid } from '../../../utils/BleUtil.js'
+import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/StorageUtil'
 import {
     BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID,
     FLOW_CONTROL_CHARACTERISTIC_UUID, SERVICE_UUID, TX_CHARACTERISTIC_UUID
-} from '../../../utils/ble/BleConfig.js'
+} from '../../../utils/Config.js'
 import {
     bleTxUuidNotificationStateAtom,
     bleFlowControlUuidNotificationStateAtom,

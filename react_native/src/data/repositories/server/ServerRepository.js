@@ -1,5 +1,5 @@
 import Constants from "../../../utils/Constants"
-import { logDebug } from "../../../utils/logger/Logger"
+import { logDebug } from "../../../utils/Logger"
 
 const LOG_TAG = Constants.LOG.SERVER_REPO_LOG
 
