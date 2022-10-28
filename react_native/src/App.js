@@ -2,7 +2,6 @@ import { RecoilRoot } from 'recoil'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import RootContainer from './presentation/containers/root/RootContainer'
 import SplashContainer from './presentation/containers/splash/SplashContainer'
 import ProfileContainer from './presentation/containers/profile/ProfileContainer'
 import QrScanContainer from './presentation/containers/device/QrScanContainer'
@@ -23,7 +22,6 @@ import Constants from './utils/Constants'
 /**
  * feature screens.
  */
-const ROOT_SCREEN = Constants.SCREEN.ROOT
 const SPLASH_SCREEN = Constants.SCREEN.SPLASH
 const PROFILE_SCREEN = Constants.SCREEN.PROFILE
 const QR_SCAN_SCREEN = Constants.SCREEN.QR_SCAN
@@ -50,13 +48,9 @@ export default function App() {
             {/* state management tool. */}
             <RecoilRoot>
                 <NavigationContainer>
-                    {/* initial screen: root container */}
-                    <Stack.Navigator initialRouteName={ROOT_SCREEN}>
+                    {/* initial screen: splash container */}
+                    <Stack.Navigator initialRouteName={SPLASH_SCREEN}>
                         {/* feature screen stack. */}
-                        <Stack.Screen
-                            name={ROOT_SCREEN}
-                            component={RootContainer}
-                            options={{ headerShown: false }} />
                         <Stack.Screen
                             name={SPLASH_SCREEN}
                             component={SplashContainer}

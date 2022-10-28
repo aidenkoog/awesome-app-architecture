@@ -1,6 +1,5 @@
 export default {
     SCREEN: {
-        ROOT: "Root",
         SPLASH: "Splash",
         PROFILE: "Profile",
         QR_SCAN: "QrScan",
@@ -27,12 +26,17 @@ export default {
         DEFAULT_STATE: false,
         DEFAULT_INT_VALUE: 0,
         DEFAULT_LIST_STATE: [],
+        SAVE_PROFILE_SUCCESS: true,
+        SAVE_PROFILE_FAILURE: false,
     },
     BT: {
         SCAN_DURATION: 3,
         SCAN_DELAY_TIME: 1500,
         BT_PERMISSION_ACCEPTED: true,
         BT_PERMISSION_REJECTED: false,
+    },
+    SPLASH: {
+        SPLASH_LOADING_DELAY_TIME: 2000,
     },
     LOG: {
         // ble manager log.
@@ -74,7 +78,13 @@ export default {
         PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
     },
     STORAGE: {
-        KEY_PROFILE_NAME: 'KEY_PROFILE_NAME',
+        KEY_PROFILE_NAME: "KEY_PROFILE_NAME",
+        KEY_PROFILE_IMAGE_URL: "KEY_PROFILE_IMAGE_URL",
+        KEY_PROFILE_GENDER: "KEY_PROFILE_GENDER",
+        KEY_PROFILE_BIRTHDAY: "'KEY_PROFILE_BIRTHDAY",
+        KEY_PROFILE_HEIGHT: "KEY_PROFILE_HEIGHT",
+        KEY_PROFILE_WEIGHT: "KEY_PROFILE_WEIGHT",
+
         KEY_BLE_DEVICE_MAC_ADDRESS: 'KEY_BLE_DEVICE_MAC_ADDRESS',
         KEY_BLE_DEVICE_NAME: 'KEY_BLE_DEVICE_NAME',
     }
