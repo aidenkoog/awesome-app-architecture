@@ -153,7 +153,7 @@ const ConnectBleUseCase = () => {
      * @param {number} duration 
      * @returns {Promise}
      */
-    executeStartScanUseCase = (serviceUuid, duration) => {
+    executeStartScanUseCase = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
         logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
 
         return new Promise((fulfill, reject) => {

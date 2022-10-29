@@ -25,7 +25,7 @@ const PlatformRepository = () => {
     }
 
     /**
-     * send sms.
+     * send sms with user interaction.
      * @param {string} receiverPhoneNumber
      * @param {string} message
      */
@@ -48,7 +48,7 @@ const PlatformRepository = () => {
     }
 
     /**
-     * send call.
+     * send call with user interaction.
      * @param {string} receiverPhoneNumber
      */
     sendCall = (receiverPhoneNumber) => {

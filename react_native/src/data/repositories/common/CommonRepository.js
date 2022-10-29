@@ -69,7 +69,7 @@ const CommonRepository = () => {
      * @param {callback} onResult
      */
     getUserProfile = (onResult) => {
-        executeGetUserProfilePromise(succeeded => onResult(succeeded))
+        executeGetUserProfilePromise(userProfileInfo => onResult(userProfileInfo))
     }
 
     /**

@@ -8,6 +8,9 @@ const GetProfileInfoUseCase = () => {
 
     const { getUserProfile } = CommonRepository()
 
+    /**
+     * get user profile information including image url, name, gender, birthday, height and weight.
+     */
     executeGetProfileInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetProfileInfoUseCase")
         getUserProfile((userProfileInfo) => {

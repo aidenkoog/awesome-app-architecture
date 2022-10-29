@@ -172,6 +172,7 @@ export default function ProfileContainer(props) {
      * determine if 'Done' button can be enabled or not.
      */
     disableDoneButton = () => {
+        // commnet these code temporarily for testing.
         // return emptyField(name)
         //     || emptyField(getOnlyNumber(height))
         //     || emptyField(getOnlyNumber(weight))

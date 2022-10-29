@@ -13,6 +13,9 @@ const NEXT_SCREEN = Constants.SCREEN.PROFILE
  */
 const SplashContainer = ({ navigation }) => {
 
+    /**
+     * usecase function for add handler that is able to detect app's state.
+     */
     const { executeAddAppStateHandlerUseCase } = ControlAppStateUseCase()
 
     useLayoutEffect(() => {
