@@ -188,10 +188,18 @@ const ConnectBleUseCase = () => {
         })
     }
 
+    executeGetBleDeviceInfo = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeGetBleDeviceInfo")
+        getBleDeviceInfo((bleDeviceInfo) => {
+            return bleDeviceInfo
+        })
+    }
+
     return {
         executeConnectDeviceUseCase, executeDisableNotificationUseCase, executeDisconnectDeviceUseCase,
         executeEnableNotificationUseCase, executeBleModuleUseCase, executeGetUuidListUseCase,
-        executeSendBleCustomDataUseCase, executeStartScanUseCase, executeStopScanUseCase
+        executeSendBleCustomDataUseCase, executeStartScanUseCase, executeStopScanUseCase,
+        executeGetBleDeviceInfo
     }
 }
 

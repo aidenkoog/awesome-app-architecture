@@ -545,6 +545,42 @@ const BleRepository = () => {
     }
 
     /**
+     * get ble device information
+     * @param {callback} onResult
+     */
+    getBleDeviceInfo = (onResult) => {
+        executeGetBleDeviceInfoPromise(bleDeviceInfo => onResult(bleDeviceInfo))
+    }
+
+    /**
+     * execute get ble device information promise.
+     * @param {callback} onResult
+     */
+    const executeGetBleDeviceInfoPromise = async (onResult) => {
+        await getBleDeviceInfoPromise().then(() => {
+            logDebug(LOG_TAG, "<<< succeeded to get ble device information")
+            let bleDeviceInfo = { cachedBleDeviceName, cachedBleMacAddress }
+            onResult(bleDeviceInfo)
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + " occurred by getBleDeviceInfoPromise")
+            onResult(null)
+        })
+    }
+
+    /**
+     * this is used when you want to perform batch parallel processing of all multiple asynchronous processing.
+     * get all ble device information.
+     * @returns {Promise}
+     */
+    const getBleDeviceInfoPromise = () => {
+        return Promise.all([
+            cachedBleDeviceName = getBleDeviceName(),
+            cachedBleMacAddress = getBleDeviceMacAddress(),
+        ])
+    }
+
+    /**
      * it's not implemented yet.
      */
     getHrInfo = () => { }
