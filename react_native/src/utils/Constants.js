@@ -48,6 +48,9 @@ export default {
         PLATFORM_REPO_LOG: 'PLATFORM_REPO_LOG',
         SERVER_REPO_LOG: 'SERVER_REPO_LOG',
 
+        // ble request message.
+        BT_REQ_MSG_MSG_ID: 'BT_REQ_MSG_MSG_ID',
+
         // usecase log.
         BT_USECASE_LOG: 'BT_USECASE_LOG',
         COMMON_USECASE_LOG: 'COMMON_USECASE_LOG',
