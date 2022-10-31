@@ -1,9 +1,88 @@
 import { BATTERY_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from "./BleConfig"
 import Constants from "../Constants"
+import { stringToBytes } from "convert-string"
 import { logDebug } from "../logger/Logger"
 
 const LOG_TAG = Constants.LOG.BLE_UTIL_LOG_TAG
 
+
+/**
+ * convert byte array to binary string.
+ * @param {bytes} value 
+ * @returns 
+ */
+export const convertByteArrayToBinaryString = (value) => {
+    let result = ""
+    for (let i = 0; i < 8; i++) {
+        result += ((0x80 >>> i) & value) == 0 ? '0' : '1'
+    }
+    return result
+}
+
+/**
+ * convert string to byte array.
+ * @param {string} value 
+ * @returns 
+ */
+export const convertStringToByteArray = (value) => {
+    return stringToBytes(value)
+}
+
+/**
+ * convert string to byte array with length.
+ * @param {string} value 
+ * @param {number} count 
+ * @returns 
+ */
+export const convertStringToByteArrayWithCount = (value, length) => {
+    const result = new ArrayBuffer(length)
+    for (let i = 0; i < value.length(); i++) {
+        result[i] = stringToBytes(value.charAt(i))
+    }
+    return result
+}
+
+/**
+ * convert byte array data to string's.
+ * @param {bytes} value 
+ * @returns 
+ */
+export const convertByteArrayToString = (value) => {
+    return String.fromCharCode.apply(null, value)
+}
+
+/**
+ * convert long number to byte array.
+ * @param {number} value 
+ * @returns 
+ */
+export const convertLongToByteArray = (value) => {
+    let result = [(value >> 24), (value >> 16), (value >> 8), value]
+    return result
+}
+
+/**
+ * convert int number to byte array.
+ * @param {number} value 
+ * @returns 
+ */
+export const convertIntToByteArray = (value) => {
+    let result = [value >> 8, value]
+    return result
+}
+
+/**
+ * convert byte array data to numeric's.
+ * @param {bytes} value 
+ * @returns {number}
+ */
+export const convertByteArrayToNumeric = (value) => {
+    let result = 0
+    for (let i = 0; i < value.length; i++) {
+        result = (value << 8) | (value[i] & 0xFF)
+    }
+    return result
+}
 
 /**
  * get version information, which is one of the header contents.
@@ -44,6 +123,15 @@ export const getMessageIdAsHexString = () => {
  */
 export const convertHexStringToDecimal = (hex) => {
     return parseInt(hex, 10)
+}
+
+/**
+ * convert hex string to byte array.
+ * @param {string} hex 
+ * @returns {Uint8Array}
+ */
+export const convertHexStringToByteArray = (hex) => {
+    return Uint8Array.from(hex.match(/.{1,2}/g).map((byte) => { parseInt(byte, 16) }))
 }
 
 /**

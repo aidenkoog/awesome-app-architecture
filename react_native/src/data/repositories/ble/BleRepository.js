@@ -20,6 +20,7 @@ import {
 import {
     bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnectionCompleteStateAtom
 } from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
+import { bleAuthResultAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
 
 
 /**
@@ -73,6 +74,11 @@ const BleRepository = () => {
 
     const setBleDeviceNameAtom = useSetRecoilState(bleDeviceNameAtom)
     const setBleMacOrUuidAtom = useSetRecoilState(bleMacOrUuidAtom)
+
+    /**
+     * [ authentication atom ]
+     */
+    const setBleAuthResultState = useSetRecoilState(bleAuthResultAtom)
 
     /**
      * [ battery state atom ]
@@ -212,6 +218,8 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(characteristicCustomData.value))
         logDebug(LOG_TAG, ">>> received perfectly")
         logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
+
+        setBleAuthResultState(true)
     }
 
     /**
@@ -509,6 +517,9 @@ const BleRepository = () => {
 
         // found device's mac or uuid.
         setBleMacOrUuidAtom(Constants.COMMON.DEFAULT_DATA)
+
+        // authetication state.
+        setBleAuthResultState(false)
     }
 
     /**
@@ -605,6 +616,9 @@ const BleRepository = () => {
      */
     upgradeFirmware = () => { }
 
+    /**
+     * explanation. execute logic after rendering and painting is completed.
+     */
     useEffect(() => {
         this.refreshBleEventListeners()
 
@@ -641,7 +655,10 @@ const BleRepository = () => {
         getStepInfo,
         refreshDeviceInfo,
         upgradeFirmware,
-        sendBleCustomData
+        sendBleCustomData,
+        addBleEventListeners,
+        releaseBleEventListeners,
+        refreshBleEventListeners
     }
 }
 

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from '../Constants'
-
+import { logDebug, outputErrorLog } from '../logger/Logger'
 
 const KEY_PROFILE_NAME = Constants.STORAGE.KEY_PROFILE_NAME
 const KEY_PROFILE_IMAGE_URL = Constants.STORAGE.KEY_PROFILE_IMAGE_URL
@@ -11,6 +11,11 @@ const KEY_PROFILE_WEIGHT = Constants.STORAGE.KEY_PROFILE_WEIGHT
 
 const KEY_BLE_DEVICE_NAME = Constants.STORAGE.KEY_BLE_DEVICE_NAME
 const KEY_BLE_DEVICE_MAC_ADDRESS = Constants.STORAGE.KEY_BLE_DEVICE_MAC_ADDRESS
+
+let cachedBleDeviceName = null
+let cachedBleMacAddress = null
+
+const LOG_TAG = Constants.LOG.STORAGE_LOG_TAG
 
 /**
  * store profile name.
@@ -140,5 +145,41 @@ export const storeBleDeviceMacAddress = async (address) => {
  */
 export const getBleDeviceMacAddress = async () => {
     return AsyncStorage.getItem(KEY_BLE_DEVICE_MAC_ADDRESS)
+}
+
+/**
+ * get ble device information
+ * @param {callback} onResult
+ */
+export const getBleDeviceInfo = (onResult) => {
+    executeGetBleDeviceInfoPromise(bleDeviceInfo => onResult(bleDeviceInfo))
+}
+
+/**
+ * execute get ble device information promise.
+ * @param {callback} onResult
+ */
+const executeGetBleDeviceInfoPromise = async (onResult) => {
+    await getBleDeviceInfoPromise().then(() => {
+        logDebug(LOG_TAG, "<<< succeeded to get ble device information")
+        let bleDeviceInfo = { cachedBleDeviceName, cachedBleMacAddress }
+        onResult(bleDeviceInfo)
+
+    }).catch((e) => {
+        outputErrorLog(LOG_TAG, e + " occurred by getBleDeviceInfoPromise")
+        onResult(null)
+    })
+}
+
+/**
+ * this is used when you want to perform batch parallel processing of all multiple asynchronous processing.
+ * get all ble device information.
+ * @returns {Promise}
+ */
+const getBleDeviceInfoPromise = () => {
+    return Promise.all([
+        cachedBleDeviceName = getBleDeviceName(),
+        cachedBleMacAddress = getBleDeviceMacAddress(),
+    ])
 }
 

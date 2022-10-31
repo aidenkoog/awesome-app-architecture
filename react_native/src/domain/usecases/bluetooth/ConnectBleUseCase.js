@@ -1,15 +1,17 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
-
+import { SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
+const SCAN_DURATION = Constants.BT.SCAN_DURATION
 
 const ConnectBleUseCase = () => {
 
     const {
         connectDevice, disableNotification, disconnectDevice, enableNotification,
-        initializeBleModule, getUuidList, sendBleCustomData, startScan, stopScan
+        initializeBleModule, getUuidList, sendBleCustomData, startScan, stopScan,
+        getBleDeviceInfo
     } = BleRepository()
 
     /**
@@ -188,6 +190,10 @@ const ConnectBleUseCase = () => {
         })
     }
 
+    /**
+     * execute the use case of getting ble device information.
+     * release ble listeners after completing to getting information.
+     */
     executeGetBleDeviceInfo = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetBleDeviceInfo")
         getBleDeviceInfo((bleDeviceInfo) => {

@@ -59,12 +59,18 @@ export default function App() {
                             name={PROFILE_SCREEN}
                             component={ProfileContainer}
                             options={{ headerShown: false }} />
-                        <Stack.Screen name={QR_SCAN_SCREEN} component={QrScanContainer} />
+                        <Stack.Screen
+                            name={QR_SCAN_SCREEN}
+                            component={QrScanContainer}
+                            options={{ headerShown: false }} />
                         <Stack.Screen
                             name={BLUETOOTH_SCREEN}
                             component={BluetoothContainer}
                             options={{ headerShown: false }} />
-                        <Stack.Screen name={HOME_SCREEN} component={HomeContainer} />
+                        <Stack.Screen
+                            name={HOME_SCREEN}
+                            component={HomeContainer}
+                            options={{ headerShown: false }} />
                         <Stack.Screen name={SW_UPDATE_SCREEN} component={SoftwareUpdateContainer} />
                         <Stack.Screen name={EDIT_PROFILE_SCREEN} component={EditProfileContainer} />
 

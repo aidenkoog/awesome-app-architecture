@@ -14,6 +14,10 @@ import ProfileComponent from './ProfileComponent'
 
 const REGISTER_SENIOR_STRINGS = Strings.registerSenior
 const LOG_TAG = Constants.LOG.PROFILE_UI_LOG
+
+/**
+ * next screen information.
+ */
 const NEXT_SCREEN = Constants.SCREEN.QR_SCAN
 
 /**
@@ -54,10 +58,9 @@ export default function ProfileContainer(props) {
      */
     onClickDoneButton = () => {
         executeSetProfileInfoUseCase(getUserProfileInfo(), (succeeded) => {
-            if (!succeeded) {
-                return
+            if (succeeded) {
+                props.navigation.navigate(NEXT_SCREEN)
             }
-            props.navigation.navigate(NEXT_SCREEN)
         })
     }
 

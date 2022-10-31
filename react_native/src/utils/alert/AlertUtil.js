@@ -1,5 +1,4 @@
-import { Alert } from "react-native"
-
+import { Alert, BackHandler } from "react-native"
 
 /**
  * show alert.

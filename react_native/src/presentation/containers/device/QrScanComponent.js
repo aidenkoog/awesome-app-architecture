@@ -22,8 +22,8 @@ export default function QrScanComponent(props) {
      * props delivered from QrScanContainer.
      */
     const {
-        isShow, contentError, inputValue, isDisable, onSuccess, back, setSquare,
-        setBottomHeight, bottomHeight, square, updateState, onNotNowPressed, clickConfirm
+        inputValue, isDisable, onSuccess, back, setSquare, scanner,
+        setBottomHeight, bottomHeight, square, updateState, onNotNowPressed
     } = props
 
     return (
@@ -31,7 +31,7 @@ export default function QrScanComponent(props) {
             <QRCodeScanner
                 showMarker
                 onRead={(e) => onSuccess(e.data)}
-                ref={(node) => { this.scanner = node }}
+                ref={(node) => { scanner.current = node }}
                 cameraStyle={{ height: SCREEN_HEIGHT }}
                 customMarker={
                     <SafeAreaView style={styles.rectangleContainer}>
@@ -139,13 +139,6 @@ export default function QrScanComponent(props) {
                                 </View>
                             </TouchableWithoutFeedback>
                         </KeyboardAwareScrollView>
-
-                        <Popup.OneButton
-                            visible={isShow}
-                            title={strings.titleError}
-                            content={contentError}
-                            onClickConfirm={clickConfirm}
-                        />
                     </SafeAreaView>
                 }
             />
