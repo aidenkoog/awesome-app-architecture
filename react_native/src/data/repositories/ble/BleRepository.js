@@ -6,11 +6,11 @@ import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
-import { convertBleCustomToHexData, getBleCustomData, getFeatureNameAsUuid } from '../../../utils/ble/BleUtil.js'
+import { convertBleCustomToHexData, getFeatureNameAsUuid } from '../../../utils/ble/BleUtil.js'
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
 import {
-    BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID,
-    FLOW_CONTROL_CHARACTERISTIC_UUID, SERVICE_UUID, TX_CHARACTERISTIC_UUID
+    BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID, RX_CHARACTERISTIC_UUID,
+    FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID
 } from '../../../utils/ble/BleConfig.js'
 import {
     bleTxUuidNotificationStateAtom,
@@ -21,7 +21,7 @@ import {
     bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnectionCompleteStateAtom
 } from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
 import { bleAuthResultAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
-
+import { SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
 
 /**
  * load ble manager module (react-native-ble-manager).
@@ -41,8 +41,8 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
 /**
  * cached ble device name and mac address.
  */
-let cachedBleDeviceName = null
-let cachedBleMacAddress = null
+let cachedBleDeviceName = ""
+let cachedBleMacAddress = ""
 
 /**
  * bluetooth api implementation.
@@ -150,7 +150,10 @@ const BleRepository = () => {
     onFoundPeripheral = (peripheral) => {
         const peripheralName = peripheral?.name
         const peripheralId = peripheral?.id
-        logDebug(LOG_TAG, "<<< discovered " + peripheralName + " (" + peripheralId + ")")
+
+        logDebug(LOG_TAG, "<<< discovered "
+            + peripheralName + " (" + peripheralId
+            + "), cached peripheral name: " + cachedBleDeviceName)
 
         if (peripheralName == cachedBleDeviceName) {
             logDebug(LOG_TAG, "<<< found my device (" + peripheralName + "). start to connect device")
@@ -178,10 +181,10 @@ const BleRepository = () => {
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occured by connect of ble manager")
 
-            // disable ble connection state.
             setBleConnectionStateAtom(false)
+            setBleDeviceFoundAtom(false)
 
-            // TODO: logic to retry device scan will be added.
+            this.restartScan()
         })
     }
 
@@ -218,8 +221,6 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(characteristicCustomData.value))
         logDebug(LOG_TAG, ">>> received perfectly")
         logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
-
-        setBleAuthResultState(true)
     }
 
     /**
@@ -232,7 +233,7 @@ const BleRepository = () => {
             logDebug(LOG_TAG, "cannot restart scanning ("
                 + "device found: " + bleDeviceFound
                 + ", connected: " + bleConnectionState
-                + ", completed: " + bleConnectionCompleteState) + ")"
+                + ", completed: " + bleConnectionCompleteState + ")")
             return
         }
         bleManager.getConnectedPeripherals([]).then((peripherals) => {
@@ -272,9 +273,9 @@ const BleRepository = () => {
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occured by connect of ble manager")
                 setBleConnectionStateAtom(false)
+                setBleDeviceFoundAtom(false)
+                this.restartScan()
                 reject(e)
-
-                // TODO: logic to retry device scan will be added.
             })
         })
     }
@@ -375,14 +376,13 @@ const BleRepository = () => {
 
     /**
      * get battery level of ble device.
-     * @param {string} peripheralId 
      * @param {string} batteryserviceUuid 
      * @param {string} batterycharacteristicUuid
      * @returns {Promise}
      */
-    getBatteryLevel = (peripheralId, batteryserviceUuid, batterycharacteristicUuid) => {
+    getBatteryLevel = (batteryserviceUuid, batterycharacteristicUuid) => {
         return new Promise((fulfill, reject) => {
-            bleManager.read(peripheralId, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
+            bleManager.read(cachedBleMacAddress, batteryserviceUuid, batterycharacteristicUuid).then((batteryLevel) => {
                 logDebug(LOG_TAG, "<<< succeeded to get battery level-" + batteryLevel + "%")
                 setBleBatteryStateAtom(batteryLevel)
                 fulfill(batteryLevel)
@@ -406,9 +406,15 @@ const BleRepository = () => {
      * @returns {Promise}
      */
     startScan = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
-        this.releaseAllAtomStates()
-
         return new Promise((fulfill, reject) => {
+            if (bleScanningState) {
+                const errorMessage = "ble scanning is being executed !!!"
+                outputErrorLog(LOG_TAG, ">>> " + errorMessage)
+                reject(errorMessage)
+                return
+            }
+            this.releaseAllAtomStates()
+
             let serviceUuids = []
             if (serviceUuid != null && serviceUuid != "" && serviceUuid && "undefined") {
                 serviceUuids.push(serviceUuid)
@@ -425,12 +431,12 @@ const BleRepository = () => {
                     fulfill()
 
                 }).catch((e) => {
-                    outputErrorLog(LOG_TAG, e + " occured by scan of ble manager")
+                    outputErrorLog(LOG_TAG, e + " occured by scan of ble manager !!!")
                     reject(e)
                 })
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occured by enableBluetooth of ble manager")
+                outputErrorLog(LOG_TAG, e + " occured by enableBluetooth of ble manager !!!")
                 reject(e)
             })
         })
@@ -462,6 +468,24 @@ const BleRepository = () => {
     }
 
     /**
+     * set mtu (maximum transmission unit)
+     * @param {string} peripheralId
+     * @param {number} mtu
+     */
+    setMtu = (peripheralId, mtu = 512) => {
+        return new Promise((fulfill, reject) => {
+            bleManager.requestMtu(peripheralId, mtu).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to request mtu (" + mtu + ")")
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by requestMtu of ble manager !!!")
+                reject(e)
+            })
+        })
+    }
+
+    /**
      * retrieve services of ble device.
      * @param {string} peripheralId 
      */
@@ -471,7 +495,7 @@ const BleRepository = () => {
             executeEnableAllNotificationPromise(peripheralId)
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occured by retrieveServices of ble manager")
+            outputErrorLog(LOG_TAG, e + " occured by retrieveServices of ble manager !!!")
         })
     }
 
@@ -482,6 +506,12 @@ const BleRepository = () => {
     const executeEnableAllNotificationPromise = async (peripheralId) => {
         await enableAllNotificationPromise(peripheralId).then(() => {
             logDebug(LOG_TAG, "<<< succeeded to enable all notifications")
+
+            // stop scanning job if it's still being executed.
+            if (bleScanningState) {
+                logDebug(LOG_TAG, ">>> scanning is still in progress")
+                bleManager.stopScan().catch((e) => { outputErrorLog(LOG_TAG, e) })
+            }
 
             setBleConnectionCompleteStateAtom(true)
 
@@ -537,84 +567,29 @@ const BleRepository = () => {
     }
 
     /**
-     * send custom characteristic data.
-     * @param {bytes} customData
+     * send custom characteristic value.
+     * @param {bytes} customValue
      * @returns {Promise}
      */
-    sendBleCustomData = (customData) => {
+    sendBleCustomValue = (customValue) => {
         return new Promise((fulfill, reject) => {
-            bleManager.writeWithoutResponse(peripheralId, SERVICE_UUID, TX_CHARACTERISTIC_UUID,
-                getBleCustomData(customData)).then(() => {
-                    logDebug(LOG_TAG, "<<< succeeded to write ble custom characteristic data")
-                    fulfill()
+            bleManager.retrieveServices(cachedBleMacAddress).then((peripheral) => {
+                bleManager.writeWithoutResponse(
+                    peripheral.id, SERVICE_UUID, RX_CHARACTERISTIC_UUID, customValue).then(() => {
+                        logDebug(LOG_TAG, "<<< succeeded to write ble custom data to " + peripheral.id)
+                        fulfill()
 
-                }).catch((e) => {
-                    outputErrorLog(LOG_TAG, e + " occured by writeWithoutResponse of ble manager")
-                    reject(e)
-                })
+                    }).catch((e) => {
+                        outputErrorLog(LOG_TAG, e + " occurred by writeWithoutResponse of ble manager !!!")
+                        reject(e)
+                    })
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by retrieveServices of ble manager !!!")
+                reject(e)
+            })
         })
     }
-
-    /**
-     * get ble device information
-     * @param {callback} onResult
-     */
-    getBleDeviceInfo = (onResult) => {
-        executeGetBleDeviceInfoPromise(bleDeviceInfo => onResult(bleDeviceInfo))
-    }
-
-    /**
-     * execute get ble device information promise.
-     * @param {callback} onResult
-     */
-    const executeGetBleDeviceInfoPromise = async (onResult) => {
-        await getBleDeviceInfoPromise().then(() => {
-            logDebug(LOG_TAG, "<<< succeeded to get ble device information")
-            let bleDeviceInfo = { cachedBleDeviceName, cachedBleMacAddress }
-            onResult(bleDeviceInfo)
-
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by getBleDeviceInfoPromise")
-            onResult(null)
-        })
-    }
-
-    /**
-     * this is used when you want to perform batch parallel processing of all multiple asynchronous processing.
-     * get all ble device information.
-     * @returns {Promise}
-     */
-    const getBleDeviceInfoPromise = () => {
-        return Promise.all([
-            cachedBleDeviceName = getBleDeviceName(),
-            cachedBleMacAddress = getBleDeviceMacAddress(),
-        ])
-    }
-
-    /**
-     * it's not implemented yet.
-     */
-    getHrInfo = () => { }
-
-    /**
-     * it's not implemented yet.
-     */
-    getSleepInfo = () => { }
-
-    /**
-     * it's not implemented yet.
-     */
-    getStepInfo = () => { }
-
-    /**
-     * it's not implemented yet.
-     */
-    refreshDeviceInfo = () => { }
-
-    /**
-     * it's not implemented yet.
-     */
-    upgradeFirmware = () => { }
 
     /**
      * explanation. execute logic after rendering and painting is completed.
@@ -650,15 +625,8 @@ const BleRepository = () => {
         stopScan,
         getUuidList,
         retrieveServices,
-        getHrInfo,
-        getSleepInfo,
-        getStepInfo,
-        refreshDeviceInfo,
-        upgradeFirmware,
-        sendBleCustomData,
-        addBleEventListeners,
-        releaseBleEventListeners,
-        refreshBleEventListeners
+        sendBleCustomValue,
+        setMtu
     }
 }
 

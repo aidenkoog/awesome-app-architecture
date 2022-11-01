@@ -1,10 +1,5 @@
 import { BATTERY_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from "./BleConfig"
-import Constants from "../Constants"
 import { stringToBytes } from "convert-string"
-import { logDebug } from "../logger/Logger"
-
-const LOG_TAG = Constants.LOG.BLE_UTIL_LOG_TAG
-
 
 /**
  * convert byte array to binary string.
@@ -153,19 +148,6 @@ export const getFeatureNameAsUuid = (uuid) => {
 }
 
 /**
- * convert bytes typed custom data to different type's.
- * @param {bytes} customData 
- * @returns {Any}
- */
-export const getBleCustomData = (customData) => {
-    logDebug(LOG_TAG, "customData: " + customData)
-    // combine header, payload
-    // encoding them
-    // return
-    return customData
-}
-
-/**
  * convert characteristic data to hex's.
  * @param {Any} customData 
  * @returns {string}
@@ -179,7 +161,6 @@ export const convertBleCustomToHexData = (customData) => {
     // print hex string with no space character.
     // currently, it's not used.
     let replacedHexStringData = replaceAll(hexStringData, " ", "");
-    logDebug(LOG_TAG, "hex without space: " + replacedHexStringData)
 
     return hexStringData;
 }

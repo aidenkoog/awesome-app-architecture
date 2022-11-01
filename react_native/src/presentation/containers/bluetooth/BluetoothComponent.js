@@ -28,35 +28,23 @@ export default function BluetoothComponent(props) {
     /**
      * props delivered from BluetoothContainer.
      */
-    const {
-        onMoveNextScreen,
-        bleAuthResultState, bleScanningState, bleDeviceFound, bleConnectionState, bleConnectionCompleteState
-    } = props
+    const { bleConnectionState, bleConnectionCompleteState } = props
 
     /**
      * monitoring recoil atom's state.
      */
-    logDebug(LOG_TAG, "<<< bleScanningState: " + bleScanningState)
-    logDebug(LOG_TAG, "<<< bleDeviceFound: " + bleDeviceFound)
     logDebug(LOG_TAG, "<<< bleConnectionState: " + bleConnectionState)
     logDebug(LOG_TAG, "<<< bleConnectionCompleteState: " + bleConnectionCompleteState)
-    logDebug(LOG_TAG, "<<< bleAuthResultState: " + bleAuthResultState)
 
     return (
         <View style={{ backgroundColor: Colors.backgroundBtConnectionGuide, flex: 1 }}>
             {/* title and content description text about ble searching... or connecting... */}
             <View>
                 <Text style={styles.titleText}>
-                    {
-                        bleDeviceFound || bleConnectionState || bleConnectionCompleteState || bleAuthResultState ?
-                            BT_CONNECTING_TITLE : BT_SEARCHING_TITLE
-                    }
+                    {bleConnectionState || bleConnectionCompleteState ? BT_CONNECTING_TITLE : BT_SEARCHING_TITLE}
                 </Text>
                 <Text style={styles.contentText}>
-                    {
-                        bleDeviceFound || bleConnectionState || bleConnectionCompleteState || bleAuthResultState ?
-                            BT_CONNECTING_CONTENT : BT_SEARCHING_CONTENT
-                    }
+                    {bleConnectionState || bleConnectionCompleteState ? BT_CONNECTING_CONTENT : BT_SEARCHING_CONTENT}
                 </Text>
             </View>
 

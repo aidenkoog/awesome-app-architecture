@@ -1,38 +1,59 @@
-import HomeComponent from './HomeComponent'
-import Constants from '../../../utils/Constants'
-import ConnectBleUseCase from '../../../domain/usecases/bluetooth/ConnectBleUseCase'
-import {
-    bleDeviceFoundAtom, bleConnectionStateAtom, bleConnectionCompleteStateAtom, bleScanningStateAtom
-} from '../../../data'
-import { useRecoilValue } from 'recoil'
+import { useEffect, useState } from "react"
+import Constants from "../../../utils/Constants"
+import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
+import HomeComponent from "./HomeComponent"
+import RequestAuthUseCase from "../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase"
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
 
-const HomeContainer = ({ navigation }) => {
+/**
+ * home main screen.
+ * @param {Any} navigation 
+ * @returns {JSX.Element}
+ */
+const HomeContainer = () => {
 
     /**
-     * usecase functions for connecting to ble device.
+     * use state for ble command testing result.
      */
-    const {
-        executeBleModuleUseCase,
-        executeStartScanUseCase
-    } = ConnectBleUseCase()
+    const [bleTestingResult, setBleTestingResult] = useState([])
 
     /**
-     * state management variables to change UI according to Bluetooth operation state change
+     * usecase functions for controlling ble data.
      */
-    const bleScanningState = useRecoilValue(bleScanningStateAtom)
-    const bleDeviceFound = useRecoilValue(bleDeviceFoundAtom)
-    const bleConnectionState = useRecoilValue(bleConnectionStateAtom)
-    const bleConnectionCompleteState = useRecoilValue(bleConnectionCompleteStateAtom)
+    const { executeRequestAuthUseCase } = RequestAuthUseCase()
+
+    /**
+     * add ble command testing result.
+     */
+    addBleTestingResult = () => {
+        setBleTestingResult((currentCourseGoals) => [
+            ...currentCourseGoals,
+            { text: enteredGoalText, id: Math.random().toString() },
+        ])
+    }
+
+    onWriteWithoutResponse = () => {
+        executeRequestAuthUseCase().then(() => {
+            logDebug(LOG_TAG, "<<< succeeded to execute request authentication use case")
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + " occurred by executeRequestAuthUseCase")
+        })
+    }
+
+    useEffect(() => {
+        logDebug(LOG_TAG, "useEffect is executed")
+
+
+    }, [])
 
     return (
         <HomeComponent
-            bleScanningState={bleScanningState}
-            bleDeviceFound={bleDeviceFound}
-            bleConnectionState={bleConnectionState}
-            bleConnectionCompleteState={bleConnectionCompleteState}
+            onWriteWithoutResponse={onWriteWithoutResponse}
+            bleTestingResult={bleTestingResult}
         />
     )
 }
+
 export default HomeContainer

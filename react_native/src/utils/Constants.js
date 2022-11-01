@@ -37,7 +37,7 @@ export default {
         NEXT_SCREEN_DELAY_TIME: 1000
     },
     SPLASH: {
-        SPLASH_LOADING_DELAY_TIME: 2000,
+        SPLASH_LOADING_TIME: 2000,
     },
     LOG: {
         // ble manager log.
@@ -93,6 +93,7 @@ export default {
 
         // ble util.
         BLE_UTIL_LOG_TAG: 'BLE_UTIL_LOG_TAG',
+        BLE_FEATURE_UTIL_LOG_TAG: 'BLE_FEATURE_UTIL_LOG_TAG',
 
         // permisstion util.
         PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
