@@ -64,14 +64,11 @@ const HomeCardComponent = ({ isDeviceRegistered }) => {
   onPressItem = (item) => {
     console.log("test", item.id)
     switch (item.id) {
-      case 2:
-        // NavigationService.navigate(RouterName.Health, { healthType: HEALTH_TYPE.STEP })
+      case 2: // step
         break
-      case 3:
-        // NavigationService.navigate(RouterName.Health, { healthType: HEALTH_TYPE.HEART_RATE })
+      case 3: // heart rate
         break
-      case 4:
-        // NavigationService.navigate(RouterName.Health, { healthType: HEALTH_TYPE.SLEEP })
+      case 4: // sleep
         break
     }
   }
