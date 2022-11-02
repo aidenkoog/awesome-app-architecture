@@ -1,13 +1,14 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../../../utils/logger/Logger.js'
-import { stringToBytes } from "convert-string"
-import PlatformRepository from '../../../../../data/repositories/platform/PlatformRepository.js'
-import { getDeviceNameAsHexString, getSequenceId, getStatus, getVersionAsHexString } from '../../../../../utils/ble/BleFeatureUtil.js'
+import {
+    getDeviceNameAsHexString, getSequenceId, getStatus, getUserId, getVersionAsHexString
+} from '../../../../../utils/ble/BleFeatureUtil.js'
 import { getBleDeviceName } from '../../../../../utils/storage/StorageUtil.js'
+import { convertHexStringToByteArray } from '../../../../../utils/ble/BleUtil.js'
+import { getEncryptedData } from '../../../../../utils/ble/BleEncryptionUtil.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
-const DUMMY_VALUE = stringToBytes("\x00" + "\x05" + "\x00" + "DUMMY")
 
 const RequestAuthUseCase = () => {
 
@@ -15,11 +16,6 @@ const RequestAuthUseCase = () => {
      * ble repository's api that sends ble characteristic data.
      */
     const { sendBleCustomValue } = BleRepository()
-
-    /**
-     * platform repository's api.
-     */
-    const { getInstanceId } = PlatformRepository()
 
     /**
      * execute usecase of requesting authentication to device.
@@ -31,11 +27,8 @@ const RequestAuthUseCase = () => {
     executeRequestAuthUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeRequestAuthUseCase")
 
-        const protocol = createPairingProtocol()
-        const encryptedProtocol = encryptProtocol(protocol)
-
         return new Promise((fulfill, reject) =>
-            sendBleCustomValue(encryptedProtocol)
+            sendBleCustomValue(encryptProtocol(createPairingProtocol()))
                 .then(() => fulfill())
                 .catch((e) => reject(e)))
             .catch((e) => reject(e))
@@ -44,7 +37,7 @@ const RequestAuthUseCase = () => {
     /**
      * create pairing protocol values.
      * Ref. version + sequence id + status + device id + user id (uuid)
-     * @returns {string}
+     * @returns {bytes}
      */
     createPairingProtocol = () => {
         let pairingProtocol = getVersionAsHexString() + getSequenceId() + getStatus()
@@ -52,9 +45,13 @@ const RequestAuthUseCase = () => {
         getBleDeviceName().then((deviceName) => {
             pairingProtocol += getDeviceNameAsHexString(deviceName)
 
-            getInstanceId().then((instanceId) => {
+            getUserId().then((instanceId) => {
                 pairingProtocol += instanceId
-                return pairingProtocol
+                logDebug(LOG_TAG, "<<< paringProtocol: " + pairingProtocol)
+
+                const paringProtocolBytes = convertHexStringToByteArray(pairingProtocol)
+                logDebug(LOG_TAG, "<<< paringProtocolBytes: " + paringProtocolBytes)
+                return paringProtocolBytes
 
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e)
@@ -68,11 +65,11 @@ const RequestAuthUseCase = () => {
     }
 
     /**
-     * encrypt protocol values.
+     * encrypt protocol values and return it.
+     * @returns {bytes}
      */
-    encryptProtocol = (protocol) => {
-        // TODO:
-        return ""
+    encryptProtocol = (protocolBytes) => {
+        return getEncryptedData(protocolBytes)
     }
 
     return { executeRequestAuthUseCase }

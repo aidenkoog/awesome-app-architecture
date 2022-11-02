@@ -1,8 +1,13 @@
 import { convertDecimalToHexString } from "./BleUtil"
 import { logDebug } from "../logger/Logger"
 import Constants from "../Constants"
+import DeviceInfo from "react-native-device-info"
+import { stringToBytes } from "convert-string"
 
 const LOG_TAG = Constants.LOG.BLE_FEATURE_UTIL_LOG_TAG
+export const DUMMY = "\x00" + "\x05" + "\x00" + "DUMMY"
+export const DUMMY_VALUE = stringToBytes(DUMMY)
+export const HEX_DUMMY = "abc"
 let sequenceId = 1
 
 /**
@@ -55,8 +60,15 @@ export const getDeviceNameAsHexString = (deviceName) => {
 
 /**
  * get user id. (uuid)
- * @returns {string}
+ * @returns {Promise}
  */
 export const getUserId = () => {
+    return new Promise((fulfill, reject) => {
+        DeviceInfo.getInstanceId().then((instanceId) => {
+            fulfill(instanceId)
 
+        }).catch((e) => {
+            reject(e)
+        })
+    })
 }

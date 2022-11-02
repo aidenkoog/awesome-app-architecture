@@ -3,6 +3,7 @@ import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
 import Constants from '../../../utils/Constants'
 import React, { useState } from 'react'
 import { storeBleDeviceName } from '../../../utils/storage/StorageUtil'
+import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 const LOG_TAG = Constants.LOG.QR_SCAN
 
@@ -41,7 +42,7 @@ const QrScanContainer = ({ navigation }) => {
 
         // store device name to local storage and navigate to bluetooth pairing / connection screen. 
         storeBleDeviceName(deviceName).then(() => {
-            navigation.navigate(NEXT_SCREEN)
+            navigateToNextScreen(navigation, NEXT_SCREEN, 0, false)
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occurred by storeBleDeviceName")
@@ -65,7 +66,7 @@ const QrScanContainer = ({ navigation }) => {
     /**
      * move to home screen with the flag indicates that 'Now now' button is pressed.
      */
-    onNotNowPressed = () => navigation.navigate(NEXT_SCREEN_BY_NOT_NOW, { byNotNow: true })
+    onNotNowPressed = () => navigateToNextScreen(navigation, NEXT_SCREEN_BY_NOT_NOW, 0, false)
 
     return (
         <QrScanComponent

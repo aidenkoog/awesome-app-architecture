@@ -29,6 +29,18 @@ export const formatDate = (date) => {
     } else return new Date()
 }
 
+export const sosTimeFormat = (date) => {
+    let isSameDate = (moment().format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))
+    let isSameYear = (moment().format('YYYY') === moment(date).format("YYYY"))
+    if (isSameDate) {
+        return moment(date).format('LT')
+    } else if (isSameYear) {
+        return moment(date).format('L') + ' ' + moment(date).format('LT')
+    } else {
+        return moment(date).format('LLL') + ' ' + moment(date).format('LT')
+    }
+}
+
 export const formatBirthdayDate = (date) => {
     return moment(date, 'YYYY.MM.DD').format('LL')
 }

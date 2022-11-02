@@ -31,6 +31,31 @@ export const emptyField = (text) => {
 }
 
 /**
+ * replace all strings.
+ * @param {string} rawString 
+ * @param {string} search 
+ * @param {string} replace 
+ * @returns 
+ */
+export const replaceAll = (rawString, search, replace) => {
+    return rawString.split(search).join(replace)
+}
+
+/**
+ * execute arraycopy.
+ * @param {Array} source 
+ * @param {number} sourcePosition 
+ * @param {Array} destination 
+ * @param {number} destinationPosition 
+ * @param {number} length 
+ * @returns {Array}
+ */
+export const arrayCopy = (source, sourcePosition, destination, destinationPosition, length) => {
+    return source.slice(sourcePosition, sourcePosition + length)
+        .forEach((e, i) => destination[destinationPosition + i] = e)
+}
+
+/**
  * under construction..
  */
 export const imageOptions = {

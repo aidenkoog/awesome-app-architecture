@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from '../Constants'
-import { logDebug, outputErrorLog } from '../logger/Logger'
 
 const KEY_PROFILE_NAME = Constants.STORAGE.KEY_PROFILE_NAME
 const KEY_PROFILE_IMAGE_URL = Constants.STORAGE.KEY_PROFILE_IMAGE_URL
@@ -12,10 +11,7 @@ const KEY_PROFILE_WEIGHT = Constants.STORAGE.KEY_PROFILE_WEIGHT
 const KEY_BLE_DEVICE_NAME = Constants.STORAGE.KEY_BLE_DEVICE_NAME
 const KEY_BLE_DEVICE_MAC_ADDRESS = Constants.STORAGE.KEY_BLE_DEVICE_MAC_ADDRESS
 
-let cachedBleDeviceName = null
-let cachedBleMacAddress = null
-
-const LOG_TAG = Constants.LOG.STORAGE_LOG_TAG
+const KEY_DEVICE_REGISTRATION_FLAG = Constants.STORAGE.KEY_DEVICE_REGISTRATION_FLAG
 
 /**
  * store profile name.
@@ -145,4 +141,21 @@ export const storeBleDeviceMacAddress = async (address) => {
  */
 export const getBleDeviceMacAddress = async () => {
     return AsyncStorage.getItem(KEY_BLE_DEVICE_MAC_ADDRESS)
+}
+
+/**
+ * store flag that checks if device registration is completed or not.
+ * @param {boolean} registered 
+ * @returns {Promise}
+ */
+export const storeDeviceRegistrationFlag = async (registered) => {
+    await AsyncStorage.setItem(KEY_DEVICE_REGISTRATION_FLAG, registered)
+}
+
+/**
+ * get flag that checks if device registration is completed or not.
+ * @returns {Promise}
+ */
+export const getDeviceRegistrationFlag = async () => {
+    return AsyncStorage.getItem(KEY_DEVICE_REGISTRATION_FLAG)
 }

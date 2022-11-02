@@ -1,6 +1,10 @@
 import { BATTERY_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from "./BleConfig"
 import { stringToBytes } from "convert-string"
+import { replaceAll } from "../common/CommonUtil"
 
+/*----------------------------------------------------------------------------------
+ * Byte Array to Binary String.
+ *----------------------------------------------------------------------------------*/
 /**
  * convert byte array to binary string.
  * @param {bytes} value 
@@ -14,6 +18,22 @@ export const convertByteArrayToBinaryString = (value) => {
     return result
 }
 
+/**
+ * convert byte array data to numeric's.
+ * @param {bytes} value 
+ * @returns {number}
+ */
+export const convertByteArrayToNumeric = (value) => {
+    let result = 0
+    for (let i = 0; i < value.length; i++) {
+        result = (value << 8) | (value[i] & 0xFF)
+    }
+    return result
+}
+
+/*----------------------------------------------------------------------------------
+ * String to Byte Array.
+ *----------------------------------------------------------------------------------*/
 /**
  * convert string to byte array.
  * @param {string} value 
@@ -37,8 +57,11 @@ export const convertStringToByteArrayWithCount = (value, length) => {
     return result
 }
 
+/*----------------------------------------------------------------------------------
+ * Byte Array to String.
+ *----------------------------------------------------------------------------------*/
 /**
- * convert byte array data to string's.
+ * convert byte array to string.
  * @param {bytes} value 
  * @returns 
  */
@@ -46,6 +69,9 @@ export const convertByteArrayToString = (value) => {
     return String.fromCharCode.apply(null, value)
 }
 
+/**----------------------------------------------------------------------------------
+ * Decimal to Byte Array.
+ *----------------------------------------------------------------------------------*/
 /**
  * convert long number to byte array.
  * @param {number} value 
@@ -54,6 +80,21 @@ export const convertByteArrayToString = (value) => {
 export const convertLongToByteArray = (value) => {
     let result = [(value >> 24), (value >> 16), (value >> 8), value]
     return result
+}
+
+/**
+ * convert byte array to hex string.
+ * @param {bytes} bytes 
+ * @returns {string}
+ */
+export const bytesToHex = (bytes) => {
+    let hex = []
+    for (let i = 0; i < bytes.length; i++) {
+        var current = bytes[i] < 0 ? bytes[i] + 256 : bytes[i]
+        hex.push((current >>> 4).toString(16))
+        hex.push((current & 0xF).toString(16))
+    }
+    return hex.join("")
 }
 
 /**
@@ -66,51 +107,9 @@ export const convertIntToByteArray = (value) => {
     return result
 }
 
-/**
- * convert byte array data to numeric's.
- * @param {bytes} value 
- * @returns {number}
- */
-export const convertByteArrayToNumeric = (value) => {
-    let result = 0
-    for (let i = 0; i < value.length; i++) {
-        result = (value << 8) | (value[i] & 0xFF)
-    }
-    return result
-}
-
-/**
- * get version information, which is one of the header contents.
- * default: 1
- * @returns {string}
- */
-export const getVersionAsHexString = () => {
-    return convertDecimalToHexString(1)
-}
-
-/**
- * get device name information, which is one of the header contents.
- * @param {string} deviceName
- * @returns {string}
- */
-export const getDeviceNameAsHexString = (deviceName) => {
-    let deviceNameAsHexString = ""
-
-    for (const item of deviceName) {
-        var itemAsInt = parseInt(item, 10) + 48
-        deviceNameAsHexString += (convertDecimalToHexString(itemAsInt) + "")
-    }
-    return deviceNameAsHexString
-}
-
-/**
- * get device message id information, which is one of the header contents.
- * this method has some problems. under construction.
- */
-export const getMessageIdAsHexString = () => {
-    return "\x12" + "\x34" + "\x56" + "\x78"
-}
-
+/**----------------------------------------------------------------------------------
+ * HEX to Decimal.
+ *----------------------------------------------------------------------------------*/
 /**
  * convert hex string to decimal.
  * @param {string} hex 
@@ -120,6 +119,10 @@ export const convertHexStringToDecimal = (hex) => {
     return parseInt(hex, 10)
 }
 
+
+/*----------------------------------------------------------------------------------
+ * HEX to Byte Array.
+ *----------------------------------------------------------------------------------*/
 /**
  * convert hex string to byte array.
  * @param {string} hex 
@@ -128,6 +131,54 @@ export const convertHexStringToDecimal = (hex) => {
 export const convertHexStringToByteArray = (hex) => {
     return Uint8Array.from(hex.match(/.{1,2}/g).map((byte) => { parseInt(byte, 16) }))
 }
+
+/**
+ * convert hex string to byte array.
+ * @param {string} hex 
+ * @returns {bytes}
+ */
+export const hexToBytes = (hex) => {
+    for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
+}
+
+/*----------------------------------------------------------------------------------
+ * Decimal to HEX.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert characteristic data to hex's.
+ * @param {Any} customData 
+ * @returns {string}
+ */
+export const convertBleCustomToHexData = (customData) => {
+    let hexStringData = ""
+    for (const item of customData) {
+        hexStringData += convertDecimalToHexString(item) + " "
+    }
+
+    // print hex string with no space character.
+    // currently, it's not used.
+    let replacedHexStringData = replaceAll(hexStringData, " ", "")
+
+    return hexStringData
+}
+
+/*----------------------------------------------------------------------------------
+ * Common Utility.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert decimal data to hex's.
+ * @param {number} decimalData 
+ * @returns 
+ */
+export const convertDecimalToHexString = (decimalData) => {
+    if (decimalData < 0) {
+        decimalData = 0xffffffff + decimalData + 1
+    }
+    return decimalData.toString(16).toUpperCase()
+}
+
 
 /**
  * Returns the notification feature name according to the uuid passed as an argument.
@@ -145,45 +196,4 @@ export const getFeatureNameAsUuid = (uuid) => {
         default:
             return "Unknown notification"
     }
-}
-
-/**
- * convert characteristic data to hex's.
- * @param {Any} customData 
- * @returns {string}
- */
-export const convertBleCustomToHexData = (customData) => {
-    let hexStringData = "";
-    for (const item of customData) {
-        hexStringData += convertDecimalToHexString(item) + " ";
-    }
-
-    // print hex string with no space character.
-    // currently, it's not used.
-    let replacedHexStringData = replaceAll(hexStringData, " ", "");
-
-    return hexStringData;
-}
-
-/**
- * convert decimal data to hex's.
- * @param {number} decimalData 
- * @returns 
- */
-export const convertDecimalToHexString = (decimalData) => {
-    if (decimalData < 0) {
-        decimalData = 0xffffffff + decimalData + 1;
-    }
-    return decimalData.toString(16).toUpperCase();
-}
-
-/**
- * replace all strings.
- * @param {string} rawString 
- * @param {string} search 
- * @param {string} replace 
- * @returns 
- */
-export const replaceAll = (rawString, search, replace) => {
-    return rawString.split(search).join(replace);
 }

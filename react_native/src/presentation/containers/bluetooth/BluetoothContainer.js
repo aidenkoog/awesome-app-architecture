@@ -6,6 +6,7 @@ import BluetoothComponent from './BluetoothComponent'
 import { bleConnectionStateAtom, bleConnectionCompleteStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import ConnectBleUseCase from '../../../domain/usecases/bluetooth/basic/ConnectBleUseCase'
+import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
@@ -52,7 +53,7 @@ const BluetoothContainer = ({ navigation }) => {
     useEffect(() => {
         if (bleConnectionCompleteState) {
             logDebug(LOG_TAG, "<<< all of ble connection jobs is completed. go to home screen")
-            navigation.navigate(NEXT_SCREEN)
+            navigateToNextScreen(navigation, NEXT_SCREEN, 0, true)
         }
 
         if (!bleConnectionState) {
