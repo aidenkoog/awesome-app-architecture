@@ -40,6 +40,7 @@ const HIDDEN_PLATFORM_SCREEN = Constants.SCREEN.HIDDEN.PLATFORM
 const HIDDEN_COMMON_SCREEN = Constants.SCREEN.HIDDEN.COMMON
 const HIDDEN_SERVER_SCREEN = Constants.SCREEN.HIDDEN.SERVER
 
+
 const Stack = createNativeStackNavigator()
 
 export default function App() {
