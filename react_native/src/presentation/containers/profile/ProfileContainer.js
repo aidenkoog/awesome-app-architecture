@@ -10,9 +10,11 @@ import SetProfileInfoUseCase from '../../../domain/usecases/common/SetProfileInf
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
 import { showAlert } from '../../../utils/alert/AlertUtil'
 import ProfileComponent from './ProfileComponent'
+import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import { UserProfile } from '../../../domain/entities/user/UserProfile'
 
-
-const REGISTER_SENIOR_STRINGS = Strings.registerSenior
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
+const REGISTER_USER_STRINGS = Strings.registerSenior
 const LOG_TAG = Constants.LOG.PROFILE_UI_LOG
 
 /**
@@ -35,7 +37,7 @@ export default function ProfileContainer(props) {
     const [photoUrl, setPhotoUrl] = useState("")
     const [name, setName] = useState("")
     const [gender, setGender] = useState(0)
-    const [date, setDate] = useState(REGISTER_SENIOR_STRINGS.placeHolderBirthday)
+    const [date, setDate] = useState(REGISTER_USER_STRINGS.placeHolderBirthday)
     const [height, setHeight] = useState("")
     const [weight, setWeight] = useState("")
 
@@ -59,7 +61,7 @@ export default function ProfileContainer(props) {
     onClickDoneButton = () => {
         executeSetProfileInfoUseCase(getUserProfileInfo(), (succeeded) => {
             if (succeeded) {
-                props.navigation.navigate(NEXT_SCREEN)
+                navigateToNextScreen(props.navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
             }
         })
     }
@@ -68,15 +70,14 @@ export default function ProfileContainer(props) {
      * get user profile information.
      */
     getUserProfileInfo = () => {
-        let userProfileInfo = {
-            photoUrlData: photoUrl,
-            nameData: name,
-            genderData: gender,
-            birthdayData: date,
-            heightData: height,
-            weightData: weight
-        }
-        return userProfileInfo
+        UserProfile.imageUrl = photoUrl
+        UserProfile.name = name
+        UserProfile.gender = gender
+        UserProfile.birthday = birthday
+        UserProfile.height = height
+        UserProfile.weight = weight
+
+        return UserProfile
     }
 
     /**
@@ -175,12 +176,10 @@ export default function ProfileContainer(props) {
      * determine if 'Done' button can be enabled or not.
      */
     disableDoneButton = () => {
-        // commnet these code temporarily for testing.
-        // return emptyField(name)
-        //     || emptyField(getOnlyNumber(height))
-        //     || emptyField(getOnlyNumber(weight))
-        //     || emptyField(date)
-        return false
+        return emptyField(name)
+            || emptyField(getOnlyNumber(height))
+            || emptyField(getOnlyNumber(weight))
+            || emptyField(date)
     }
 
     return (

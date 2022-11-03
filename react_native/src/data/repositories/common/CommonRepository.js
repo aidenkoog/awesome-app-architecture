@@ -109,7 +109,7 @@ const CommonRepository = () => {
 
     /**
      * save user profile.
-     * @param {Any} userProfileInfo
+     * @param {UserProfile} userProfileInfo
      * @param {callback} onResult
      */
     saveUserProfile = (userProfileInfo, onResult) => {
@@ -121,23 +121,23 @@ const CommonRepository = () => {
     /**
      * this is used when you want to perform batch parallel processing of all multiple asynchronous processing.
      * save all user profiles.
-     * @param {Any} userProfileInfo 
+     * @param {UserProfile} userProfileInfo 
      * @returns {Promise}
      */
     const saveUserProfilePromise = (userProfileInfo) => {
         return Promise.all([
-            storeProfileImageUrl(userProfileInfo.photoUrlData),
-            storeProfileName(userProfileInfo.nameData),
-            storeProfileGender(userProfileInfo.genderData.toString()),
-            storeProfileBirthday(userProfileInfo.birthdayData),
-            storeProfileHeight(userProfileInfo.heightData.toString()),
-            storeProfileWeight(userProfileInfo.weightData.toString())
+            storeProfileImageUrl(userProfileInfo.imageUrl),
+            storeProfileName(userProfileInfo.name),
+            storeProfileGender(userProfileInfo.gender.toString()),
+            storeProfileBirthday(userProfileInfo.birthday),
+            storeProfileHeight(userProfileInfo.height.toString()),
+            storeProfileWeight(userProfileInfo.weight.toString())
         ])
     }
 
     /**
      * execute save user profile promise.
-     * @param {Any} userProfileInfo
+     * @param {UserProfile} userProfileInfo
      * @param {callback} onResult
      */
     const executeSaveUserProfilePromise = async (userProfileInfo, onResult) => {

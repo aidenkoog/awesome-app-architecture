@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Constants from '../Constants'
 
+const KEY_USER_PROFILE = Constants.STORAGE.KEY_USER_PROFILE
+
 const KEY_PROFILE_NAME = Constants.STORAGE.KEY_PROFILE_NAME
 const KEY_PROFILE_IMAGE_URL = Constants.STORAGE.KEY_PROFILE_IMAGE_URL
 const KEY_PROFILE_GENDER = Constants.STORAGE.KEY_PROFILE_GENDER
@@ -14,8 +16,28 @@ const KEY_BLE_DEVICE_MAC_ADDRESS = Constants.STORAGE.KEY_BLE_DEVICE_MAC_ADDRESS
 const KEY_DEVICE_REGISTRATION_FLAG = Constants.STORAGE.KEY_DEVICE_REGISTRATION_FLAG
 
 /**
+ * store user profile data.
+ * ( imageUrl, name, gender, birthday, height, weight )
+ * @param {UserProfile} userProfile 
+ * @returns {Promise}
+ */
+export const storeUserProfile = async (userProfile) => {
+    await AsyncStorage.setItem(KEY_USER_PROFILE, JSON.stringify(userProfile))
+}
+
+/**
+ * get user profile data.
+ * ( imageUrl, name, gender, birthday, height, weight )
+ * @returns {Promise}
+ */
+export const getUserProfile = async () => {
+    return AsyncStorage.getItem(KEY_USER_PROFILE)
+}
+
+/**
  * store profile name.
  * @param {string} name 
+ * @returns {Promise}
  */
 export const storeProfileName = async (name) => {
     await AsyncStorage.setItem(KEY_PROFILE_NAME, name)
@@ -31,7 +53,8 @@ export const getProfileName = async () => {
 
 /**
  * store profile image url.
- * @param {string} imageUrl 
+ * @param {string} imageUrl
+ * @returns {Promise}
  */
 export const storeProfileImageUrl = async (imageUrl) => {
     await AsyncStorage.setItem(KEY_PROFILE_IMAGE_URL, imageUrl)
@@ -48,6 +71,7 @@ export const getProfileImageUrl = async () => {
 /**
  * store profile gender.
  * @param {number} gender 
+ * @returns {Promise}
  */
 export const storeProfileGender = async (gender) => {
     await AsyncStorage.setItem(KEY_PROFILE_GENDER, gender)
@@ -96,6 +120,7 @@ export const getProfileHeight = async () => {
 /**
  * store profile weight.
  * @param {number} weight 
+ * @returns {Promise}
  */
 export const storeProfileWeight = async (weight) => {
     await AsyncStorage.setItem(KEY_PROFILE_WEIGHT, weight)
@@ -113,6 +138,7 @@ export const getProfileWeight = async () => {
  * store ble device name.
  * device name is saved when qr scan is executed first.
  * @param {string} name 
+ * @returns {Promise}
  */
 export const storeBleDeviceName = async (name) => {
     await AsyncStorage.setItem(KEY_BLE_DEVICE_NAME, name)
@@ -129,6 +155,7 @@ export const getBleDeviceName = async () => {
 /**
  * store ble device mac address.
  * @param {string} macAddress 
+ * @returns {Promise}
  */
 export const storeBleDeviceMacAddress = async (address) => {
     await AsyncStorage.setItem(KEY_BLE_DEVICE_MAC_ADDRESS, address)
@@ -147,15 +174,16 @@ export const getBleDeviceMacAddress = async () => {
  * store flag that checks if device registration is completed or not.
  * @param {boolean} registered 
  * @returns {Promise}
+ * Ref. AsyncStorage cannot store boolean type's value.
  */
-export const storeDeviceRegistrationFlag = async (registered) => {
-    await AsyncStorage.setItem(KEY_DEVICE_REGISTRATION_FLAG, registered)
+export const storeIsDeviceRegistered = async (registered) => {
+    await AsyncStorage.setItem(KEY_DEVICE_REGISTRATION_FLAG, registered == null ? registered : registered.toString())
 }
 
 /**
  * get flag that checks if device registration is completed or not.
  * @returns {Promise}
  */
-export const getDeviceRegistrationFlag = async () => {
+export const getIsDeviceRegistered = async () => {
     return AsyncStorage.getItem(KEY_DEVICE_REGISTRATION_FLAG)
 }

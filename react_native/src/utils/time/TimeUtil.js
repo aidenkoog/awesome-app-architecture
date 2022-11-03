@@ -19,6 +19,10 @@ export const formatEventTime = () => {
     return moment().format('yyyy-MM-DDTHH:mm:ss') + 'Z'
 }
 
+export const formatRefreshTime = () => {
+    return moment().format('HH:mm')
+}
+
 export const formatYYYYMMDD = (date = moment()) => {
     return moment(date).format("YYYY-MM-DD")
 }

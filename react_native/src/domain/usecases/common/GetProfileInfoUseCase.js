@@ -10,11 +10,12 @@ const GetProfileInfoUseCase = () => {
 
     /**
      * get user profile information including image url, name, gender, birthday, height and weight.
+     * @param {callback} onResult
      */
-    executeGetProfileInfoUseCase = () => {
+    executeGetProfileInfoUseCase = (onResult) => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetProfileInfoUseCase")
         getUserProfile((userProfileInfo) => {
-            return userProfileInfo
+            onResult(userProfileInfo)
         })
     }
     return { executeGetProfileInfoUseCase }

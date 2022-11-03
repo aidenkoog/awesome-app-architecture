@@ -18,36 +18,36 @@ const RequestDeviceInfoUseCase = () => {
      */
     executeGetDeviceInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetDeviceInfoUseCase")
-        return callApi(DUMMY_VALUE)
+        return execute(DUMMY_VALUE)
     }
 
     executeRefreshDeviceInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeRefreshDeviceInfoUseCase")
-        return callApi(DUMMY_VALUE)
+        return execute(DUMMY_VALUE)
     }
 
     executeGetStepInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetStepInfoUseCase")
-        return callApi(DUMMY_VALUE)
+        return execute(DUMMY_VALUE)
     }
 
     executeGetSleepInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetSleepInfoUseCase")
-        return callApi(DUMMY_VALUE)
+        return execute(DUMMY_VALUE)
     }
 
     executeGetHrInfoUseCase = () => {
         logDebug(LOG_TAG, ">>> ### triggered executeGetHrInfoUseCase")
-        return callApi(DUMMY_VALUE)
+        return execute(DUMMY_VALUE)
     }
 
     /**
      * call sendBleCustomValue defined in BleRepository.
      * @returns {Promise}
      */
-    callApi = (value) => {
-        new Promise((fulfill, reject) =>
-            sendBleCustomData(value)
+    execute = (value) => {
+        return new Promise((fulfill, reject) =>
+            sendBleCustomValue(value)
                 .then(() => fulfill())
                 .catch((e) => reject(e)))
             .catch((e) => reject(e))

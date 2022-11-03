@@ -7,14 +7,15 @@ import { bleConnectionStateAtom, bleConnectionCompleteStateAtom } from '../../..
 import { useRecoilValue } from 'recoil'
 import ConnectBleUseCase from '../../../domain/usecases/bluetooth/basic/ConnectBleUseCase'
 import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
-
+import { storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 
 /**
  * next screen information.
  */
-const NEXT_SCREEN = Constants.SCREEN.HOME
+const NEXT_SCREEN = Constants.SCREEN.HOME_BOTTOM_TAB_SCREEN
 
 /**
  * bluetooth screen.
@@ -53,7 +54,12 @@ const BluetoothContainer = ({ navigation }) => {
     useEffect(() => {
         if (bleConnectionCompleteState) {
             logDebug(LOG_TAG, "<<< all of ble connection jobs is completed. go to home screen")
-            navigateToNextScreen(navigation, NEXT_SCREEN, 0, true)
+            storeIsDeviceRegistered(true).then(() => {
+                navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+            })
         }
 
         if (!bleConnectionState) {

@@ -5,6 +5,8 @@ export default {
         QR_SCAN: "QrScan",
         BLUETOOTH: "Bluetooth",
         HOME: "Home",
+        HOME_BOTTOM_TAB_SCREEN: "HomeBottomTabScreen",
+        SETTINGS: "Settings",
         SW_UPDATE: "SwUpdate",
         EDIT_PROFILE: "EditProfile",
         HIDDEN: {
@@ -35,6 +37,9 @@ export default {
         BT_PERMISSION_ACCEPTED: true,
         BT_PERMISSION_REJECTED: false,
         NEXT_SCREEN_DELAY_TIME: 1000
+    },
+    NAVIGATION: {
+        NO_DELAY_TIME: 0
     },
     SPLASH: {
         SPLASH_LOADING_TIME: 2000,
@@ -100,6 +105,8 @@ export default {
         PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
     },
     STORAGE: {
+        KEY_USER_PROFILE: "KEY_USER_PROFILE",
+
         KEY_PROFILE_NAME: "KEY_PROFILE_NAME",
         KEY_PROFILE_IMAGE_URL: "KEY_PROFILE_IMAGE_URL",
         KEY_PROFILE_GENDER: "KEY_PROFILE_GENDER",

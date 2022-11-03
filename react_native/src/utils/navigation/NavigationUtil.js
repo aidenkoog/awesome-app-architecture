@@ -4,8 +4,8 @@
  * @param {Any} navigation 
  * @param {string} screenToBeMoved 
  */
-export const navigateToNextScreen = (navigation, screenToBeMoved, delay, isDeviceRegistered = true) => {
+export const navigateToNextScreen = (navigation, screenToBeMoved, delay) => {
     setTimeout(() => {
-        navigation.navigate(screenToBeMoved, { isDeviceRegistered: isDeviceRegistered })
+        navigation.navigate(screenToBeMoved)
     }, delay)
 }

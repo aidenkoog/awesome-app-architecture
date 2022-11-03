@@ -10,7 +10,7 @@ const SetProfileInfoUseCase = () => {
 
     /**
      * execute usecase of saving user profile.
-     * @param {Any} userProfileInfo
+     * @param {UserProfile} userProfileInfo
      * @param {callback} onResult
      */
     executeSetProfileInfoUseCase = (userProfileInfo, onResult) => {

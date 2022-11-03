@@ -6,143 +6,179 @@ import moment from "moment"
 import SuperscriptDateText from "../../components/SuperscriptDateText"
 
 const strings = Strings.home
-const itemLeftMargin = 15
 
-const HomeCardComponent = ({ isDeviceRegistered }) => {
+/**
+ * dummy data for debugging.
+ */
+const DUMMY_USER_NAME = "Device Tester 5194"
+const DUMMY_DEVICE_NAME = "Watch Device 5194"
+const DUMMY_DEVICE_STATUS = "Disconnected"
+const DUMMY_STEP_NAME = "10000 steps"
+const DUMMY_STEP_STATUS = "12000 km"
+const DUMMY_HEART_RATE_NAME = "1000 bpm (Latest)"
+const DUMMY_HEART_RATE_STATUS = "1000 bpm (Avg)"
+const DUMMY_SLEEP_NAME = "1000h 30m"
+const DUMMY_SLEEP_STATUS = "Good"
 
-  this.isDeviceRegistered = isDeviceRegistered
+/**
+ * home card component ui that is used in HomeComponent.
+ * @param {boolean} isDeviceRegistered
+ * @returns {JSX.Element}
+ */
+const HomeCardComponent = (props) => {
+
+  const {
+    bleConnectionCompleteState, isDeviceRegistered, bleDeviceBatteryLevel, refreshedTime,
+    onPressCardItem, onPressRefreshArea
+  } = props
+
+  /**
+   * home card item attributes.
+   */
+  const ITEM_WIDTH = 32
+  const ITEM_HEIGHT = 34
+  const ITEM_LEFT_MARGIN = 20
+  const ITEM_TEXT_LEFT_MARGIN = 4
+  const ITEM_SUB_TEXT_LEFT_MARGIN = 20
+
+  /**
+   * home card id
+   */
+  const ITEM_ID_DEVICE = 1
+  const ITEM_ID_STEP = 2
+  const ITEM_ID_HEART_RATE = 3
+  const ITEM_ID_SLEEP = 4
+
+  /**
+   * home card content list information.
+   */
   const homeCardContentList = [
     {
-      id: 1,
-      name: isDeviceRegistered ? "Carescend Watch" : "-",
-      status: isDeviceRegistered ? "Connected" : "-",
+      id: ITEM_ID_DEVICE,
+      name: isDeviceRegistered ? DUMMY_DEVICE_NAME : DUMMY_DEVICE_NAME,
+      status: bleConnectionCompleteState ? "Connected" : DUMMY_DEVICE_STATUS,
       image: Images.watch,
-      width: 42,
-      height: 58,
-      marginLeft: itemLeftMargin - 5,
-      textMarginLeft: 15,
-      subTextMarginLeft: 16,
+      width: ITEM_WIDTH + 10,
+      height: ITEM_HEIGHT + 24,
+      marginLeft: ITEM_LEFT_MARGIN - 5,
+      textMarginLeft: ITEM_TEXT_LEFT_MARGIN - 3,
+      subTextMarginLeft: ITEM_SUB_TEXT_LEFT_MARGIN - 4,
     },
     {
-      id: 2,
-      name: isDeviceRegistered ? "50 steps" : "-",
-      status: isDeviceRegistered ? "1.2 km" : "-",
+      id: ITEM_ID_STEP,
+      name: isDeviceRegistered ? DUMMY_STEP_NAME : DUMMY_STEP_NAME,
+      status: isDeviceRegistered ? DUMMY_STEP_STATUS : DUMMY_STEP_STATUS,
       image: Images.icHealthStep,
       tintColor: "#73a494",
-      width: 32,
-      height: 34,
-      marginLeft: itemLeftMargin,
-      textMarginLeft: 19,
-      subTextMarginLeft: 20,
+      width: ITEM_WIDTH,
+      height: ITEM_HEIGHT,
+      marginLeft: ITEM_LEFT_MARGIN,
+      textMarginLeft: ITEM_TEXT_LEFT_MARGIN,
+      subTextMarginLeft: ITEM_SUB_TEXT_LEFT_MARGIN,
     },
     {
-      id: 3,
-      name: isDeviceRegistered ? "76 bpm" : "-",
-      status: isDeviceRegistered ? "55 bpm" : "-",
+      id: ITEM_ID_HEART_RATE,
+      name: isDeviceRegistered ? DUMMY_HEART_RATE_NAME : DUMMY_HEART_RATE_NAME,
+      status: isDeviceRegistered ? DUMMY_HEART_RATE_STATUS : DUMMY_HEART_RATE_STATUS,
       image: Images.icHealthHeart,
       tintColor: "#c27171",
-      width: 32,
-      height: 34,
-      marginLeft: itemLeftMargin,
-      textMarginLeft: 19,
-      subTextMarginLeft: 20,
+      width: ITEM_WIDTH,
+      height: ITEM_HEIGHT,
+      marginLeft: ITEM_LEFT_MARGIN,
+      textMarginLeft: ITEM_TEXT_LEFT_MARGIN,
+      subTextMarginLeft: ITEM_SUB_TEXT_LEFT_MARGIN,
     },
     {
-      id: 4,
-      name: isDeviceRegistered ? "6h 30m" : "-",
-      status: isDeviceRegistered ? "Good" : "-",
+      id: ITEM_ID_SLEEP,
+      name: isDeviceRegistered ? DUMMY_SLEEP_NAME : DUMMY_SLEEP_NAME,
+      status: isDeviceRegistered ? DUMMY_SLEEP_STATUS : DUMMY_SLEEP_STATUS,
       image: Images.icHealthSleep,
       tintColor: "#8798b1",
-      width: 32,
-      height: 34,
-      marginLeft: itemLeftMargin,
-      textMarginLeft: 19,
-      subTextMarginLeft: 20,
+      width: ITEM_WIDTH,
+      height: ITEM_HEIGHT,
+      marginLeft: ITEM_LEFT_MARGIN,
+      textMarginLeft: ITEM_TEXT_LEFT_MARGIN,
+      subTextMarginLeft: ITEM_SUB_TEXT_LEFT_MARGIN,
     },
   ]
 
-  onPressItem = (item) => {
-    console.log("test", item.id)
-    switch (item.id) {
-      case 2: // step
-        break
-      case 3: // heart rate
-        break
-      case 4: // sleep
-        break
-    }
-  }
-
-  onPressRefresh = () => { }
-
+  /**
+   * render the item of FlatList.
+   */
   renderItem = ({ item }) => {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          console.log("test", "onPress called !")
-          item.id !== 1 && this.onPressItem(item)
-        }}
-      >
-        <View style={styles.row}>
+      <TouchableOpacity onPress={() => { item.id !== 1 && onPressCardItem(item) }}>
 
+        {/* horizontal direction - start. */}
+        <View style={styles.rowItem}>
           <Image source={item.image}
             style={{
-              ...styles.pic, tintColor: item.tintColor, width: item.width,
+              ...styles.userImage, tintColor: item.tintColor, width: item.width,
               height: item.height, marginLeft: item.marginLeft
             }} />
 
-          <View>
-            <View style={styles.nameContainer}>
-              <Text
-                style={{ ...styles.nameTxt, marginLeft: item.textMarginLeft }}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {this.isDeviceRegistered ? item.name : "-"}
-              </Text>
+          {/* vertical direction - start. */}
+          <View style={{ marginLeft: 25 }}>
 
-              {item.id !== 1 ? (
-                <Image
-                  source={Images.btnArrowRight}
-                  style={{ width: 24, height: 27, alignItems: "center" }}
-                />
-              ) : (
-                <View></View>
-              )}
+            {/* item title. */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", width: 240, marginLeft: item.textMarginLeft }}>
+              <Text
+                style={{ marginLeft: 15, color: "#333435", fontSize: 17, width: 210 }}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {item.name}
+              </Text>
             </View>
 
-            <View style={styles.msgContainer}>
+            {/* item status. */}
+            <View style={{ flexDirection: "row", alignItems: "center", marginLeft: item.subTextMarginLeft }}>
               {item.id == 1 ? (
+                // device connection state and battery level information.
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                  <Text style={{ ...styles.msgTxt, marginLeft: item.subTextMarginLeft, }}>
-                    {this.isDeviceRegistered ? "-" : "-"}
+
+                  <Text style={{ fontWeight: "400", color: "#333435", fontSize: 16 }}>
+                    {item.status}
                   </Text>
 
                   {/* battrey level */}
-                  <Text style={{ marginLeft: 100 }}>
-                    Battery {this.isDeviceRegistered ? "-" : "-"}%
+                  <Text style={{ color: "#333435", marginLeft: 55, fontSize: 16 }}>
+                    Battery {bleConnectionCompleteState ? bleDeviceBatteryLevel : "-"}%
                   </Text>
                 </View>
 
               ) : (
-                <Text style={{ ...styles.msgTxt, marginLeft: item.subTextMarginLeft }}>
-                  <Text style={styles.msgTxt}>{item.status}</Text>
+                // step, heart rate and sleep detailed information.
+                <Text style={{ fontWeight: "400", color: "#333435", fontSize: 16 }}>
+                  {item.status}
                 </Text>
               )}
             </View>
+
           </View>
+          {/* vertical direction - end. */}
+
+          {item.id !== 1 ? (
+            <Image
+              source={Images.btnArrowRight}
+              style={{ width: 24, height: 27, alignItems: "center", justifyContent: "center" }}
+            />
+          ) : (
+            <View></View>
+          )}
         </View>
+        {/* horizontal direction -end. */}
+
       </TouchableOpacity>
     )
   }
 
-  loadUserImage = () => {
-    return <Image style={styles.image} source={Images.icMaleUser} />
+  /**
+   * get user's image.
+   * @returns {JSX.Element}
+   */
+  getUserImage = () => {
+    return <Image style={styles.useImageStyle} source={Images.icMaleUser} />
   }
-
-  getWearerName = () => { return "Tester" }
-
-  let isAbleToRefresh = true
 
   return (
     <View>
@@ -150,23 +186,28 @@ const HomeCardComponent = ({ isDeviceRegistered }) => {
 
         {/* header */}
         <View style={{ ...styles.header }}>
+
+          {/* last update time information. */}
           <Text style={{ textAlign: "right", color: "#333435", marginRight: 5 }}>
-            {this.isDeviceRegistered ? "-" : "-"}
+            Last updated on {refreshedTime}
           </Text>
 
+          {/* user image and name information. */}
           <View style={{ flexDirection: "row" }}>
-            {this.loadUserImage()}
+
+            {/* user image. */}
+            {this.getUserImage()}
+
+            {/* user name. */}
             <View style={{ paddingTop: 10, paddingLeft: 28, flex: 1, justifyContent: "center", }}>
-              <View style={styles.sectionName}>
-                <Text numberOfLines={1} style={styles.name}>
-                  {this.getWearerName()}
-                </Text>
+              <View style={styles.userNameView}>
+                <Text numberOfLines={1} style={styles.userName}>{DUMMY_USER_NAME}</Text>
               </View>
             </View>
           </View>
         </View>
 
-        {/* content */}
+        {/* content list. */}
         <View style={{ marginBottom: 25 }}>
           <FlatList
             data={homeCardContentList}
@@ -179,27 +220,23 @@ const HomeCardComponent = ({ isDeviceRegistered }) => {
         </View>
       </View>
 
-      {/* refresh */}
-      <TouchableOpacity
-        onPress={() => { this.onPressRefresh() }}
-        style={{ marginLeft: "auto", marginRight: 8 }}
-      >
+      {/* refresh view. */}
+      <TouchableOpacity onPress={onPressRefreshArea} style={{ marginLeft: "auto", marginRight: 8 }}>
+
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+          {/* refresh image. */}
           <Image style={{ width: 17, height: 19, resizeMode: "contain", marginRight: 6 }}
-            source={isAbleToRefresh ? Images.icRefresh : Images.icRefreshDisable} />
+            source={true ? Images.icRefresh : Images.icRefreshDisable} />
 
-          <View style={styles.timeView}>
+          {/* refresh message. */}
+          <View style={styles.lastUpdateTimeView}>
             {true ? (
-              <Text style={styles.lastDeviceEventTime}>
-                {this.hasWatchDevice ? "Last updated on 12:00 PM" : "-"}
-              </Text>
-
+              <Text style={styles.lastDeviceEventTime}>Last updated on {refreshedTime}</Text>
             ) : (
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.lastDeviceEventTime}>
                   {strings.updatedOn.replace(/\{0\}/g, "")}
                 </Text>
-
                 <SuperscriptDateText style={styles.lastDeviceEventTime}>
                   {sosTimeFormat(moment(100).utc())}
                 </SuperscriptDateText>
@@ -207,6 +244,7 @@ const HomeCardComponent = ({ isDeviceRegistered }) => {
             )}
           </View>
         </View>
+
       </TouchableOpacity>
     </View>
   )
@@ -223,8 +261,14 @@ const styles = StyleSheet.create({
     shadowColor: Colors.borderColorDateTime,
     margin: 5,
     marginBottom: 10,
-    elevation: 4,
-    shadowOpacity: 2,
+    shadowColor: "#474747",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.49,
+    elevation: 12,
   },
   header: {
     flexDirection: "column",
@@ -233,109 +277,39 @@ const styles = StyleSheet.create({
     marginLeft: 17,
     paddingBottom: 20,
   },
-  image: {
+  useImageStyle: {
     aspectRatio: 1,
     height: 64,
     width: 64,
     borderRadius: 32,
     marginTop: 10,
   },
-  watchImage: {
-    height: 58,
-    width: 42,
-  },
-  main: {
-    backgroundColor: "#ffffff80",
-    marginRight: 8,
-    paddingHorizontal: 4,
-    paddingVertical: 0.2,
-    borderRadius: 4,
-    borderWidth: 1.1,
-  },
-  sub: {
-    backgroundColor: "#ffffff80",
-    marginRight: 8,
-    paddingHorizontal: 4,
-    paddingVertical: 0.2,
-    borderRadius: 4,
-    borderWidth: 1.1,
-    borderColor: Colors.coolGrey,
-  },
-  mainTxt: {
-    color: Colors.black,
-  },
-  subTxt: {
-    color: Colors.coolGrey,
-  },
-  imageMain: {
-    height: 22,
-    width: 44,
-    borderRadius: 4,
-    marginRight: 10,
-    resizeMode: "contain",
-  },
-  registerWatch: {
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: Colors.coral,
-    paddingVertical: 2,
-    paddingHorizontal: 14,
-    borderRadius: 20,
-  },
-  timeView: {
+  lastUpdateTimeView: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     borderColor: Colors.borderColorBox,
     borderWidth: 1,
-    paddingHorizontal: 8,
+    paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 12,
   },
-  name: {
+  userName: {
     color: Colors.black,
     fontSize: 20,
     fontFamily: Fonts.poppinsFamily.Medium,
-    fontWeight: "500",
+    fontWeight: "bold",
     flex: 1,
   },
-  statusWatch: {
-    fontSize: 17,
-    color: Colors.darkGrey,
-    fontWeight: "normal",
-    fontFamily: Fonts.poppinsFamily.Regular,
-  },
-  nextIcon: {
-    width: 24,
-    height: 24,
-  },
-  sectionName: {
+  userNameView: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
-  role: {
-    fontFamily: Fonts.family.Medium,
-    fontSize: 16,
-  },
-  registerView: {
-    backgroundColor: Colors.green,
-    borderRadius: 3,
-    height: 40,
-    width: 180,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  loading: {
-    height: 100,
-    width: "100%",
-    position: "absolute",
-    left: 0,
-    top: 0,
-    opacity: 0.6,
-    borderRadius: 10,
-    backgroundColor: Colors.athensGray,
+  userImage: {
+    borderRadius: 30,
+    width: 60,
+    height: 60,
   },
   lastDeviceEventTime: {
     fontSize: 14,
@@ -343,107 +317,17 @@ const styles = StyleSheet.create({
     color: Colors.darkGrey,
     textAlign: "center",
   },
-  list: {
-    paddingHorizontal: 5,
-    backgroundColor: "#f6f6f6",
-  },
-  listContainer: {
-    alignItems: "center",
-  },
-  card: {
-    shadowColor: "#474747",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.37,
-    shadowRadius: 7.49,
-
-    elevation: 12,
-    marginVertical: 20,
-    marginHorizontal: 40,
-    backgroundColor: "#e2e2e2",
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardHeader: {
-    paddingVertical: 17,
-    paddingHorizontal: 16,
-    borderTopLeftRadius: 1,
-    borderTopRightRadius: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  cardContent: {
-    paddingVertical: 12.5,
-    paddingHorizontal: 16,
-  },
-  cardFooter: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingTop: 12.5,
-    paddingBottom: 25,
-    paddingHorizontal: 16,
-    borderBottomLeftRadius: 1,
-    borderBottomRightRadius: 1,
-  },
-  cardImage: {
-    height: 50,
-    width: 50,
-    alignSelf: "center",
-  },
-  title: {
-    fontSize: 18,
-    flex: 1,
-    alignSelf: "center",
-    color: "#696969",
-  },
-  row: {
+  rowItem: {
     flexDirection: "row",
     alignItems: "center",
     borderColor: "#DCDCDC",
     backgroundColor: "#fff",
     borderBottomWidth: 1,
-    padding: 15,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 7,
+    paddingRight: 7,
     marginLeft: 15,
     marginRight: 15
-  },
-  pic: {
-    borderRadius: 30,
-    width: 60,
-    height: 60,
-  },
-  nameContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: 280,
-    marginLeft: 18,
-  },
-  nameTxt: {
-    marginLeft: 15,
-    fontWeight: "600",
-    color: "#222",
-    fontSize: 17,
-    width: 170,
-  },
-  mblTxt: {
-    fontWeight: "200",
-    color: "#777",
-    fontSize: 13,
-  },
-  msgContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginLeft: 18,
-  },
-  msgTxt: {
-    fontWeight: "400",
-    color: "#008B8B",
-    fontSize: 12,
-    marginLeft: 15,
-  },
+  }
 })
