@@ -15,7 +15,16 @@ import { UserProfile } from '../../../domain/entities/user/UserProfile'
 
 const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 const REGISTER_USER_STRINGS = Strings.registerSenior
+
+const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.NORMAL
 const LOG_TAG = Constants.LOG.PROFILE_UI_LOG
+
+/**
+ * modal related useState keys.
+ * the following key values are used in both the profile container and the component.
+ */
+export const KEY_MODAL_PHOTO_VISIBLE = "modalPhotoVisible"
+export const KEY_MODAL_DATE_PICKER_VISIBLE = "modalDatePickerVisible"
 
 /**
  * next screen information.
@@ -31,6 +40,7 @@ export default function ProfileContainer(props) {
 
     /**
      * useState code for ui interaction.
+     * Refs. the use-state variable 'date' means birthday.
      */
     const [modalPhotoVisible, setModalPhotoVisible] = useState(false)
     const [modalDatePickerVisible, setModalDatePickerVisible] = useState(false)
@@ -61,7 +71,7 @@ export default function ProfileContainer(props) {
     onClickDoneButton = () => {
         executeSetProfileInfoUseCase(getUserProfileInfo(), (succeeded) => {
             if (succeeded) {
-                navigateToNextScreen(props.navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
+                navigateToNextScreen(props.navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
             }
         })
     }
@@ -73,10 +83,11 @@ export default function ProfileContainer(props) {
         UserProfile.imageUrl = photoUrl
         UserProfile.name = name
         UserProfile.gender = gender
-        UserProfile.birthday = birthday
+        UserProfile.birthday = date
         UserProfile.height = height
         UserProfile.weight = weight
 
+        logDebug(LOG_TAG, ">>> userProfile: " + UserProfile + ", element name: " + UserProfile.name)
         return UserProfile
     }
 
@@ -87,10 +98,10 @@ export default function ProfileContainer(props) {
      */
     setModalVisibilty = (key, visible) => {
         switch (key) {
-            case 'modalPhotoVisible':
+            case KEY_MODAL_PHOTO_VISIBLE:
                 setModalPhotoVisible(visible)
                 break
-            case 'modalDatePickerVisible':
+            case KEY_MODAL_DATE_PICKER_VISIBLE:
                 setModalDatePickerVisible(visible)
                 break
         }
@@ -128,7 +139,7 @@ export default function ProfileContainer(props) {
      * request camera permission and execute camera if permission is granted.
      */
     takePhotoAction = async () => {
-        setModalVisibilty('modalPhotoVisible', false)
+        setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
         try {
             if (requestCameraPermission()) {
                 logDebug(LOG_TAG, "<<< camera permission given")
@@ -140,10 +151,10 @@ export default function ProfileContainer(props) {
                     if (response.uri != null) {
                         logDebug(LOG_TAG, ">>> photo response uri: " + response.uri)
                         setPhotoUrl(response.uri)
-                        setModalVisibilty('modalPhotoVisible', false)
+                        setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
 
                     } else {
-                        outputErrorLog(LOG_TAG, e)
+                        outputErrorLog(LOG_TAG, "<<< response uri is null !!!")
                     }
                 })
             }
@@ -156,7 +167,7 @@ export default function ProfileContainer(props) {
      * launch image libary.
      */
     selectGallery = () => {
-        setModalVisibilty('modalPhotoVisible', false)
+        setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
         launchImageLibrary(imageOptions, (response) => {
             logDebug(LOG_TAG, "<<< photoFileName: " + response.fileName
                 + ", photoUri: " + response.uri
@@ -167,7 +178,7 @@ export default function ProfileContainer(props) {
                 setPhotoUrl(response.uri)
 
             } else {
-                outputErrorLog(LOG_TAG, e)
+                outputErrorLog(LOG_TAG, "<<< response uri is null !!!")
             }
         })
     }

@@ -10,7 +10,10 @@ import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
 import { storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
+
 const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
+const NAVIGATION_PURPOSE_NORMAL = Constants.NAVIGATION.PURPOSE.NORMAL
+const NAVIGATION_PURPOSE_ADD_DEVICE = Constants.NAVIGATION.PURPOSE.ADD_DEVICE
 
 /**
  * next screen information.
@@ -22,7 +25,12 @@ const NEXT_SCREEN = Constants.SCREEN.HOME_BOTTOM_TAB_SCREEN
  * @param {Any} navigation 
  * @returns {JSX.Element}
  */
-const BluetoothContainer = ({ navigation }) => {
+const BluetoothContainer = ({ route, navigation }) => {
+
+    /**
+     * load navigation's purpose.
+     */
+    const { purposeWhat } = route.params
 
     /**
      * usecase functions for connecting to ble device.
@@ -55,7 +63,12 @@ const BluetoothContainer = ({ navigation }) => {
         if (bleConnectionCompleteState) {
             logDebug(LOG_TAG, "<<< all of ble connection jobs is completed. go to home screen")
             storeIsDeviceRegistered(true).then(() => {
-                navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
+                if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
+                    navigation.pop()
+
+                } else {
+                    navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_NORMAL)
+                }
 
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e)

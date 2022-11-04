@@ -39,7 +39,12 @@ export default {
         NEXT_SCREEN_DELAY_TIME: 1000
     },
     NAVIGATION: {
-        NO_DELAY_TIME: 0
+        NO_DELAY_TIME: 0,
+        PURPOSE: {
+            ADD_DEVICE: "ADD_DEVICE",
+            EDIT_PROFILE: "EDIT_PROFILE",
+            NORMAL: "NORMAL"
+        }
     },
     SPLASH: {
         SPLASH_LOADING_TIME: 2000,

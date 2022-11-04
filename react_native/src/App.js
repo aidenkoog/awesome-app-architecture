@@ -65,9 +65,9 @@ function BottomTabNavigator() {
         <BottomTab.Navigator
             // initial tab screen: home container.
             initialRouteName={HOME_SCREEN}
-            tabBarOptions={{
-                activeTintColor: Colors.black,
-                inactiveTintColor: Colors.slateGrey,
+            screenOptions={{
+                tabBarActiveTintColor: Colors.black,
+                tabBarInactiveTintColor: Colors.slateGrey,
             }}>
             {/* home screen. */}
             <BottomTab.Screen

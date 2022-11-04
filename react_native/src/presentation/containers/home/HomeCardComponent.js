@@ -11,7 +11,7 @@ const strings = Strings.home
  * dummy data for debugging.
  */
 const DUMMY_USER_NAME = "Device Tester 5194"
-const DUMMY_DEVICE_NAME = "Watch Device 5194"
+const DUMMY_DEVICE_NAME = "BLE Device 75627"
 const DUMMY_DEVICE_STATUS = "Disconnected"
 const DUMMY_STEP_NAME = "10000 steps"
 const DUMMY_STEP_STATUS = "12000 km"
@@ -28,6 +28,7 @@ const DUMMY_SLEEP_STATUS = "Good"
 const HomeCardComponent = (props) => {
 
   const {
+    userName, userImageUrl,
     bleConnectionCompleteState, isDeviceRegistered, bleDeviceBatteryLevel, refreshedTime,
     onPressCardItem, onPressRefreshArea
   } = props
@@ -177,7 +178,12 @@ const HomeCardComponent = (props) => {
    * @returns {JSX.Element}
    */
   getUserImage = () => {
-    return <Image style={styles.useImageStyle} source={Images.icMaleUser} />
+    if (userImageUrl == "-") {
+      return <Image style={styles.useImageStyle} source={Images.icMaleUser} />
+
+    } else {
+      return <Image style={styles.useImageStyle} source={{ uri: userImageUrl }} />
+    }
   }
 
   return (
@@ -196,12 +202,14 @@ const HomeCardComponent = (props) => {
           <View style={{ flexDirection: "row" }}>
 
             {/* user image. */}
-            {this.getUserImage()}
+            <View>
+              {this.getUserImage()}
+            </View>
 
             {/* user name. */}
-            <View style={{ paddingTop: 10, paddingLeft: 28, flex: 1, justifyContent: "center", }}>
+            <View style={{ paddingTop: 10, paddingLeft: 28, flex: 1, justifyContent: "center" }}>
               <View style={styles.userNameView}>
-                <Text numberOfLines={1} style={styles.userName}>{DUMMY_USER_NAME}</Text>
+                <Text numberOfLines={1} style={styles.userName}>{userName}</Text>
               </View>
             </View>
           </View>

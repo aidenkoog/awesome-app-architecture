@@ -3,8 +3,6 @@ import Constants from "../../../utils/Constants"
 import { logDebug } from "../../../utils/logger/Logger"
 import { Colors, Images, Fonts, Strings } from "../../../utils/theme"
 
-const PulseComponent = require("react-native-pulse").default
-
 /**
  * BT searching title and content message.
  */
@@ -56,13 +54,6 @@ export default function BluetoothComponent(props) {
                             resizeMode="contain"
                             style={{ width: 124, height: 174 }}
                             source={Images.icBand}
-                        />
-                        <PulseComponent
-                            color="#f9fbff"
-                            numPulses={3}
-                            diameter={500}
-                            speed={10}
-                            duration={500}
                         />
                     </View>
                 </View>

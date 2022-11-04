@@ -3,16 +3,21 @@ import Constants from "../../../utils/Constants"
 import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
 import { getIsDeviceRegistered } from "../../../utils/storage/StorageUtil"
 import HomeComponent from "./HomeComponent"
-import {
-    bleConnectionCompleteStateAtom, bleConnectionStateAtom
-} from '../../../data/adapters/recoil/bluetooth/ConnectionStateAtom'
+import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
 import RequestDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/RequestDeviceInfoUseCase"
 import { formatRefreshTime } from "../../../utils/time/TimeUtil"
 import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
+import { getDecryptedData, getEncryptedData } from "../../../utils/ble/BleEncryptionUtil"
+import { pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
+
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
+
+const NEXT_SCREEN_QR_SCAN = Constants.SCREEN.QR_SCAN
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
+const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.ADD_DEVICE
 
 /**
  * item's id information that exists in home card.
@@ -26,7 +31,7 @@ const ITEM_ID_SLEEP = 4
  * @param {Any} navigation 
  * @returns {JSX.Element}
  */
-function HomeContainer({ }) {
+function HomeContainer({ navigation }) {
 
     /**
      * useState code for ui interaction.
@@ -34,6 +39,10 @@ function HomeContainer({ }) {
     const [isDeviceRegistered, setIsDeviceRegistered] = useState(true)
     const [bleDeviceBatteryLevel, setBleDeviceBatteryLevel] = useState("--")
     const [refreshedTime, setRefreshedTime] = useState("--")
+    const [userName, setUserName] = useState("-")
+    const [userImageUrl, setUserImageUrl] = useState("-")
+    const [isRefreshing, setIsRefreshing] = useState(false)
+    const [homeCardItems, addHomeCardItem] = useState([{ id: 999, name: "HOME CARD" }])
 
     /**
      * usecase function for getting to the battery level of ble device.
@@ -102,38 +111,107 @@ function HomeContainer({ }) {
     }
 
     /**
+     * get user profile information and update them for rendering ui.
+     */
+    loadUserProfile = () => {
+        executeGetProfileInfoUseCase(userProfileInfo => {
+            const userProfile = JSON.parse(userProfileInfo)
+
+            logDebug(LOG_TAG, "<<< userProfile imageUrl: " + userProfile.imageUrl)
+            logDebug(LOG_TAG, "<<< userProfile name: " + userProfile.name)
+            logDebug(LOG_TAG, "<<< userProfile gender: " + userProfile.gender)
+            logDebug(LOG_TAG, "<<< userProfile birthday: " + userProfile.birthday)
+            logDebug(LOG_TAG, "<<< userProfile height: " + userProfile.height)
+            logDebug(LOG_TAG, "<<< userProfile weight: " + userProfile.weight)
+
+            setUserName(userProfile.name)
+            setUserImageUrl(userProfile.imageUrl)
+        })
+    }
+
+    /**
+     * get value that represents if device is already registered and update it for rendering ui.
+     */
+    loadDeviceRegistrationData = () => {
+        getIsDeviceRegistered().then((registered) => {
+            logDebug(LOG_TAG, "<<< device is registered ? " + registered)
+            setIsDeviceRegistered(registered)
+
+        }).catch((e) => { outputErrorLog(LOG_TAG, e) })
+    }
+
+    /**
+     * get ble battery level, update it, and update refresh time information for rendering ui.
+     */
+    loadBleBatteryLevel = () => {
+        return new Promise((fulfill, reject) => {
+            executeGetBatteryLevelUseCase().then(batteryLevel => {
+                setBleDeviceBatteryLevel(batteryLevel)
+                setRefreshedTime(formatRefreshTime())
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by executeGetBatteryLevelUseCase !!!")
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * add new device.
+     */
+    onAddDevice = () => {
+        pushToNextScreen(navigation, NEXT_SCREEN_QR_SCAN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
+    }
+
+    /**
+     * handle the swipe refreshing event.
+     */
+    onSwipeRefresh = () => {
+        setIsRefreshing(true)
+        loadBleBatteryLevel().then(() => {
+            setIsRefreshing(false)
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + " occurred by loadBleBatteryLevel !!!")
+            setIsRefreshing(false)
+        })
+    }
+
+    /**
+     * BLE command / Encryption / Decryption Test
+     */
+    testBleCommand = () => {
+        const encryptedResult = getEncryptedData()
+        logDebug(LOG_TAG, "<<< encryptedResult: " + encryptedResult)
+
+        const decryptedResult = getDecryptedData(encryptedResult)
+        logDebug(LOG_TAG, "<<< decryptedResult: " + decryptedResult)
+    }
+
+    /**
      * executed logic before ui rendering and painting.
      */
     useLayoutEffect(() => {
         logDebug(LOG_TAG, "<<< bleConnectionState: " + bleConnectionState
             + ", bleConnectionCompleteState: " + bleConnectionCompleteState)
 
-        getIsDeviceRegistered().then((registered) => {
-            logDebug(LOG_TAG, "<<< device is registered ? " + registered)
-            setIsDeviceRegistered(registered)
-
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e)
-        })
-
-        executeGetBatteryLevelUseCase().then((batteryLevel) => {
-            setBleDeviceBatteryLevel(batteryLevel)
-        })
-
-        executeGetProfileInfoUseCase(userProfileInfo => {
-            logDebug(LOG_TAG, "<<< userProfileInfo: " + JSON.stringify(userProfileInfo))
-            logDebug(LOG_TAG, "<<< profileImageUrl: " + userProfileInfo.profileImageUrl)
-            logDebug(LOG_TAG, "<<< profileName: " + userProfileInfo.profileName)
-            logDebug(LOG_TAG, "<<< profileGender: " + userProfileInfo.profileGender)
-            logDebug(LOG_TAG, "<<< profileBirthday: " + userProfileInfo.profileBirthday)
-            logDebug(LOG_TAG, "<<< profileHeight: " + userProfileInfo.profileHeight)
-            logDebug(LOG_TAG, "<<< profileWeight: " + userProfileInfo.profileWeight)
-        })
+        loadDeviceRegistrationData()
+        loadBleBatteryLevel()
+        loadUserProfile()
+        addHomeCardItem([{ id: 999, name: "HOME CARD" }])
+        testBleCommand()
 
     }, [])
 
     return (
         <HomeComponent
+            userName={userName}
+            userImageUrl={userImageUrl}
+            isRefreshing={isRefreshing}
+            onSwipeRefresh={onSwipeRefresh}
+            homeCardItems={homeCardItems}
+            onAddDevice={onAddDevice}
             isDeviceRegistered={isDeviceRegistered}
             bleConnectionCompleteState={bleConnectionCompleteState}
             bleDeviceBatteryLevel={bleDeviceBatteryLevel}

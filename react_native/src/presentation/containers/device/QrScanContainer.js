@@ -3,10 +3,13 @@ import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
 import Constants from '../../../utils/Constants'
 import React, { useState } from 'react'
 import { storeBleDeviceName, storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
-import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import { navigateToNextScreen, pushToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 const LOG_TAG = Constants.LOG.QR_SCAN
+
 const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
+const NAVIGATION_PURPOSE_NORMAL = Constants.NAVIGATION.PURPOSE.NORMAL
+const NAVIGATION_PURPOSE_ADD_DEVICE = Constants.NAVIGATION.PURPOSE.ADD_DEVICE
 
 /**
  * next screen information.
@@ -19,7 +22,7 @@ const NEXT_SCREEN_BY_NOT_NOW = Constants.SCREEN.HOME
  * @param {Any} navigation 
  * @returns {JSX.Element}
  */
-const QrScanContainer = ({ navigation }) => {
+const QrScanContainer = ({ route, navigation }) => {
 
     /**
      * useState code for ui interaction.
@@ -31,6 +34,11 @@ const QrScanContainer = ({ navigation }) => {
     const [square, setSquare] = useState(0)
 
     /**
+     * load navigation's purpose.
+     */
+    const { purposeWhat } = route.params
+
+    /**
      * qr scanner's reference.
      */
     const scanner = React.useRef('')
@@ -38,12 +46,19 @@ const QrScanContainer = ({ navigation }) => {
     /**
      * received device name when qr scan is executed successfully.
      */
-    onSuccess = (deviceName) => {
+    onQrScanSuccess = (deviceName) => {
         logDebug(LOG_TAG, "<<< deviceName by qr scan: " + deviceName)
 
         // store device name to local storage and navigate to bluetooth pairing / connection screen. 
         storeBleDeviceName(deviceName).then(() => {
-            navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
+            logDebug(LOG_TAG, "<<< navigation purposeWhat: " + purposeWhat)
+
+            if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
+                pushToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_ADD_DEVICE)
+
+            } else {
+                navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_NORMAL)
+            }
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occurred by storeBleDeviceName")
@@ -62,14 +77,22 @@ const QrScanContainer = ({ navigation }) => {
     /**
      * return to the previous screen.
      */
-    navigatePop = () => navigation.pop
+    onPressBackIcon = () => navigation.pop()
 
     /**
      * move to home screen with the flag indicates that 'Now now' button is pressed.
      */
     onNotNowPressed = () => {
         storeIsDeviceRegistered(false).then(() => {
-            navigateToNextScreen(navigation, NEXT_SCREEN_BY_NOT_NOW, NAVIGATION_NO_DELAY_TIME)
+            logDebug(LOG_TAG, "<<< navigation purposeWhat: " + purposeWhat)
+
+            if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
+                navigation.pop()
+
+            } else {
+                navigateToNextScreen(navigation, NEXT_SCREEN_BY_NOT_NOW, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
+            }
+
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e)
         })
@@ -80,8 +103,8 @@ const QrScanContainer = ({ navigation }) => {
             contentError={contentError}
             inputValue={inputValue}
             isDisable={isDisable}
-            onSuccess={onSuccess}
-            back={navigatePop}
+            onQrScanSuccess={onQrScanSuccess}
+            onPressBackIcon={onPressBackIcon}
             setSquare={setSquare}
             scanner={scanner}
             setBottomHeight={setBottomHeight}

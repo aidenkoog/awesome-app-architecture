@@ -22,7 +22,7 @@ export default function QrScanComponent(props) {
      * props delivered from QrScanContainer.
      */
     const {
-        inputValue, isDisable, onSuccess, back, setSquare, scanner,
+        inputValue, isDisable, onQrScanSuccess, onPressBackIcon, setSquare, scanner,
         setBottomHeight, bottomHeight, square, updateState, onNotNowPressed
     } = props
 
@@ -30,14 +30,14 @@ export default function QrScanComponent(props) {
         <SafeAreaView style={{ flex: 1 }}>
             <QRCodeScanner
                 showMarker
-                onRead={(e) => onSuccess(e.data)}
+                onRead={(e) => onQrScanSuccess(e.data)}
                 ref={(node) => { scanner.current = node }}
                 cameraStyle={{ height: SCREEN_HEIGHT }}
                 customMarker={
                     <SafeAreaView style={styles.rectangleContainer}>
 
                         <View style={styles.header}>
-                            <Touchable onPress={() => back()}>
+                            <Touchable onPress={onPressBackIcon}>
                                 <View style={{ justifyContent: "center", width: 70, height: 70, alignItems: "center", }}>
                                     <Image
                                         style={{ width: 24, height: 24, tintColor: Colors.darkGrey, }}
@@ -132,7 +132,7 @@ export default function QrScanComponent(props) {
                                                 color: Colors.white,
                                                 marginTop: 10,
                                             }}
-                                            onClick={() => { onSuccess(inputValue) }}>
+                                            onClick={() => { onQrScanSuccess(inputValue) }}>
                                             {Strings.common.next}
                                         </TextButton>
                                     </View>

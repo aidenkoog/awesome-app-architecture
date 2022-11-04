@@ -2,12 +2,7 @@ import { useRef } from "react"
 import { AppState } from "react-native"
 import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
 import Constants from "../../../utils/Constants"
-import {
-    getProfileBirthday, getProfileGender, getProfileHeight,
-    getProfileImageUrl, getProfileName, getProfileWeight,
-    storeProfileBirthday, storeProfileGender, storeProfileHeight,
-    storeProfileImageUrl, storeProfileName, storeProfileWeight
-} from "../../../utils/storage/StorageUtil"
+import { getUserProfileData, storeUserProfileData } from "../../../utils/storage/StorageUtil"
 
 const LOG_TAG = Constants.LOG.COMMON_REPO_LOG
 const APP_EVENT_TYPE = Constants.ROOT.APP_EVENT_TYPE
@@ -17,12 +12,7 @@ const SAVE_PROFILE_FAILURE = Constants.COMMON.SAVE_PROFILE_FAILURE
 /**
  * user profile information.
  */
-let profileImageUrl = ""
-let profileName = ""
-let profileGender = 0
-let profileBirthday = ""
-let profileHeight = 0
-let profileWeight = 0
+let userProfilePromise = ""
 
 /**
  * implement functions used within the app.
@@ -79,11 +69,13 @@ const CommonRepository = () => {
     const executeGetUserProfilePromise = async (onResult) => {
         await getUserProfilePromise().then(() => {
             logDebug(LOG_TAG, "<<< succeeded to get user profile")
-            let userProfileInfo = {
-                profileImageUrl, profileName, profileGender,
-                profileBirthday, profileHeight, profileWeight
-            }
-            onResult(userProfileInfo)
+            userProfilePromise.then((userProfile) => {
+                logDebug(LOG_TAG, "<<< userProfile: " + userProfile)
+                onResult(userProfile)
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by userProfilePromise")
+            })
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occurred by getUserProfilePromise")
@@ -98,12 +90,7 @@ const CommonRepository = () => {
      */
     const getUserProfilePromise = () => {
         return Promise.all([
-            profileImageUrl = getProfileImageUrl(),
-            profileName = getProfileName(),
-            profileGender = getProfileGender(),
-            profileBirthday = getProfileBirthday(),
-            profileHeight = getProfileHeight(),
-            profileWeight = getProfileWeight()
+            userProfilePromise = getUserProfileData()
         ])
     }
 
@@ -125,13 +112,19 @@ const CommonRepository = () => {
      * @returns {Promise}
      */
     const saveUserProfilePromise = (userProfileInfo) => {
+        logDebug(LOG_TAG, ">>> userProfileInfo before saving: " + userProfileInfo)
+
+        let reArtifactedData = {
+            ...{ imageUrl: userProfileInfo.imageUrl },
+            ...{ name: userProfileInfo.name },
+            ...{ gender: userProfileInfo.gender },
+            ...{ birthday: userProfileInfo.birthday },
+            ...{ height: userProfileInfo.height },
+            ...{ weight: userProfileInfo.weight }
+        }
+
         return Promise.all([
-            storeProfileImageUrl(userProfileInfo.imageUrl),
-            storeProfileName(userProfileInfo.name),
-            storeProfileGender(userProfileInfo.gender.toString()),
-            storeProfileBirthday(userProfileInfo.birthday),
-            storeProfileHeight(userProfileInfo.height.toString()),
-            storeProfileWeight(userProfileInfo.weight.toString())
+            storeUserProfileData(reArtifactedData)
         ])
     }
 
@@ -142,7 +135,7 @@ const CommonRepository = () => {
      */
     const executeSaveUserProfilePromise = async (userProfileInfo, onResult) => {
         await saveUserProfilePromise(userProfileInfo).then(() => {
-            logDebug(LOG_TAG, "<<< succeeded to save user profile")
+            logDebug(LOG_TAG, "<<< succeeded to save user profile (" + userProfileInfo + ")")
             onResult(SAVE_PROFILE_SUCCESS)
 
         }).catch((e) => {

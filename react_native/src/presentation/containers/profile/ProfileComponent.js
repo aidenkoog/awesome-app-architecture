@@ -6,6 +6,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from "react-navigation"
 import { formatBirthdayDate, formatDate } from '../../../utils/time/TimeUtil'
+import { KEY_MODAL_DATE_PICKER_VISIBLE, KEY_MODAL_PHOTO_VISIBLE } from './ProfileContainer'
 
 
 const REGISTER_SENIOR_STRINGS = Strings.registerSenior
@@ -48,7 +49,7 @@ export default function ProfileComponent(props) {
                                 <Avatar
                                     genderType={gender}
                                     photoUrl={photoUrl}
-                                    onPress={() => { setModalVisibilty('modalPhotoVisible', true) }} />
+                                    onPress={() => { setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, true) }} />
                             </View>
 
                             {/* user name. */}
@@ -154,25 +155,25 @@ export default function ProfileComponent(props) {
                 {/* user birthday popup. */}
                 <BottomPopup
                     visible={modalDatePickerVisible}
-                    onRequestClose={() => { setModalVisibilty('modalDatePickerVisible', false) }}>
+                    onRequestClose={() => { setModalVisibilty(KEY_MODAL_DATE_PICKER_VISIBLE, false) }}>
                     <View style={styles.bottomViewDatePicker}>
                         <DatePickerComponent
                             onChange={onSelectDateOfBirthday}
                             date={formatDate(date)}
-                            onClose={() => { setModalVisibilty('modalDatePickerVisible', false) }} />
+                            onClose={() => { setModalVisibilty(KEY_MODAL_DATE_PICKER_VISIBLE, false) }} />
                     </View>
                 </BottomPopup>
 
                 {/* user image selection popup. */}
                 <BottomPopup
                     visible={modalPhotoVisible}
-                    onRequestClose={() => { setModalVisibilty('modalPhotoVisible', false) }}>
+                    onRequestClose={() => { setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false) }}>
                     <View style={styles.bottomView}>
                         <ChoosePhotoPopup
-                            onClose={() => { setModalVisibilty('modalPhotoVisible', false) }}
+                            onClose={() => { setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false) }}
                             takePhotoAction={() => { takePhotoAction() }}
                             selectGallery={() => { selectGallery() }}
-                            useDefaultImage={() => { setModalVisibilty('modalPhotoVisible', false) }} />
+                            useDefaultImage={() => { setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false) }} />
                     </View>
                 </BottomPopup>
             </View>

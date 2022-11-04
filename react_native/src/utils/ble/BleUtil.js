@@ -1,6 +1,7 @@
 import { BATTERY_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from "./BleConfig"
 import { stringToBytes } from "convert-string"
-import { replaceAll } from "../common/CommonUtil"
+
+const CryptoJS = require("crypto-js")
 
 /*----------------------------------------------------------------------------------
  * Byte Array to Binary String.
@@ -98,6 +99,17 @@ export const bytesToHex = (bytes) => {
 }
 
 /**
+ * convert byte array to hex string.
+ * @param {bytes} byteArray 
+ * @returns {string}
+ */
+export const toHexString = (byteArray) => {
+    return Array.from(byteArray, function (byte) {
+        return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('')
+}
+
+/**
  * convert int number to byte array.
  * @param {number} value 
  * @returns 
@@ -144,6 +156,43 @@ export const hexToBytes = (hex) => {
 }
 
 /*----------------------------------------------------------------------------------
+ * HEX string to Byte Array.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert hex string to array buffer.
+ * @param {string} hexString 
+ * @returns {ArrayBuffer}
+ */
+export const hexStringToArrayBuffer = (hexString) => {
+    // remove the leading 0x
+    hexString = hexString.replace(/^0x/, '')
+
+    // ensure even number of characters
+    if (hexString.length % 2 != 0) {
+        console.log('WARNING: expecting an even number of characters in the hexString')
+    }
+
+    // check for some non-hex characters
+    var bad = hexString.match(/[G-Z\s]/i)
+    if (bad) {
+        console.log('WARNING: found non-hex characters', bad)
+    }
+
+    // split the string into pairs of octets
+    var pairs = hexString.match(/[\dA-F]{2}/gi)
+
+    // convert the octets to integers
+    var integers = pairs.map(function (s) {
+        return parseInt(s, 16)
+    })
+
+    var array = new Uint8Array(integers)
+    console.log(array)
+
+    return array.buffer
+}
+
+/*----------------------------------------------------------------------------------
  * Decimal to HEX.
  *----------------------------------------------------------------------------------*/
 /**
@@ -156,12 +205,104 @@ export const convertBleCustomToHexData = (customData) => {
     for (const item of customData) {
         hexStringData += convertDecimalToHexString(item) + " "
     }
-
-    // print hex string with no space character.
-    // currently, it's not used.
-    let replacedHexStringData = replaceAll(hexStringData, " ", "")
-
     return hexStringData
+}
+
+/*----------------------------------------------------------------------------------
+ * Byte Array to Word Array.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert byte to word array.
+ * @param {bytes} data 
+ * @returns {Any}
+ */
+export const byteArrayToWordArray = (data) => {
+    var result = [], i
+    for (i = 0; i < data.length; i++) {
+        result[(i / 4) | 0] |= data[i] << (24 - 8 * i)
+    }
+    return CryptoJS.lib.WordArray.create(result, data.length)
+}
+
+/*----------------------------------------------------------------------------------
+ * Byte Array to string.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert byte array to string.
+ * @param {bytes} byteArray 
+ * @returns {string}
+ */
+export function byteArrayToString(byteArray) {
+    var str = "", i;
+    for (i = 0; i < byteArray.length; ++i) {
+        str += escape(String.fromCharCode(byteArray[i]));
+    }
+    return str;
+}
+
+/*----------------------------------------------------------------------------------
+ * Word to Byte Array.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert word to byte array.
+ * @param {string} word 
+ * @param {number} length 
+ * @returns {bytes}
+ */
+export const convertWordToByteArray = (word, length) => {
+    var result = [], i,
+        xFF = 0xFF
+    if (length > 0)
+        result.push(word >>> 24)
+    if (length > 1)
+        result.push((word >>> 16) & xFF)
+    if (length > 2)
+        result.push((word >>> 8) & xFF)
+    if (length > 3)
+        result.push(word & xFF)
+    return result
+}
+
+/*----------------------------------------------------------------------------------
+ * Word Array to Byte Array.
+ *----------------------------------------------------------------------------------*/
+/**
+ * convert word array to byte's.
+ * @param {Any} wordArray 
+ * @param {number} length 
+ * @returns {bytes}
+ */
+export const wordArrayToByteArray = (wordArray, length) => {
+    if (wordArray.hasOwnProperty("sigBytes") && wordArray.hasOwnProperty("words")) {
+        length = wordArray.sigBytes
+        wordArray = wordArray.words
+    }
+    var result = [],
+        bytes,
+        i = 0
+    while (length > 0) {
+        bytes = wordToByteArray(wordArray[i], Math.min(4, length))
+        length -= bytes.length
+        result.push(bytes)
+        i++
+    }
+    return [].concat.apply([], result)
+}
+
+/**
+ * convert word array to byte's.
+ * @param {Any} wordArray 
+ * @returns {bytes}
+ */
+export function wordToByteArray(wordArray) {
+    var byteArray = [], word, i, j;
+    for (i = 0; i < wordArray.length; ++i) {
+        word = wordArray[i];
+        for (j = 3; j >= 0; --j) {
+            byteArray.push((word >> 8 * j) & 0xFF);
+        }
+    }
+    return byteArray;
 }
 
 /*----------------------------------------------------------------------------------

@@ -18,10 +18,10 @@ const KEY_DEVICE_REGISTRATION_FLAG = Constants.STORAGE.KEY_DEVICE_REGISTRATION_F
 /**
  * store user profile data.
  * ( imageUrl, name, gender, birthday, height, weight )
- * @param {UserProfile} userProfile 
+ * @param {Any} userProfile 
  * @returns {Promise}
  */
-export const storeUserProfile = async (userProfile) => {
+export const storeUserProfileData = async (userProfile) => {
     await AsyncStorage.setItem(KEY_USER_PROFILE, JSON.stringify(userProfile))
 }
 
@@ -30,11 +30,12 @@ export const storeUserProfile = async (userProfile) => {
  * ( imageUrl, name, gender, birthday, height, weight )
  * @returns {Promise}
  */
-export const getUserProfile = async () => {
+export const getUserProfileData = async () => {
     return AsyncStorage.getItem(KEY_USER_PROFILE)
 }
 
 /**
+ * @deprecated 
  * store profile name.
  * @param {string} name 
  * @returns {Promise}
@@ -44,6 +45,7 @@ export const storeProfileName = async (name) => {
 }
 
 /**
+ * @deprecated 
  * get profile name from storage.
  * @returns {Promise}
  */
@@ -52,6 +54,7 @@ export const getProfileName = async () => {
 }
 
 /**
+ * @deprecated 
  * store profile image url.
  * @param {string} imageUrl
  * @returns {Promise}
@@ -61,6 +64,7 @@ export const storeProfileImageUrl = async (imageUrl) => {
 }
 
 /**
+ * @deprecated 
  * get profile image url from storage.
  * @returns {Promise}
  */
@@ -69,6 +73,7 @@ export const getProfileImageUrl = async () => {
 }
 
 /**
+ * @deprecated 
  * store profile gender.
  * @param {number} gender 
  * @returns {Promise}
@@ -78,6 +83,7 @@ export const storeProfileGender = async (gender) => {
 }
 
 /**
+ * @deprecated
  * get profile gender from storage.
  * @returns {Promise}
  */
@@ -86,6 +92,7 @@ export const getProfileGender = async () => {
 }
 
 /**
+ * @deprecated
  * store profile birthday.
  * @param {string} birthday 
  */
@@ -94,6 +101,7 @@ export const storeProfileBirthday = async (birthday) => {
 }
 
 /**
+ * @deprecated
  * get profile birthday from storage.
  * @returns {Promise}
  */
@@ -102,6 +110,7 @@ export const getProfileBirthday = async () => {
 }
 
 /**
+ * @deprecated
  * store profile height.
  * @param {number} height 
  */
@@ -110,6 +119,7 @@ export const storeProfileHeight = async (height) => {
 }
 
 /**
+ * @deprecated
  * get profile height from storage.
  * @returns {Promise}
  */
@@ -118,6 +128,7 @@ export const getProfileHeight = async () => {
 }
 
 /**
+ * @deprecated
  * store profile weight.
  * @param {number} weight 
  * @returns {Promise}
@@ -127,6 +138,7 @@ export const storeProfileWeight = async (weight) => {
 }
 
 /**
+ * @deprecated
  * get profile weight from storage.
  * @returns {Promise}
  */

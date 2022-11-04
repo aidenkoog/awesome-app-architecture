@@ -15,6 +15,8 @@ const NEXT_SCREEN = Constants.SCREEN.PROFILE
 const NEXT_SCREEN_BY_SAVED_BLE_DATA = Constants.SCREEN.BLUETOOTH
 const SPLASH_LOADING_TIME = Constants.SPLASH.SPLASH_LOADING_TIME
 
+const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.NORMAL
+
 /**
  * splash screen.
  * @param {Any} navigation 
@@ -33,7 +35,7 @@ const SplashContainer = ({ navigation }) => {
         getBleDeviceName().then((deviceName) => {
             logDebug(LOG_TAG, "<<< cachedBleDeviceName: " + deviceName)
             if (deviceName == null) {
-                navigateToNextScreen(navigation, NEXT_SCREEN, SPLASH_LOADING_TIME)
+                navigateToNextScreen(navigation, NEXT_SCREEN, SPLASH_LOADING_TIME, NAVIGATION_PURPOSE)
 
             } else {
                 getBleDeviceMacAddress().then((macAddress) => {
@@ -41,7 +43,8 @@ const SplashContainer = ({ navigation }) => {
                     navigateToNextScreen(
                         navigation,
                         macAddress == null ? NEXT_SCREEN : NEXT_SCREEN_BY_SAVED_BLE_DATA,
-                        SPLASH_LOADING_TIME
+                        SPLASH_LOADING_TIME,
+                        NAVIGATION_PURPOSE
                     )
                 })
             }
