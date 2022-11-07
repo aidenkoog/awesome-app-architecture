@@ -6,7 +6,7 @@ import BluetoothComponent from './BluetoothComponent'
 import { bleConnectionStateAtom, bleConnectionCompleteStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import ConnectBleUseCase from '../../../domain/usecases/bluetooth/basic/ConnectBleUseCase'
-import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
 import { storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
@@ -67,7 +67,7 @@ const BluetoothContainer = ({ route, navigation }) => {
                     navigation.pop()
 
                 } else {
-                    navigateToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_NORMAL)
+                    replaceToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_NORMAL)
                 }
 
             }).catch((e) => {
