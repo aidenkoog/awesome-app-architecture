@@ -1,0 +1,215 @@
+import Constants from '../../../../utils/Constants.js'
+import { logDebug, outputErrorLog } from '../../../../utils/logger/Logger.js'
+import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
+import { SERVICE_UUID } from '../../../../utils/ble/BleConfig.js'
+
+const LOG_TAG = Constants.LOG.BT_USECASE_LOG
+const SCAN_DURATION = Constants.BT.SCAN_DURATION
+
+const ConnectBleUseCase = () => {
+
+    /**
+     * ble repository's apis.
+     */
+    const {
+        connectDevice, disableNotification, disconnectDevice, enableNotification,
+        initializeBleModule, getUuidList, sendBleCustomData, startScan, stopScan,
+        getBleDeviceInfo
+    } = BleRepository()
+
+    /**
+     * Execute the use case of connecting devices. 
+     * @param {string} peripheralId 
+     * @returns {Promise}
+     */
+    executeConnectDeviceUseCase = (peripheralId) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeConnectDeviceUseCase")
+
+        return new Promise((fulfill, reject) => {
+            connectDevice(peripheralId).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute connectDevice " + peripheralId)
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of disabling notifications. 
+     * @param {string} peripheralId 
+     * @param {string} serviceUuid 
+     * @param {string} characteristicUuid 
+     * @returns {Promise}
+     */
+    executeDisableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeDisableNotificationUseCase")
+
+        return new Promise((fulfill, reject) => {
+            disableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute disableNotification " + characteristicUuid)
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of disconnecting devices. 
+     * @param {string} peripheralId 
+     * @returns {Promise}
+     */
+    executeDisconnectDeviceUseCase = (peripheralId) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeDisconnectDeviceUseCase")
+
+        return new Promise((fulfill, reject) => {
+            disconnectDevice(peripheralId).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute disconnectDevice " + peripheralId)
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of enabling notifications.
+     * @param {string} peripheralId 
+     * @param {string} serviceUuid 
+     * @param {string} characteristicUuid 
+     * @returns {Promise}
+     */
+    executeEnableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeEnableNotificationUseCase")
+
+        return new Promise((fulfill, reject) => {
+            enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute disconnectDevice " + peripheralId)
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of initializing ble module. 
+     * @param {string} peripheralId 
+     * @returns {Promise}
+     */
+    executeBleModuleUseCase = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeBleModuleUseCase")
+
+        return new Promise((fulfill, reject) => {
+            initializeBleModule().then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute initializeBleModule")
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of getting uuid list. 
+     * @param {Any} peripheral 
+     * @returns {Any}
+     */
+    executeGetUuidListUseCase = (peripheral) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeGetUuidListUseCase")
+
+        const uuidList = getUuidList(peripheral)
+        logDebug(LOG_TAG, "<<< succeeded to execute getUuidList: " + uuidList)
+        return uuidList
+    }
+
+    /**
+     * Execute the use case. 
+     */
+    executeSendBleCustomDataUseCase = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeSendBleCustomDataUseCase")
+
+        return new Promise((fulfill, reject) => {
+            sendBleCustomData().then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute sendBleCustomData")
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of starting the device scan. 
+     * @param {string} serviceUuid 
+     * @param {number} duration 
+     * @returns {Promise}
+     */
+    executeStartScanUseCase = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
+        logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
+
+        return new Promise((fulfill, reject) => {
+            startScan(serviceUuid, duration).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute startScan with " + serviceUuid + " for " + duration + "seconds")
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * Execute the use case of stopping the device scan. 
+     * @Deprecated
+     * @returns {Promise}
+     */
+    executeStopScanUseCase = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeStopScanUseCase")
+
+        return new Promise((fulfill, reject) => {
+            stopScan().then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to execute stopScan")
+                fulfill()
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e)
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * execute the use case of getting ble device information.
+     * release ble listeners after completing to getting information.
+     */
+    executeGetBleDeviceInfo = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeGetBleDeviceInfo")
+        getBleDeviceInfo((bleDeviceInfo) => {
+            return bleDeviceInfo
+        })
+    }
+
+    return {
+        executeConnectDeviceUseCase, executeDisableNotificationUseCase, executeDisconnectDeviceUseCase,
+        executeEnableNotificationUseCase, executeBleModuleUseCase, executeGetUuidListUseCase,
+        executeSendBleCustomDataUseCase, executeStartScanUseCase, executeStopScanUseCase,
+        executeGetBleDeviceInfo
+    }
+}
+
+export default ConnectBleUseCase

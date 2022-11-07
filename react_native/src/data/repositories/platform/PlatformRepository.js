@@ -1,6 +1,7 @@
 import Constants from "../../../utils/Constants"
-import { logDebug, outputErrorLog } from "../../../utils/Logger"
+import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
 import { Linking, Platform } from "react-native"
+import DeviceInfo from "react-native-device-info"
 
 const LOG_TAG = Constants.LOG.PLATFORM_REPO_LOG
 
@@ -25,7 +26,7 @@ const PlatformRepository = () => {
     }
 
     /**
-     * send sms.
+     * send sms with user interaction.
      * @param {string} receiverPhoneNumber
      * @param {string} message
      */
@@ -48,7 +49,7 @@ const PlatformRepository = () => {
     }
 
     /**
-     * send call.
+     * send call with user interaction.
      * @param {string} receiverPhoneNumber
      */
     sendCall = (receiverPhoneNumber) => {
@@ -61,10 +62,66 @@ const PlatformRepository = () => {
         })
     }
 
+    /**
+     * get my phone number.
+     * @returns {string}
+     */
     getMyPhoneNumber = () => {
-        const myPhoneNumber = ""
-        logDebug(LOG_TAG, "<<< my phone number: " + myPhoneNumber)
-        return ""
+        return new Promise((fulfill, reject) => {
+            DeviceInfo.getPhoneNumber().then((phoneNumber) => {
+                fulfill(phoneNumber)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * get the application instance ID.
+     * @returns {Promise}
+     */
+    getInstanceId = () => {
+        return new Promise((fulfill, reject) => {
+            DeviceInfo.getInstanceId().then((instanceId) => {
+                fulfill(instanceId)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * get the ANDROID_ID.
+     * @returns {Promise}
+     */
+    getAndroidId = () => {
+        return new Promise((fulfill, reject) => {
+            DeviceInfo.getAndroidId().then((androidId) => {
+                fulfill(androidId)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * get the device unique ID. 
+     * On Android it is currently identical to getAndroidId() in this module. 
+     * On iOS it uses the DeviceUID uid identifier. 
+     * @returns {Promise}
+     */
+    getUniqueId = () => {
+        return new Promise((fulfill, reject) => {
+            DeviceInfo.getUniqueId().then((uniqueId) => {
+                fulfill(uniqueId)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
     }
 
     return {
@@ -72,7 +129,10 @@ const PlatformRepository = () => {
         sendCall,
         sendDirectSms,
         sendSms,
-        getMyPhoneNumber
+        getMyPhoneNumber,
+        getInstanceId,
+        getAndroidId,
+        getUniqueId
     }
 }
 
