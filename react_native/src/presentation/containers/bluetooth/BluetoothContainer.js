@@ -64,6 +64,7 @@ const BluetoothContainer = ({ route, navigation }) => {
             logDebug(LOG_TAG, "<<< all of ble connection jobs is completed. go to home screen")
             storeIsDeviceRegistered(true).then(() => {
                 if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
+                    logDebug(LOG_TAG, "<<< terminate ble connection screen")
                     navigation.pop()
 
                 } else {
