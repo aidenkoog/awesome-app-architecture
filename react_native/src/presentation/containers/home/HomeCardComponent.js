@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, TouchableOpacity, FlatList, View, } from "react-native"
 import { Colors, Fonts, Images, Strings } from "../../../utils/theme"
 import _ from "lodash"
-import { sosTimeFormat } from "../../../utils/time/TimeUtil"
+import { refreshTimeFormat } from "../../../utils/time/TimeUtil"
 import moment from "moment"
 import SuperscriptDateText from "../../components/SuperscriptDateText"
 
@@ -246,7 +246,7 @@ const HomeCardComponent = (props) => {
                   {strings.updatedOn.replace(/\{0\}/g, "")}
                 </Text>
                 <SuperscriptDateText style={styles.lastDeviceEventTime}>
-                  {sosTimeFormat(moment(100).utc())}
+                  {refreshTimeFormat(moment(100).utc())}
                 </SuperscriptDateText>
               </View>
             )}
