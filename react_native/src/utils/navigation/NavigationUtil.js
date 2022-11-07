@@ -21,3 +21,15 @@ export const pushToNextScreen = (navigation, screenToBeMoved, delay, purpose) =>
         navigation.push(screenToBeMoved, { purposeWhat: purpose })
     }, delay)
 }
+
+/**
+ * replace screen.
+ * Refs. use 'replace' method, it's not stack the screen but just replace it.
+ * @param {Any} navigation 
+ * @param {string} screenToBeMoved 
+ */
+export const replaceToNextScreen = (navigation, screenToBeMoved, delay, purpose) => {
+    setTimeout(() => {
+        navigation.replace(screenToBeMoved, { purposeWhat: purpose })
+    }, delay)
+}
