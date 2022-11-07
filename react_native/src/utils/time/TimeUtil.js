@@ -33,7 +33,7 @@ export const formatDate = (date) => {
     } else return new Date()
 }
 
-export const sosTimeFormat = (date) => {
+export const refreshTimeFormat = (date) => {
     let isSameDate = (moment().format('YYYY-MM-DD') === moment(date).format("YYYY-MM-DD"))
     let isSameYear = (moment().format('YYYY') === moment(date).format("YYYY"))
     if (isSameDate) {
