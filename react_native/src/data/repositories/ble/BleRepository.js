@@ -8,6 +8,8 @@ import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
 import { convertBleCustomToHexData, getFeatureNameAsUuid } from '../../../utils/ble/BleUtil.js'
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
+import { bleAuthResultAtom, bleSequenceIdAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
+import { BLE_TEST_DEVICE_MAC_ADDRESS, BLE_TEST_DEVICE_NAME, BLE_TEST_MODE, SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
 import {
     BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID, RX_CHARACTERISTIC_UUID,
     FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID
@@ -20,8 +22,11 @@ import {
 import {
     bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnectionCompleteStateAtom
 } from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
-import { bleAuthResultAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
-import { SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
+import {
+    ACTION_AUTHENTICATE, ACTION_DISCONNECT, ACTION_SYNC, ACTION_UPGRADE_FIRMWARE
+} from '../../../domain/usecases/bluetooth/action/BleActions.js'
+import BleMessageGenerator from './generator/BleMessageGenerator.js'
+import BleCryptoManager from './encryptor/BleCryptoManager.js'
 
 /**
  * load ble manager module (react-native-ble-manager).
@@ -93,6 +98,24 @@ const BleRepository = () => {
     const setBleBatteryUuidNotificationStateAtom = useSetRecoilState(bleBatteryUuidNotificationStateAtom)
 
     /**
+     * [ sequence id atom ]
+     */
+    const bleSequenceId = useRecoilValue(bleSequenceIdAtom)
+    const setBleSequenceId = useSetRecoilState(bleSequenceIdAtom)
+
+    /**
+     * generator functions that create the necessary data when transmitting BLE data.
+     */
+    const {
+        getAuthenticatMessageResult, getSyncMessageResult, getDisconnectMessageResult, BleFirmwareUpgradeMessageResult
+    } = BleMessageGenerator(bleSequenceId)
+
+    /**
+     * ble crypto related functions.
+     */
+    const { getEncryptedData, getDecryptedData } = BleCryptoManager()
+
+    /**
      * listeners for catching the ble events.
      */
     addBleEventListeners = () => {
@@ -155,18 +178,32 @@ const BleRepository = () => {
             + peripheralName + " (" + peripheralId
             + "), cached peripheral name: " + cachedBleDeviceName)
 
-        if (peripheralName == cachedBleDeviceName) {
-            logDebug(LOG_TAG, "<<< found my device (" + peripheralName + "). start to connect device")
-            setBleDeviceFoundAtom(true)
-            setBleDeviceNameAtom(peripheralName)
-            setBleMacOrUuidAtom(peripheralId)
-
-            if (bleScanningState) {
-                logDebug(LOG_TAG, ">>> scanning is in progress")
-                this.stopScan().catch((e) => { outputErrorLog(LOG_TAG, e) })
+        if (BLE_TEST_MODE) {
+            if (peripheralName == BLE_TEST_DEVICE_NAME || peripheralId == BLE_TEST_DEVICE_MAC_ADDRESS) {
+                handleFoundPeripheral(peripheralName, peripheralId)
             }
-            this.connectDeviceWhenFound(peripheralId)
+
+        } else {
+            if (peripheralName == cachedBleDeviceName) {
+                handleFoundPeripheral(peripheralName, peripheralId)
+            }
         }
+    }
+
+    /**
+     * prepare and initiate a connection operation to the found device.
+     */
+    handleFoundPeripheral = (peripheralName, peripheralId) => {
+        logDebug(LOG_TAG, "<<< found my device (" + peripheralName + "). start to connect device")
+        setBleDeviceFoundAtom(true)
+        setBleDeviceNameAtom(peripheralName)
+        setBleMacOrUuidAtom(peripheralId)
+
+        if (bleScanningState) {
+            logDebug(LOG_TAG, ">>> scanning is in progress")
+            this.stopScan().catch((e) => { outputErrorLog(LOG_TAG, e) })
+        }
+        this.connectDeviceWhenFound(peripheralId)
     }
 
     /**
@@ -221,6 +258,9 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(characteristicCustomData.value))
         logDebug(LOG_TAG, ">>> received perfectly")
         logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
+
+        // the contents below are not implemented yet.
+        setBleAuthResultState(true)
     }
 
     /**
@@ -512,13 +552,16 @@ const BleRepository = () => {
                 logDebug(LOG_TAG, ">>> scanning is still in progress")
                 bleManager.stopScan().catch((e) => { outputErrorLog(LOG_TAG, e) })
             }
-
-            setBleConnectionCompleteStateAtom(true)
-
             this.enableAllNotificationAtoms()
             this.releaseAtomStateAfterCompleted()
 
-            storeBleDeviceMacAddress(peripheralId)
+            storeBleDeviceMacAddress(peripheralId).then(() => {
+                logDebug(LOG_TAG, "<<< succeeded to store ble device mac address")
+                setBleConnectionCompleteStateAtom(true)
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + "occurred by storeBleDeviceMacAddress in enableAllNotificationPromise")
+            })
 
         }).catch((e) => {
             outputErrorLog(LOG_TAG, e + " occured by enableAllNotificationPromise")
@@ -532,6 +575,9 @@ const BleRepository = () => {
     releaseAllAtomStates = () => {
         // connection state.
         setBleConnectionStateAtom(false)
+
+        // connection complete state (including enabling notification steps).
+        setBleConnectionCompleteStateAtom(false)
 
         // scanning state.
         setBleDeviceFoundAtom(false)
@@ -568,14 +614,51 @@ const BleRepository = () => {
 
     /**
      * send custom characteristic value.
-     * @param {bytes} customValue
+     * @param {string} action
      * @returns {Promise}
      */
-    sendBleCustomValue = (customValue) => {
+    sendBleCustomValue = (action) => {
+        return new Promise((fulfill, reject) => {
+            const bleCustomData = getCustomDataAsAction(action)
+
+            if (bleCustomData == null) {
+                const errorMessage = ">>> ble custome data to send is null !!!"
+                outputErrorLog(LOG_TAG, errorMessage)
+                reject(errorMessage)
+                return
+            }
+
+            bleManager.retrieveServices(cachedBleMacAddress).then((peripheral) => {
+                bleManager.writeWithoutResponse(
+                    peripheral.id, SERVICE_UUID, RX_CHARACTERISTIC_UUID, getEncryptedData(bleCustomData)).then(() => {
+                        logDebug(LOG_TAG, "<<< succeeded to write ble custom data to " + peripheral.id)
+
+                        // increase ble sequence id.
+                        setBleSequenceId(bleSequenceId + 1)
+                        fulfill()
+
+                    }).catch((e) => {
+                        outputErrorLog(LOG_TAG, e + " occurred by writeWithoutResponse of ble manager !!!")
+                        reject(e)
+                    })
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by retrieveServices of ble manager !!!")
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * send custom characteristic value. (only log message)
+     * @param {string} logMessage
+     * @returns {Promise}
+     */
+    sendBleCustomLog = (logMessage) => {
         return new Promise((fulfill, reject) => {
             bleManager.retrieveServices(cachedBleMacAddress).then((peripheral) => {
                 bleManager.writeWithoutResponse(
-                    peripheral.id, SERVICE_UUID, RX_CHARACTERISTIC_UUID, customValue).then(() => {
+                    peripheral.id, SERVICE_UUID, RX_CHARACTERISTIC_UUID, logMessage).then(() => {
                         logDebug(LOG_TAG, "<<< succeeded to write ble custom data to " + peripheral.id)
                         fulfill()
 
@@ -589,6 +672,29 @@ const BleRepository = () => {
                 reject(e)
             })
         })
+    }
+
+    /**
+     * get ble custom data to send.
+     * @param {string} action
+     */
+    getCustomDataAsAction = (action) => {
+        switch (action) {
+            case ACTION_AUTHENTICATE:
+                return getAuthenticatMessageResult()
+
+            case ACTION_SYNC:
+                return getSyncMessageResult()
+
+            case ACTION_DISCONNECT:
+                return getDisconnectMessageResult()
+
+            case ACTION_UPGRADE_FIRMWARE:
+                return BleFirmwareUpgradeMessageResult()
+
+            default:
+                return null
+        }
     }
 
     /**
@@ -626,7 +732,8 @@ const BleRepository = () => {
         getUuidList,
         retrieveServices,
         sendBleCustomValue,
-        setMtu
+        setMtu,
+        sendBleCustomLog
     }
 }
 

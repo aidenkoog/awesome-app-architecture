@@ -1,21 +1,23 @@
-import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
-import BleRepository from '../../../data/repositories/ble/BleRepository'
+import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
+import Constants from '../../../../../utils/Constants.js'
+import { logDebug, outputErrorLog } from '../../../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const SendBleCustomDataUseCase = () => {
 
-    const { sendBleCustomData } = BleRepository()
+    const { sendBleCustomLog } = BleRepository()
 
     /**
-     * Execute the use case. 
+     * Execute usecase of sending log message to device.
+     * @param {string} logMessage
+     * @returns {Promise}
      */
-    executeSendBleCustomDataUseCase = () => {
+    executeSendBleCustomDataUseCase = (logMessage) => {
         logDebug(LOG_TAG, ">>> ### triggered executeSendBleCustomDataUseCase")
 
         return new Promise((fulfill, reject) => {
-            sendBleCustomData().then(() => {
+            sendBleCustomLog(logMessage).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded to execute sendBleCustomData")
                 fulfill()
 

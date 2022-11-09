@@ -4,7 +4,7 @@ import ControlAppStateUseCase from '../../../domain/usecases/common/ControlAppSt
 import Constants from '../../../utils/Constants'
 import { getBleDeviceName, getBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
 import { logDebug } from '../../../utils/logger/Logger'
-import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import { navigateToNextScreen, replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 const LOG_TAG = Constants.LOG.SPLASH_UI_LOG
 
@@ -35,12 +35,12 @@ const SplashContainer = ({ navigation }) => {
         getBleDeviceName().then((deviceName) => {
             logDebug(LOG_TAG, "<<< cachedBleDeviceName: " + deviceName)
             if (deviceName == null) {
-                navigateToNextScreen(navigation, NEXT_SCREEN, SPLASH_LOADING_TIME, NAVIGATION_PURPOSE)
+                replaceToNextScreen(navigation, NEXT_SCREEN, SPLASH_LOADING_TIME, NAVIGATION_PURPOSE)
 
             } else {
                 getBleDeviceMacAddress().then((macAddress) => {
                     logDebug(LOG_TAG, "<<< cachedBleMacAddress: " + macAddress)
-                    navigateToNextScreen(
+                    replaceToNextScreen(
                         navigation,
                         macAddress == null ? NEXT_SCREEN : NEXT_SCREEN_BY_SAVED_BLE_DATA,
                         SPLASH_LOADING_TIME,

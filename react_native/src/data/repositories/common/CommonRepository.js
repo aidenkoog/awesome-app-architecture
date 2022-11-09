@@ -114,6 +114,9 @@ const CommonRepository = () => {
     const saveUserProfilePromise = (userProfileInfo) => {
         logDebug(LOG_TAG, ">>> userProfileInfo before saving: " + userProfileInfo)
 
+        // this code will be updated again soon. 
+        // cause I am inexperienced in using java script objects, 
+        // so there is a possibility that unnecessary codes may have arisen.
         let reArtifactedData = {
             ...{ imageUrl: userProfileInfo.imageUrl },
             ...{ name: userProfileInfo.name },
@@ -123,6 +126,7 @@ const CommonRepository = () => {
             ...{ weight: userProfileInfo.weight }
         }
 
+        // this is for batch parallel processing.
         return Promise.all([
             storeUserProfileData(reArtifactedData)
         ])

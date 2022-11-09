@@ -10,7 +10,6 @@ const strings = Strings.home
 /**
  * dummy data for debugging.
  */
-const DUMMY_USER_NAME = "Device Tester 5194"
 const DUMMY_DEVICE_NAME = "BLE Device 75627"
 const DUMMY_DEVICE_STATUS = "Disconnected"
 const DUMMY_STEP_NAME = "10000 steps"
@@ -28,7 +27,7 @@ const DUMMY_SLEEP_STATUS = "Good"
 const HomeCardComponent = (props) => {
 
   const {
-    userName, userImageUrl,
+    userName, userImageUrl, userGender,
     bleConnectionCompleteState, isDeviceRegistered, bleDeviceBatteryLevel, refreshedTime,
     onPressCardItem, onPressRefreshArea
   } = props
@@ -179,7 +178,12 @@ const HomeCardComponent = (props) => {
    */
   getUserImage = () => {
     if (userImageUrl == "-") {
-      return <Image style={styles.useImageStyle} source={Images.icMaleUser} />
+      if (userGender == 0) {
+        return <Image style={styles.useImageStyle} source={Images.icMaleUser} />
+
+      } else {
+        return <Image style={styles.useImageStyle} source={Images.icFemaleUser} />
+      }
 
     } else {
       return <Image style={styles.useImageStyle} source={{ uri: userImageUrl }} />

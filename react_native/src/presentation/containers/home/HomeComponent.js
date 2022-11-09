@@ -19,7 +19,7 @@ export default function HomeComponent(props) {
      * props delivered from HomeContainer.
      */
     const {
-        userName, userImageUrl, isRefreshing, homeCardItems, onAddDevice, onSwipeRefresh,
+        userName, userImageUrl, userGender, isRefreshing, homeCardItems, onAddDevice, onSwipeRefresh,
         isDeviceRegistered, bleConnectionCompleteState, bleDeviceBatteryLevel, refreshedTime,
         onPressCardItem, onPressRefreshArea
     } = props
@@ -60,6 +60,7 @@ export default function HomeComponent(props) {
      */
     logDebug(LOG_TAG, ">>> userName: " + userName)
     logDebug(LOG_TAG, ">>> userImageUrl: " + userImageUrl)
+    logDebug(LOG_TAG, ">>> userGender: " + userGender)
     logDebug(LOG_TAG, ">>> isDeviceRegistered: " + isDeviceRegistered)
     logDebug(LOG_TAG, ">>> bleConnectionCompleteState: " + bleConnectionCompleteState)
     logDebug(LOG_TAG, ">>> bleDeviceBatteryLevel: " + bleDeviceBatteryLevel)
@@ -81,6 +82,7 @@ export default function HomeComponent(props) {
                         return <HomeCardComponent
                             userName={userName}
                             userImageUrl={userImageUrl}
+                            userGender={userGender}
                             isDeviceRegistered={isDeviceRegistered}
                             bleConnectionCompleteState={bleConnectionCompleteState}
                             bleDeviceBatteryLevel={bleDeviceBatteryLevel}

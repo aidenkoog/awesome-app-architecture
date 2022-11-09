@@ -25,6 +25,14 @@ export let UserProfile = {
         this._gender = value
     },
 
+    get genderType() {
+        return this._genderType
+    },
+
+    set genderType(value) {
+        this._genderType = value
+    },
+
     get birthday() {
         return this._birthday
     },

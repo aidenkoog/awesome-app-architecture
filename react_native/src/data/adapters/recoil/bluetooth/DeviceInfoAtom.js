@@ -20,3 +20,11 @@ export const bleAuthResultAtom = atom({
     key: 'bleAuthResultAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
+
+/**
+ * represent sequence id that is used when sending custom data to device.
+ */
+export const bleSequenceIdAtom = atom({
+    key: 'bleSequenceIdAtom',
+    default: Constants.COMMON.DEFAULT_INT_VALUE + 1
+})

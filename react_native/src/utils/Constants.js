@@ -59,6 +59,13 @@ export default {
         PLATFORM_REPO_LOG: 'PLATFORM_REPO_LOG',
         SERVER_REPO_LOG: 'SERVER_REPO_LOG',
 
+        // bt command.
+        BT_COMMAND_GENERATOR: 'BT_COMMAND_GENERATOR',
+        BT_AUTHENTICATE_MESSAGE: 'BT_AUTHENTICATE_MESSAGE',
+
+        // ble crypto
+        BT_CRYPTO: 'BT_CRYPTO',
+
         // ble request message.
         HEADER_BT_REQ_AGE: 'HEADER_BT_REQ_AGE',
         HEADER_BT_REQ_CMD: 'HEADER_BT_REQ_CMD',

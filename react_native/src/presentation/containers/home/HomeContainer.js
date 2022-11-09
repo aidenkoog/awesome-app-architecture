@@ -6,18 +6,14 @@ import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
-import RequestDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/RequestDeviceInfoUseCase"
+import RequestDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
 import { formatRefreshTime } from "../../../utils/time/TimeUtil"
 import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
-import { getDecryptedData, getEncryptedData } from "../../../utils/ble/BleEncryptionUtil"
-import { pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
-
+import RequestAuthUseCase from "../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase"
+import SendBleCustomDataUseCase from "../../../domain/usecases/bluetooth/basic/detail/SendBleCustomDataUseCase"
+import { stringToBytes } from "convert-string"
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
-
-const NEXT_SCREEN_QR_SCAN = Constants.SCREEN.QR_SCAN
-const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
-const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.ADD_DEVICE
 
 /**
  * item's id information that exists in home card.
@@ -41,6 +37,7 @@ function HomeContainer({ navigation }) {
     const [refreshedTime, setRefreshedTime] = useState("--")
     const [userName, setUserName] = useState("-")
     const [userImageUrl, setUserImageUrl] = useState("-")
+    const [userGender, setUserGender] = useState("-")
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [homeCardItems, addHomeCardItem] = useState([{ id: 999, name: "HOME CARD" }])
 
@@ -57,13 +54,17 @@ function HomeContainer({ navigation }) {
     /**
      * usecase funtions for requesting device information.
      */
-    const {
-        executeRefreshDeviceInfoUseCase,
-        executeGetStepInfoUseCase,
-        executeGetHrInfoUseCase,
-        executeGetSleepInfoUseCase
+    const { executeSyncDeviceInfoUseCase } = RequestDeviceInfoUseCase()
 
-    } = RequestDeviceInfoUseCase()
+    /**
+     * usecase function for authenticating device, user after completing the ble connection.
+     */
+    const { executeRequestAuthUseCase } = RequestAuthUseCase()
+
+    /**
+     * usecase function for sending ble custom log to device.
+     */
+    const { executeSendBleCustomDataUseCase } = SendBleCustomDataUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -77,19 +78,19 @@ function HomeContainer({ navigation }) {
     onPressCardItem = (item) => {
         switch (item.id) {
             case ITEM_ID_STEP:
-                executeGetStepInfoUseCase().then(() => {
+                executeSyncDeviceInfoUseCase().then(() => {
 
                 }).catch((e) => outputErrorLog(LOG_TAG, e))
                 break
 
             case ITEM_ID_HEART_RATE:
-                executeGetHrInfoUseCase().then(() => {
+                executeSyncDeviceInfoUseCase().then(() => {
 
                 }).catch((e) => outputErrorLog(LOG_TAG, e))
                 break
 
             case ITEM_ID_SLEEP:
-                executeGetSleepInfoUseCase().then(() => {
+                executeSyncDeviceInfoUseCase().then(() => {
 
                 }).catch((e) => outputErrorLog(LOG_TAG, e))
                 break
@@ -100,7 +101,7 @@ function HomeContainer({ navigation }) {
      * callback that is called when user presses the refresh icon or text view.
      */
     onPressRefreshArea = () => {
-        executeRefreshDeviceInfoUseCase().then(() => {
+        executeSyncDeviceInfoUseCase().then(() => {
             setRefreshedTime(formatRefreshTime())
 
             executeGetBatteryLevelUseCase().then((batteryLevel) => {
@@ -116,8 +117,9 @@ function HomeContainer({ navigation }) {
     loadUserProfile = () => {
         executeGetProfileInfoUseCase(userProfileInfo => {
             const userProfile = JSON.parse(userProfileInfo)
+            const userImageUrl = userProfile.imageUrl
 
-            logDebug(LOG_TAG, "<<< userProfile imageUrl: " + userProfile.imageUrl)
+            logDebug(LOG_TAG, "<<< userProfile imageUrl: " + userImageUrl)
             logDebug(LOG_TAG, "<<< userProfile name: " + userProfile.name)
             logDebug(LOG_TAG, "<<< userProfile gender: " + userProfile.gender)
             logDebug(LOG_TAG, "<<< userProfile birthday: " + userProfile.birthday)
@@ -125,7 +127,8 @@ function HomeContainer({ navigation }) {
             logDebug(LOG_TAG, "<<< userProfile weight: " + userProfile.weight)
 
             setUserName(userProfile.name)
-            setUserImageUrl(userProfile.imageUrl)
+            setUserImageUrl(userImageUrl == null || userImageUrl == "" ? "-" : userImageUrl)
+            setUserGender(userProfile.gender)
         })
     }
 
@@ -161,7 +164,13 @@ function HomeContainer({ navigation }) {
      * add new device.
      */
     onAddDevice = () => {
-        pushToNextScreen(navigation, NEXT_SCREEN_QR_SCAN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
+        // pushToNextScreen(navigation, NEXT_SCREEN_QR_SCAN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
+
+        executeRequestAuthUseCase().catch((e) => {
+            outputErrorLog(LOG_TAG, "<<< " + e + ", failed to authenticate device, user")
+        })
+        // let logMessage = stringToBytes("\x00" + "\x09" + "\x00" + "DEBUGGING")
+        // executeSendBleCustomDataUseCase(logMessage)
     }
 
     /**
@@ -179,17 +188,6 @@ function HomeContainer({ navigation }) {
     }
 
     /**
-     * BLE command / Encryption / Decryption Test
-     */
-    testBleCommand = () => {
-        const encryptedResult = getEncryptedData()
-        logDebug(LOG_TAG, "<<< encryptedResult: " + encryptedResult)
-
-        const decryptedResult = getDecryptedData(encryptedResult)
-        logDebug(LOG_TAG, "<<< decryptedResult: " + decryptedResult)
-    }
-
-    /**
      * executed logic before ui rendering and painting.
      */
     useLayoutEffect(() => {
@@ -200,7 +198,6 @@ function HomeContainer({ navigation }) {
         loadBleBatteryLevel()
         loadUserProfile()
         addHomeCardItem([{ id: 999, name: "HOME CARD" }])
-        testBleCommand()
 
     }, [])
 
@@ -208,6 +205,7 @@ function HomeContainer({ navigation }) {
         <HomeComponent
             userName={userName}
             userImageUrl={userImageUrl}
+            userGender={userGender}
             isRefreshing={isRefreshing}
             onSwipeRefresh={onSwipeRefresh}
             homeCardItems={homeCardItems}

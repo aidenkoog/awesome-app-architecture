@@ -1,4 +1,5 @@
 import { stringToBytes } from "convert-string"
+import { bytesToHex } from "./BleUtil"
 
 const CryptoJS = require("crypto-js")
 
@@ -27,7 +28,7 @@ export const KEY_BYTES = stringToBytes(
 /**
  * custom secret key definition.
  */
-export const CUSTOM_SECRET_KEY = CryptoJS.enc.Hex.parse(KEY_HEX_STRING)
+export const CUSTOM_SECRET_KEY = CryptoJS.enc.Hex.parse(bytesToHex(KEY_HEXS))
 
 /**
  * initialize vector information.
@@ -49,4 +50,12 @@ export const IV_BYTES = stringToBytes(
 /**
  * custom iv definition.
  */
-export const CUSTOM_IV = CryptoJS.enc.Hex.parse(IV_HEX_STRING)
+export const CUSTOM_IV = CryptoJS.enc.Hex.parse(bytesToHex(IV_HEXS))
+
+/**
+ * crypto
+ */
+export const CRYPTO_A128CBC = 0x40
+export const CRYPTO_SHA256 = 0x10
+export const CRYPTO_A128KW = 0x01
+export const CRYPTO_HS_AAD = [CRYPTO_A128CBC | CRYPTO_SHA256 | CRYPTO_A128KW]

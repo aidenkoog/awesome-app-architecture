@@ -1,11 +1,11 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
 import { logDebug } from '../../../../../utils/logger/Logger.js'
-import { ACTION_AUTHENTICATE } from '../../action/BleActions.js'
+import { ACTION_SYNC } from '../../action/BleActions.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
-const RequestAuthUseCase = () => {
+const SyncDeviceInfoUseCase = () => {
 
     /**
      * ble repository's api that sends ble characteristic data.
@@ -13,23 +13,24 @@ const RequestAuthUseCase = () => {
     const { sendBleCustomValue } = BleRepository()
 
     /**
-     * execute usecase of requesting authentication to device.
-     * [ sequence ]
-     * 1. create protocol.
-     * 2. encrypt values.
-     * 3. send encrypted values.
+     * Execute the use case. 
      */
-    executeRequestAuthUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeRequestAuthUseCase")
+    executeSyncDeviceInfoUseCase = () => {
+        logDebug(LOG_TAG, ">>> ### triggered executeSyncDeviceInfoUseCase")
 
         return new Promise((fulfill, reject) => {
-            sendBleCustomValue(ACTION_AUTHENTICATE)
+            sendBleCustomValue(ACTION_SYNC)
                 .then(() => fulfill())
                 .catch((e) => reject(e))
         })
     }
 
-    return { executeRequestAuthUseCase }
+    return {
+        executeSyncDeviceInfoUseCase
+    }
 }
 
-export default RequestAuthUseCase
+/**
+ * export bluetooth usecase.
+ */
+export default SyncDeviceInfoUseCase
