@@ -3,11 +3,20 @@ import { Colors, Fonts, Metrics } from "../../../utils/theme"
 import RowItem from "../../../presentation/components/RowItem"
 import _ from 'lodash'
 
+const MY_PROFILE_STRING = "My profile"
+const HR_MONITORING = "HR monitoring"
+const DEVICE = "Device"
+
 /**
  * component ui that is used in container.
  * @returns {JSX.Element}
  */
-export default function SettingsComponent() {
+export default function SettingsComponent(props) {
+
+    /**
+     * props delivered from SettingsContainer.
+     */
+    const { onPressMyProfileMenu, onPressHrMonitoringMenu, onPressDeviceMenu } = props
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f6" }}>
@@ -16,18 +25,18 @@ export default function SettingsComponent() {
                 <ScrollView>
                     <View style={styles.col1}>
                         <RowItem
-                            title={"My profile"}
-                            onPress={{}}
+                            title={MY_PROFILE_STRING}
+                            onPress={onPressMyProfileMenu}
                         />
                         <View style={styles.borderView} />
                         <RowItem
-                            title={"HR monitoring"}
-                            onPress={{}}
+                            title={HR_MONITORING}
+                            onPress={onPressHrMonitoringMenu}
                         />
                         <View style={styles.borderView} />
                         <RowItem
-                            title={"Device"}
-                            onPress={{}}
+                            title={DEVICE}
+                            onPress={onPressDeviceMenu}
                         />
                     </View>
                 </ScrollView>

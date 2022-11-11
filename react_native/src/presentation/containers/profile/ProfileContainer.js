@@ -72,6 +72,9 @@ export default function ProfileContainer(props) {
         executeSetProfileInfoUseCase(getUserProfileInfo(), (succeeded) => {
             if (succeeded) {
                 navigateToNextScreen(props.navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
+
+            } else {
+                outputErrorLog(LOG_TAG, "failed to set profile")
             }
         })
     }
@@ -149,12 +152,11 @@ export default function ProfileContainer(props) {
                         + ", photoType: " + response.type)
 
                     if (response.uri != null) {
-                        logDebug(LOG_TAG, ">>> photo response uri: " + response.uri)
                         setPhotoUrl(response.uri)
                         setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
 
                     } else {
-                        outputErrorLog(LOG_TAG, "<<< response uri is null !!!")
+                        outputErrorLog(LOG_TAG, "<<< response uri is null")
                     }
                 })
             }
@@ -174,11 +176,10 @@ export default function ProfileContainer(props) {
                 + ", photoType: " + response.type)
 
             if (response.uri != null) {
-                logDebug(LOG_TAG, ">>> photo response uri: " + response.uri)
                 setPhotoUrl(response.uri)
 
             } else {
-                outputErrorLog(LOG_TAG, "<<< response uri is null !!!")
+                outputErrorLog(LOG_TAG, "<<< response uri is null")
             }
         })
     }

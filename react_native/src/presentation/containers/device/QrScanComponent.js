@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableWithoutFeedback, Keyboard, } from "react-native"
 import QRCodeScanner from "react-native-qrcode-scanner"
 import { Metrics, Strings, Fonts, Colors, Images } from "../../../utils/theme"
-import { Touchable, Popup, PrimaryTextInput, TextButton, } from "../../components"
+import { Touchable, PrimaryTextInput, TextButton, } from "../../components"
 import { SafeAreaView } from "react-navigation"
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 

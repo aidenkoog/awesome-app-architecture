@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -13,7 +13,7 @@ const StopScanUseCase = () => {
      * @returns {Promise}
      */
     executeStopScanUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeStopScanUseCase")
+        logDebugWithLine(LOG_TAG, "execute StopScanUseCase")
 
         return new Promise((fulfill, reject) => {
             stopScan().then(() => {

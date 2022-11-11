@@ -9,6 +9,12 @@ const bleManager = NativeModules.BleManager
 const LOG_TAG = Constants.LOG.BT_BLE_MANAGER
 
 /**
+ * max byte size
+ * react-native-ble-manager's previous default value: 20 byte.
+ */
+const WRITE_MAX_BYTE_SIZE = 512
+
+/**
  * uuid information that exists in ble device.
  */
 let readServiceUuids = []
@@ -126,7 +132,7 @@ class BleManager {
    */
   write(peripheralId, serviceUuid, characteristicUuid, data, maxByteSize) {
     if (maxByteSize == null) {
-      maxByteSize = 20
+      maxByteSize = WRITE_MAX_BYTE_SIZE
     }
     return new Promise((fulfill, reject) => {
       bleManager.write(
@@ -166,7 +172,7 @@ class BleManager {
     queueSleepTime,
   ) {
     if (maxByteSize == null) {
-      maxByteSize = 20
+      maxByteSize = WRITE_MAX_BYTE_SIZE
     }
     if (queueSleepTime == null) {
       queueSleepTime = 10
@@ -580,9 +586,9 @@ class BleManager {
    * @param {number} mtu 
    * @returns {Promise}
    */
-  requestMtu(peripheralId, mtu) {
+  requestMTU(peripheralId, mtu) {
     return new Promise((fulfill, reject) => {
-      bleManager.requestMtu(peripheralId, mtu, (error, mtu) => {
+      bleManager.requestMTU(peripheralId, mtu, (error, mtu) => {
         if (error) {
           outputErrorLog(LOG_TAG, error)
           reject(error)
@@ -648,10 +654,10 @@ class BleManager {
         }
       }
     }
-    return JSON.stringify(nofityServiceUuids) + "\n" + JSON.stringify(nofityCharacteristicUuids) + "\n"
-      + JSON.stringify(readServiceUuids) + "\n" + JSON.stringify(readCharacteristicUuids) + "\n"
-      + JSON.stringify(writeWithResponseServiceUuids) + "\n" + JSON.stringify(writeWithResponseCharacteristicUuids) + "\n"
-      + JSON.stringify(writeWithoutResponseServiceUuids) + "\n" + JSON.stringify(writeWithoutResponseCharacteristicUuids) + "\n"
+    return nofityServiceUuids.toString() + nofityCharacteristicUuids.toString()
+      + readServiceUuids.toString() + readCharacteristicUuids.toString()
+      + writeWithResponseServiceUuids.toString() + writeWithResponseCharacteristicUuids.toString()
+      + writeWithoutResponseServiceUuids.toString() + writeWithoutResponseCharacteristicUuids.toString()
   }
 
   /**

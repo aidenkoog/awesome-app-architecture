@@ -1,6 +1,6 @@
 import PlatformRepository from '../../../data/repositories/platform/PlatformRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
+import { outputErrorLog } from '../../../utils/logger/Logger.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -14,14 +14,14 @@ const GetDeviceIdUseCase = () => {
      * @returns {Promise}
      */
     executeGetInstanceIdUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetInstanceIdUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetInstanceIdUseCase")
 
         return new Promise((fulfill, reject) => {
             getInstanceId().then((instanceId) => {
                 fulfill(instanceId)
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by getInstanceId !!!")
+                outputErrorLog(LOG_TAG, e + " occurred by getInstanceId")
                 reject(e)
             })
         })
@@ -32,14 +32,14 @@ const GetDeviceIdUseCase = () => {
      * @returns {Promise}
      */
     executeGetAndroidIdUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetAndroidIdUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetAndroidIdUseCase")
 
         return new Promise((fulfill, reject) => {
             getAndroidId().then((androidId) => {
                 fulfill(androidId)
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by getAndroidId !!!")
+                outputErrorLog(LOG_TAG, e + " occurred by getAndroidId")
                 reject(e)
             })
         })
@@ -50,14 +50,14 @@ const GetDeviceIdUseCase = () => {
      * @returns {Promise}
      */
     executeGetUniqueIdUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetUniqueIdUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetUniqueIdUseCase")
 
         return new Promise((fulfill, reject) => {
             getUniqueId().then((instanceId) => {
                 fulfill(instanceId)
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by getUniqueId !!!")
+                outputErrorLog(LOG_TAG, e + " occurred by getUniqueId")
                 reject(e)
             })
         })

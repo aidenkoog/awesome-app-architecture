@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -7,7 +7,7 @@ const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 const GetPackageNameUseCase = () => {
 
     executeGetPackageNameUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetPackageNameUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetPackageNameUseCase")
     }
     return { executeGetPackageNameUseCase }
 }

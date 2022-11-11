@@ -3,10 +3,7 @@ import { useLayoutEffect } from 'react'
 import ControlAppStateUseCase from '../../../domain/usecases/common/ControlAppStateUseCase'
 import Constants from '../../../utils/Constants'
 import { getBleDeviceName, getBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
-import { logDebug } from '../../../utils/logger/Logger'
-import { navigateToNextScreen, replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
-
-const LOG_TAG = Constants.LOG.SPLASH_UI_LOG
+import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 /**
  * next screen information.
@@ -33,13 +30,11 @@ const SplashContainer = ({ navigation }) => {
         executeAddAppStateHandlerUseCase()
 
         getBleDeviceName().then((deviceName) => {
-            logDebug(LOG_TAG, "<<< cachedBleDeviceName: " + deviceName)
             if (deviceName == null) {
                 replaceToNextScreen(navigation, NEXT_SCREEN, SPLASH_LOADING_TIME, NAVIGATION_PURPOSE)
 
             } else {
                 getBleDeviceMacAddress().then((macAddress) => {
-                    logDebug(LOG_TAG, "<<< cachedBleMacAddress: " + macAddress)
                     replaceToNextScreen(
                         navigation,
                         macAddress == null ? NEXT_SCREEN : NEXT_SCREEN_BY_SAVED_BLE_DATA,

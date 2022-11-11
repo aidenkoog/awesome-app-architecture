@@ -1,6 +1,6 @@
 import CommonRepository from '../../../data/repositories/common/CommonRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 
@@ -12,7 +12,7 @@ const ControlAppStateUseCase = () => {
      * execute usecase of adding handler that can detect app's state.
      */
     executeAddAppStateHandlerUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeAddAppStateHandlerUseCase")
+        logDebugWithLine(LOG_TAG, "execute AddAppStateHandlerUseCase")
         addAppStateHandler()
     }
 
@@ -20,7 +20,7 @@ const ControlAppStateUseCase = () => {
      * execute usecase of removing handler that can detect app's state.
      */
     executeRemoveAppStopHandlerUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeRemoveAppStopHandlerUseCase")
+        logDebugWithLine(LOG_TAG, "execute RemoveAppStopHandlerUseCase")
         removeAppStateHandler()
     }
 

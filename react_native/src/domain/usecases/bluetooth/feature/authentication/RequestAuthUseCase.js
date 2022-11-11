@@ -1,31 +1,31 @@
-import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
-import { logDebug } from '../../../../../utils/logger/Logger.js'
-import { ACTION_AUTHENTICATE } from '../../action/BleActions.js'
+import { logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
+import { stringToBytes } from "convert-string"
+import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const RequestAuthUseCase = () => {
 
     /**
-     * ble repository's api that sends ble characteristic data.
+     * ble repository's api that sends ble characteristic message.
      */
-    const { sendBleCustomValue } = BleRepository()
+    const { sendBleCustomMessage } = BleRepository()
 
     /**
      * execute usecase of requesting authentication to device.
-     * [ sequence ]
-     * 1. create protocol.
-     * 2. encrypt values.
-     * 3. send encrypted values.
      */
     executeRequestAuthUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeRequestAuthUseCase")
+        logDebugWithLine(LOG_TAG, "execute RequestAuthUseCase")
 
         return new Promise((fulfill, reject) => {
-            sendBleCustomValue(ACTION_AUTHENTICATE)
-                .then(() => fulfill())
-                .catch((e) => reject(e))
+            const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            sendBleCustomMessage(customMessage).then(() => {
+                fulfill()
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by sendBleCustomMessage")
+                reject(e)
+            })
         })
     }
 

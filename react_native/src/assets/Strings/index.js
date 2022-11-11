@@ -1,4 +1,4 @@
-import LocalizedStrings from 'react-native-localization'
+import LocalizedStrings from 'react-native-localization';
 import * as english from './en.json'
 import * as germany from './de.json'
 import * as korean from './ko.json'
@@ -11,6 +11,6 @@ export const originalStrings = {
     ja: Japanese
 }
 
-let localizedStrings = new LocalizedStrings(originalStrings)
+let strings = new LocalizedStrings(originalStrings)
 
-export default localizedStrings
+export default strings

@@ -1,17 +1,14 @@
 import { useLayoutEffect, useState } from "react"
 import Constants from "../../../utils/Constants"
-import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
+import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import { getIsDeviceRegistered } from "../../../utils/storage/StorageUtil"
 import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
-import RequestDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
+import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
 import { formatRefreshTime } from "../../../utils/time/TimeUtil"
 import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
-import RequestAuthUseCase from "../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase"
-import SendBleCustomDataUseCase from "../../../domain/usecases/bluetooth/basic/detail/SendBleCustomDataUseCase"
-import { stringToBytes } from "convert-string"
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
 
@@ -27,7 +24,7 @@ const ITEM_ID_SLEEP = 4
  * @param {Any} navigation 
  * @returns {JSX.Element}
  */
-function HomeContainer({ navigation }) {
+function HomeContainer({ }) {
 
     /**
      * useState code for ui interaction.
@@ -42,29 +39,11 @@ function HomeContainer({ navigation }) {
     const [homeCardItems, addHomeCardItem] = useState([{ id: 999, name: "HOME CARD" }])
 
     /**
-     * usecase function for getting to the battery level of ble device.
+     * usecases.
      */
     const { executeGetBatteryLevelUseCase } = GetBatteryLevelUseCase()
-
-    /**
-     * usecase function for getting the stored profile data.
-     */
     const { executeGetProfileInfoUseCase } = GetProfileInfoUseCase()
-
-    /**
-     * usecase funtions for requesting device information.
-     */
-    const { executeSyncDeviceInfoUseCase } = RequestDeviceInfoUseCase()
-
-    /**
-     * usecase function for authenticating device, user after completing the ble connection.
-     */
-    const { executeRequestAuthUseCase } = RequestAuthUseCase()
-
-    /**
-     * usecase function for sending ble custom log to device.
-     */
-    const { executeSendBleCustomDataUseCase } = SendBleCustomDataUseCase()
+    const { executeSyncDeviceInfoUseCase } = SyncDeviceInfoUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -80,19 +59,19 @@ function HomeContainer({ navigation }) {
             case ITEM_ID_STEP:
                 executeSyncDeviceInfoUseCase().then(() => {
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e))
+                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
 
             case ITEM_ID_HEART_RATE:
                 executeSyncDeviceInfoUseCase().then(() => {
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e))
+                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
 
             case ITEM_ID_SLEEP:
                 executeSyncDeviceInfoUseCase().then(() => {
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e))
+                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
         }
     }
@@ -106,9 +85,12 @@ function HomeContainer({ navigation }) {
 
             executeGetBatteryLevelUseCase().then((batteryLevel) => {
                 setBleDeviceBatteryLevel(batteryLevel)
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by executeGetBatteryLevelUseCase")
             })
 
-        }).catch((e) => outputErrorLog(LOG_TAG, e))
+        }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
     }
 
     /**
@@ -118,13 +100,6 @@ function HomeContainer({ navigation }) {
         executeGetProfileInfoUseCase(userProfileInfo => {
             const userProfile = JSON.parse(userProfileInfo)
             const userImageUrl = userProfile.imageUrl
-
-            logDebug(LOG_TAG, "<<< userProfile imageUrl: " + userImageUrl)
-            logDebug(LOG_TAG, "<<< userProfile name: " + userProfile.name)
-            logDebug(LOG_TAG, "<<< userProfile gender: " + userProfile.gender)
-            logDebug(LOG_TAG, "<<< userProfile birthday: " + userProfile.birthday)
-            logDebug(LOG_TAG, "<<< userProfile height: " + userProfile.height)
-            logDebug(LOG_TAG, "<<< userProfile weight: " + userProfile.weight)
 
             setUserName(userProfile.name)
             setUserImageUrl(userImageUrl == null || userImageUrl == "" ? "-" : userImageUrl)
@@ -137,7 +112,6 @@ function HomeContainer({ navigation }) {
      */
     loadDeviceRegistrationData = () => {
         getIsDeviceRegistered().then((registered) => {
-            logDebug(LOG_TAG, "<<< device is registered ? " + registered)
             setIsDeviceRegistered(registered)
 
         }).catch((e) => { outputErrorLog(LOG_TAG, e) })
@@ -154,7 +128,7 @@ function HomeContainer({ navigation }) {
                 fulfill()
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by executeGetBatteryLevelUseCase !!!")
+                outputErrorLog(LOG_TAG, e + " occurred by executeGetBatteryLevelUseCase")
                 reject(e)
             })
         })
@@ -164,13 +138,7 @@ function HomeContainer({ navigation }) {
      * add new device.
      */
     onAddDevice = () => {
-        // pushToNextScreen(navigation, NEXT_SCREEN_QR_SCAN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
-
-        executeRequestAuthUseCase().catch((e) => {
-            outputErrorLog(LOG_TAG, "<<< " + e + ", failed to authenticate device, user")
-        })
-        // let logMessage = stringToBytes("\x00" + "\x09" + "\x00" + "DEBUGGING")
-        // executeSendBleCustomDataUseCase(logMessage)
+        pushToNextScreen(navigation, NEXT_SCREEN_QR_SCAN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE)
     }
 
     /**
@@ -182,7 +150,7 @@ function HomeContainer({ navigation }) {
             setIsRefreshing(false)
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by loadBleBatteryLevel !!!")
+            outputErrorLog(LOG_TAG, e + " occurred by loadBleBatteryLevel")
             setIsRefreshing(false)
         })
     }
@@ -191,7 +159,7 @@ function HomeContainer({ navigation }) {
      * executed logic before ui rendering and painting.
      */
     useLayoutEffect(() => {
-        logDebug(LOG_TAG, "<<< bleConnectionState: " + bleConnectionState
+        logDebugWithLine(LOG_TAG, "bleConnectionState: " + bleConnectionState
             + ", bleConnectionCompleteState: " + bleConnectionCompleteState)
 
         loadDeviceRegistrationData()

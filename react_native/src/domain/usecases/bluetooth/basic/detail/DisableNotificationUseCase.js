@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -16,7 +16,7 @@ const DisableNotificationUseCase = () => {
      * @returns {Promise}
      */
     executeDisableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeDisableNotificationUseCase")
+        logDebugWithLine(LOG_TAG, "execute DisableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             disableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {

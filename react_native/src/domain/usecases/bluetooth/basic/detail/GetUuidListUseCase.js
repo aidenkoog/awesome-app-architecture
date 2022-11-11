@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/Logger.js'
+import { logDebug, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -14,7 +14,7 @@ const GetUuidListUseCase = () => {
      * @returns {Any}
      */
     executeGetUuidListUseCase = (peripheral) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetUuidListUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetUuidListUseCase")
 
         const uuidList = getUuidList(peripheral)
         logDebug(LOG_TAG, "<<< succeeded to execute getUuidList: " + uuidList)

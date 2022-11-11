@@ -1,6 +1,6 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../../../utils/logger/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
@@ -14,7 +14,7 @@ const SendBleCustomDataUseCase = () => {
      * @returns {Promise}
      */
     executeSendBleCustomDataUseCase = (logMessage) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeSendBleCustomDataUseCase")
+        logDebugWithLine(LOG_TAG, "execute SendBleCustomDataUseCase")
 
         return new Promise((fulfill, reject) => {
             sendBleCustomLog(logMessage).then(() => {

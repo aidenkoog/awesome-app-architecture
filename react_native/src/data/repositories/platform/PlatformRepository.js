@@ -22,7 +22,8 @@ const PlatformRepository = () => {
      * @param {string} message
      */
     sendDirectSms = (receiverPhoneNumber, message = "") => {
-        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
+        logDebug(LOG_TAG, "receiverPhoneNumber: " + receiverPhoneNumber)
+        logDebug(LOG_TAG, "message: " + message)
     }
 
     /**
@@ -31,13 +32,10 @@ const PlatformRepository = () => {
      * @param {string} message
      */
     sendSms = (receiverPhoneNumber, message = "") => {
-        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber + ", message: " + message)
         Linking.openURL('sms:' + receiverPhoneNumber + SMS_DIVIDER + 'body=' + message).then(() => {
             logDebug("<<< succeeded to send sms")
 
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occured by open url of sendSms")
-        })
+        }).catch((e) => outputErrorLog(LOG_TAG, e))
     }
 
     /**
@@ -45,7 +43,7 @@ const PlatformRepository = () => {
      * @param {string} receiverPhoneNumber
      */
     sendDirectCall = (receiverPhoneNumber) => {
-        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber)
+        logDebug(LOG_TAG, "receiverPhoneNumber: " + receiverPhoneNumber)
     }
 
     /**
@@ -53,13 +51,10 @@ const PlatformRepository = () => {
      * @param {string} receiverPhoneNumber
      */
     sendCall = (receiverPhoneNumber) => {
-        logDebug(LOG_TAG, ">>> receiver's phone number: " + receiverPhoneNumber)
         Linking.openURL('tel:' + receiverPhoneNumber).then(() => {
             logDebug(LOG_TAG, "<<< succeeded to send call")
 
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occured by open url of scanCall")
-        })
+        }).catch((e) => outputErrorLog(LOG_TAG, e))
     }
 
     /**
@@ -71,9 +66,7 @@ const PlatformRepository = () => {
             DeviceInfo.getPhoneNumber().then((phoneNumber) => {
                 fulfill(phoneNumber)
 
-            }).catch((e) => {
-                reject(e)
-            })
+            }).catch((e) => reject(e))
         })
     }
 
@@ -86,9 +79,7 @@ const PlatformRepository = () => {
             DeviceInfo.getInstanceId().then((instanceId) => {
                 fulfill(instanceId)
 
-            }).catch((e) => {
-                reject(e)
-            })
+            }).catch((e) => reject(e))
         })
     }
 
@@ -101,9 +92,7 @@ const PlatformRepository = () => {
             DeviceInfo.getAndroidId().then((androidId) => {
                 fulfill(androidId)
 
-            }).catch((e) => {
-                reject(e)
-            })
+            }).catch((e) => reject(e))
         })
     }
 
@@ -118,9 +107,7 @@ const PlatformRepository = () => {
             DeviceInfo.getUniqueId().then((uniqueId) => {
                 fulfill(uniqueId)
 
-            }).catch((e) => {
-                reject(e)
-            })
+            }).catch((e) => reject(e))
         })
     }
 

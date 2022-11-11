@@ -1,5 +1,5 @@
 import BleRepository from "../../../../../data/repositories/ble/BleRepository"
-import { logDebug, outputErrorLog } from "../../../../../utils/logger/Logger"
+import { logDebug, outputErrorLog, logDebugWithLine } from "../../../../../utils/logger/Logger"
 import Constants from "../../../../../utils/Constants"
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -15,7 +15,7 @@ const StartScanUseCase = () => {
      * @returns {Promise}
      */
     executeStartScanUseCase = (serviceUuid, duration) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
+        logDebugWithLine(LOG_TAG, "execute StartScanUseCase")
 
         return new Promise((fulfill, reject) => {
             startScan(serviceUuid, duration).then(() => {

@@ -1,10 +1,13 @@
+import Constants from "../Constants"
+
+const NAVIGATION_PURPOSE_NORMAL = Constants.NAVIGATION.PURPOSE.NORMAL
 
 /**
  * navigate screen.
  * @param {Any} navigation 
  * @param {string} screenToBeMoved 
  */
-export const navigateToNextScreen = (navigation, screenToBeMoved, delay, purpose) => {
+export const navigateToNextScreen = (navigation, screenToBeMoved, delay, purpose = NAVIGATION_PURPOSE_NORMAL) => {
     setTimeout(() => {
         navigation.navigate(screenToBeMoved, { purposeWhat: purpose })
     }, delay)

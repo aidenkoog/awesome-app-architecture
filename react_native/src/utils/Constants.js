@@ -9,6 +9,7 @@ export default {
         SETTINGS: "Settings",
         SW_UPDATE: "SwUpdate",
         EDIT_PROFILE: "EditProfile",
+        HR_MONITORING: "HrMonitoring",
         HIDDEN: {
             SPLASH: "HiddenSplash",
             HOME: "HiddenHome",
@@ -50,23 +51,22 @@ export default {
         SPLASH_LOADING_TIME: 2000,
     },
     LOG: {
-        // ble manager log.
         BT_BLE_MANAGER: 'BT_BLE_MANAGER',
 
-        // repository log.
         BT_REPO_LOG: 'BT_REPO_LOG',
         COMMON_REPO_LOG: 'COMMON_REPO_LOG',
         PLATFORM_REPO_LOG: 'PLATFORM_REPO_LOG',
         SERVER_REPO_LOG: 'SERVER_REPO_LOG',
 
-        // bt command.
         BT_COMMAND_GENERATOR: 'BT_COMMAND_GENERATOR',
         BT_AUTHENTICATE_MESSAGE: 'BT_AUTHENTICATE_MESSAGE',
+        BT_PAYLOAD_MESSAGE: 'BT_PAYLOAD_MESSAGE',
 
-        // ble crypto
         BT_CRYPTO: 'BT_CRYPTO',
+        BT_SECURITY_PACKET: 'BT_SECURITY_PACKET',
+        BT_KEY_CRYPTO: 'BT_KEY_CRYPTO',
+        BT_HASH_MAC: 'BT_HASH_MAC',
 
-        // ble request message.
         HEADER_BT_REQ_AGE: 'HEADER_BT_REQ_AGE',
         HEADER_BT_REQ_CMD: 'HEADER_BT_REQ_CMD',
         HEADER_BT_REQ_DATE: 'HEADER_BT_REQ_DATE',
@@ -84,36 +84,31 @@ export default {
         HEADER_BT_REQ_VERSION: "HEADER_BT_REQ_VERSION",
         HEADER_BT_REQ_WEIGHT: "HEADER_BT_REQ_WEIGHT",
 
-        // usecase log.
         BT_USECASE_LOG: 'BT_USECASE_LOG',
         COMMON_USECASE_LOG: 'COMMON_USECASE_LOG',
         PLATFORM_USECASE_LOG: 'PLATFORM_USECASE_LOG',
         SERVER_USECASE_LOG: 'SERVER_USECASE_LOG',
 
-        // ui log.
         BT_UI_LOG: 'BT_UI_LOG',
         HOME_UI_LOG: 'HOME_UI_LOG',
         PROFILE_UI_LOG: 'PROFILE_UI_LOG',
         QR_SCAN: 'QR_SCAN',
         ROOT_UI_LOG: 'ROOT_UI_LOG',
         SETTINGS_UI_LOG: 'SETTINGS_UI_LOG',
+        EDIT_PROFILE_UI_LOG: 'EDIT_PROFILE_UI_LOG',
         SPLASH_UI_LOG: 'SPLASH_UI_LOG',
 
-        // test log.
         REPO_TEST_LOG: 'REPO_TEST_LOG',
         UI_TEST_LOG: 'UI_TEST_LOG',
         SOURCE_TEST_LOG: 'SOURCE_TEST_LOG',
         USECASE_TEST_LOG: 'USECASE_TEST_LOG',
 
-        // storage util.
         STORAGE_LOG_TAG: 'STORAGE_LOG',
 
-        // ble util.
         BLE_UTIL_LOG_TAG: 'BLE_UTIL_LOG_TAG',
         BLE_FEATURE_UTIL_LOG_TAG: 'BLE_FEATURE_UTIL_LOG_TAG',
         BLE_ENCRYPTION_UTIL_LOG_TAG: 'BLE_ENCRYPTION_UTIL_LOG_TAG',
 
-        // permisstion util.
         PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
     },
     STORAGE: {

@@ -24,3 +24,13 @@ export const bleBatteryUuidNotificationStateAtom = atom({
     key: 'bleBatteryUuidNotificationStateAtom',
     default: Constants.COMMON.DEFAULT_STATE,
 })
+
+/**
+ * represent if ble battery uuid exists.
+ * currently, it's not used.
+ * @deprecated
+ */
+export const bleBatteryUuidExistenceStateAtom = atom({
+    key: 'bleBatteryUuidExistenceStateAtom',
+    default: Constants.COMMON.DEFAULT_STATE,
+})

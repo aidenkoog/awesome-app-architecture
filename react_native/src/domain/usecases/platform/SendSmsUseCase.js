@@ -1,6 +1,6 @@
 import PlatformRepository from '../../../data/repositories/platform/PlatformRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -16,7 +16,7 @@ const SendSmsUseCase = () => {
      * @param {string} message
      */
     executeSendSmsUseCase = (directSms, receiverPhoneNumber, message = "") => {
-        logDebug(LOG_TAG, ">>> ### triggered executeSendSmsUseCase")
+        logDebugWithLine(LOG_TAG, "execute SendSmsUseCase")
         if (directSms) {
             sendDirectSms(receiverPhoneNumber, message)
         } else {

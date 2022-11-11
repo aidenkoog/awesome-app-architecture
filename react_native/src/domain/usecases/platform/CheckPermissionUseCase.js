@@ -1,5 +1,6 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
+import { checkBluetoothPermission } from '../../../utils/permission/PermissionUtil.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -7,23 +8,29 @@ const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
 const CheckPermissionUseCase = () => {
 
     executeBluetoothPermissionUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeBluetoothPermissionUseCase")
+        logDebugWithLine(LOG_TAG, "execute BluetoothPermissionUseCase")
+
+        return new Promise((fulfill) => {
+            checkBluetoothPermission((accepted) => {
+                fulfill(accepted)
+            })
+        })
     }
 
     executeCheckReadContactPermission = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeCheckReadContactPermission")
+        logDebugWithLine(LOG_TAG, "execute CheckReadContactPermission")
     }
 
     executeCheckCallPhonePermission = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeCheckCallPhonePermission")
+        logDebugWithLine(LOG_TAG, "execute CheckCallPhonePermission")
     }
 
     executeCheckSendSmsPermission = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeCheckSendSmsPermission")
+        logDebugWithLine(LOG_TAG, "execute CheckSendSmsPermission")
     }
 
     executeCheckCameraPermission = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeCheckCameraPermission")
+        logDebugWithLine(LOG_TAG, "execute CheckCameraPermission")
     }
 
     return {

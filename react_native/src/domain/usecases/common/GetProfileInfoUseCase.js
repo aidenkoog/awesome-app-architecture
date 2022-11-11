@@ -1,6 +1,6 @@
 import CommonRepository from '../../../data/repositories/common/CommonRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
@@ -13,7 +13,7 @@ const GetProfileInfoUseCase = () => {
      * @param {callback} onResult
      */
     executeGetProfileInfoUseCase = (onResult) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetProfileInfoUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetProfileInfoUseCase")
         getUserProfile((userProfileInfo) => {
             onResult(userProfileInfo)
         })

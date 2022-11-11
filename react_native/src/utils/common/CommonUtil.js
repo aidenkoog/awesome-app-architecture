@@ -27,6 +27,9 @@ export const getOnlyNumber = (number) => {
  * @returns 
  */
 export const emptyField = (text) => {
+    if (text == undefined) {
+        return text
+    }
     return !text.trim()
 }
 
@@ -64,3 +67,11 @@ export const imageOptions = {
     maxHeight: 1024,
     quality: 0.1
 };
+
+export const IntervalMode = {
+    Five: "FIVE",
+    Ten: "TEN",
+    Fifteen: "FIFTEEN",
+    Thirty: "THIRTY",
+    Sixty: "SIXTY",
+}

@@ -1,27 +1,27 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
-import { logDebug } from '../../../../../utils/logger/Logger.js'
-import { ACTION_SYNC } from '../../action/BleActions.js'
+import { logDebugWithLine } from '../../../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const SyncDeviceInfoUseCase = () => {
 
-    /**
-     * ble repository's api that sends ble characteristic data.
-     */
-    const { sendBleCustomValue } = BleRepository()
+    const { sendBleCustomMessage } = BleRepository()
 
     /**
-     * Execute the use case. 
+     * execute usecase of syncing device information. 
      */
     executeSyncDeviceInfoUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeSyncDeviceInfoUseCase")
+        logDebugWithLine(LOG_TAG, "execute SyncDeviceInfoUseCase")
 
         return new Promise((fulfill, reject) => {
-            sendBleCustomValue(ACTION_SYNC)
-                .then(() => fulfill())
-                .catch((e) => reject(e))
+            const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            sendBleCustomMessage(customMessage).then(() => {
+                fulfill()
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by sendBleCustomMessage")
+                reject(e)
+            })
         })
     }
 

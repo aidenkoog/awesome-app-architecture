@@ -1,12 +1,12 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../../../utils/logger/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../../utils/logger/Logger.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const SetMtuUseCase = () => {
 
-    const { setMtu } = BleRepository()
+    const { requestMTU } = BleRepository()
 
     /**
      * execute the use case of setting mtu. 
@@ -15,10 +15,10 @@ const SetMtuUseCase = () => {
      * @returns {Promise}
      */
     executeSetMtuUseCase = (peripheralId, mtu) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
+        logDebugWithLine(LOG_TAG, "execute StartScanUseCase")
 
         return new Promise((fulfill, reject) => {
-            setMtu(peripheralId, mtu).then(() => {
+            requestMTU(peripheralId, mtu).then(() => {
                 logDebug(LOG_TAG, "<<< succeeded to set mtu with " + mtu + "(mtu) for " + peripheralId)
                 fulfill()
 

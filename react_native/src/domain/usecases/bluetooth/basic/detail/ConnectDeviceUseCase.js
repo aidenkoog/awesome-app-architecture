@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -14,7 +14,7 @@ const ConnectDeviceUseCase = () => {
      * @returns {Promise}
      */
     executeConnectDeviceUseCase = (peripheralId) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeConnectDeviceUseCase")
+        logDebugWithLine(LOG_TAG, "execute ConnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
             connectDevice(peripheralId).then(() => {

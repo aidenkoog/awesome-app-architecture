@@ -23,6 +23,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image } from 'react-native'
 import { Colors, Strings, Images } from './utils/theme'
 import styles from './presentation/stylesheets/StyleSet'
+import HrMonitoringSettingContainer from './presentation/containers/settings/hr_monitoring/HrMonitoringSettingContainer'
 
 /**
  * bottom tab navigation's screen display name.
@@ -41,6 +42,7 @@ const HOME_BOTTOM_TAB_SCREEN = Constants.SCREEN.HOME_BOTTOM_TAB_SCREEN
 const SETTINGS_SCREEN = Constants.SCREEN.SETTINGS
 const SW_UPDATE_SCREEN = Constants.SCREEN.SW_UPDATE
 const EDIT_PROFILE_SCREEN = Constants.SCREEN.EDIT_PROFILE
+const HR_MONITORING_SCREEN = Constants.SCREEN.HR_MONITORING
 
 /**
  * hidden feature screens.
@@ -138,6 +140,10 @@ export default function App() {
                         <Stack.Screen
                             name={EDIT_PROFILE_SCREEN}
                             component={EditProfileContainer}
+                            options={{ headerShown: false }} />
+                        <Stack.Screen
+                            name={HR_MONITORING_SCREEN}
+                            component={HrMonitoringSettingContainer}
                             options={{ headerShown: false }} />
 
                         {/* hidden feature screen stack. */}

@@ -1,3 +1,750 @@
 {
-    
+    "common": {
+        "next": "Next",
+        "done": "Done",
+        "save": "Save",
+        "apply": "Apply",
+        "submit": "Submit",
+        "delete": "Delete",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "disconnect": "Disconnect",
+        "notNow": "Not Now",
+        "popup": {
+            "ok": "OK",
+            "cancel": "Cancel",
+            "tryAgain": "Try again",
+            "logout": "Logout"
+        },
+        "network": {
+            "internetNotReachable": {
+                "title": "Unable to connect.",
+                "message": "Unable to connect to network.\nPlease check the network connection status."
+            }
+        },
+        "battery": {
+            "full": "Full",
+            "high": "High",
+            "mid": "Mid",
+            "low": "Low",
+            "veryLow": "Very Low"
+        },
+        "position": {
+            "home": "Home",
+            "out": "Out"
+        },
+        "rhr": "AVG ",
+        "justNow": "Just now",
+        "daysAgo": "{0} day(s) ago",
+        "hourAndMinutesAgo": "{0}h {1}m ago",
+        "minutesAgo": "{0}m ago",
+        "itemMonth": [
+            { "id": 0, "text": "All" },
+            { "id": 1, "text": "1 Month" },
+            { "id": 3, "text": "3 Months" }
+        ],
+        "addressBook": "Go to address book"
+    },
+    "login": {
+        "login": "Log in",
+        "signUp": "Sign Up",
+        "emailOrMobile": "Email or Mobile",
+        "mobile": "Mobile",
+        "email": "Email",
+        "password": "Password",
+        "help": "Help?",
+        "carebinder": "Carescend",
+        "titleSignIn": "Hello!\nSign in to continue.",
+        "country": "Country",
+        "phoneNumber": "Phone number",
+        "hello": "Hello!",
+        "errorTitle": "Member Error",
+        "errorContent": "You are not a member.\nPlease check again or sign up.",
+        "logInErrorTitle": "Log In Error",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?"
+    },
+    "home": {
+        "bottomTabBar": {
+            "home": "My Status",
+            "setting": "Setup"
+        },
+        "titleRegisterWatch": "Weclome to Carescend.\nCare your senior now!",
+        "buttonRegisterWatch": "Register Watch",
+        "buttonSetupSeniorProfile": "Add Device",
+        "location": "Location",
+        "health": "Health",
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "lastNight": "Last Night",
+        "wearing": "Wearing",
+        "takenOff": "Taken off",
+        "main": "Main",
+        "sub": "Sub",
+        "reject": "Reject",
+        "accept": "Accept",
+        "pills": "Pills",
+        "reminder": "Reminder",
+        "inviteText": "{0} invites you to care {1} together.",
+        "edit": "Edit",
+        "editOrder": {
+            "title": "Edit Order",
+            "guide": "Long press the list to reoder"
+        },
+        "disconnection": "Disconnection",
+        "disconnectionTitle": "Watch is disconnected",
+        "disconnectionDescription": "Please connect to watch",
+        "add": "Add",
+        "locationUpdating": "Updating location ...",
+        "updatedOn": "Last updated on {0}",
+        "noRecord": "No Record",
+        "locationErrorTitle": "Location Error",
+        "locationErrorBody": "We failed to find senior",
+        "invitation": "Invitation",
+        "invitationReject": "Do you want to reject invitation?"
+    },
+    "event": {
+        "action": {
+            "resolved": "Resolved",
+            "cancelled": "Cancelled",
+            "pending": "Pending",
+            "helping": "Taking care"
+        },
+        "pressSOS": "SOS Alert",
+        "noOne": "No one has taken care yet",
+        "lowBattery": "Battery lower than {0}%",
+        "pressedSOS": "Pressed SOS",
+        "detectFall": "Fall Alert",
+        "outOfBound": "Geofencing Alert",
+        "takeOff": "Watch taken off",
+        "locationUpdate": "Location updated",
+        "update": "Watch update required",
+        "inActivity": "No activities",
+        "reminder": "Reminder_ Pills",
+        "weiredBlood": "Weired Blood Oxygen (80 %)",
+        "weiredHeartRate": "Weired Heart Rate (70 bpm)",
+        "weiredHeartRateVariability": "Weired Heart Rate Variability (20 회)",
+        "takeOn": "Watch taken on",
+        "charge": "Watch is charging",
+        "all": "All",
+        "noEvent": "No result",
+        "firmwareUpdateFail": "Watch update fail",
+        "firmwareUpdateSuccess": "Watch update success"
+    },
+    "geofencing": {
+        "title": "Geofencing Alert",
+        "checkLocation": "Set Address",
+        "setBoundary": "Set Safezone",
+        "bound": "Edit Safezone",
+        "monitoring": "Monitoring",
+        "address": "Address",
+        "setTheBound": "Set the bound",
+        "km": "km",
+        "name": "Name",
+        "buttonAdd": "Add",
+        "buttonRegisterBound": "+ Register Safezone",
+        "buttonSetAsBound": "Set as Bound",
+        "home": "Home",
+        "update": "Updating",
+        "titleAddBound": "Add Safezone",
+        "save": "Save",
+        "delete":"Delete",
+        "boundName": "Safezone {0}"
+    },
+    "more": {
+        "title": "More",
+        "setting": {
+            "carer": "Carer",
+            "reminder": "Reminder",
+            "geofencing": "Geofencing Alert",
+            "fall": "Fall Alert",
+            "advance": "Advanced Settings",
+            "about": "About watch",
+            "safety": "Safety",
+            "health": "Health",
+            "heartRate": "Heart Rate",
+            "spo2": "SpO2",
+            "breathRate": "Breathing Rate",
+            "sleep": "Sleep analysis",
+            "general": "General",
+            "setting": "Setting",
+            "battery": "Battery",
+            "lowPowerMode": "Low Power Mode",
+            "lowPowerModeContent": "Low Power Mode extends the run time of your device’s battery up to 7 days by limiting the on-demand device status update feature.\n\nIn the Low Power mode, on-demand real time update for the device and wearer’s status such as wearing/taken off, battery level, location, steps, heart rates will be limited.\n\nSuch status will be updated regularly by predefined interval instead and you will be able to check the latest status regularly.\n\nAll the other features including emergency alert are supported the same as the Standard Mode without any limitation.\n\nYou will need to Power Off and On your device again for the change of the mode to be effective.",
+            "lowPowerModeGuide": "Please Power Off and On your device again for the change to be effective",
+            "operationMode": "Operation Mode"
+        }
+    },
+    "completionScreen": {
+        "title": "Complete",
+        "updateWatch": {
+            "message": "Your watch is updated to\nthe latest version.",
+            "button": "Done"
+        },
+        "registerProfile": {
+            "message": "Initial setup is complete.\n You are now ready to start caring your beloved ones\n using Carescend watch.",
+            "button": "Done"
+        }
+    },
+    "aboutwatch": {
+        "title": "About Watch",
+        "name": "Name",
+        "installedVersion":"Installed version",
+        "watchUpdate": "Software update",
+        "imei": "IMEI",
+        "icc_id": "ICCID",
+        "wifi_mac": "Wi-Fi MAC",
+        "bluetooth_mac": "BT MAC",
+        "inactivate": "Inactivate",
+        "inactivateTitle": "Watch Inactivation",
+        "inactivateMessage": "Inactivation means that the carescend service will be inactivated for the current wearer. The service can be activated again later anytime you want. Please note that the watch can still be used as a stand alone device without remote monitoring service even after inactivation.\n\nAll the data including health and activity records for the wearers will be preserved after the inactivation. The data will be removed only after you delete the wearers themselves from the app.\n\nThe subscription for the wearer will not be automatically cancelled after inactivation and you need to unsubscribe or downgrade the plan if you do not want to subscribe the service for the wearer anymore.\n\nContinue to inactivate ?",
+        "inactivateMessageSuccess": "Watch is now inactivated.",
+        "disconnection": "Disconnect",
+        "disconnectionTitle": "Disconnection",
+        "disconnectionMessage": "Once the watch is disconnected from your phone, you cannot get the emergency alarts and senior’s status information.\nAlthough you disconnect the watch, existing records will be kept.\nYou can reconnect the watch and start reusing it anytime you want.",
+        "automaticInstall": "Automatic Install",
+        "message": "When this in ON, the new software will be automatically installed when there is a new version",
+        "updateContent": "Update contents",
+        "updateMessage": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College",
+        "seeMore": "See More",
+        "updateNow": "Update Now",
+        "updating": "Update In Progress",
+        "updateFail": "Update Failed & Retry",
+        "updateSent": "Update Requested",
+        "updateBanner": "{0}'s watch needs an update",
+        "popup": {
+            "title": "Watch Disconnection",
+            "messageWarning": "Would you like to continue to disconnect ?",
+            "messageCompleted": "Watch is disconnected",
+            "messageCompleted2": "Please Power Off and On your device again for the change to be effective.",
+            "messageError": "Error occurred!\nPlease try again."
+        },
+        "watchUpdateTitle": "Watch Update",
+        "update_guide": "Software update request has been sent to the watch. The watch will acknowledge the request and start update within a few hours.\nYou will be notified once the software update finishes.",
+        "update_guide_1": "Firmware update has begun and it will take few minutes\nto complete.\nYou will be notified again\nonce the update is done",
+        "update_guide_2": "Firmware update request has been sent to the watch and the update will begin when the watch wakes up. You will be notified again once the update is done"
+    },
+    "support": {
+        "title": "Support",
+        "notices": "Notices",
+        "faq": "FAQ",
+        "somethingNew": "Something new",
+        "somethingOld": "Something old",
+        "contactUs": "Contact Us"
+    },
+    "signup": {
+        "signUp": "Sign Up",
+        "titleSignUp": "Welcome!\nCreate a new account",
+        "verifyNumber": "Verify Number",
+        "email": "Email",
+        "otp": "OTP",
+        "verify": "Verify",
+        "otpMessage": "A 4-digit OTP (random code) has been sent via mobile text message.",
+        "*": "*",
+        "mobile": "Mobile",
+        "name":"Name",
+        "password":"Password",
+        "verifyPassword":"Verify Password",
+        "alertPassword": "At least 8 letter with a capital, special characters.",
+        "messageSignUp":"By clicking Create Account,\nyou agree to User Agreement and Privacy Policy",
+        "userAgreement": "User Agreement",
+        "privacyPolicy": "Privacy Policy",
+        "policyContent": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32. \nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.",
+        "createAccount": "Create Account",
+        "alertEmptyField": "Please fill fields",
+        "errorTitle": "Sign Up Error",
+        "otpErrorMessage": "The OTP code does not match.",
+        "otpInvalidMessage": "The OTP code has expired.\nPlease request the verification code to try again.",
+        "passwordErrorMessage": "Passwords do not match.",
+        "numberRegistered": "This number is already registered.",
+        "emailRegistered": "This email is already registered.",
+        "invalidPhoneNumber": "The phone number is invalid.",
+        "invalidEmail": "Email is invalid.",
+        "withoutSpecialCharacter": "without \"-\"",
+        "otpPlaceholder": "Enter 4 digit OTP code sent to your mobile.",
+        "emailPlaceholder": "Enter your email address.",
+        "namePlaceholder": "Enter your name.",
+        "passwordPlaceholder": "Enter the password.",
+        "confirmPasswordPlaceholder":"Enter password once again."
+    },
+    "scanQR": {
+        "titleScreen": "Register Watch",
+        "title": "Turn on the watch \nand scan the QR code.",
+        "buttonCannotBeRead": "Cannot be read?",
+        "titleError": "Registration Error",
+        "errorInvalidCode": "Invalied code. \nPlease check again.",
+        "errorOverlapCode": "Already registered watch\nPlease check again.",
+        "subDigital": "Swipe to the left on the watch\nto check the Watch ID.",
+        "enterWatchId": "Enter your watch ID number."
+    },
+    "verifyNumber": {
+        "login": "Log in",
+        "signUp": "Sign Up",
+        "enterVerCode": "Enter verification code.",
+        "resend": "Resend",
+        "done": "Done"
+    },
+    "watchConnect": {
+        "connect": {
+            "title": "Connecting...",
+            "message": "Confirm on the band",
+            "error": {
+                "title": "Registration Error",
+                "message": "Connection is failed \nPlease check your watch."
+            }
+        },
+        "update": {
+            "title": "Updating...",
+            "message": "Bring watch closer to the phone",
+            "error": {
+                "title": "Update Error",
+                "messageUpdateFail": "Update is failed \nPlease try again.",
+                "messageUpdateNotFound": "Cannot find watch.\nBring the watch and phone close\ntogether and try again."
+            }
+        },
+        "search": {
+            "title": "Searching…",
+            "message": "Bring watch closer to the phone"
+        }
+    },
+    "registerWatchDigit": {
+        "title": "Register Watch",
+        "message": "Enter your \nWatch ID number",
+        "textInputPlaceholder": "15 digits",
+        "subTitle": "Swipe to the left on the watch\nto check the Watch ID",
+        "registerErrorTitle": "Registration Error",
+        "registerErrorInvalidCode": "Invalid code.\nPlease check again.",
+        "registerErrorAlreadyRegistered": "Watch is already registered.\nPlease check again.",
+        "registerErrorUnknown": "An unknown error occurred.\nPlease check again.",
+        "registering": "Registering ..."
+    },
+    "address": {
+        "title": "Address",
+        "buttonFindLocation": "Find {0}'s location",
+        "titleAddress": "Address",
+        "city": "City",
+        "state": "State",
+        "name": "Name (option)",
+        "buttonCheckLocation": "Check Location",
+        "buttonSetLocation": "Set this Location",
+        "popup": {
+            "title": "Location error",
+            "message": "We cannot find your address. \nPlease check again."
+        }
+    },
+    "additionalInfo": {
+        "header": "Additional information",
+        "message": "Enter the additional information \nYou can get the systematic \ninformation",
+        "genderTitle": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "birthday": "Birthday",
+        "height": "Height",
+        "weight": "Weight",
+        "cm": "cm",
+        "kg": "kg",
+        "gender": [
+            {
+                "id": 0,
+                "name": "Male"
+            },
+            {
+                "id": 1,
+                "name": "Female"
+            }
+        ]
+    },
+    "reminder": {
+        "titleReminder": "Reminder",
+        "noReminder": "No reminder",
+        "addReminder": "Add Reminder",
+        "editReminder": "Edit Reminder",
+        "login": "Log in",
+        "type": "Type",
+        "title": "Title",
+        "description": "*If not entered, display “Type” name.",
+        "dose": "Dose",
+        "date": "Date",
+        "time": "Time",
+        "repeat": "Repeat",
+        "done": "Done",
+        "never": "Never",
+        "everyDay": "Every Day",
+        "everyWeek": "Every Week",
+        "everyMonth": "Every Month",
+        "everyYear": "Every Year",
+        "noEndDate": "No End Date",
+        "custom": "CUSTOM",
+        "deleteTitle": "Delete reminder",
+        "deleteMessage": "Do you want to delete?",
+        "pill": "PILLS",
+        "hospital": "HOSPITAL",
+        "general":"GENERAL",
+        "meal": "MEAL",
+        "exercise": "EXERCISE",
+        "placeholder": "ex) Insulin"
+    },
+    "settingTab": {
+        "title": "Setting",
+        "registerWatch": "Register Watch",
+        "setupSeniorProfile": "Set up Senior Profile",
+        "appNotification": "App Notification",
+        "support": "Support",
+        "aboutCarescend": "About Carescend",
+        "editProfile": "Edit profile",
+        "changeNumber": "Change phone number",
+        "logout": "Log out",
+        "messageChangeNumber": "To change \nEnter Phone number",
+        "buttonVerifyNumber": "Verify Number",
+        "popupLogOut": {
+            "title": "Log Out",
+            "message": "Log out now?"
+        },
+        "popupChangeNumber": {
+            "title": "Change number",
+            "message": "Your phone number is changed.\nTo keep your login safe, \nyou need to log in again."
+        },
+        "appNotificationSetting": {
+            "sos": "SOS Alert",
+            "fall": "Fall Alert",
+            "geo": "Geofencing Alert",
+            "inactivity": "Inactivity",
+            "battery": "Battery",
+            "reminder": "Reminder",
+            "takenOff": "Watch taken on/off",
+            "notification": "Notification",
+            "sound": "Sounds",
+            "vibration": "Vibrations",
+            "ringtone": "Ringtone",
+            "voiceCall": "Voice Call Message",
+            "soundOption": "Sound・Vibration・Call",
+            "batteryOption": "Sound・Vibration",
+            "off": "Off",
+            "on": "On"
+        },
+        "aboutServiceDetail": {
+            "appVersion": "App version",
+            "openSource": "Open source license",
+            "agreement": "User Agreement",
+            "privacy": "Privacy Policy",
+            "installedVersion": "Installed version",
+            "latestVersion": "Latest version"
+        }
+    },
+    "registerSenior": {
+        "title": "Set Profile",
+        "height": "Height",
+        "weight": "Weight",
+        "titleName": "Name",
+        "placeHolderName": "Enter the name.",
+        "placeHolderAddress": "Enter the address.",
+        "numberInput": "Number",
+        "address": "Address",
+        "genderTitle": "Gender",
+        "birthday": "Birthday",
+        "cm": "cm",
+        "kg": "kg",
+        "gender": [
+            {
+                "id": 0,
+                "name": "Male"
+            },
+            {
+                "id": 1,
+                "name": "Female"
+            }
+        ],
+        "placeHolderBirthday": "Enter the birthday.",
+        "placeHolderWeight": "Enter the weight. ",
+        "placeHolderHeight": "Enter the height. "
+    },
+    "setProfile": {
+        "setProfile": "Set Profile",
+        "name": "Name",
+        "mobile": "Mobile",
+        "email": "Email",
+        "userAgreement": "User Agreement",
+        "privacy": "Privacy Policy",
+        "createAccount": "Create Account",
+        "titleAgree": "By clicking Create Account, you agree to\n",
+        "done": "Done",
+        "thankSignUp": "Thanks for signing up!",
+        "titleSetupWatch": "You can setup the watch now",
+        "takePhoto": "Take a photo",
+        "selectGallery": "Select from Gallery",
+        "useDefaultImage": "Use default image",
+        "editProfile": "Edit profile",
+        "and": "and"
+    },
+    "deleteProfile": {
+        "deleteProfile": "Delete Senior",
+        "content": "Once you delete this senior, all the existing records for the senior will be lost and cannot be recovered.\nThe watch will also be disconnected automatically. Would you like to continue to delete?"
+    },
+    "term": {
+        "privacy": "Privacy Policy",
+        "contactus": "Contact Us"
+    },
+    "contactus": {
+        "contactus": "Contact Us",
+        "email": "Email * (for answer)",
+        "enterYourEmail": "Enter your email",
+        "type": "Type*",
+        "select": "Select",
+        "contents": "Contents",
+        "picture": "Pictures (Optional)",
+        "submit": "Submit",
+        "notifi": "You'll be notified via the e-mail:\n",
+        "received": "Your inquiry has been received.\nWe will reply as soon as possible.",
+        "typeContent": {
+            "auth": "Log in/Sign up",
+            "watch": "Watch",
+            "sos": "SOS",
+            "healthy": "Healthy record",
+            "error": "Error",
+            "etc": "etc"
+        }
+    },
+    "carer": {
+        "title": "Carer",
+        "add": "Add",
+        "noCarer": "No Carer",
+        "pending": "Pending",
+        "expired": "Expired",
+        "rejected": "Rejected",
+        "addCarer": "Add Carer",
+        "titleAddCarer": "To add carer\nEnter the number",
+        "contacts": "Contacts",
+        "invite": "Invite",
+        "complete": {
+            "complete": "Complete",
+            "content": "We sent an invitation to"
+        },
+        "titleComplete": "We sent an invitation to",
+        "resend": "Resend",
+        "remove": "Remove",
+        "delete": {
+            "title": "Remove Carer",
+            "question": "Do you want to remove {0}?\n\n",
+            "desc": "{0} is unable to access the senior information any more.",
+            "cancel": "Cancel",
+            "doneDesc": "{0} has been removed"
+        },
+        "error": {
+            "title": "Carer Error",
+            "desc": "Already registered member. Try again."
+        },
+        "permission": {
+            "contact": "Contacts",
+            "contactMessage":  "This app would like to view your contacts."
+        }
+    },
+    "filter": {
+        "search": "Search",
+        "senior": "Senior",
+        "all": "All",
+        "date": "Date"
+    },
+    "fallDetection": {
+        "title": "Fall Detection",
+        "monitoring": "Monitoring",
+        "sensorSensitivity": "Sensitivity",
+        "sensorMode": {
+            "low": "Low",
+            "medium": "Medium",
+            "high": "High"
+        },
+        "remove": "Remove"
+    },
+    "profile": {
+        "name": "Name",
+        "number": "Number",
+        "address": "Address",
+        "gender": "Gender",
+        "birth": "Birthday",
+        "height": "Height",
+        "weight": "Weight",
+        "cm": "cm",
+        "kg": "kg",
+        "placeHolderName": "Senior's name",
+        "title": "{0}'s Profile"
+    },
+    "sos": {
+        "title": "SOS from ",
+        "no_one_response": "No one has taken care yet",
+        "call": "Call",
+        "i_will_help": "I'll help",
+        "current": "Current",
+        "accident": "Accident",
+        "phone": {
+            "call": "Call ",
+            "call_police": "Call Police(911)",
+            "call_ambulance": "Call Ambulance(911)"
+        },
+        "accidentLocation": "Accident Location",
+        "currentLocation": "Current Location",
+        "action": {
+            "help": "Helping now",
+            "resolve": "Resolve",
+            "resolved": "Resolved",
+            "cancel": "Cancelled"
+        }
+    },
+    "heartRate": {
+        "title": "Heart Rate",
+        "monitoring": {
+            "monitoring": "Monitoring",
+            "monitoringIntervals": "Monitoring Intervals",
+            "option": "5 mins"
+        },
+        "heartRateAlert": "Heart Rate Alert",
+        "alertValuesHigh": {
+            "title": "Alert values (high)",
+            "option": "Automatic"
+        },
+        "alertValuesLow": {
+            "title": "Alert values (low)",
+            "option": "Automatic"
+        },
+        "interval" : {
+            "five": "5 min",
+            "ten": "10 min",
+            "fifteen": "15 min",
+            "thirty": "30 min",
+            "sixty": "60 min"
+        }
+    },
+    "forgotPassword":{
+        "title": "Forgot Password",
+        "description": "We will send you a password reset link via text message.",
+        "email": "Email",
+        "mobile": "Mobile",
+        "send": "Send"
+    },
+    "signUpDone": {
+        "title": "Thanks for signing up!",
+        "description": "You can setup the watch now",
+        "done": "Done"
+    },
+    "api": {
+        "title": "Request failed",
+        "msg": "Sorry, an unexpected error occurred.\nPlease try again later."
+    },
+    "notification": {
+        "defaultTitle": "Carescend",
+        "defaultBody": "Carescend notification content.",
+        "sosTitle": "{0} pressed SOS.",
+        "fallTitle": "{0} fell.",
+        "outOfBoundTitle": "{0} went out of safezone.",
+        "noOneResponse": "No one has taken care yet.",
+        "takeCareAction": "{0} is taking care now.",
+        "takeCareActionMe": "You are taking care now.",
+        "resolveAction": "{0} resolved the alert.",
+        "resolveActionMe": "You resolved the alert.",
+        "cancelAction": "{0} canceled the alert.",
+        "lowBatteryTitle": "Battery warning",
+        "lowBatteryBody": "{0}'s watch battery is lower than {1}%.",
+        "veryLowBatteryTitle" : "%@'s watch battery is lower than %@%.",
+        "chargeBatteryTitle": "Watch is being charged.",
+        "chargeBatteryBody": "{0}'s watch is plugged in and charging.",
+        "inactivityTitle": "Band suspended",
+        "inactivityBody": "{0}'s band doesn't have an active plan, which means you won't receive any notification. Please contact the account holder to re-activate it.",
+        "removalTitle": "{0} took off the watch.",
+        "putOnTitle": "{0} is now wearing the watch.",
+        "locationReportTitle": "The location of {0}'s has been updated.",
+        "reminderTitle": "{0} got a new reminder",
+        "reminderBody": "Time for {0}.",
+        "healthTitle": "{0} got a new health information.",
+        "firmwareUpdate": "{0}'s watch needs an update",
+        "firmwareUpdateCompleteTitle": "Software update",
+        "firmwareUpdateCompleteBody": "{0}'s watch has been updated.",
+        "firmwareUpdateFailBody": "{0}'s watch update failed.",
+        "invitationBody": "{0} invites you to care {1} together."
+    },
+    "repeat": {
+        "daysOfWeek": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        "daysOfWeekShort": ["S", "M", "T", "W", "T", "F", "S"],
+        "today": "Today",
+        "daysOfMonth": ["1st", "2nd", "3rd", "4th", "5th"],
+        "month": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    },
+    "chart": {
+        "rhr": " (Avg)",
+        "averageRHR": " (Avg)",
+        "bpm": "bpm",
+        "average": " (Avg)",
+        "steps": "steps",
+        "hours": "hours",
+        "noData": "No data",
+        "step": "Step",
+        "hr": "HR",
+        "sleep": "Sleep",
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "year": "Year",
+        "dayAxis": [ "12:00 AM", "12 AM-6 AM", "6:00 AM", "6 AM-12 PM", "12:00 PM", "12 PM-6 PM", "6:00 PM", "6 PM-12 AM", " 12:00 AM "],
+        "awake": " Awake",
+        "motion": " Motion",
+        "noMotion": " No Motion",
+        "hourShort": "h",
+        "minuteShort": "m"
+    },
+    "subscription": {
+        "existingMessage": "You have an unactivated subscription plan.\n\n Would you like to activate the plan for this watch?",
+        "activate": "Activate",
+        "cancel": "Cancel",
+        "websiteMessage": "To use the service, you need to subscribe the plan.\n\n Please purchase your plan in our website (www.carescend.com)",
+        "goToWebsite": "Go to website",
+        "yourPlanMessage": "There are “2” plans ready to start.\nSelect the plan for this watch",
+        "monthlyPlan": "Monthly Plan",
+        "annualPlan": "Annual Plan",
+        "yourPlanNote": "* The subscription period commence from the moment when you register the watch and activate the plan.",
+        "subscription": "Subscription",
+        "activatedPlan": "Activated Plan",
+        "inactivatedPlan": "Unactivated Plan",
+        "substitute": "Substitute",
+        "activateWatch": "Activate Watch",
+        "upgrade": "Upgrade",
+        "downgrade": "Downgrade",
+        "currentPlan": "Current Plan",
+        "unsubscribe": "Unsubscribe",
+        "subscribe": "Subscribe",
+        "upgradePlanText": "Select the plan to upgrade",
+        "downgradePlanText": "Select the plan to downgrade",
+        "subscriptionPlanText": "You don’t have active subscription yet. Select the plan to subscribe",
+        "subscriptionPlanForOne": "Carescend Watch Monthly for One Senior",
+        "subscriptionPlanForTwo": "Carescend Watch Monthly for Two Seniors",
+        "subscriptionPlanForThree": "Carescend Watch Monthly for Three Seniors",
+        "subscriptionPlanForFour": "Carescend Watch Monthly for Four Seniors",
+        "autoRenew": "Will be automatically renewed.",
+        "careMore": "Care more seniors",
+        "careLess": "Care less seniors",
+        "cancelSubscription": "Cancel subscriptions",
+        "activateMessage": "You have a subscription.\nWould you like to activate {0}'s watch?",
+        "upgradeMessage": "You need to upgrade the plan to care more seniors. Please go to the upgrade page and select the plan to upgrade.",
+        "subscribeMessage": "You don’t have a subscription yet.\nPlease go to the subscription page and select the plan to subscribe.",
+        "toUpgrade": "To upgrade",
+        "toSubscribe": "To subscribe"
+    },
+    "operationMode": {
+        "title": "Operation Mode",
+        "fullAccess": "Full Access Mode",
+        "standard": "Standard Mode",
+        "extended": "Extended Mode",
+        "descriptionFullAccess": "In Full Access Mode, watch is normally is stand-by mode and accessible on-demand by the App. Carers are able to check real-time status of the wearers anytime they want. Battery working time in Full Access Mode is normally 1~2 days.",
+        "descriptionStandard": "In Standard Mode, watch is normally off from the network and checks and reports the updated status every 30 min. Carers are able to check the latest status of wearers, which is within the last 30 min. Though the watch is normally off from the network, emergency alert works instantaneously and activity/health monitoring always works in the background regardless of the operation mode. Battery working time in Standard Mode is up to 3~4 days.",
+        "descriptionExtended": "In Extended Mode, watch is normally off from the network and checks and reports the updated status every 60 min. Carers are able to check the latest status of wearers, which is within the last 60 min. Though the watch is normally off from the network, emergency alert works instantaneously and activity/health monitoring always works in the background regardless of the operation mode. Battery working time in Standard Mode is up to 7 days.",
+        "popupSuccess": {
+            "title": "Operation Mode is Updated!",
+            "message": ""
+        },
+        "popupFail": {
+            "title": "Error!",
+            "message": "Sorry, an unexpected error occurred.\nPlease try again later."
+        },
+        "popupRestart": {
+            "title": "Operation Mode",
+            "message": "Please Power Off and On your device again for the change to be effective."
+        }
+    }
 }

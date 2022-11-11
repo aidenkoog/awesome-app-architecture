@@ -1,16 +1,19 @@
+import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../utils/Constants.js'
-import { logDebug } from '../../../utils/logger/Logger.js'
+import { logDebugWithLine } from '../../../utils/logger/Logger.js'
 import { ACTION_UPGRADE_FIRMWARE } from '../../action/BleActions.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const UpgradeFirewareUseCase = () => {
 
+    const { sendBleCustomMessage } = BleRepository()
+
     executeUpgradeFirewareUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeUpgradeFirewareUseCase")
+        logDebugWithLine(LOG_TAG, "execute UpgradeFirewareUseCase")
 
         return new Promise((fulfill, reject) => {
-            sendBleCustomValue(ACTION_UPGRADE_FIRMWARE)
+            sendBleCustomMessage(ACTION_UPGRADE_FIRMWARE)
                 .then(() => fulfill())
                 .catch((e) => reject(e))
         })

@@ -1,5 +1,4 @@
 import { stringToBytes } from "convert-string"
-import { bytesToHex } from "./BleUtil"
 
 const CryptoJS = require("crypto-js")
 
@@ -28,7 +27,7 @@ export const KEY_BYTES = stringToBytes(
 /**
  * custom secret key definition.
  */
-export const CUSTOM_SECRET_KEY = CryptoJS.enc.Hex.parse(bytesToHex(KEY_HEXS))
+export const CUSTOM_SECRET_KEY = CryptoJS.enc.Hex.parse(KEY_HEX_STRING)
 
 /**
  * initialize vector information.
@@ -37,6 +36,7 @@ export const IV_HEXS = [
     0xA6, 0xA6, 0xA6, 0xA6,
     0xA6, 0xA6, 0xA6, 0xA6
 ]
+export const IV_HEX_ARRAY = ["A6", "A6", "A6", "A6", "A6", "A6", "A6", "A6"]
 export const IV_HEX_STRING = "A6A6A6A6A6A6A6A6"
 export const IV_HEX_STRING_2ND =
     "\xA6" + "\xA6" + "\xA6" + "\xA6"
@@ -50,7 +50,7 @@ export const IV_BYTES = stringToBytes(
 /**
  * custom iv definition.
  */
-export const CUSTOM_IV = CryptoJS.enc.Hex.parse(bytesToHex(IV_HEXS))
+export const CUSTOM_IV = CryptoJS.enc.Hex.parse(IV_HEX_STRING)
 
 /**
  * crypto
@@ -58,4 +58,9 @@ export const CUSTOM_IV = CryptoJS.enc.Hex.parse(bytesToHex(IV_HEXS))
 export const CRYPTO_A128CBC = 0x40
 export const CRYPTO_SHA256 = 0x10
 export const CRYPTO_A128KW = 0x01
-export const CRYPTO_HS_AAD = [CRYPTO_A128CBC | CRYPTO_SHA256 | CRYPTO_A128KW]
+export const CRYPTO_HS_AAD = CRYPTO_A128CBC | CRYPTO_SHA256 | CRYPTO_A128KW
+
+export const CRYPTO_HS_AL = [
+    0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x08
+]

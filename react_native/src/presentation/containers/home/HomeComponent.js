@@ -1,12 +1,9 @@
 import { SafeAreaView, StyleSheet, RefreshControl, FlatList, Image, TouchableOpacity, View } from "react-native"
 import { Images, Colors, Fonts } from "../../../utils/theme"
-import Constants from "../../../utils/Constants"
-import { logDebug } from "../../../utils/logger/Logger"
 import { Container } from "../../components"
 import HomeCardComponent from "./HomeCardComponent"
 
 
-const LOG_TAG = Constants.LOG.HOME_UI_LOG
 const USER_SIZE = 1
 
 /**
@@ -36,7 +33,6 @@ export default function HomeComponent(props) {
      * (add new device / edit item ordering.)
      */
     getItemFooter = (data, length) => {
-        logDebug(LOG_TAG, "<<< parameter data: " + data)
         return (
             <View style={{ flexDirection: 'column', marginTop: 15, flex: 1 }}>
                 <TouchableOpacity onPress={onAddDevice} disabled={!bleConnectionCompleteState}>
@@ -54,16 +50,6 @@ export default function HomeComponent(props) {
 
         )
     }
-
-    /**
-     * monitor states.
-     */
-    logDebug(LOG_TAG, ">>> userName: " + userName)
-    logDebug(LOG_TAG, ">>> userImageUrl: " + userImageUrl)
-    logDebug(LOG_TAG, ">>> userGender: " + userGender)
-    logDebug(LOG_TAG, ">>> isDeviceRegistered: " + isDeviceRegistered)
-    logDebug(LOG_TAG, ">>> bleConnectionCompleteState: " + bleConnectionCompleteState)
-    logDebug(LOG_TAG, ">>> bleDeviceBatteryLevel: " + bleDeviceBatteryLevel)
 
     return (
         <SafeAreaView style={styles.homeSafeAreaStyle}>

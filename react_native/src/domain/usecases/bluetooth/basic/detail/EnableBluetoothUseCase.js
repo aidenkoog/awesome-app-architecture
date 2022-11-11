@@ -1,5 +1,5 @@
 import Constants from '../../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../../utils/logger/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../utils/logger/Logger.js'
 import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -14,7 +14,7 @@ const EnableBluetoothUseCase = () => {
      * @returns {Promise}
      */
     executeEnableBluetoothUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeEnableBluetoothUseCase")
+        logDebugWithLine(LOG_TAG, "execute EnableBluetoothUseCase")
 
         return new Promise((fulfill, reject) => {
             enableBluetooth().then(() => {

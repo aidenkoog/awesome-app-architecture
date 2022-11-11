@@ -6,14 +6,13 @@ const Avatar = ({ onPress, photoUrl, genderType = 0, role = "Senior" }) => {
     return (
         <View styles={styles.container}>
             <Image
-                source={photoUrl == null || photoUrl === "" || photoUrl == undefined
-                    ? role === 'Senior'
-                        ? genderType === 0
-                            ? Images.icMaleUser
-                            : Images.icFemaleUser
-                        : Images.icMaleCarer
+                source={photoUrl == null || photoUrl === "" || photoUrl == undefined ? role === 'Senior' ? genderType === 0 ?
+                    Images.icMaleUser
+                    : Images.icFemaleUser
+                    : Images.icMaleUser
                     : { uri: photoUrl }}
                 style={styles.image} resizeMode='cover' />
+
             <View style={styles.cameraView}>
                 <TouchableOpacity onPress={() => { onPress() }} >
                     <Image source={Images.icCamera} style={styles.camera} resizeMode='stretch' />

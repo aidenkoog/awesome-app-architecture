@@ -47,12 +47,10 @@ const QrScanContainer = ({ route, navigation }) => {
      * received device name when qr scan is executed successfully.
      */
     onQrScanSuccess = (deviceName) => {
-        logDebug(LOG_TAG, "<<< deviceName by qr scan: " + deviceName)
+        logDebug(LOG_TAG, "<<< deviceName by QR scan: " + deviceName)
 
         // store device name to local storage and navigate to bluetooth pairing / connection screen. 
         storeBleDeviceName(deviceName).then(() => {
-            logDebug(LOG_TAG, "<<< navigation purposeWhat: " + purposeWhat)
-
             if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
                 pushToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_ADD_DEVICE)
 
@@ -84,8 +82,6 @@ const QrScanContainer = ({ route, navigation }) => {
      */
     onNotNowPressed = () => {
         storeIsDeviceRegistered(false).then(() => {
-            logDebug(LOG_TAG, "<<< navigation purposeWhat: " + purposeWhat)
-
             if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
                 navigation.pop()
 

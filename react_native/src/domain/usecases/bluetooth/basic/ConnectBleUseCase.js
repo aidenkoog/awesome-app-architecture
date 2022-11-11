@@ -1,5 +1,5 @@
 import Constants from '../../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../../utils/logger/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../utils/logger/Logger.js'
 import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
 import { SERVICE_UUID } from '../../../../utils/ble/BleConfig.js'
 
@@ -23,7 +23,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeConnectDeviceUseCase = (peripheralId) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeConnectDeviceUseCase")
+        logDebugWithLine(LOG_TAG, "execute ConnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
             connectDevice(peripheralId).then(() => {
@@ -45,7 +45,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeDisableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeDisableNotificationUseCase")
+        logDebugWithLine(LOG_TAG, "execute DisableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             disableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
@@ -65,7 +65,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeDisconnectDeviceUseCase = (peripheralId) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeDisconnectDeviceUseCase")
+        logDebugWithLine(LOG_TAG, "execute DisconnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
             disconnectDevice(peripheralId).then(() => {
@@ -87,7 +87,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeEnableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeEnableNotificationUseCase")
+        logDebugWithLine(LOG_TAG, "execute EnableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {
@@ -107,7 +107,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeBleModuleUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeBleModuleUseCase")
+        logDebugWithLine(LOG_TAG, "execute BleModuleUseCase")
 
         return new Promise((fulfill, reject) => {
             initializeBleModule().then(() => {
@@ -127,7 +127,7 @@ const ConnectBleUseCase = () => {
      * @returns {Any}
      */
     executeGetUuidListUseCase = (peripheral) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetUuidListUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetUuidListUseCase")
 
         const uuidList = getUuidList(peripheral)
         logDebug(LOG_TAG, "<<< succeeded to execute getUuidList: " + uuidList)
@@ -138,7 +138,7 @@ const ConnectBleUseCase = () => {
      * Execute the use case. 
      */
     executeSendBleCustomDataUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeSendBleCustomDataUseCase")
+        logDebugWithLine(LOG_TAG, "execute SendBleCustomDataUseCase")
 
         return new Promise((fulfill, reject) => {
             sendBleCustomData().then(() => {
@@ -159,7 +159,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeStartScanUseCase = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeStartScanUseCase")
+        logDebugWithLine(LOG_TAG, "execute StartScanUseCase")
 
         return new Promise((fulfill, reject) => {
             startScan(serviceUuid, duration).then(() => {
@@ -179,7 +179,7 @@ const ConnectBleUseCase = () => {
      * @returns {Promise}
      */
     executeStopScanUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeStopScanUseCase")
+        logDebugWithLine(LOG_TAG, "execute StopScanUseCase")
 
         return new Promise((fulfill, reject) => {
             stopScan().then(() => {
@@ -198,7 +198,7 @@ const ConnectBleUseCase = () => {
      * release ble listeners after completing to getting information.
      */
     executeGetBleDeviceInfo = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeGetBleDeviceInfo")
+        logDebugWithLine(LOG_TAG, "execute GetBleDeviceInfo")
         getBleDeviceInfo((bleDeviceInfo) => {
             return bleDeviceInfo
         })

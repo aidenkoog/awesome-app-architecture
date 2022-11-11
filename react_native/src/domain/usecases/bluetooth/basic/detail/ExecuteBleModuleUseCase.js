@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -14,7 +14,7 @@ const ExecuteBleModuleUseCase = () => {
      * @returns {Promise}
      */
     executeBleModuleUseCase = () => {
-        logDebug(LOG_TAG, ">>> ### triggered executeBleModuleUseCase")
+        logDebugWithLine(LOG_TAG, "execute BleModuleUseCase")
 
         return new Promise((fulfill, reject) => {
             initializeBleModule().then(() => {

@@ -1,5 +1,5 @@
 import Constants from '../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../utils/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../utils/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
@@ -16,7 +16,7 @@ const EnableNotificationUseCase = () => {
      * @returns {Promise}
      */
     executeEnableNotificationUseCase = (peripheralId, serviceUuid, characteristicUuid) => {
-        logDebug(LOG_TAG, ">>> ### triggered executeEnableNotificationUseCase")
+        logDebugWithLine(LOG_TAG, "execute EnableNotificationUseCase")
 
         return new Promise((fulfill, reject) => {
             enableNotification(peripheralId, serviceUuid, characteristicUuid).then(() => {

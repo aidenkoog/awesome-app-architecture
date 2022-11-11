@@ -1,5 +1,5 @@
 import Constants from '../../../../utils/Constants.js'
-import { logDebug, outputErrorLog } from '../../../../utils/logger/Logger.js'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../utils/logger/Logger.js'
 import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID } from '../../../../utils/ble/BleConfig.js'
 import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
 
@@ -22,7 +22,7 @@ const GetBatteryLevelUseCase = () => {
         batteryserviceUuid = BATTERY_SERVICE_UUID,
         batterycharacteristicUuid = BATTERY_CHARACTERISTIC_UUID) => {
 
-        logDebug(LOG_TAG, ">>> ### triggered executeGetBatteryLevelUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetBatteryLevelUseCase")
 
         return new Promise((fulfill, reject) => {
             getBatteryLevel(

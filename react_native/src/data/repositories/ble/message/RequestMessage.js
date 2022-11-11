@@ -1,37 +1,31 @@
-import { convertDecimalToHexString, getDeviceNameAsHexString } from "../../../../../utils/ble/BleUtil"
-import Constants from "../../../../../utils/Constants"
-import { logDebug } from "../../../../../utils/logger/Logger"
 
-const LOG_TAG = Constants.LOG.BT_AUTHENTICATE_MESSAGE
-
-const BleAuthenticateMessage = () => {
-
+const RequestMessage = () => {
     getVersion = () => {
-        const version = convertDecimalToHexString(3)
+        const version = "\x03"
 
         logDebug(LOG_TAG, ">>> version: " + version)
-        return version
+        return ""
     }
 
     getSequenceId = (bleSequenceId) => {
         const sequenceId = convertDecimalToHexString(bleSequenceId)
 
         logDebug(LOG_TAG, ">>> sequenceId: " + sequenceId)
-        return sequenceId
+        return ""
     }
 
     getStatus = () => {
-        const status = convertDecimalToHexString(1)
+        const status = "\x01"
 
         logDebug(LOG_TAG, ">>> status: " + status)
-        return status
+        return ""
     }
 
     getDeviceName = () => {
         const deviceName = getDeviceNameAsHexString("358303469901116")
 
         logDebug(LOG_TAG, ">>> deviceName: " + deviceName)
-        return deviceName
+        return ""
     }
 
     getUserId = () => {
@@ -47,20 +41,10 @@ const BleAuthenticateMessage = () => {
      * @returns {string}
      */
     getAuthenticateMessage = (bleSequenceId) => {
-        const fullMessage =
-            this.getVersion()
-            + this.getSequenceId(bleSequenceId)
-            + this.getStatus()
-            + this.getDeviceName()
-            + this.getUserId()
+        let fullMessage = this.getVersion() + this.getSequenceId(bleSequenceId) + this.getStatus()
+            + this.getDeviceName() + this.getUserId()
 
         logDebug(LOG_TAG, ">>> full message: " + fullMessage)
         return fullMessage
     }
-
-    return {
-        getAuthenticateMessage
-    }
 }
-
-export default BleAuthenticateMessage

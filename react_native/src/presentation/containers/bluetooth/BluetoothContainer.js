@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import Constants from '../../../utils/Constants'
-import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
-import { checkBluetoothPermission } from '../../../utils/permission/PermissionUtil'
+import { logDebugWithLine, outputErrorLog } from '../../../utils/logger/Logger'
 import BluetoothComponent from './BluetoothComponent'
 import { bleConnectionStateAtom, bleConnectionCompleteStateAtom, bleAuthResultAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import ConnectBleUseCase from '../../../domain/usecases/bluetooth/basic/ConnectBleUseCase'
 import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
-import { storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
 import RequestAuthUseCase from '../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase'
+import SetDeviceRegistrationUseCase from '../../../domain/usecases/common/SetDeviceRegistrationUseCase'
+import CheckPermissionUseCase from '../../../domain/usecases/platform/CheckPermissionUseCase'
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
 
@@ -34,17 +34,12 @@ const BluetoothContainer = ({ route, navigation }) => {
     const { purposeWhat } = route.params
 
     /**
-     * usecase functions for connecting to ble device.
+     * usecases.
      */
-    const {
-        executeBleModuleUseCase,
-        executeStartScanUseCase
-    } = ConnectBleUseCase()
-
-    /**
-     * usecase function for authenticating device, user after completing the ble connection.
-     */
+    const { executeBleModuleUseCase, executeStartScanUseCase } = ConnectBleUseCase()
     const { executeRequestAuthUseCase } = RequestAuthUseCase()
+    const { executeSetDeviceRegistrationUseCase } = SetDeviceRegistrationUseCase()
+    const { executeBluetoothPermissionUseCase } = CheckPermissionUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -69,9 +64,8 @@ const BluetoothContainer = ({ route, navigation }) => {
      */
     useEffect(() => {
         if (bleAuthResult) {
-            logDebug(LOG_TAG, "<<< ble authentication about device, user is completed well, go to home screen")
+            logDebugWithLine(LOG_TAG, "<<< ble authentication is succeeded")
             if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
-                logDebug(LOG_TAG, "<<< terminate ble connection screen")
                 navigation.pop()
 
             } else {
@@ -81,33 +75,37 @@ const BluetoothContainer = ({ route, navigation }) => {
         }
 
         if (bleConnectionCompleteState) {
-            logDebug(LOG_TAG, "<<< all of ble connection jobs is completed.")
-            storeIsDeviceRegistered(true).then(() => {
+            logDebugWithLine(LOG_TAG, "<<< ble connection jobs are completed")
+            executeSetDeviceRegistrationUseCase(true).then(() => {
                 executeRequestAuthUseCase().catch((e) => {
-                    outputErrorLog(LOG_TAG, "<<< " + e + ", failed to authenticate device, user")
+                    outputErrorLog(LOG_TAG, e + " occurred by executeRequestAuthUseCase")
                 })
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by storeIsDeviceRegistered !!!")
+                outputErrorLog(LOG_TAG, e + " occurred by executeSetDeviceRegistrationUseCase")
             })
         }
 
         if (!bleConnectionState) {
-            logDebug(LOG_TAG, "<<< bleConnectionState: " + bleConnectionState + ", try scanning ble device")
-            checkBluetoothPermission((accepted) => {
+            logDebugWithLine(LOG_TAG, "<<< bleConnectionState: " + bleConnectionState + ", try scanning the ble device")
+            executeBluetoothPermissionUseCase().then((accepted) => {
                 if (accepted) {
                     executeBleModuleUseCase().then(() => {
                         this.startScan()
 
                     }).catch((e) => {
-                        outputErrorLog(LOG_TAG, e + " occurred by executeBleModuleUseCase !!!")
+                        outputErrorLog(LOG_TAG, e + " occurred by executeBleModuleUseCase")
                     })
+
+                } else {
+                    outputErrorLog(LOG_TAG, "<<< bluetooth permission is rejected")
+                    navigation.pop()
                 }
             })
         }
         return () => { }
     }, [
-        navigation, bleConnectionCompleteState, bleConnectionState
+        navigation, bleConnectionCompleteState, bleConnectionState, bleAuthResult
     ])
 
     return (

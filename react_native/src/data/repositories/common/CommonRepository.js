@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { AppState } from "react-native"
-import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
+import { logDebug, logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import Constants from "../../../utils/Constants"
 import { getUserProfileData, storeUserProfileData } from "../../../utils/storage/StorageUtil"
 
@@ -32,10 +32,10 @@ const CommonRepository = () => {
     onHandleAppStateChange = (nextAppState) => {
         logDebug(LOG_TAG, "<<< appState nextAppState current: " + appState.current + ", next: " + nextAppState)
         if (appState.current.match(/inactive|background/) && nextAppState === Constants.ROOT.APP_ACTIVE) {
-            logDebug(LOG_TAG, '>>> app has come to the FOREGROUND')
+            logDebugWithLine(LOG_TAG, '>>> app has come to the FOREGROUND')
         }
         if (appState.current.match(/inactive|active/) && nextAppState === Constants.ROOT.APP_BACKGROUND) {
-            logDebug(LOG_TAG, '>>> app has come to the BACKGROUND')
+            logDebugWithLine(LOG_TAG, '>>> app has come to the BACKGROUND')
         }
         appState.current = nextAppState
     }
@@ -70,15 +70,12 @@ const CommonRepository = () => {
         await getUserProfilePromise().then(() => {
             logDebug(LOG_TAG, "<<< succeeded to get user profile")
             userProfilePromise.then((userProfile) => {
-                logDebug(LOG_TAG, "<<< userProfile: " + userProfile)
                 onResult(userProfile)
 
-            }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by userProfilePromise")
-            })
+            }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by userProfilePromise !!!"))
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by getUserProfilePromise")
+            outputErrorLog(LOG_TAG, e + " occurred by getUserProfilePromise !!!")
             onResult(null)
         })
     }
@@ -112,8 +109,6 @@ const CommonRepository = () => {
      * @returns {Promise}
      */
     const saveUserProfilePromise = (userProfileInfo) => {
-        logDebug(LOG_TAG, ">>> userProfileInfo before saving: " + userProfileInfo)
-
         // this code will be updated again soon. 
         // cause I am inexperienced in using java script objects, 
         // so there is a possibility that unnecessary codes may have arisen.
@@ -143,7 +138,7 @@ const CommonRepository = () => {
             onResult(SAVE_PROFILE_SUCCESS)
 
         }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by saveUserProfilePromise")
+            outputErrorLog(LOG_TAG, e + " occurred by saveUserProfilePromise !!!")
             onResult(SAVE_PROFILE_FAILURE)
         })
     }

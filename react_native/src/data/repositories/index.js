@@ -1,6 +1,4 @@
 export * from "./ble/BleRepository"
-export * from "./server/ServerRepository"
 export * from "./platform/PlatformRepository"
 export * from "./common/CommonRepository"
 export * from "./server/ServerRepository"
-export * from "./ble/BleRepository"
