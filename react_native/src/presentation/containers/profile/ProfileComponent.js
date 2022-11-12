@@ -6,7 +6,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from "react-navigation"
 import { formatBirthdayDate, formatDate } from '../../../utils/time/TimeUtil'
-import { KEY_MODAL_DATE_PICKER_VISIBLE, KEY_MODAL_PHOTO_VISIBLE } from './ProfileContainer'
+import { KEY_GENDER_STATE, KEY_HEIGHT_STATE, KEY_MODAL_DATE_PICKER_VISIBLE, KEY_MODAL_PHOTO_VISIBLE, KEY_NAME_STATE, KEY_WEIGHT_STATE } from './ProfileContainer'
 
 
 const REGISTER_SENIOR_STRINGS = Strings.registerSenior
@@ -57,7 +57,7 @@ export default function ProfileComponent(props) {
                                 <Text style={styles.fieldText}>{REGISTER_SENIOR_STRINGS.titleName}</Text>
                                 <PrimaryTextInput style={{ ...styles.viewInput }}
                                     placeholder={REGISTER_SENIOR_STRINGS.placeHolderName}
-                                    onChange={text => onChangeState('name', text)}
+                                    onChange={text => onChangeState(KEY_NAME_STATE, text)}
                                 />
                             </View>
 
@@ -70,14 +70,14 @@ export default function ProfileComponent(props) {
                                             return (
                                                 <TouchableOpacity
                                                     style={styles.gender}
-                                                    onPress={(e) => onChangeState('gender', item.id)}
+                                                    onPress={(e) => onChangeState(KEY_GENDER_STATE, item.id)}
                                                     key={item.id}>
                                                     <TouchableOpacity
                                                         style={{
                                                             ...styles.circle,
                                                             borderColor: gender === item.id ? Colors.red : Colors.black
                                                         }}
-                                                        onPress={(e) => onChangeState('gender', item.id)}>
+                                                        onPress={(e) => onChangeState(KEY_GENDER_STATE, item.id)}>
                                                         {gender === item.id && (<View style={styles.checkItem} />)}
                                                     </TouchableOpacity>
                                                     <Text style={styles.textGender}>{item.name}</Text>
@@ -94,7 +94,7 @@ export default function ProfileComponent(props) {
                                 <Text style={styles.fieldText}>{REGISTER_SENIOR_STRINGS.birthday}</Text>
                                 <TouchableWithoutFeedback
                                     style={{ alignItems: 'center' }}
-                                    onPress={(e) => { setModalVisibilty('modalDatePickerVisible', true) }}>
+                                    onPress={(e) => { setModalVisibilty(KEY_MODAL_DATE_PICKER_VISIBLE, true) }}>
                                     {date === REGISTER_SENIOR_STRINGS.placeHolderBirthday ?
                                         <Text style={{
                                             ...styles.textInput,
@@ -119,7 +119,7 @@ export default function ProfileComponent(props) {
                                 <PrimaryTextInput style={{ ...styles.viewInput }}
                                     placeholder={REGISTER_SENIOR_STRINGS.placeHolderHeight}
                                     typeInput={numberKeyboard}
-                                    onChange={text => onChangeState('height', text)}
+                                    onChange={text => onChangeState(KEY_HEIGHT_STATE, text)}
                                     maxLength={3}
                                     unit={REGISTER_SENIOR_STRINGS.cm}
                                 />
@@ -131,7 +131,7 @@ export default function ProfileComponent(props) {
                                 <PrimaryTextInput style={{ ...styles.viewInput }}
                                     placeholder={REGISTER_SENIOR_STRINGS.placeHolderWeight}
                                     typeInput={numberKeyboard}
-                                    onChange={text => onChangeState('weight', text)}
+                                    onChange={text => onChangeState(KEY_WEIGHT_STATE, text)}
                                     maxLength={3}
                                     unit={REGISTER_SENIOR_STRINGS.kg}
                                 />

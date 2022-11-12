@@ -27,6 +27,14 @@ export const KEY_MODAL_PHOTO_VISIBLE = "modalPhotoVisible"
 export const KEY_MODAL_DATE_PICKER_VISIBLE = "modalDatePickerVisible"
 
 /**
+ * use state keys.
+ */
+export const KEY_NAME_STATE = "name"
+export const KEY_HEIGHT_STATE = "height"
+export const KEY_WEIGHT_STATE = "weight"
+export const KEY_GENDER_STATE = "gender"
+
+/**
  * next screen information.
  */
 const NEXT_SCREEN = Constants.SCREEN.QR_SCAN
@@ -116,16 +124,16 @@ export default function ProfileContainer(props) {
      */
     onChangeState = (key, value) => {
         switch (key) {
-            case "name":
+            case KEY_NAME_STATE:
                 setName(value)
                 break
-            case "height":
+            case KEY_HEIGHT_STATE:
                 setHeight(value)
                 break
-            case "weight":
+            case KEY_WEIGHT_STATE:
                 setWeight(value)
                 break
-            case "gender":
+            case KEY_GENDER_STATE:
                 setGender(value)
                 break
         }
