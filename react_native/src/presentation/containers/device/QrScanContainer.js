@@ -2,8 +2,9 @@ import QrScanComponent from './QrScanComponent'
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
 import Constants from '../../../utils/Constants'
 import React, { useState } from 'react'
-import { storeBleDeviceName, storeIsDeviceRegistered } from '../../../utils/storage/StorageUtil'
 import { navigateToNextScreen, pushToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import SetBleDeviceInfoUseCase from '../../../domain/usecases/bluetooth/feature/device/SetBleDeviceInfoUseCase'
+import SetDeviceRegistrationUseCase from '../../../domain/usecases/common/SetDeviceRegistrationUseCase'
 
 const LOG_TAG = Constants.LOG.QR_SCAN
 
@@ -44,13 +45,19 @@ const QrScanContainer = ({ route, navigation }) => {
     const scanner = React.useRef('')
 
     /**
+     * usecases.
+     */
+    const { executeSetBleDeviceNameUseCase } = SetBleDeviceInfoUseCase()
+    const { executeSetDeviceRegistrationUseCase } = SetDeviceRegistrationUseCase()
+
+    /**
      * received device name when qr scan is executed successfully.
      */
     onQrScanSuccess = (deviceName) => {
         logDebug(LOG_TAG, "<<< deviceName by QR scan: " + deviceName)
 
         // store device name to local storage and navigate to bluetooth pairing / connection screen. 
-        storeBleDeviceName(deviceName).then(() => {
+        executeSetBleDeviceNameUseCase(deviceName).then(() => {
             if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
                 pushToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_ADD_DEVICE)
 
@@ -81,7 +88,7 @@ const QrScanContainer = ({ route, navigation }) => {
      * move to home screen with the flag indicates that 'Now now' button is pressed.
      */
     onNotNowPressed = () => {
-        storeIsDeviceRegistered(false).then(() => {
+        executeSetDeviceRegistrationUseCase(false).then(() => {
             if (purposeWhat == NAVIGATION_PURPOSE_ADD_DEVICE) {
                 navigation.pop()
 

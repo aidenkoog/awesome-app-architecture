@@ -90,31 +90,33 @@ const invokePermissionCheck = (permission, onResult) => {
 
 /**
  * ask the user to accept the camera permission.
- * @returns {boolean}
+ * @returns {Promise}
  */
-export const requestCameraPermission = async () => {
-    if (Metrics.IS_IOS) {
-        return request(PERMISSIONS.IOS.CAMERA).then(result => {
-            if (result === RESULTS.GRANTED) {
-                return true
-            } else {
-                return false
-            }
-        })
-    } else {
-        return request(
-            PERMISSIONS.ANDROID.CAMERA,
-        ).then(result => {
-            if (result === RESULTS.GRANTED) {
-                return true
-            } else {
-                return false
-            }
-        }).catch(error => {
-            outputErrorLog(LOG_TAG, e + " occurred by checking android camera permission")
-            return error
-        })
-    }
+export const requestCameraPermission = () => {
+    new Promise((fulfill, reject) => {
+        if (Metrics.IS_IOS) {
+            return request(PERMISSIONS.IOS.CAMERA).then(result => {
+                if (result === RESULTS.GRANTED) {
+                    fulfill(true)
+                } else {
+                    fulfill(false)
+                }
+            }).catch((e) => {
+                reject(e)
+            })
+        } else {
+            return request(PERMISSIONS.ANDROID.CAMERA).then(result => {
+                if (result === RESULTS.GRANTED) {
+                    fulfill(true)
+                } else {
+                    fulfill(false)
+                }
+            }).catch(e => {
+                outputErrorLog(LOG_TAG, e + " occurred by checking android camera permission")
+                reject(e)
+            })
+        }
+    })
 }
 
 /**

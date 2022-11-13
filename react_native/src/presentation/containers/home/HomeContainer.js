@@ -1,7 +1,6 @@
 import { useLayoutEffect, useState } from "react"
 import Constants from "../../../utils/Constants"
 import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
-import { getIsDeviceRegistered } from "../../../utils/storage/StorageUtil"
 import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
@@ -9,6 +8,7 @@ import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/Get
 import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
 import { formatRefreshTime } from "../../../utils/time/TimeUtil"
 import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
+import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDeviceRegistrationUseCase."
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
 
@@ -44,6 +44,7 @@ function HomeContainer({ }) {
     const { executeGetBatteryLevelUseCase } = GetBatteryLevelUseCase()
     const { executeGetProfileInfoUseCase } = GetProfileInfoUseCase()
     const { executeSyncDeviceInfoUseCase } = SyncDeviceInfoUseCase()
+    const { executeGetDeviceRegistrationUseCase } = GetDeviceRegistrationUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -111,7 +112,7 @@ function HomeContainer({ }) {
      * get value that represents if device is already registered and update it for rendering ui.
      */
     loadDeviceRegistrationData = () => {
-        getIsDeviceRegistered().then((registered) => {
+        executeGetDeviceRegistrationUseCase().then((registered) => {
             setIsDeviceRegistered(registered)
 
         }).catch((e) => { outputErrorLog(LOG_TAG, e) })
@@ -146,7 +147,7 @@ function HomeContainer({ }) {
      */
     onSwipeRefresh = () => {
         setIsRefreshing(true)
-        loadBleBatteryLevel().then(() => {
+        this.loadBleBatteryLevel().then(() => {
             setIsRefreshing(false)
 
         }).catch((e) => {
@@ -162,10 +163,10 @@ function HomeContainer({ }) {
         logDebugWithLine(LOG_TAG, "bleConnectionState: " + bleConnectionState
             + ", bleConnectionCompleteState: " + bleConnectionCompleteState)
 
-        loadDeviceRegistrationData()
-        loadBleBatteryLevel()
-        loadUserProfile()
-        addHomeCardItem([{ id: 999, name: "HOME CARD" }])
+        this.loadDeviceRegistrationData()
+        this.loadBleBatteryLevel()
+        this.loadUserProfile()
+        this.addHomeCardItem([{ id: 999, name: "HOME CARD" }])
 
     }, [])
 
