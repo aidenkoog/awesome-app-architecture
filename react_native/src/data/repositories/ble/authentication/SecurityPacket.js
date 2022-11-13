@@ -5,7 +5,7 @@ import Constants from '../../../../utils/Constants'
 import KeyCrypto from '../crypto/key/KeyCrypto'
 import DataCrypto from '../crypto/data/DataCrypto'
 import { logDebugWithLine } from '../../../../utils/logger/Logger'
-import { convertByteArrayToString, convertDecimalToHexString, convertHexStringToByteArray, convertIntToByteArray, convertStringToByteArray, hexToByte, hexToBytes, numberToBytes } from '../../../../utils/ble/BleUtil'
+import { convertDecimalToHexString, convertIntToByteArray, convertStringToByteArray, numberToBytes } from '../../../../utils/ble/BleUtil'
 import { bytesToString, stringToBytes } from "convert-string"
 import HashMac from '../hash/HashMac'
 

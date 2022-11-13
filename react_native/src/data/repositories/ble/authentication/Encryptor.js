@@ -1,8 +1,8 @@
-import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../../utils/ble/BleEncryptionConstants"
-import { arrayCopy } from "../../../../../utils/common/CommonUtil"
-import Constants from "../../../../../utils/Constants"
-import { logDebug } from "../../../../../utils/logger/Logger"
-import { stringToBytes } from "convert-string"
+import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../utils/ble/BleEncryptionConstants"
+import { arrayCopy } from "../../../../utils/common/CommonUtil"
+import Constants from "../../../../utils/Constants"
+import { logDebug } from "../../../../utils/logger/Logger"
+
 
 const LOG_TAG = Constants.LOG.BT_CRYPTO
 
@@ -11,7 +11,7 @@ const LOG_TAG = Constants.LOG.BT_CRYPTO
  */
 const CryptoJS = require("crypto-js")
 
-const DataCrypto = () => {
+const Encryptor = () => {
 
     /*------------------------------------------------------------------------------------------------------------------
      * 
@@ -202,4 +202,4 @@ const DataCrypto = () => {
     }
 }
 
-export default DataCrypto
+export default Encryptor

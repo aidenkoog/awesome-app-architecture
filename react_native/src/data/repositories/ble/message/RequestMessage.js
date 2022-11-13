@@ -48,3 +48,5 @@ const RequestMessage = () => {
         return fullMessage
     }
 }
+
+export default RequestMessage

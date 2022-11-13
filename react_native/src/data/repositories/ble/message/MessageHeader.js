@@ -96,5 +96,6 @@ const MessageHeader = () => {
     return {
         getHeaderMessage
     }
-
 }
+
+export default MessageHeader
