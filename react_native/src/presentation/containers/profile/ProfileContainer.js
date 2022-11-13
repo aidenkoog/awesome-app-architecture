@@ -4,7 +4,6 @@ import { BackHandler } from 'react-native'
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker'
 import { emptyField, getOnlyNumber, imageOptions } from "../../../utils/common/CommonUtil"
 import { formatDateToString } from '../../../utils/time/TimeUtil'
-import { requestCameraPermission } from '../../../utils/permission/PermissionUtil'
 import Constants from '../../../utils/Constants'
 import SetProfileInfoUseCase from '../../../domain/usecases/common/SetProfileInfoUseCase'
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
@@ -12,6 +11,7 @@ import { showAlert } from '../../../utils/alert/AlertUtil'
 import ProfileComponent from './ProfileComponent'
 import { navigateToNextScreen } from '../../../utils/navigation/NavigationUtil'
 import { UserProfile } from '../../../domain/entities/user/UserProfile'
+import CheckPermissionUseCase from '../../../domain/usecases/platform/CheckPermissionUseCase'
 
 const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 const REGISTER_USER_STRINGS = Strings.registerSenior
@@ -20,15 +20,11 @@ const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.NORMAL
 const LOG_TAG = Constants.LOG.PROFILE_UI_LOG
 
 /**
- * modal related useState keys.
+ * use state keys.
  * the following key values are used in both the profile container and the component.
  */
 export const KEY_MODAL_PHOTO_VISIBLE = "modalPhotoVisible"
 export const KEY_MODAL_DATE_PICKER_VISIBLE = "modalDatePickerVisible"
-
-/**
- * use state keys.
- */
 export const KEY_NAME_STATE = "name"
 export const KEY_HEIGHT_STATE = "height"
 export const KEY_WEIGHT_STATE = "weight"
@@ -60,9 +56,10 @@ export default function ProfileContainer(props) {
     const [weight, setWeight] = useState("")
 
     /**
-     * usecase function for setting profile info.
+     * usecases.
      */
     const { executeSetProfileInfoUseCase } = SetProfileInfoUseCase()
+    const { executeCheckCameraPermission } = CheckPermissionUseCase()
 
     /**
      * handle back button click event. (android)
@@ -151,9 +148,9 @@ export default function ProfileContainer(props) {
      */
     takePhotoAction = async () => {
         setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
-        try {
-            if (requestCameraPermission()) {
-                logDebug(LOG_TAG, "<<< camera permission given")
+        executeCheckCameraPermission().then((accepted) => {
+            if (accepted) {
+                logDebug(LOG_TAG, "<<< camera permission is granted")
                 launchCamera(imageOptions, (response) => {
                     logDebug(LOG_TAG, "<<< photoFileName: " + response.fileName
                         + ", photoUri: " + response.uri
@@ -164,13 +161,17 @@ export default function ProfileContainer(props) {
                         setModalVisibilty(KEY_MODAL_PHOTO_VISIBLE, false)
 
                     } else {
-                        outputErrorLog(LOG_TAG, "<<< response uri is null")
+                        outputErrorLog(LOG_TAG, "response uri is null")
                     }
                 })
+
+            } else {
+                outputErrorLog(LOG_TAG, "camera permission is NOT granted")
             }
-        } catch (e) {
-            outputErrorLog(LOG_TAG, e)
-        }
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + "occurred by executeCheckCameraPermission")
+        })
     }
 
     /**

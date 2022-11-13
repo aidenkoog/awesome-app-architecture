@@ -12,7 +12,7 @@ const SetDeviceRegistrationUseCase = () => {
      * @param {callback} onResult
      */
     executeSetDeviceRegistrationUseCase = (registered) => {
-        logDebugWithLine(LOG_TAG, "execute SetDeviceRegistrationUseCase")
+        logDebugWithLine(LOG_TAG, "execute SetDeviceRegistrationUseCase with " + registered)
 
         return new Promise((fulfill, reject) => {
             storeIsDeviceRegistered(registered).then(() => {
