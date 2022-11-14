@@ -1,6 +1,7 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
 import { logDebugWithLine } from '../../../../../utils/logger/Logger.js'
+import { stringToBytes } from 'convert-string'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 

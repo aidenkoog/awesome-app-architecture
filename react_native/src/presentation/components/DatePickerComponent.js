@@ -9,6 +9,7 @@ export default class DatePickerComponent extends Component {
         super(props)
         this.state = {
             date: this.props.date,
+            timestamp: this.props.timestamp,
             stringDate: ''
         }
     }
@@ -21,8 +22,8 @@ export default class DatePickerComponent extends Component {
 
     onDone() {
         const { onChange, onClose } = this.props
-        const { date } = this.state
-        onChange(date)
+        const { date, timestamp } = this.state
+        onChange(date, timestamp)
         onClose()
     }
 

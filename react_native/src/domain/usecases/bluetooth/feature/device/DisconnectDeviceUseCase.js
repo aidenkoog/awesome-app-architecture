@@ -1,6 +1,9 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
-import { ACTION_DISCONNECT } from '../../action/BleActions.js'
 import { logDebugWithLine } from '../../../../../utils/logger/Logger.js'
+import { stringToBytes } from "convert-string"
+import Constants from '../../../../../utils/Constants.js'
+
+const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const RequestDisconnectDeviceUseCase = () => {
 
@@ -15,8 +18,9 @@ const RequestDisconnectDeviceUseCase = () => {
     executeDisconnectDeviceUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute DisconnectDeviceUseCase")
 
+        const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
         return new Promise((fulfill, reject) => {
-            sendBleCustomMessage(ACTION_DISCONNECT)
+            sendBleCustomMessage(customMessage)
                 .then(() => fulfill())
                 .catch((e) => reject(e))
         })

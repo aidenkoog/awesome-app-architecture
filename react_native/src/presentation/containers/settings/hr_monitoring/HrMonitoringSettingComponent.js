@@ -10,16 +10,20 @@ import { IntervalMode } from "../../../../utils/common/CommonUtil"
  */
 const HrMonitoringSettingComponent = (props) => {
 
-    const { navigation } = props
+    const {
+        monitoringIntervals, intervalMode, intervalVisible,
+        onChangeInterval, updateHrMonitor, setIntervalVisible, onPressHeaderBackIcon
+    } = props
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
-                <View style={{ paddingTop: 8 }}>
-                    <HeaderWithBack navigation={navigation} title={Strings.heartRate.title} />
-                </View>
-                <ScrollView>
 
+                <View style={{ paddingTop: 8 }}>
+                    <HeaderWithBack onPressHeaderBackIcon={onPressHeaderBackIcon} title={Strings.heartRate.title} />
+                </View>
+
+                <ScrollView>
                     <View style={styles.col}>
                         <View style={styles.row1}>
                             <Text
@@ -29,7 +33,7 @@ const HrMonitoringSettingComponent = (props) => {
                                     color: Colors.darkGrey,
                                 }}
                             >
-                                {strings.monitoring.monitoring}
+                                {Strings.heartRate.monitoring.monitoring}
                             </Text>
 
                             <Switch
@@ -69,11 +73,26 @@ const HrMonitoringSettingComponent = (props) => {
                         <IntervalPopup
                             value={intervalMode}
                             dataSource={[
-                                { value: strings.interval.five, mode: IntervalMode.Five, onPress: () => onChangeInterval(IntervalMode.Five) },
-                                { value: strings.interval.ten, mode: IntervalMode.Ten, onPress: () => onChangeInterval(IntervalMode.Ten) },
-                                { value: strings.interval.fifteen, mode: IntervalMode.Fifteen, onPress: () => onChangeInterval(IntervalMode.Fifteen) },
-                                { value: strings.interval.thirty, mode: IntervalMode.Thirty, onPress: () => onChangeInterval(IntervalMode.Thirty) },
-                                { value: strings.interval.sixty, mode: IntervalMode.Sixty, onPress: () => onChangeInterval(IntervalMode.Sixty) },
+                                {
+                                    value: Strings.heartRate.interval.five,
+                                    mode: IntervalMode.Five, onPress: () => onChangeInterval(IntervalMode.Five)
+                                },
+                                {
+                                    value: Strings.heartRate.interval.ten,
+                                    mode: IntervalMode.Ten, onPress: () => onChangeInterval(IntervalMode.Ten)
+                                },
+                                {
+                                    value: Strings.heartRate.interval.fifteen,
+                                    mode: IntervalMode.Fifteen, onPress: () => onChangeInterval(IntervalMode.Fifteen)
+                                },
+                                {
+                                    value: Strings.heartRate.interval.thirty,
+                                    mode: IntervalMode.Thirty, onPress: () => onChangeInterval(IntervalMode.Thirty)
+                                },
+                                {
+                                    value: Strings.heartRate.interval.sixty,
+                                    mode: IntervalMode.Sixty, onPress: () => onChangeInterval(IntervalMode.Sixty)
+                                },
                             ]}
                             onClose={() => {
                                 setIntervalVisible(false)

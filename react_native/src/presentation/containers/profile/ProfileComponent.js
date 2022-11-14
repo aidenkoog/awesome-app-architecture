@@ -29,8 +29,17 @@ export default function ProfileComponent(props) {
     const {
         modalPhotoVisible, modalDatePickerVisible, setModalVisibilty, gender, photoUrl, date,
         disableDoneButton, onClickDoneButton, onSelectDateOfBirthday, selectGallery, takePhotoAction,
-        onChangeState
+        onChangeState, onHandleFormatBirthdayDate
     } = props
+
+    /**
+     * handle formatting birthday date.
+     * @returns {string}
+     */
+    handleFormatBirthdayDate = (date) => {
+        onHandleFormatBirthdayDate(date)
+        return formatBirthdayDate(date)
+    }
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -106,7 +115,7 @@ export default function ProfileComponent(props) {
                                         :
                                         <SuperscriptDateText
                                             style={{ ...styles.textInput, ...styles.viewInput }}>
-                                            {formatBirthdayDate(date)}
+                                            {this.handleFormatBirthdayDate(date)}
                                         </SuperscriptDateText>
                                     }
                                 </TouchableWithoutFeedback>
@@ -159,6 +168,7 @@ export default function ProfileComponent(props) {
                     <View style={styles.bottomViewDatePicker}>
                         <DatePickerComponent
                             onChange={onSelectDateOfBirthday}
+                            timestamp={date}
                             date={formatDate(date)}
                             onClose={() => { setModalVisibilty(KEY_MODAL_DATE_PICKER_VISIBLE, false) }} />
                     </View>

@@ -8,13 +8,16 @@ import Constants from '../../../../utils/Constants'
 import SetProfileInfoUseCase from '../../../../domain/usecases/common/SetProfileInfoUseCase'
 import GetProfileInfoUseCase from '../../../../domain/usecases/common/GetProfileInfoUseCase'
 import { logDebug, logDebugWithLine, outputErrorLog } from '../../../../utils/logger/Logger'
-import { showAlert } from '../../../../utils/alert/AlertUtil'
 import EditProfileComponent from './EditProfileComponent'
 import { UserProfile } from '../../../../domain/entities/user/UserProfile'
 import { formatDateToString } from '../../../../utils/time/TimeUtil'
 
-const REGISTER_USER_STRINGS = Strings.registerSenior
+/**
+ * flag to import profile information only once after entering the profile editing screen.
+ */
+let isProfileInfoImported = false
 
+const REGISTER_USER_STRINGS = Strings.registerSenior
 const LOG_TAG = Constants.LOG.EDIT_PROFILE_UI_LOG
 
 /**
@@ -55,22 +58,39 @@ export default function EditProfileContainer({ navigation }) {
      * @returns {boolean}
      */
     const handleBackButtonClick = () => {
-        showAlert("Warning", "Do you want to terminate app?", "Cancel", "OK", false)
+        handleNavigationPop()
         return true
     }
 
-    /**
+    /** 
      * handle the event that occurs when 'Done' button is pressed.
      */
     onClickDoneButton = () => {
         executeSetProfileInfoUseCase(getUserProfileInfo(), (succeeded) => {
             if (succeeded) {
-                navigation.pop()
+                this.handleNavigationPop()
 
             } else {
                 outputErrorLog(LOG_TAG, "failed to edit profile")
             }
         })
+    }
+
+    /**
+     * handle header's back icon press event.
+     */
+    const onPressHeaderBackIcon = () => {
+        logDebug(LOG_TAG, "<<< header back icon is pressed")
+        this.handleNavigationPop()
+    }
+
+    /**
+     * handle navigation's pop operation.
+     */
+    handleNavigationPop = () => {
+        this.enableBackHandler(false)
+        isProfileInfoImported = false
+        navigation.pop()
     }
 
     /**
@@ -102,7 +122,7 @@ export default function EditProfileContainer({ navigation }) {
                 setModalDatePickerVisible(visible)
                 break
         }
-        BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick)
+        this.enableBackHandler(false)
     }
 
     /**
@@ -200,24 +220,52 @@ export default function EditProfileContainer({ navigation }) {
                 + ", userImageUrl: " + userImageUrl
                 + ", userGender: " + userProfile.gender
                 + ", userBirthDay: " + userProfile.birthday
+                + ", userBirthDayTimestamp: " + userProfile.birthdayTimestamp
                 + ", userHeight: " + userProfile.height
                 + ", userWeight: " + userProfile.weight)
 
             setName(userProfile.name)
             setPhotoUrl(userImageUrl)
             setGender(userProfile.gender)
-            setDate(userImageUrl.birthday)
+            setDate(userImageUrl.birthdayTimestamp)
             setHeight(userProfile.height)
             setWeight(userProfile.weight)
+
+            /*--------------------------------------------------------------------
+             * Refs. delivered data information.
+             * userName: koooooooo, 
+             * userImageUrl: file:///data/user/0/com.react_native/cache/...jpg, 
+             * userGender: 0, 
+             * userBirthDay: 2022.11.14, 
+             * userBirthDayTimestamp: 2022-11-14T04:52:34.130Z, 
+             * userHeight: 586, 
+             * userWeight: 36
+             *--------------------------------------------------------------------*/
+            isProfileInfoImported = true
         })
+    }
+
+    /**
+     * enable or disable back handler.
+     */
+    enableBackHandler = (enabled) => {
+        if (enabled) {
+            BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
+        } else {
+            BackHandler.removeEventListener('hardwareBackPress', handleBackButtonClick)
+        }
     }
 
     /**
      * executed logic before ui rendering and painting.
      */
     useLayoutEffect(() => {
-        loadUserProfile()
-    }, [loadUserProfile])
+        if (isProfileInfoImported) {
+            return
+        }
+        this.loadUserProfile()
+        this.enableBackHandler(true)
+    }, [isProfileInfoImported])
 
     return (
         <EditProfileComponent
@@ -236,7 +284,7 @@ export default function EditProfileContainer({ navigation }) {
             selectGallery={selectGallery}
             takePhotoAction={takePhotoAction}
             onChangeState={onChangeState}
-            navigation={navigation}
+            onPressHeaderBackIcon={onPressHeaderBackIcon}
         />
     )
 }

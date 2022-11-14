@@ -1,14 +1,17 @@
-import { useLayoutEffect, useState } from "react"
+import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
+import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
+import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDeviceRegistrationUseCase"
+import { formatRefreshTime } from "../../../utils/time/TimeUtil"
+import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
+import { useLayoutEffect, useEffect, useState } from "react"
 import Constants from "../../../utils/Constants"
 import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
-import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
-import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
-import { formatRefreshTime } from "../../../utils/time/TimeUtil"
-import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
-import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDeviceRegistrationUseCase."
+import { useIsFocused } from "@react-navigation/native"
+import { pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
+
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
 
@@ -37,6 +40,13 @@ function HomeContainer({ }) {
     const [userGender, setUserGender] = useState("-")
     const [isRefreshing, setIsRefreshing] = useState(false)
     const [homeCardItems, addHomeCardItem] = useState([{ id: 999, name: "HOME CARD" }])
+
+    /**
+     * indicate whether home is currently focused or not
+     * the reason for using the focus flag below is to change the values 
+     * when returning to the home screen after editing the user profile.
+     */
+    const isHomeFocused = useIsFocused()
 
     /**
      * usecases.
@@ -157,7 +167,18 @@ function HomeContainer({ }) {
     }
 
     /**
-     * executed logic before ui rendering and painting.
+     * execute logic when screen is focused.
+     */
+    useEffect(() => {
+        if (isHomeFocused) {
+            this.loadDeviceRegistrationData()
+            this.loadBleBatteryLevel()
+            this.loadUserProfile()
+        }
+    }, [isHomeFocused])
+
+    /**
+     * execute logic before ui rendering and painting.
      */
     useLayoutEffect(() => {
         logDebugWithLine(LOG_TAG, "bleConnectionState: " + bleConnectionState
@@ -166,9 +187,9 @@ function HomeContainer({ }) {
         this.loadDeviceRegistrationData()
         this.loadBleBatteryLevel()
         this.loadUserProfile()
-        this.addHomeCardItem([{ id: 999, name: "HOME CARD" }])
+        addHomeCardItem([{ id: 999, name: "HOME CARD" }])
 
-    }, [])
+    }, [bleConnectionState, bleConnectionCompleteState])
 
     return (
         <HomeComponent

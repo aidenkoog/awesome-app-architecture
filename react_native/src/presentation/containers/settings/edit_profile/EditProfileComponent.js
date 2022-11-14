@@ -29,7 +29,7 @@ export default function EditProfileComponent(props) {
     const {
         modalPhotoVisible, modalDatePickerVisible, setModalVisibilty, photoUrl, name, gender, date, height, weight,
         disableDoneButton, onClickDoneButton, onSelectDateOfBirthday, selectGallery, takePhotoAction,
-        onChangeState, navigation
+        onChangeState, onPressHeaderBackIcon
     } = props
 
     return (
@@ -37,7 +37,7 @@ export default function EditProfileComponent(props) {
             <View style={styles.viewArea}>
                 <View style={styles.header}>
                     <HeaderWithBack
-                        navigation={navigation}
+                        onPressHeaderBackIcon={onPressHeaderBackIcon}
                         title={Strings.formatString(Strings.profile.title, name)}
                     />
                 </View>

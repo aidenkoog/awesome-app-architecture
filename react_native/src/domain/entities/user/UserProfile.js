@@ -41,6 +41,14 @@ export let UserProfile = {
         this._birthday = value
     },
 
+    get birthdayTimestamp() {
+        return this._birthdayTimestamp
+    },
+
+    set birthdayTimestamp(value) {
+        this._birthdayTimestamp = value
+    },
+
     get height() {
         return this._height
     },

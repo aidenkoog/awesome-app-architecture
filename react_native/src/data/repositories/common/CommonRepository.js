@@ -117,6 +117,7 @@ const CommonRepository = () => {
             ...{ name: userProfileInfo.name },
             ...{ gender: userProfileInfo.gender },
             ...{ birthday: userProfileInfo.birthday },
+            ...{ birthdayTimestamp: userProfileInfo.birthdayTimestamp },
             ...{ height: userProfileInfo.height },
             ...{ weight: userProfileInfo.weight }
         }

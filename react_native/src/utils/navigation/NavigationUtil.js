@@ -1,13 +1,16 @@
 import Constants from "../Constants"
 
 const NAVIGATION_PURPOSE_NORMAL = Constants.NAVIGATION.PURPOSE.NORMAL
+const SPLASH_SCREEN = Constants.SCREEN.SPLASH
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 
 /**
  * navigate screen.
  * @param {Any} navigation 
  * @param {string} screenToBeMoved 
  */
-export const navigateToNextScreen = (navigation, screenToBeMoved, delay, purpose = NAVIGATION_PURPOSE_NORMAL) => {
+export const navigateToNextScreen = (
+    navigation, screenToBeMoved, delay = NAVIGATION_NO_DELAY_TIME, purpose = NAVIGATION_PURPOSE_NORMAL) => {
     setTimeout(() => {
         navigation.navigate(screenToBeMoved, { purposeWhat: purpose })
     }, delay)
@@ -19,9 +22,25 @@ export const navigateToNextScreen = (navigation, screenToBeMoved, delay, purpose
  * @param {Any} navigation 
  * @param {string} screenToBeMoved 
  */
-export const pushToNextScreen = (navigation, screenToBeMoved, delay, purpose) => {
+export const pushToNextScreen = (
+    navigation, screenToBeMoved, delay = NAVIGATION_NO_DELAY_TIME, purpose = NAVIGATION_PURPOSE_NORMAL) => {
     setTimeout(() => {
         navigation.push(screenToBeMoved, { purposeWhat: purpose })
+    }, delay)
+}
+
+/**
+ * reset stacks.
+ * @param {Any} navigation 
+ * @param {string} screenToBeMoved 
+ */
+export const resetNavigationStacks = (navigation, delay = NAVIGATION_NO_DELAY_TIME) => {
+    setTimeout(() => {
+        navigation.reset({
+            routes: [{ name: SPLASH_SCREEN }, {
+                params: { reset: 'reset' },
+            }]
+        })
     }, delay)
 }
 
@@ -31,7 +50,8 @@ export const pushToNextScreen = (navigation, screenToBeMoved, delay, purpose) =>
  * @param {Any} navigation 
  * @param {string} screenToBeMoved 
  */
-export const replaceToNextScreen = (navigation, screenToBeMoved, delay, purpose) => {
+export const replaceToNextScreen = (
+    navigation, screenToBeMoved, delay = NAVIGATION_NO_DELAY_TIME, purpose = NAVIGATION_PURPOSE_NORMAL) => {
     setTimeout(() => {
         navigation.replace(screenToBeMoved, { purposeWhat: purpose })
     }, delay)
