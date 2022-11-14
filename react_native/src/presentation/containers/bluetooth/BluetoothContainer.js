@@ -38,6 +38,27 @@ const BluetoothContainer = ({ navigation }) => {
     }
 
     /**
+     * check if bluetooth related permission are granted, execute ble module
+     * and start scanning if all previous steps are passed successfully.
+     */
+    startScenario = () => {
+        executeBluetoothPermissionUseCase((accepted) => {
+            if (accepted) {
+                logDebug(LOG_TAG, "<<< bluetooth related permissions are granted")
+                executeBleModuleUseCase().then(() => {
+                    this.startScan()
+
+                }).catch((e) => {
+                    outputErrorLog(LOG_TAG, e + " occurred by executeBleModuleUseCase")
+                })
+
+            } else {
+                outputErrorLog(LOG_TAG, "bluetooth related permissions are NOT granted")
+            }
+        })
+    }
+
+    /**
      * execute logic before finishing ui rendering on the screen.
      * this is used to prevent the flickering of the UI due to data change.
      */
@@ -46,20 +67,7 @@ const BluetoothContainer = ({ navigation }) => {
             navigation.navigate(NEXT_SCREEN)
 
         } else {
-            executeBluetoothPermissionUseCase((accepted) => {
-                if (accepted) {
-                    logDebug(LOG_TAG, "<<< bluetooth related permissions are granted")
-                    executeBleModuleUseCase().then(() => {
-                        this.startScan()
-
-                    }).catch((e) => {
-                        outputErrorLog(LOG_TAG, e + " occurred by executeBleModuleUseCase")
-                    })
-
-                } else {
-                    outputErrorLog(LOG_TAG, "bluetooth related permissions are NOT granted")
-                }
-            })
+            this.startScenario()
         }
         return () => { }
     }, [])
