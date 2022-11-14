@@ -29,16 +29,13 @@ const Encryptor = () => {
      */
     getEncryptedDataMessage = (data, key = CUSTOM_SECRET_KEY, iv = CUSTOM_IV) => {
 
-        // Encryption 하기 전 데이터 로그 확인.
         logDebug(LOG_TAG, ">>> content data: " + TEST_HEX_DATA)
         logDebug(LOG_TAG, ">>> secret key: " + key)
         logDebug(LOG_TAG, ">>> iv : " + iv)
 
-        // 크립토 JS 사용 예제에서 아래와 같이 Hex.parse 해서 사용하므로 똑같이 적용.
         const hexParsedData = CryptoJS.enc.Hex.parse(TEST_HEX_DATA)
         logDebug(LOG_TAG, ">>> hexParsedData: " + hexParsedData)
 
-        // padding 적용된 데이터 확인.
         const paddedData = CryptoJS.enc.Hex.parse(getPaddedData(dummy))
         logDebug(LOG_TAG, ">>> padded data: " + paddedData)
 
