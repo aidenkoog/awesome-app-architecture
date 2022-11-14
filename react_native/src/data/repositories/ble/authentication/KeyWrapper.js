@@ -1,9 +1,8 @@
-import { IV_HEXS, IV_HEX_ARRAY } from "../../../../../utils/ble/BleEncryptionConstants"
+import { IV_HEX_ARRAY } from "../../../../../utils/ble/BleEncryptionConstants"
 import { arrayCopy } from "../../../../../utils/common/CommonUtil"
 import { CUSTOM_SECRET_KEY } from "../../../../../utils/ble/BleEncryptionConstants"
 import { logDebug } from "../../../../../utils/logger/Logger"
 import Constants from "../../../../../utils/Constants"
-import { bytesToString } from "convert-string"
 
 const LOG_TAG = Constants.LOG.BT_KEY_CRYPTO
 
@@ -12,7 +11,7 @@ const LOG_TAG = Constants.LOG.BT_KEY_CRYPTO
  */
 const CryptoJS = require("crypto-js")
 
-const KeyCrypto = () => {
+const KeyWrapper = () => {
 
     padding = () => {
         return data
@@ -113,4 +112,4 @@ const KeyCrypto = () => {
     }
 }
 
-export default KeyCrypto
+export default KeyWrapper

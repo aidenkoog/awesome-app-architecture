@@ -1,5 +1,8 @@
+import Constants from '../../../../../utils/Constants.js'
 import { logDebugWithLine } from '../../../../../utils/logger/Logger.js'
 import { getBleDeviceMacAddress, getBleDeviceName } from '../../../../../utils/storage/StorageUtil.js'
+
+const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
 const GetBleDeviceInfoUseCase = () => {
 
@@ -8,7 +11,7 @@ const GetBleDeviceInfoUseCase = () => {
      * @returns {Promise}
      */
     executeGetBleDeviceNameUseCase = () => {
-        logDebugWithLine(LOG_TaG, "execute GetBleDeviceNameUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetBleDeviceNameUseCase")
 
         return new Promise((fulfill, reject) => {
             getBleDeviceName().then((deviceName) => {
@@ -24,7 +27,7 @@ const GetBleDeviceInfoUseCase = () => {
      * @returns {Promise}
      */
     executeGetBleDeviceMacAddressUseCase = () => {
-        logDebugWithLine(LOG_TaG, "execute GetBleDeviceMacAddressUseCase")
+        logDebugWithLine(LOG_TAG, "execute GetBleDeviceMacAddressUseCase")
 
         return new Promise((fulfill, reject) => {
             getBleDeviceMacAddress().then((deviceMacAddress) => {

@@ -3,7 +3,7 @@ import { CRYPTO_HS_AAD, CRYPTO_HS_AL } from "../../../../utils/ble/BleEncryption
 import { arrayCopy } from "../../../../utils/common/CommonUtil"
 import Constants from "../../../../utils/Constants"
 import { logDebug } from "../../../../utils/logger/Logger"
-import { byteToHex, convertDecimalToHexString } from "../../../../utils/ble/BleUtil"
+import { convertDecimalToHexString } from "../../../../utils/ble/BleUtil"
 
 const CryptoJS = require("crypto-js")
 const LOG_TAG = Constants.LOG.BT_HASH_MAC

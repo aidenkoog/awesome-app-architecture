@@ -1,23 +1,26 @@
-import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../../utils/ble/BleEncryptionConstants"
-import { arrayCopy } from "../../../../../utils/common/CommonUtil"
-import Constants from "../../../../../utils/Constants"
-import { logDebug } from "../../../../../utils/logger/Logger"
-import { stringToBytes } from "convert-string"
+import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../utils/ble/BleEncryptionConstants"
+import { arrayCopy } from "../../../../utils/common/CommonUtil"
+import Constants from "../../../../utils/Constants"
+import { logDebug } from "../../../../utils/logger/Logger"
+
 
 const LOG_TAG = Constants.LOG.BT_CRYPTO
+
+/**
+ * dummy data for testing.
+ */
+const TEST_HEX_DATA = "033130303030303030303030303033331f1cf"
+    + "0cc000000000000000000000101000000000000000000000000"
+    + "0000636c50ea302e302e322e3337002e0100010502000200010"
+    + "300016405001e33372e3430393135362c3132372e3039343733"
+    + "392c31332e393033303030"
 
 /**
  * load crypto module.
  */
 const CryptoJS = require("crypto-js")
 
-const DataCrypto = () => {
-
-    /*------------------------------------------------------------------------------------------------------------------
-     * 
-     * Encryption.
-     * 
-     *-----------------------------------------------------------------------------------------------------------------*/
+const Encryptor = () => {
 
     /**
      * encrypt ble custom data and return it.
@@ -26,15 +29,16 @@ const DataCrypto = () => {
      */
     getEncryptedDataMessage = (data, key = CUSTOM_SECRET_KEY, iv = CUSTOM_IV) => {
 
-        const dummy = "033130303030303030303030303033331f1cf0cc0000000000000000000001010000000000000000000000000000636c50ea302e302e322e3337002e0100010502000200010300016405001e33372e3430393135362c3132372e3039343733392c31332e393033303030"
-        const hexParsedData = CryptoJS.enc.Hex.parse(dummy)
+        // Encryption 하기 전 데이터 로그 확인.
+        logDebug(LOG_TAG, ">>> content data: " + TEST_HEX_DATA)
+        logDebug(LOG_TAG, ">>> secret key: " + key)
+        logDebug(LOG_TAG, ">>> iv : " + iv)
 
-        logDebug(LOG_TAG, ">>> original data: " + data)
-        logDebug(LOG_TAG, ">>> hex encoded data: " + hexParsedData)
-        logDebug(LOG_TAG, ">>> key: " + key)
-        logDebug(LOG_TAG, ">>> iv: " + iv)
+        // 크립토 JS 사용 예제에서 아래와 같이 Hex.parse 해서 사용하므로 똑같이 적용.
+        const hexParsedData = CryptoJS.enc.Hex.parse(TEST_HEX_DATA)
+        logDebug(LOG_TAG, ">>> hexParsedData: " + hexParsedData)
 
-        // padding.
+        // padding 적용된 데이터 확인.
         const paddedData = CryptoJS.enc.Hex.parse(getPaddedData(dummy))
         logDebug(LOG_TAG, ">>> padded data: " + paddedData)
 
@@ -46,38 +50,20 @@ const DataCrypto = () => {
                 mode: CryptoJS.mode.CBC
             })
 
-        // example cipher data: 68dfc1cf80 febbb14417 c2947490b3 e4178a4dce 08cd2a7a8e dfb60e0133 93d1
-        // accurate cipher data's prefix: 5100...
-        logDebug(LOG_TAG, "<<< encryption, result: " + cipheredData)
-        logDebug(LOG_TAG, "<<< encryption, result cipher: " + cipheredData.ciphertext)
-        logDebug(LOG_TAG, "<<< encryption, result ciphertext: " + cipheredData.ciphertext.toString())
-        logDebug(LOG_TAG, "<<< encryption, result's length: " + cipheredData.ciphertext.toString().length)
+        logDebug(LOG_TAG, "<<< encryption result ------------------------------------------------------------------")
+        logDebug(LOG_TAG, "<<< encryption, cipheredData: " + cipheredData)
+        logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext: " + cipheredData.ciphertext)
+        logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext.length: " + cipheredData.ciphertext.length)
+        logDebug(LOG_TAG, "<<< encryption result end --------------------------------------------------------------")
 
-        // convert hex string to byte array.
-        // let cipheredBytes = stringToBytes("\x00" + "\x64" + "\x04" + cipheredData)
-        // return cipheredBytes
-
-        let cipheredArrayData = new Array(cipheredData.ciphertext.toString().length / 2)
-
+        // Encryption 된 데이터를 배열로 만들기 위한 로직.
+        let cipheredArrayData = new Array(cipheredData.ciphertext.length / 2)
         for (let i = 0; i < cipheredArrayData.length; i++) {
             const item = cipheredData.ciphertext.toString().substr(i + i, 2)
             cipheredArrayData[i] = item
         }
-        logDebug(LOG_TAG, "<<< encryption, ciphered array data: " + cipheredArrayData)
-
+        logDebug(LOG_TAG, "<<< encryption, cipheredData array: " + cipheredArrayData)
         return cipheredArrayData
-    }
-
-    /**
-     * convert original data to word array type's because of crypto js function's parameter type.
-     * @param {Any} data
-     * @returns {Any}
-     */
-    getWordArrayData = (data) => {
-        const wordArrayData = CryptoJS.enc.Hex.parse(data)
-
-        logDebug(LOG_TAG, ">>> encryption, custom data encoded by word array: " + wordArrayData)
-        return wordArrayData
     }
 
     /**
@@ -86,28 +72,33 @@ const DataCrypto = () => {
      * @returns {Any}
      */
     getPaddedData = (data) => {
+
+        logDebug(LOG_TAG, ">>> data before padding algorithm is applied: " + data)
+
         const dataLength = data.length
         const dataLengthDividedByTwo = dataLength / 2
         const padding = 16 - (dataLengthDividedByTwo % 16)
         const paddingAsInt = parseInt(padding, 16)
         const bufferLength = ((dataLengthDividedByTwo + 16) / 16) * 16
 
-        logDebug(LOG_TAG, ">>> padding, "
-            + "dataLength: " + dataLength
+        logDebug(LOG_TAG, ">>> padding related data, "
+            + "original dataLength: " + dataLength
             + ", data length divided by 2: " + dataLengthDividedByTwo
-            + ", padding: " + padding
-            + ", bufferLength: " + bufferLength)
+            + ", paddingValue: " + padding
+            + ", destination buffer lLength: " + bufferLength)
 
+        // 패딩 적용된 데이터가 저장된 배열.
         let destination = new Array(bufferLength)
-        let source = new Array(dataLengthDividedByTwo)
 
+        // 패딩 적용 전 데이터를 배열 형식으로 변환하기 위한 로직.
+        let source = new Array(dataLengthDividedByTwo)
         for (let i = 0; i < source.length; i++) {
             const item = data.substr(i + i, 2)
             source[i] = item
         }
-
         arrayCopy(source, 0, destination, 0, dataLengthDividedByTwo)
 
+        // 패딩 알고리즘.
         for (let i = dataLengthDividedByTwo; i < destination.length; i++) {
             if (paddingAsInt < 10) {
                 destination[i] = "0" + padding
@@ -116,22 +107,20 @@ const DataCrypto = () => {
             }
         }
 
+        // 패딩 적용된 배열을 일반 스트링 타입으로 변환하기 위한 로직.
         let paddingResult = ""
         for (let i = 0; i < destination.length; i++) {
             paddingResult += destination[i]
         }
 
-        logDebug(LOG_TAG, ">>> padding, result: " + paddingResult)
+        // 패딩 적용된 배열 값 확인을 위한 로그.
         logDebug(LOG_TAG, ">>> padding, destination buffer: " + destination)
+
+        // 패딩 적용된 배열 --> 일반 스트링 타입으로 변환한 것을 확인하기 위한 로그.
+        logDebug(LOG_TAG, ">>> padding, result: " + paddingResult)
 
         return paddingResult
     }
-
-    /*------------------------------------------------------------------------------------------------------------------
-     * 
-     * Decryption.
-     * 
-     *-----------------------------------------------------------------------------------------------------------------*/
 
     /**
      * decrypt ble custom data and return it.
@@ -202,4 +191,4 @@ const DataCrypto = () => {
     }
 }
 
-export default DataCrypto
+export default Encryptor
