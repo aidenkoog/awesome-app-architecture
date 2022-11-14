@@ -232,14 +232,14 @@ const BleRepository = () => {
      * @param {bytes} bleCustomMessage 
      */
     onCharacteristicChanged = (bleCustomMessage) => {
-        logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "<<< received characteristic custom message - start")
         logDebug(LOG_TAG, "peripheral: " + bleCustomMessage.peripheral)
         logDebug(LOG_TAG, "characteristic: " + bleCustomMessage.characteristic)
         logDebug(LOG_TAG, "value: " + bleCustomMessage.value)
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(bleCustomMessage.value))
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
-        logDebug(LOG_TAG, "------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
     }
 
     /**

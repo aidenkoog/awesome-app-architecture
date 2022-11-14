@@ -14,7 +14,7 @@ const HashMac = () => {
         let hMacInput = null
         let listByte = []
 
-        logDebug(LOG_TAG, "--------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "header")
         const headerBytes = stringToBytes(convertDecimalToHexString(CRYPTO_HS_AAD))
         logDebug(LOG_TAG, "header bytes: " + headerBytes)
@@ -23,7 +23,7 @@ const HashMac = () => {
         }
 
 
-        logDebug(LOG_TAG, "--------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "iv")
         let ivString = ""
         for (let i = 0; i < iv.length; i++) {
@@ -34,7 +34,7 @@ const HashMac = () => {
         }
 
 
-        logDebug(LOG_TAG, "--------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "encrypt")
         let encryptString = ""
         for (let i = 0; i < encrypt.length; i++) {
@@ -46,14 +46,14 @@ const HashMac = () => {
         }
 
 
-        logDebug(LOG_TAG, "--------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "CRYPTO_HS_AL")
         for (let item of CRYPTO_HS_AL) {
             listByte.push(item)
         }
 
 
-        logDebug(LOG_TAG, "--------------------------------------------------------------------------------------------")
+        logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "hMacInput")
         let i = 0
         hMacInput = new Uint8Array(listByte.length)
