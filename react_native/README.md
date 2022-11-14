@@ -34,7 +34,6 @@ It's mandantory to set up the development environment and build the app by follo
 > Install Node, Brew, Yarn, Npm etc packages
 > npx react-native init react_native --version 0.68.2
 > Set-up Android SDK path
-> npx react-native run-android
 > pod install
 > Open iOS app project with Xcode IDE
 > Set-up Bundle Identifier & Team account
