@@ -56,7 +56,6 @@ const Encryptor = () => {
         logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext.length: " + cipheredData.ciphertext.length)
         logDebug(LOG_TAG, "<<< encryption result end --------------------------------------------------------------")
 
-        // Encryption 된 데이터를 배열로 만들기 위한 로직.
         let cipheredArrayData = new Array(cipheredData.ciphertext.length / 2)
         for (let i = 0; i < cipheredArrayData.length; i++) {
             const item = cipheredData.ciphertext.toString().substr(i + i, 2)
@@ -87,10 +86,8 @@ const Encryptor = () => {
             + ", paddingValue: " + padding
             + ", destination buffer lLength: " + bufferLength)
 
-        // 패딩 적용된 데이터가 저장된 배열.
         let destination = new Array(bufferLength)
 
-        // 패딩 적용 전 데이터를 배열 형식으로 변환하기 위한 로직.
         let source = new Array(dataLengthDividedByTwo)
         for (let i = 0; i < source.length; i++) {
             const item = data.substr(i + i, 2)
@@ -98,7 +95,6 @@ const Encryptor = () => {
         }
         arrayCopy(source, 0, destination, 0, dataLengthDividedByTwo)
 
-        // 패딩 알고리즘.
         for (let i = dataLengthDividedByTwo; i < destination.length; i++) {
             if (paddingAsInt < 10) {
                 destination[i] = "0" + padding
@@ -107,16 +103,13 @@ const Encryptor = () => {
             }
         }
 
-        // 패딩 적용된 배열을 일반 스트링 타입으로 변환하기 위한 로직.
         let paddingResult = ""
         for (let i = 0; i < destination.length; i++) {
             paddingResult += destination[i]
         }
 
-        // 패딩 적용된 배열 값 확인을 위한 로그.
         logDebug(LOG_TAG, ">>> padding, destination buffer: " + destination)
 
-        // 패딩 적용된 배열 --> 일반 스트링 타입으로 변환한 것을 확인하기 위한 로그.
         logDebug(LOG_TAG, ">>> padding, result: " + paddingResult)
 
         return paddingResult
