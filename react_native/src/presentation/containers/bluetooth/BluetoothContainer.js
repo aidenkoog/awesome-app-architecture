@@ -6,9 +6,12 @@ import BluetoothComponent from './BluetoothComponent'
 import { bleDeviceFoundAtom, bleConnectionStateAtom, bleConnectionCompleteStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import CheckPermissionUseCase from '../../../domain/usecases/platform/CheckPermissionUseCase'
+import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
 
 const LOG_TAG = Constants.LOG.BT_UI_LOG
-const NEXT_SCREEN = Constants.SCREEN.HOME
+
+const NEXT_SCREEN = Constants.SCREEN.HOME_BOTTOM_TAB_SCREEN
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 
 const BluetoothContainer = ({ navigation }) => {
 
@@ -64,13 +67,16 @@ const BluetoothContainer = ({ navigation }) => {
      */
     useLayoutEffect(() => {
         if (bleConnectionCompleteState) {
-            navigation.navigate(NEXT_SCREEN)
+            logDebug(LOG_TAG, "<<< bleConnectionCompleteState: " + bleConnectionCompleteState + ", go to home screen")
+            replaceToNextScreen(navigation, NEXT_SCREEN, NAVIGATION_NO_DELAY_TIME)
 
         } else {
             this.startScenario()
         }
         return () => { }
-    }, [])
+
+        // Refs. the code in useLayoutEffect will not work if you don't write the variable or method used here.
+    }, [bleConnectionCompleteState, replaceToNextScreen])
 
     return (
         <BluetoothComponent

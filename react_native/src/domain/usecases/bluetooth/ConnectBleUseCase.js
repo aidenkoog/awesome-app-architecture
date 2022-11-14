@@ -1,7 +1,7 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger.js'
 import BleRepository from '../../../data/repositories/ble/BleRepository.js'
-
+import { SERVICE_UUID, SCAN_DURATION } from '../../../utils/ble/BleConfig.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 

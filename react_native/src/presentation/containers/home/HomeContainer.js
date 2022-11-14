@@ -1,14 +1,15 @@
+import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
+import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
+import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDeviceRegistrationUseCase"
+import { formatRefreshTime } from "../../../utils/time/TimeUtil"
+import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
 import { useLayoutEffect, useState } from "react"
 import Constants from "../../../utils/Constants"
 import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
-import GetBatteryLevelUseCase from "../../../domain/usecases/bluetooth/basic/GetBatteryLevelUseCase"
-import SyncDeviceInfoUseCase from "../../../domain/usecases/bluetooth/feature/device/SyncDeviceInfoUseCase"
-import { formatRefreshTime } from "../../../utils/time/TimeUtil"
-import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
-import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDeviceRegistrationUseCase."
+
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
 
@@ -166,7 +167,7 @@ function HomeContainer({ }) {
         this.loadDeviceRegistrationData()
         this.loadBleBatteryLevel()
         this.loadUserProfile()
-        this.addHomeCardItem([{ id: 999, name: "HOME CARD" }])
+        addHomeCardItem([{ id: 999, name: "HOME CARD" }])
 
     }, [])
 
