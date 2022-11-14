@@ -10,6 +10,8 @@ export default {
         SW_UPDATE: "SwUpdate",
         EDIT_PROFILE: "EditProfile",
         HR_MONITORING: "HrMonitoring",
+        DEVICE_INFO: "DeviceInfo",
+        DISCONNECTION: "Disconnection",
         HIDDEN: {
             SPLASH: "HiddenSplash",
             HOME: "HiddenHome",
@@ -97,6 +99,7 @@ export default {
         SETTINGS_UI_LOG: 'SETTINGS_UI_LOG',
         EDIT_PROFILE_UI_LOG: 'EDIT_PROFILE_UI_LOG',
         SPLASH_UI_LOG: 'SPLASH_UI_LOG',
+        DISCONNECTION_UI_LOG: 'DISCONNECTION_UI_LOG',
 
         REPO_TEST_LOG: 'REPO_TEST_LOG',
         UI_TEST_LOG: 'UI_TEST_LOG',
@@ -105,11 +108,12 @@ export default {
 
         STORAGE_LOG_TAG: 'STORAGE_LOG',
 
-        BLE_UTIL_LOG_TAG: 'BLE_UTIL_LOG_TAG',
-        BLE_FEATURE_UTIL_LOG_TAG: 'BLE_FEATURE_UTIL_LOG_TAG',
-        BLE_ENCRYPTION_UTIL_LOG_TAG: 'BLE_ENCRYPTION_UTIL_LOG_TAG',
+        BLE_UTIL_LOG_TAG: 'BLE_UTIL_LOG',
+        BLE_FEATURE_UTIL_LOG_TAG: 'BLE_FEATURE_UTIL_LOG',
+        BLE_ENCRYPTION_UTIL_LOG_TAG: 'BLE_ENCRYPTION_UTIL_LOG',
 
         PERMISSION_LOG_TAG: "PERMISSION_LOG_TAG",
+        TIME_UTIL_LOG_TAG: "TIME_UTIL_LOG"
     },
     STORAGE: {
         KEY_USER_PROFILE: "KEY_USER_PROFILE",

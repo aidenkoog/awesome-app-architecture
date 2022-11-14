@@ -31,6 +31,11 @@ export const KEY_WEIGHT_STATE = "weight"
 export const KEY_GENDER_STATE = "gender"
 
 /**
+ * cached formatted birthday date information.
+ */
+let cachedFormattedBirthdayDate = null
+
+/**
  * next screen information.
  */
 const NEXT_SCREEN = Constants.SCREEN.QR_SCAN
@@ -71,6 +76,14 @@ export default function ProfileContainer(props) {
     }
 
     /**
+     * save formatted birthday date information.
+     */
+    const onHandleFormatBirthdayDate = (date) => {
+        cachedFormattedBirthdayDate = date
+        logDebug(LOG_TAG, "<<< cachedFormattedBirthdayDate: " + cachedFormattedBirthdayDate)
+    }
+
+    /**
      * handle the event that occurs when 'Done' button is pressed.
      */
     onClickDoneButton = () => {
@@ -92,6 +105,7 @@ export default function ProfileContainer(props) {
         UserProfile.name = name
         UserProfile.gender = gender
         UserProfile.birthday = date
+        UserProfile.birthdayTimestamp = cachedFormattedBirthdayDate
         UserProfile.height = height
         UserProfile.weight = weight
 
@@ -137,9 +151,10 @@ export default function ProfileContainer(props) {
     }
 
     /**
-     * handle the event that occurs when 'Done' button is pressed in birthday modal.
+     * handle the event that occurs when 'Done' button is pressed in birthday modal dialog.
      */
-    onSelectDateOfBirthday = (date) => {
+    onSelectDateOfBirthday = (date, timestamp) => {
+        logDebug(LOG_TAG, "<<< selected birthday date value: " + date + ", timestamp: " + timestamp)
         setDate(formatDateToString(date))
     }
 
@@ -217,6 +232,7 @@ export default function ProfileContainer(props) {
             selectGallery={selectGallery}
             takePhotoAction={takePhotoAction}
             onChangeState={onChangeState}
+            onHandleFormatBirthdayDate={onHandleFormatBirthdayDate}
         />
     )
 }

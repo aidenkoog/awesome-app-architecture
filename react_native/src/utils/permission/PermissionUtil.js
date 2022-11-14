@@ -93,9 +93,9 @@ const invokePermissionCheck = (permission, onResult) => {
  * @returns {Promise}
  */
 export const requestCameraPermission = () => {
-    new Promise((fulfill, reject) => {
+    return new Promise((fulfill, reject) => {
         if (Metrics.IS_IOS) {
-            return request(PERMISSIONS.IOS.CAMERA).then(result => {
+            request(PERMISSIONS.IOS.CAMERA).then(result => {
                 if (result === RESULTS.GRANTED) {
                     fulfill(true)
                 } else {
@@ -105,7 +105,7 @@ export const requestCameraPermission = () => {
                 reject(e)
             })
         } else {
-            return request(PERMISSIONS.ANDROID.CAMERA).then(result => {
+            request(PERMISSIONS.ANDROID.CAMERA).then(result => {
                 if (result === RESULTS.GRANTED) {
                     fulfill(true)
                 } else {
@@ -124,35 +124,45 @@ export const requestCameraPermission = () => {
  * @returns {boolean}
  */
 export const checkCameraPermission = async () => {
-    if (Metrics.IS_IOS) {
-        return check(PERMISSIONS.IOS.CAMERA)
-            .then((result) => {
-                if (result === RESULTS.GRANTED) {
-                    return true
-                } else if (result === RESULTS.DENIED) {
-                    return requestCameraPermission()
-                } else {
-                    return false
-                }
-            })
-            .catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by checking ios camera permission")
-                return false
-            })
-    } else {
-        return check(PERMISSIONS.ANDROID.CAMERA)
-            .then((result) => {
-                if (result === RESULTS.GRANTED) {
-                    return true
-                } else if (result === RESULTS.DENIED) {
-                    return requestCameraPermission()
-                } else {
-                    return false
-                }
-            })
-            .catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by checking android camera permission")
-                return false
-            })
-    }
+    return new Promise((fulfill, reject) => {
+        if (Metrics.IS_IOS) {
+            check(PERMISSIONS.IOS.CAMERA)
+                .then((result) => {
+                    if (result === RESULTS.GRANTED) {
+                        fulfill(true)
+                    } else if (result === RESULTS.DENIED) {
+                        requestCameraPermission().then((granted) => {
+                            fulfill(granted)
+                        }).catch((e) => {
+                            reject(e)
+                        })
+                    } else {
+                        fulfill(false)
+                    }
+                })
+                .catch((e) => {
+                    outputErrorLog(LOG_TAG, e + " occurred by checking ios camera permission")
+                    reject(e)
+                })
+        } else {
+            check(PERMISSIONS.ANDROID.CAMERA)
+                .then((result) => {
+                    if (result === RESULTS.GRANTED) {
+                        fulfill(true)
+                    } else if (result === RESULTS.DENIED) {
+                        requestCameraPermission().then((granted) => {
+                            fulfill(granted)
+                        }).catch((e) => {
+                            reject(e)
+                        })
+                    } else {
+                        fulfill(false)
+                    }
+                })
+                .catch((e) => {
+                    outputErrorLog(LOG_TAG, e + " occurred by checking android camera permission")
+                    reject(e)
+                })
+        }
+    })
 }

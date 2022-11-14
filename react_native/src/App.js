@@ -8,8 +8,10 @@ import QrScanContainer from './presentation/containers/device/QrScanContainer'
 import BluetoothContainer from './presentation/containers/bluetooth/BluetoothContainer'
 import HomeContainer from './presentation/containers/home/HomeContainer'
 import SettingsContainer from './presentation/containers/settings/SettingsContainer'
-import SoftwareUpdateContainer from './presentation/containers/settings/device/SoftwareUpdateContainer'
+import SoftwareUpdateContainer from './presentation/containers/settings/device/software_update/SoftwareUpdateContainer'
 import EditProfileContainer from './presentation/containers/settings/edit_profile/EditProfileContainer'
+import HrMonitoringSettingContainer from './presentation/containers/settings/hr_monitoring/HrMonitoringSettingContainer'
+import DeviceInfoContainer from './presentation/containers/settings/device/DeviceInfoContainer'
 
 import HiddenHomeContainer from './presentation/containers/hidden/home/HiddenHomeContainer'
 import HiddenSplashContainer from './presentation/containers/hidden/splash/HiddenSplashContainer'
@@ -23,7 +25,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image } from 'react-native'
 import { Colors, Strings, Images } from './utils/theme'
 import styles from './presentation/stylesheets/StyleSet'
-import HrMonitoringSettingContainer from './presentation/containers/settings/hr_monitoring/HrMonitoringSettingContainer'
+import DisconnectionContainer from './presentation/containers/settings/device/disconnection/DisconnectionContainer'
+
 
 /**
  * bottom tab navigation's screen display name.
@@ -43,6 +46,8 @@ const SETTINGS_SCREEN = Constants.SCREEN.SETTINGS
 const SW_UPDATE_SCREEN = Constants.SCREEN.SW_UPDATE
 const EDIT_PROFILE_SCREEN = Constants.SCREEN.EDIT_PROFILE
 const HR_MONITORING_SCREEN = Constants.SCREEN.HR_MONITORING
+const DEVICE_INFO_SCREEN = Constants.SCREEN.DEVICE_INFO
+const DISCONNECTION_SCREEN = Constants.SCREEN.DISCONNECTION
 
 /**
  * hidden feature screens.
@@ -144,6 +149,14 @@ export default function App() {
                         <Stack.Screen
                             name={HR_MONITORING_SCREEN}
                             component={HrMonitoringSettingContainer}
+                            options={{ headerShown: false }} />
+                        <Stack.Screen
+                            name={DEVICE_INFO_SCREEN}
+                            component={DeviceInfoContainer}
+                            options={{ headerShown: false }} />
+                        <Stack.Screen
+                            name={DISCONNECTION_SCREEN}
+                            component={DisconnectionContainer}
                             options={{ headerShown: false }} />
 
                         {/* hidden feature screen stack. */}

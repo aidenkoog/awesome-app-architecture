@@ -27,8 +27,8 @@ export const showAlert = (title, message, cancelTitle, confirmTitle, isCancelabl
  * @param {string} confirmTitle 
  * @param {boolean} isCancelable 
  */
-export const showAlertWithOneButton = (title, message, confirmTitle, isCancelable) => {
+export const showAlertWithOneButton = (title, message, confirmTitle, isCancelable, onPressOk) => {
     Alert.alert(title, message, [
-        { text: confirmTitle, onPress: () => { } },
+        { text: confirmTitle, onPress: onPressOk },
     ], { cancelable: isCancelable })
 }

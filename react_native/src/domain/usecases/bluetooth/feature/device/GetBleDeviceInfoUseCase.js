@@ -16,6 +16,7 @@ const GetBleDeviceInfoUseCase = () => {
         return new Promise((fulfill, reject) => {
             getBleDeviceName().then((deviceName) => {
                 fulfill(deviceName)
+
             }).catch((e) => {
                 reject(e)
             })

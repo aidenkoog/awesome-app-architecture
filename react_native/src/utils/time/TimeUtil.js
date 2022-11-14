@@ -2,6 +2,11 @@ import moment from "moment"
 import _ from 'lodash'
 import * as RNLocalize from "react-native-localize"
 import momentTz from "moment-timezone"
+import { logDebug } from "../logger/Logger"
+import Constants from "../Constants"
+
+
+const LOG_TAG = Constants.LOG.TIME_UTIL_LOG_TAG
 
 export const formatMonthDate = (dateObj) => {
     let month = dateObj.getMonth()
@@ -46,6 +51,7 @@ export const refreshTimeFormat = (date) => {
 }
 
 export const formatBirthdayDate = (date) => {
+    logDebug(LOG_TAG, ">>> date: " + date)
     return moment(date, 'YYYY.MM.DD').format('LL')
 }
 

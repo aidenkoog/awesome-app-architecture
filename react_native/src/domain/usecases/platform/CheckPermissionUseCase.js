@@ -1,6 +1,6 @@
 import Constants from '../../../utils/Constants.js'
 import { logDebugWithLine } from '../../../utils/logger/Logger.js'
-import { checkBluetoothPermission, requestCameraPermission } from '../../../utils/permission/PermissionUtil.js'
+import { checkBluetoothPermission, checkCameraPermission } from '../../../utils/permission/PermissionUtil.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -26,7 +26,7 @@ const CheckPermissionUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute CheckCameraPermission")
 
         return new Promise((fulfill, reject) => {
-            requestCameraPermission().then((accepted) => {
+            checkCameraPermission().then((accepted) => {
                 fulfill(accepted)
 
             }).catch((e) => {

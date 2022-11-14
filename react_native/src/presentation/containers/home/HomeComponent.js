@@ -35,11 +35,12 @@ export default function HomeComponent(props) {
     getItemFooter = (data, length) => {
         return (
             <View style={{ flexDirection: 'column', marginTop: 15, flex: 1 }}>
-                <TouchableOpacity onPress={onAddDevice} disabled={!bleConnectionCompleteState}>
+                {!bleConnectionCompleteState ? <TouchableOpacity onPress={onAddDevice}>
                     <View style={styles.addView}>
                         <Image style={{ width: 40, height: 40 }} source={Images.icAdd} />
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity> : <View />}
+
                 {length >= 2 &&
                     <TouchableOpacity onPress={() => { }}>
                         <View style={{ flexDirection: 'row-reverse' }}>

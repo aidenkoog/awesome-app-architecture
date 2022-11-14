@@ -4,7 +4,6 @@ const CryptoJS = require("crypto-js")
 
 /**
  * secret key information.
- * currently, under construction.
  */
 export const KEY_HEXS = [
     0x36, 0x8B, 0x01, 0x39,

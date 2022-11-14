@@ -32,3 +32,11 @@ export const bleMacOrUuidAtom = atom({
     key: 'bleMacOrUuidAtom',
     default: Constants.COMMON.DEFAULT_DATA,
 })
+
+/**
+ * represent if bluetooth disconnection job is succeeded or not.
+ */
+export const bleDisconnectionSuccessAtom = atom({
+    key: 'bleDisconnectionSuccessAtom',
+    default: Constants.COMMON.DEFAULT_STATE,
+})
