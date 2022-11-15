@@ -23,7 +23,11 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/10/26 : (1st) Rearranged usecases, added navigation library and add additional comment to entire source code.
 - 2022/10/26 : (2nd) Hotfix, fixed build errors and hide title bar in the screen.
 - 2022/10/27 : Added permission utils and Added react-native-get-random-values library.
-- 2022/11/09 : Added ble data generator template code / encryptor / decryptor
+- 2022/11/09 : Added ble data generator template code / encryptor / decryptor.
+- 2022/11/13 : Arrange source code.
+- 2022/11/14 : Fixed build errors / Enable setting functions.
+- 2022/11/15 : (1st) Added chart graph ui that shows device status.
+- 2022/11/15 : (2nd) Added testcases / test hidden ui
 
 
 ## How To Setup Environment

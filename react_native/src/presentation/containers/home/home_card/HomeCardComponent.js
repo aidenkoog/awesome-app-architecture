@@ -1,9 +1,9 @@
 import { Image, StyleSheet, Text, TouchableOpacity, FlatList, View, } from "react-native"
-import { Colors, Fonts, Images, Strings } from "../../../utils/theme"
+import { Colors, Fonts, Images, Strings } from "../../../../utils/theme"
 import _ from "lodash"
-import { refreshTimeFormat } from "../../../utils/time/TimeUtil"
+import { refreshTimeFormat } from "../../../../utils/time/TimeUtil"
 import moment from "moment"
-import SuperscriptDateText from "../../components/SuperscriptDateText"
+import SuperscriptDateText from "../../../components/SuperscriptDateText"
 
 const strings = Strings.home
 

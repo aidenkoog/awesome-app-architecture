@@ -12,6 +12,7 @@ import SoftwareUpdateContainer from './presentation/containers/settings/device/s
 import EditProfileContainer from './presentation/containers/settings/edit_profile/EditProfileContainer'
 import HrMonitoringSettingContainer from './presentation/containers/settings/hr_monitoring/HrMonitoringSettingContainer'
 import DeviceInfoContainer from './presentation/containers/settings/device/DeviceInfoContainer'
+import DeviveStatusContainer from './presentation/containers/home/device_status/DeviceStatusContainer'
 
 import HiddenHomeContainer from './presentation/containers/hidden/home/HiddenHomeContainer'
 import HiddenSplashContainer from './presentation/containers/hidden/splash/HiddenSplashContainer'
@@ -42,6 +43,7 @@ const QR_SCAN_SCREEN = Constants.SCREEN.QR_SCAN
 const BLUETOOTH_SCREEN = Constants.SCREEN.BLUETOOTH
 const HOME_SCREEN = Constants.SCREEN.HOME
 const HOME_BOTTOM_TAB_SCREEN = Constants.SCREEN.HOME_BOTTOM_TAB_SCREEN
+const DEVICE_STATUS_SCREEN = Constants.SCREEN.DEVICE_STATUS
 const SETTINGS_SCREEN = Constants.SCREEN.SETTINGS
 const SW_UPDATE_SCREEN = Constants.SCREEN.SW_UPDATE
 const EDIT_PROFILE_SCREEN = Constants.SCREEN.EDIT_PROFILE
@@ -139,6 +141,10 @@ export default function App() {
                             component={BottomTabNavigator}
                             options={{ headerShown: false }} />
                         <Stack.Screen
+                            name={DEVICE_STATUS_SCREEN}
+                            component={DeviveStatusContainer}
+                            options={{ headerShown: false }} />
+                        <Stack.Screen
                             name={SW_UPDATE_SCREEN}
                             component={SoftwareUpdateContainer}
                             options={{ headerShown: false }} />
@@ -164,11 +170,26 @@ export default function App() {
                             name={HIDDEN_SPLASH_SCREEN}
                             component={HiddenSplashContainer}
                             options={{ headerShown: false }} />
-                        <Stack.Screen name={HIDDEN_HOME_SCREEN} component={HiddenHomeContainer} />
-                        <Stack.Screen name={HIDDEN_BLUETOOTH_SCREEN} component={HiddenBluetoothContainer} />
-                        <Stack.Screen name={HIDDEN_COMMON_SCREEN} component={HiddenCommonContainer} />
-                        <Stack.Screen name={HIDDEN_PLATFORM_SCREEN} component={HiddenPlatformContainer} />
-                        <Stack.Screen name={HIDDEN_SERVER_SCREEN} component={HiddenServerContainer} />
+
+                        <Stack.Screen name={HIDDEN_HOME_SCREEN}
+                            component={HiddenHomeContainer}
+                            options={{ headerShown: true }} />
+
+                        <Stack.Screen name={HIDDEN_BLUETOOTH_SCREEN}
+                            component={HiddenBluetoothContainer}
+                            options={{ headerShown: true }} />
+
+                        <Stack.Screen name={HIDDEN_COMMON_SCREEN}
+                            component={HiddenCommonContainer}
+                            options={{ headerShown: false }} />
+
+                        <Stack.Screen name={HIDDEN_PLATFORM_SCREEN}
+                            component={HiddenPlatformContainer}
+                            options={{ headerShown: false }} />
+
+                        <Stack.Screen name={HIDDEN_SERVER_SCREEN}
+                            component={HiddenServerContainer}
+                            options={{ headerShown: false }} />
 
                     </Stack.Navigator>
                 </NavigationContainer>

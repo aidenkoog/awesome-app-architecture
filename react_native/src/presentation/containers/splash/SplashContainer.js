@@ -1,9 +1,9 @@
+import GetBleDeviceInfoUseCase from '../../../domain/usecases/bluetooth/feature/device/GetBleDeviceInfoUseCase'
 import SplashComponent from './SplashComponent'
 import { useLayoutEffect } from 'react'
 import ControlAppStateUseCase from '../../../domain/usecases/common/ControlAppStateUseCase'
 import Constants from '../../../utils/Constants'
 import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
-import GetBleDeviceInfoUseCase from '../../../domain/usecases/bluetooth/feature/device/GetBleDeviceInfoUseCase'
 
 /**
  * next screen information.

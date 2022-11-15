@@ -1,51 +1,77 @@
+import { stringToBytes } from "convert-string"
+import { bleDeviceNameAtom, bleSequenceIdAtom } from "../../../adapters"
+import { useRecoilValue } from "recoil"
+import { logDebug } from "../../../../utils/logger/Logger"
+import Constants from "../../../../utils/Constants"
+
+const LOG_TAG = Constants.LOG.BT_MESSAGE
 
 const RequestMessage = () => {
-    getVersion = () => {
-        const version = "\x03"
 
-        logDebug(LOG_TAG, ">>> version: " + version)
-        return ""
+    const bleDeviceName = useRecoilValue(bleDeviceNameAtom)
+    const bleSequenceId = useRecoilValue(bleSequenceIdAtom)
+
+    getVersion = () => {
+        this.version = stringToBytes("\x03")
+        logDebug(LOG_TAG, ">>> version (byte): " + version)
+        return version
     }
 
-    getSequenceId = (bleSequenceId) => {
-        const sequenceId = convertDecimalToHexString(bleSequenceId)
-
-        logDebug(LOG_TAG, ">>> sequenceId: " + sequenceId)
-        return ""
+    getSequenceId = () => {
+        logDebug(LOG_TAG, ">>> bleSequenceId (from recoil): " + bleSequenceId)
+        //this.sequenceId = (bleSequenceId >>> 0).toString(2)
+        this.sequenceId = bleSequenceId.toString(16)
+        logDebug(LOG_TAG, ">>> sequenceId (hex): " + sequenceId)
+        logDebug(LOG_TAG, ">>> sequencId (byte): " + stringToBytes(sequenceId))
+        return stringToBytes(sequenceId)
     }
 
     getStatus = () => {
-        const status = "\x01"
-
-        logDebug(LOG_TAG, ">>> status: " + status)
-        return ""
+        this.status = stringToBytes("\x01")
+        logDebug(LOG_TAG, ">>> status (byte): " + status)
+        return status
     }
 
     getDeviceName = () => {
-        const deviceName = getDeviceNameAsHexString("358303469901116")
-
+        logDebug(LOG_TAG, ">>> bleDeviceName (from recoil): " + bleDeviceName)
+        this.deviceName = ""
+        for (let i = 0; i < bleDeviceName.length; i++) {
+            deviceName += bleDeviceName.substring(i, i + 1).toString(16)
+        }
         logDebug(LOG_TAG, ">>> deviceName: " + deviceName)
-        return ""
+        logDebug(LOG_TAG, ">>> deviceName (byte): " + stringToBytes(deviceName))
+        return stringToBytes(deviceName)
     }
 
     getUserId = () => {
-        const userId = "3B7750F5997B49DA856711DD841D0676"
-
+        const deviceUniqueId = "3B7750F5997B49DA856711DD841D0676"
+        this.userId = ""
+        for (let i = 0; i < deviceUniqueId.length; i++) {
+            userId += deviceUniqueId.substring(i, i + 1).toString(16)
+        }
         logDebug(LOG_TAG, ">>> userId: " + userId)
-        return userId
+        logDebug(LOG_TAG, ">>> userId (byte): " + stringToBytes(userId))
+        return stringToBytes(userId)
     }
 
     /**
      * return ble authentication messages.
-     * @param {number} bleSequenceId
      * @returns {string}
      */
-    getAuthenticateMessage = (bleSequenceId) => {
-        let fullMessage = this.getVersion() + this.getSequenceId(bleSequenceId) + this.getStatus()
-            + this.getDeviceName() + this.getUserId()
+    getAuthenticateMessage = () => {
+        this.fullMessage =
+            this.getVersion()
+            + this.getSequenceId()
+            + this.getStatus()
+            + this.getDeviceName()
+            + this.getUserId()
 
-        logDebug(LOG_TAG, ">>> full message: " + fullMessage)
+        logDebug(LOG_TAG, ">>> full BLE authentication message: " + fullMessage)
         return fullMessage
+    }
+
+    return {
+        getAuthenticateMessage
     }
 }
 

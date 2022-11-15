@@ -4,6 +4,7 @@ import * as RNLocalize from "react-native-localize"
 import momentTz from "moment-timezone"
 import { logDebug } from "../logger/Logger"
 import Constants from "../Constants"
+import { Strings } from "../theme"
 
 
 const LOG_TAG = Constants.LOG.TIME_UTIL_LOG_TAG
@@ -69,4 +70,16 @@ export const localTime = (date) => {
     const today = momentTz().tz(deviceTimeZone)
     const currentTimeZoneOffsetInSeconds = today.utcOffset() * 60
     return moment.utc(date).add(currentTimeZoneOffsetInSeconds, "seconds").format('LT')
+}
+
+export function formatSleepTime(value) {
+    const hour = Math.floor(value / 3600);
+    const minutes = Math.floor((value % 3600) / 60);
+    if (value === 0) {
+        return ""
+    } else {
+        let result = (hour === 0 ? "0h" : (hour + "h")) + " "
+            + (minutes === 0 ? "0m" : ((minutes < 10 ? ('0' + minutes) : minutes) + "m"))
+        return result.replace('h', Strings.chart.hourShort).replace('m', Strings.chart.minuteShort)
+    }
 }

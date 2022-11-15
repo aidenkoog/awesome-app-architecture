@@ -4,16 +4,22 @@ import GetDeviceRegistrationUseCase from "../../../domain/usecases/common/GetDev
 import { formatRefreshTime } from "../../../utils/time/TimeUtil"
 import GetProfileInfoUseCase from "../../../domain/usecases/common/GetProfileInfoUseCase"
 import { useLayoutEffect, useEffect, useState } from "react"
-import Constants from "../../../utils/Constants"
-import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
+import Constants, { HEALTH_TYPE } from "../../../utils/Constants"
+import { logDebug, logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import HomeComponent from "./HomeComponent"
 import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../../data'
 import { useRecoilValue } from 'recoil'
 import { useIsFocused } from "@react-navigation/native"
-import { pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
+import { navigateToDeviceStatusScreen, navigateToNextScreen, pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
+import RequestAuthUseCase from "../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase"
 
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
+const DEVICE_STATUS_SCREEN = Constants.SCREEN.DEVICE_STATUS
+const HIDDEN_SPLASH_SCREEN = Constants.SCREEN.HIDDEN.SPLASH
+
+const NAVIGATION_PURPOSE_NORMAL = Constants.NAVIGATION.PURPOSE.NORMAL
+const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
 
 /**
  * item's id information that exists in home card.
@@ -27,7 +33,7 @@ const ITEM_ID_SLEEP = 4
  * @param {Any} navigation 
  * @returns {JSX.Element}
  */
-function HomeContainer({ }) {
+function HomeContainer({ navigation }) {
 
     /**
      * useState code for ui interaction.
@@ -55,6 +61,7 @@ function HomeContainer({ }) {
     const { executeGetProfileInfoUseCase } = GetProfileInfoUseCase()
     const { executeSyncDeviceInfoUseCase } = SyncDeviceInfoUseCase()
     const { executeGetDeviceRegistrationUseCase } = GetDeviceRegistrationUseCase()
+    const { executeRequestAuthUseCase } = RequestAuthUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -68,21 +75,24 @@ function HomeContainer({ }) {
     onPressCardItem = (item) => {
         switch (item.id) {
             case ITEM_ID_STEP:
-                executeSyncDeviceInfoUseCase().then(() => {
+                navigateToDeviceStatusScreen(navigation,
+                    DEVICE_STATUS_SCREEN, NAVIGATION_NO_DELAY_TIME,
+                    NAVIGATION_PURPOSE_NORMAL, HEALTH_TYPE.STEP)
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
 
             case ITEM_ID_HEART_RATE:
-                executeSyncDeviceInfoUseCase().then(() => {
+                navigateToDeviceStatusScreen(navigation,
+                    DEVICE_STATUS_SCREEN, NAVIGATION_NO_DELAY_TIME,
+                    NAVIGATION_PURPOSE_NORMAL, HEALTH_TYPE.HEART_RATE)
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
 
             case ITEM_ID_SLEEP:
-                executeSyncDeviceInfoUseCase().then(() => {
+                navigateToDeviceStatusScreen(navigation,
+                    DEVICE_STATUS_SCREEN, NAVIGATION_NO_DELAY_TIME,
+                    NAVIGATION_PURPOSE_NORMAL, HEALTH_TYPE.SLEEP)
 
-                }).catch((e) => outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase"))
                 break
         }
     }
@@ -187,9 +197,29 @@ function HomeContainer({ }) {
         this.loadDeviceRegistrationData()
         this.loadBleBatteryLevel()
         this.loadUserProfile()
+
         addHomeCardItem([{ id: 999, name: "HOME CARD" }])
 
     }, [bleConnectionState, bleConnectionCompleteState])
+
+    /**
+     * TEST, authenticate
+     */
+    onTestAuthenticate = () => {
+        executeRequestAuthUseCase().then(() => {
+            logDebug(LOG_TAG, "<<< succeeded to call executeRequestAuthUseCase")
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + " occurred by executeRequestAuthUseCase")
+        })
+    }
+
+    /**
+     * enter the hidden menu for testing ble messages.
+     */
+    onEnterHiddenMenu = () => {
+        navigateToNextScreen(navigation, HIDDEN_SPLASH_SCREEN, NAVIGATION_NO_DELAY_TIME, NAVIGATION_PURPOSE_NORMAL)
+    }
 
     return (
         <HomeComponent
@@ -206,6 +236,8 @@ function HomeContainer({ }) {
             refreshedTime={refreshedTime}
             onPressCardItem={onPressCardItem.bind(this)}
             onPressRefreshArea={onPressRefreshArea}
+            onTestAuthenticate={onTestAuthenticate}
+            onEnterHiddenMenu={onEnterHiddenMenu}
         />
     )
 }

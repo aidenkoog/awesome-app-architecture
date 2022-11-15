@@ -1,67 +1,57 @@
-import { StyleSheet, Text, View, FlatList, Button } from "react-native"
+import { FlatList, View, Text } from "react-native"
+import { TEST_CATEGORY_LIST } from "../../../../test/data/TestCases"
+import TestCategoryGridTile from "../../../components/hidden/TestCategoryGridTile"
 
+
+const TEST_GUIDE_MESSAGE =
+    "[ Guide ]\n\n" +
+    "Click on the category of test you would like to do below. You can view test cases by clicking on a category."
+/**
+ * component ui that is used in container.
+ * @returns {JSX.Element}
+ */
 const HiddenHomeComponent = (props) => {
 
+    /**
+     * props delivered from HiddenHomeContainer.
+     */
+    const { onPressTestCategory } = props
+
+    /**
+     * render test category items.
+     * @param {Any} itemData 
+     * @returns 
+     */
+    function renderTestCategoryItem(itemData) {
+        function pressHandler() {
+            onPressTestCategory(itemData.item.id)
+        }
+
+        return (
+            <TestCategoryGridTile
+                title={itemData.item.title}
+                color={itemData.item.color}
+                onPress={pressHandler}
+            />
+        )
+    }
+
     return (
-        <View style={styles.appContainer}>
-            <Button onPress={onWriteWithoutResponse} title="Write (Without response)"></Button>
-            <View style={styles.goalsContainer}>
-                <FlatList
-                    data={{}}
-                    renderItem={(itemData) => {
-                        return (
-                            <View style={styles.goalItem}>
-                                <Text style={styles.goalText}>{itemData.item.text}</Text>
-                            </View>
-                        );
-                    }}
-                    keyExtractor={(item, index) => {
-                        return item.id;
-                    }}
-                    alwaysBounceVertical={false}
-                />
-            </View>
+        <View style={{ backgroundColor: "#adb5bd", flex: 1 }}>
+            <Text style={{
+                color: "#000000", fontSize: 18, padding: 15, fontWeight: "900",
+                marginTop: 15, marginBottom: 10, backgroundColor: "#ffd500"
+            }}>
+                {TEST_GUIDE_MESSAGE}
+            </Text>
+            <FlatList
+                data={TEST_CATEGORY_LIST}
+                keyExtractor={(item) => item.id}
+                renderItem={renderTestCategoryItem}
+                numColumns={2}
+            />
         </View>
     )
 }
 
 export default HiddenHomeComponent
-
-const styles = StyleSheet.create({
-    homeText: {
-        color: "#000000"
-    },
-    appContainer: {
-        flex: 1,
-        paddingTop: 50,
-        paddingHorizontal: 16,
-    },
-    inputContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 24,
-        borderBottomWidth: 1,
-        borderBottomColor: '#cccccc',
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: '#cccccc',
-        width: '70%',
-        marginRight: 8,
-        padding: 8,
-    },
-    goalsContainer: {
-        flex: 5,
-    },
-    goalItem: {
-        margin: 8,
-        padding: 8,
-        borderRadius: 6,
-        backgroundColor: '#5e0acc',
-    },
-    goalText: {
-        color: 'white',
-    },
-})

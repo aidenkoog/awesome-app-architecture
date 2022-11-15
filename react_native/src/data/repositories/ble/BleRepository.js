@@ -5,16 +5,17 @@ import { bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnect
 import { ACTION_AUTHENTICATE, ACTION_DISCONNECT, ACTION_SYNC, ACTION_UPGRADE_FIRMWARE } from '../../../domain/usecases/bluetooth/action/BleActions.js'
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
-import { bleAuthResultAtom, bleSequenceIdAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
+import { bleAuthResultAtom, bleSequenceIdAtom, bleWriteResponseAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
 import { logDebug, logDebugWithLine, outputErrorLog } from '../../../utils/logger/Logger.js'
-import { convertBleCustomToHexData } from '../../../utils/ble/BleUtil.js'
+import { byteToHex, convertBleCustomToHexData } from '../../../utils/ble/BleUtil.js'
 import { getFeatureNameAsUuid } from '../../../utils/ble/BleUtil.js'
 import { NativeEventEmitter, NativeModules } from 'react-native'
 import { isValid } from '../../../utils/common/CommonUtil.js'
 import { useSetRecoilState, useRecoilValue } from 'recoil'
 import Constants from '../../../utils/Constants.js'
 import { useEffect } from 'react'
+import { getInstanceId } from 'react-native-device-info'
 
 
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
@@ -34,10 +35,11 @@ const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
 
 /**
- * cached ble device name and mac address.
+ * cached ble device name, mac address and device uuid.
  */
 let cachedBleDeviceName = ""
 let cachedBleMacAddress = ""
+let cachedDeviceUuid = ""
 
 /**
  * ble battery uuid existence.
@@ -97,6 +99,11 @@ const BleRepository = () => {
      */
     const bleSequenceId = useRecoilValue(bleSequenceIdAtom)
     const setBleSequenceId = useSetRecoilState(bleSequenceIdAtom)
+
+    /**
+     * [ ble custom message write method's response ]
+     */
+    const setBleWriteResponse = useSetRecoilState(bleWriteResponseAtom)
 
     /**
      * listeners for catching the ble events.
@@ -622,7 +629,14 @@ const BleRepository = () => {
                     SERVICE_UUID,
                     RX_CHARACTERISTIC_UUID,
                     bleMessage).then(() => {
-                        logDebug(LOG_TAG, "<<< succeeded to write ble custom message to " + peripheral.id)
+                        const responseMessage =
+                            "<<< succeeded to write ble custom message to "
+                            + peripheral.id + ",\nsequence id: " + bleSequenceId
+                            + ",\nsentBytes: " + bleMessage + ",\nsentHex: " + byteToHex(bleMessage)
+
+                        logDebug(LOG_TAG, responseMessage)
+
+                        setBleWriteResponse(responseMessage)
                         setBleSequenceId(bleSequenceId + 1)
                         setBleAuthResultState(true)
                         fulfill()
@@ -664,13 +678,19 @@ const BleRepository = () => {
             cachedBleDeviceName = deviceName
             logDebug(LOG_TAG, "cachedBleDeviceName: " + cachedBleDeviceName)
         })
+
         getBleDeviceMacAddress().then((macAddress) => {
             cachedBleMacAddress = macAddress
             logDebug(LOG_TAG, "cachedBleMacAddress: " + cachedBleMacAddress)
         })
 
+        getInstanceId().then((deviceUuid) => {
+            cachedDeviceUuid = deviceUuid.toString()
+            logDebug(LOG_TAG, "cachedDeviceUuid: " + cachedDeviceUuid)
+        })
+
         return () => { }
-    }, [cachedBleDeviceName, cachedBleMacAddress])
+    }, [cachedBleDeviceName, cachedBleMacAddress, cachedDeviceUuid])
 
     /**
      * export BluetoothRepository's functions.

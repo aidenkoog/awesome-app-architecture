@@ -1,8 +1,6 @@
+import { Avatar, ChoosePhotoPopup, PrimaryTextInput, TextButton, BottomPopup, DatePickerComponent, SuperscriptDateText, HeaderWithBack } from '../../../components'
 import { Colors, Fonts, Strings, Metrics } from '../../../../utils/theme'
 import { View, StyleSheet, Keyboard, TouchableWithoutFeedback, Text, TouchableOpacity } from 'react-native'
-import {
-    Avatar, ChoosePhotoPopup, PrimaryTextInput, TextButton, BottomPopup, DatePickerComponent, SuperscriptDateText, HeaderWithBack
-} from '../../../components'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from "react-navigation"
 import { formatBirthdayDate, formatDate } from '../../../../utils/time/TimeUtil'

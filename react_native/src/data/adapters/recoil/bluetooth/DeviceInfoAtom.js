@@ -28,3 +28,11 @@ export const bleSequenceIdAtom = atom({
     key: 'bleSequenceIdAtom',
     default: Constants.COMMON.DEFAULT_INT_VALUE + 1
 })
+
+/**
+ * represent if ble custom message is sent to device successfully.
+ */
+export const bleWriteResponseAtom = atom({
+    key: 'bleWriteResponseAtom',
+    default: Constants.COMMON.DEFAULT_DATA
+})
