@@ -1,9 +1,9 @@
+import ControlHrMonitoringUseCase from "../../../../domain/usecases/bluetooth/feature/device/ControlHrMonitoringUseCase"
 import React, { useEffect, useState } from "react"
 import { LogBox } from "react-native"
 import { logDebug } from "../../../../utils/logger/Logger"
 import HrMonitoringSettingComponent from "./HrMonitoringSettingComponent"
 import Constants from "../../../../utils/Constants"
-import ControlHrMonitoringUseCase from "../../../../domain/usecases/bluetooth/feature/device/ControlHrMonitoringUseCase"
 
 
 const LOG_TAG = Constants.LOG.SETTINGS_UI_LOG

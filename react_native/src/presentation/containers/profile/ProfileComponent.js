@@ -1,12 +1,10 @@
-import { Colors, Fonts, Strings, Metrics } from '../../../utils/theme'
+import { KEY_GENDER_STATE, KEY_HEIGHT_STATE, KEY_MODAL_DATE_PICKER_VISIBLE, KEY_MODAL_PHOTO_VISIBLE, KEY_NAME_STATE, KEY_WEIGHT_STATE } from './ProfileContainer'
+import { Avatar, ChoosePhotoPopup, PrimaryTextInput, TextButton, BottomPopup, DatePickerComponent, SuperscriptDateText } from '../../components'
 import { View, StyleSheet, Keyboard, TouchableWithoutFeedback, Text, TouchableOpacity } from 'react-native'
-import {
-    Avatar, ChoosePhotoPopup, PrimaryTextInput, TextButton, BottomPopup, DatePickerComponent, SuperscriptDateText
-} from '../../components'
+import { Colors, Fonts, Strings, Metrics } from '../../../utils/theme'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from "react-navigation"
 import { formatBirthdayDate, formatDate } from '../../../utils/time/TimeUtil'
-import { KEY_GENDER_STATE, KEY_HEIGHT_STATE, KEY_MODAL_DATE_PICKER_VISIBLE, KEY_MODAL_PHOTO_VISIBLE, KEY_NAME_STATE, KEY_WEIGHT_STATE } from './ProfileContainer'
 
 
 const REGISTER_SENIOR_STRINGS = Strings.registerSenior

@@ -1,7 +1,8 @@
 import Constants from '../../../../../utils/Constants.js'
-import { logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
+import { logDebug, logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
 import { stringToBytes } from "convert-string"
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
+import RequestMessage from '../../../../../data/repositories/ble/message/RequestMessage.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
@@ -12,11 +13,15 @@ const RequestAuthUseCase = () => {
      */
     const { sendBleCustomMessage } = BleRepository()
 
+    const { getAuthenticateMessage } = RequestMessage()
+
     /**
      * execute usecase of requesting authentication to device.
      */
     executeRequestAuthUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute RequestAuthUseCase")
+
+        logDebug(LOG_TAG, ">>> authentication message: " + getAuthenticateMessage())
 
         return new Promise((fulfill, reject) => {
             const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")

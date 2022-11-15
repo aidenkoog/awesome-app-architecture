@@ -6,6 +6,7 @@ export default {
         BLUETOOTH: "Bluetooth",
         HOME: "Home",
         HOME_BOTTOM_TAB_SCREEN: "HomeBottomTabScreen",
+        DEVICE_STATUS: "DeviceStatus",
         SETTINGS: "Settings",
         SW_UPDATE: "SwUpdate",
         EDIT_PROFILE: "EditProfile",
@@ -68,6 +69,7 @@ export default {
         BT_SECURITY_PACKET: 'BT_SECURITY_PACKET',
         BT_KEY_CRYPTO: 'BT_KEY_CRYPTO',
         BT_HASH_MAC: 'BT_HASH_MAC',
+        BT_MESSAGE: 'BT_MESSAGE',
 
         HEADER_BT_REQ_AGE: 'HEADER_BT_REQ_AGE',
         HEADER_BT_REQ_CMD: 'HEADER_BT_REQ_CMD',
@@ -93,6 +95,7 @@ export default {
 
         BT_UI_LOG: 'BT_UI_LOG',
         HOME_UI_LOG: 'HOME_UI_LOG',
+        DEVICE_STATUS_UI_LOG: 'DEVICE_STATUS_UI_LOG',
         PROFILE_UI_LOG: 'PROFILE_UI_LOG',
         QR_SCAN: 'QR_SCAN',
         ROOT_UI_LOG: 'ROOT_UI_LOG',
@@ -100,6 +103,8 @@ export default {
         EDIT_PROFILE_UI_LOG: 'EDIT_PROFILE_UI_LOG',
         SPLASH_UI_LOG: 'SPLASH_UI_LOG',
         DISCONNECTION_UI_LOG: 'DISCONNECTION_UI_LOG',
+
+        HIDDEN_BT_UI_LOG: 'HIDDEN_BT_UI_LOG',
 
         REPO_TEST_LOG: 'REPO_TEST_LOG',
         UI_TEST_LOG: 'UI_TEST_LOG',
@@ -130,3 +135,18 @@ export default {
         KEY_DEVICE_REGISTRATION_FLAG: 'KEY_DEVICE_REGISTRATION_FLAG',
     }
 };
+
+export const NO_DATA_VALUE = "-"
+
+export const HEALTH_TYPE = {
+    STEP: 'STEP',
+    HEART_RATE: 'HEART_RATE',
+    SLEEP: 'SLEEP'
+}
+
+export const HEALTH_GRAPH_TYPE = {
+    DAY: 'Day',
+    WEEK: 'Week',
+    MONTH: 'Month',
+    YEAR: 'Year'
+}

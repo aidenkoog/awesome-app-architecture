@@ -99,5 +99,9 @@ export default {
     btnNaviNextRight: require("../../assets/Images/btn-navi-next-right.png"),
     group: require("../../assets/Images/group.png"),
     logo: require("../../assets/Images/logo.png"),
-    watch: require("../../assets/Images/group-3-copy.png")
+    watch: require("../../assets/Images/group-3-copy.png"),
+    hidden_server: require("../../assets/Images/server.png"),
+    hidden_platform: require("../../assets/Images/platform.png"),
+    hidden_common: require("../../assets/Images/common.png"),
+    hidden_bluetooth: require("../../assets/Images/bluetooth.png"),
 }

@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet } from "react-native"
-import { Images } from "../../../utils/theme";
+import { Images } from "../../../utils/theme"
 
 /**
  * component ui that is used in container.

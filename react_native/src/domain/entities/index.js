@@ -1,2 +1,2 @@
-export * from './bluetooth';
-export * from './profile';
+export * from "./test/TestCategory"
+export * from "./user/UserProfile"

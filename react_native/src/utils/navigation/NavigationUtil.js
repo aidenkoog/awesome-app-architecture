@@ -17,6 +17,19 @@ export const navigateToNextScreen = (
 }
 
 /**
+ * navigate to device status screen.
+ * @param {Any} navigation 
+ * @param {string} screenToBeMoved 
+ * @param {string} statusType
+ */
+export const navigateToDeviceStatusScreen = (
+    navigation, screenToBeMoved, delay = NAVIGATION_NO_DELAY_TIME, purpose = NAVIGATION_PURPOSE_NORMAL, statusType) => {
+    setTimeout(() => {
+        navigation.navigate(screenToBeMoved, { purposeWhat: purpose, statusType: statusType })
+    }, delay)
+}
+
+/**
  * push screen.
  * Refs. use 'push' method if there's the same route.
  * @param {Any} navigation 

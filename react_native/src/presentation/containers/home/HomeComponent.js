@@ -1,9 +1,12 @@
-import { SafeAreaView, StyleSheet, RefreshControl, FlatList, Image, TouchableOpacity, View } from "react-native"
+import { SafeAreaView, StyleSheet, RefreshControl, FlatList, Image, TouchableOpacity, View, Text } from "react-native"
 import { Images, Colors, Fonts } from "../../../utils/theme"
 import { Container } from "../../components"
-import HomeCardComponent from "./HomeCardComponent"
+import HomeCardComponent from "./home_card/HomeCardComponent"
 
 
+/**
+ * determine how many users are connected.
+ */
 const USER_SIZE = 1
 
 /**
@@ -18,7 +21,7 @@ export default function HomeComponent(props) {
     const {
         userName, userImageUrl, userGender, isRefreshing, homeCardItems, onAddDevice, onSwipeRefresh,
         isDeviceRegistered, bleConnectionCompleteState, bleDeviceBatteryLevel, refreshedTime,
-        onPressCardItem, onPressRefreshArea
+        onPressCardItem, onPressRefreshArea, onTestAuthenticate, onEnterHiddenMenu
     } = props
 
     /**
@@ -39,7 +42,17 @@ export default function HomeComponent(props) {
                     <View style={styles.addView}>
                         <Image style={{ width: 40, height: 40 }} source={Images.icAdd} />
                     </View>
-                </TouchableOpacity> : <View />}
+                </TouchableOpacity>
+                    :
+                    <TouchableOpacity onPress={onTestAuthenticate} onLongPress={onEnterHiddenMenu}>
+                        <View style={styles.addView}>
+                            <Text style={{
+                                color: '#000000', fontSize: 18, fontWeight: "bold"
+                            }}>Authenticate</Text>
+                            <Text style={{ color: '#000000', paddingLeft: 5, paddingRight: 5, textAlign: "center" }}>
+                                If you want to enter the hidden menu for testing, press the button for a long time.</Text>
+                        </View>
+                    </TouchableOpacity>}
 
                 {length >= 2 &&
                     <TouchableOpacity onPress={() => { }}>
