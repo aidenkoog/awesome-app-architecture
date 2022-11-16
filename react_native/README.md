@@ -28,6 +28,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/14 : Fixed build errors / Enable setting functions.
 - 2022/11/15 : (1st) Added chart graph ui that shows device status.
 - 2022/11/15 : (2nd) Added testcases / test hidden ui
+- 2022/11/16 : Added authentication, sync device information and diconnect device functions.
 
 
 ## How To Setup Environment

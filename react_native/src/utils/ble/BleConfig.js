@@ -1,5 +1,4 @@
 export const SERVICE_UUID = ''
-
 export const RX_CHARACTERISTIC_UUID = ''
 export const TX_CHARACTERISTIC_UUID = ''
 export const FLOW_CONTROL_CHARACTERISTIC_UUID = ''

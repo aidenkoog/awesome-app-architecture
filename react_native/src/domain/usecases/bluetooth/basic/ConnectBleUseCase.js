@@ -1,7 +1,7 @@
-import Constants from '../../../../utils/Constants.js'
-import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../utils/logger/Logger.js'
-import BleRepository from '../../../../data/repositories/ble/BleRepository.js'
-import { SERVICE_UUID } from '../../../../utils/ble/BleConfig.js'
+import Constants from '../../../../utils/Constants'
+import { SERVICE_UUID } from '../../../../utils/ble/BleConfig'
+import BleRepository from '../../../../data/repositories/ble/BleRepository'
+import { logDebug, outputErrorLog, logDebugWithLine } from '../../../../utils/logger/Logger'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 const SCAN_DURATION = Constants.BT.SCAN_DURATION

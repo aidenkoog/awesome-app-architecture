@@ -19,7 +19,8 @@ const SendBleLogUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute SendBleLogUseCase")
 
         return new Promise((fulfill, reject) => {
-            const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            // const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            const customMessage = [0, 6, 0, 68, 70, 68, 70, 68, 70]
             sendBleCustomMessage(customMessage).then(() => {
                 fulfill()
             }).catch((e) => {

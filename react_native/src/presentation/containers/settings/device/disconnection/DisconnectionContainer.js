@@ -1,6 +1,6 @@
 import DisconnectionComponent, { ABOUT_WATCH_STRING } from "./DisconnectionComponent"
 import { useState, useLayoutEffect } from "react"
-import RequestDisconnectDeviceUseCase from "../../../../../domain/usecases/bluetooth/feature/device/DisconnectDeviceUseCase"
+import RequestDisconnectDeviceUseCase from "../../../../../domain/usecases/bluetooth/feature/device/RequestDisconnectDeviceUseCase"
 import { logDebug, outputErrorLog } from "../../../../../utils/logger/Logger"
 import Constants from "../../../../../utils/Constants"
 import { BackHandler } from "react-native"

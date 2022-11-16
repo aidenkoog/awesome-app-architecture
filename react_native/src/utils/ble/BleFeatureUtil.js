@@ -6,6 +6,15 @@ import { stringToBytes } from "convert-string"
 
 const LOG_TAG = Constants.LOG.BLE_FEATURE_UTIL_LOG_TAG
 
+/**
+ * 
+ * 
+ * This code will be refactored soon.
+ * Under construction...
+ * 
+ * 
+ */
+
 export const DUMMY = "\x00" + "\x05" + "\x00" + "DUMMY"
 export const DUMMY_VALUE = stringToBytes(DUMMY)
 export const HEX_DUMMY = "abc"

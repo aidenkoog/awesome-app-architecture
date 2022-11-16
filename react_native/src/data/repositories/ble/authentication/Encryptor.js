@@ -1,19 +1,11 @@
 import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../utils/ble/BleEncryptionConstants"
+import { bytesToHex } from "../../../../utils/ble/BleUtil"
 import { arrayCopy } from "../../../../utils/common/CommonUtil"
 import Constants from "../../../../utils/Constants"
 import { logDebug } from "../../../../utils/logger/Logger"
 
 
 const LOG_TAG = Constants.LOG.BT_CRYPTO
-
-/**
- * dummy data for testing.
- */
-const TEST_HEX_DATA = "033130303030303030303030303033331f1cf"
-    + "0cc000000000000000000000101000000000000000000000000"
-    + "0000636c50ea302e302e322e3337002e0100010502000200010"
-    + "300016405001e33372e3430393135362c3132372e3039343733"
-    + "392c31332e393033303030"
 
 /**
  * load crypto module.
@@ -23,42 +15,36 @@ const CryptoJS = require("crypto-js")
 const Encryptor = () => {
 
     /**
-     * encrypt ble custom data and return it.
-     * @param {Any} data
+     * encrypt ble custom message and return it.
+     * @param {bytes} data
      * @returns {Any}
      */
-    getEncryptedDataMessage = (data, key = CUSTOM_SECRET_KEY, iv = CUSTOM_IV) => {
+    getEncryptedBytes = (message, key = CUSTOM_SECRET_KEY, iv = CUSTOM_IV) => {
 
-        logDebug(LOG_TAG, ">>> content data: " + TEST_HEX_DATA)
-        logDebug(LOG_TAG, ">>> secret key: " + key)
-        logDebug(LOG_TAG, ">>> iv : " + iv)
-
-        const hexParsedData = CryptoJS.enc.Hex.parse(TEST_HEX_DATA)
-        logDebug(LOG_TAG, ">>> hexParsedData: " + hexParsedData)
-
-        const paddedData = CryptoJS.enc.Hex.parse(getPaddedData(dummy))
-        logDebug(LOG_TAG, ">>> padded data: " + paddedData)
+        logDebug(LOG_TAG, ">>> message: " + message)
+        logDebug(LOG_TAG, ">>> key: " + key)
+        logDebug(LOG_TAG, ">>> iv: " + iv)
 
         // crypto encryptor.
         const cipheredData =
-            CryptoJS.AES.encrypt(paddedData, key, {
+            CryptoJS.AES.encrypt(message, key, {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding,
                 mode: CryptoJS.mode.CBC
             })
 
         logDebug(LOG_TAG, "<<< encryption result ------------------------------------------------------------------")
-        logDebug(LOG_TAG, "<<< encryption, cipheredData: " + cipheredData)
+        // logDebug(LOG_TAG, "<<< encryption, cipheredData: " + cipheredData)
         logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext: " + cipheredData.ciphertext)
         logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext.length: " + cipheredData.ciphertext.length)
         logDebug(LOG_TAG, "<<< encryption result end --------------------------------------------------------------")
 
-        let cipheredArrayData = new Array(cipheredData.ciphertext.length / 2)
-        for (let i = 0; i < cipheredArrayData.length; i++) {
-            const item = cipheredData.ciphertext.toString().substr(i + i, 2)
-            cipheredArrayData[i] = item
-        }
-        logDebug(LOG_TAG, "<<< encryption, cipheredData array: " + cipheredArrayData)
+        // let cipheredArrayData = new Array(cipheredData.ciphertext.length / 2)
+        // for (let i = 0; i < cipheredArrayData.length; i++) {
+        //     const item = cipheredData.ciphertext.toString().substr(i + i, 2)
+        //     cipheredArrayData[i] = item
+        // }
+        // logDebug(LOG_TAG, "<<< encryption, cipheredData array: " + cipheredArrayData)
         return cipheredArrayData
     }
 
@@ -117,7 +103,7 @@ const Encryptor = () => {
      * @param {Any} data
      * @returns {Any}
      */
-    getDecryptedDataMessage = (data) => {
+    getDecryptedBytes = (data) => {
 
         // crypto decryptor.
         let decryptedData = CryptoJS.AES.decrypt(data, CUSTOM_SECRET_KEY, {
@@ -176,8 +162,8 @@ const Encryptor = () => {
     }
 
     return {
-        getEncryptedDataMessage,
-        getDecryptedDataMessage
+        getEncryptedBytes,
+        getDecryptedBytes
     }
 }
 

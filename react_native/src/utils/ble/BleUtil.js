@@ -3,6 +3,73 @@ import { stringToBytes } from "convert-string"
 
 const CryptoJS = require("crypto-js")
 
+/**
+ * 
+ * 
+ * This code will be refactored soon.
+ * Under construction...
+ * 
+ * 
+ */
+
+export const stringToUtf8ByteArray = (str) => {
+    // TODO(user): Use native implementations if/when available
+    var out = [], p = 0;
+    for (var i = 0; i < str.length; i++) {
+        var c = str.charCodeAt(i);
+        if (c < 128) {
+            out[p++] = c;
+        } else if (c < 2048) {
+            out[p++] = (c >> 6) | 192;
+            out[p++] = (c & 63) | 128;
+        } else if (
+            ((c & 0xFC00) == 0xD800) && (i + 1) < str.length &&
+            ((str.charCodeAt(i + 1) & 0xFC00) == 0xDC00)) {
+            // Surrogate Pair
+            c = 0x10000 + ((c & 0x03FF) << 10) + (str.charCodeAt(++i) & 0x03FF);
+            out[p++] = (c >> 18) | 240;
+            out[p++] = ((c >> 12) & 63) | 128;
+            out[p++] = ((c >> 6) & 63) | 128;
+            out[p++] = (c & 63) | 128;
+        } else {
+            out[p++] = (c >> 12) | 224;
+            out[p++] = ((c >> 6) & 63) | 128;
+            out[p++] = (c & 63) | 128;
+        }
+    }
+    return out;
+};
+
+export function toUtf8Bytes(str) {
+    var utf8 = [];
+    for (var i = 0; i < str.length; i++) {
+        var charcode = str.charCodeAt(i);
+        if (charcode < 0x80) utf8.push(charcode);
+        else if (charcode < 0x800) {
+            utf8.push(0xc0 | (charcode >> 6),
+                0x80 | (charcode & 0x3f));
+        }
+        else if (charcode < 0xd800 || charcode >= 0xe000) {
+            utf8.push(0xe0 | (charcode >> 12),
+                0x80 | ((charcode >> 6) & 0x3f),
+                0x80 | (charcode & 0x3f));
+        }
+        // surrogate pair
+        else {
+            i++;
+            // UTF-16 encodes 0x10000-0x10FFFF by
+            // subtracting 0x10000 and splitting the
+            // 20 bits of 0x0-0xFFFFF into two halves
+            charcode = 0x10000 + (((charcode & 0x3ff) << 10)
+                | (str.charCodeAt(i) & 0x3ff));
+            utf8.push(0xf0 | (charcode >> 18),
+                0x80 | ((charcode >> 12) & 0x3f),
+                0x80 | ((charcode >> 6) & 0x3f),
+                0x80 | (charcode & 0x3f));
+        }
+    }
+    return utf8;
+}
 /*----------------------------------------------------------------------------------
  * Byte Array to Binary String.
  *----------------------------------------------------------------------------------*/
@@ -30,6 +97,14 @@ export const convertByteArrayToNumeric = (value) => {
         result = (value << 8) | (value[i] & 0xFF)
     }
     return result
+}
+
+export function toHex(value) {
+    let hex = value.toString(16);
+    if ((hex.length % 2) > 0) {
+        hex = "0" + hex;
+    }
+    return hex;
 }
 
 /*----------------------------------------------------------------------------------
@@ -84,6 +159,19 @@ export const byteToHex = (byte) => {
     return newHex
 }
 
+export function byteArrayToHexString(byteArray) {
+    var hexString = '';
+    var nextHexByte;
+    for (var i = 0; i < byteArray.byteLength; i++) {
+        nextHexByte = byteArray[i].toString(16);    // Integer to base 16
+        if (nextHexByte.length < 2) {
+            nextHexByte = "0" + nextHexByte;        // Otherwise 10 becomes just a instead of 0a
+        }//  w w w.java  2 s  . c  om
+        hexString += nextHexByte;
+    }
+    return hexString;
+}
+
 /**----------------------------------------------------------------------------------
  * Decimal to Byte Array.
  *----------------------------------------------------------------------------------*/
@@ -128,10 +216,35 @@ export const toHexString = (byteArray) => {
  * @param {number} value 
  * @returns 
  */
-export const convertIntToByteArray = (value) => {
+export const convertIntToBytes = (value) => {
     let result = [value >> 8, value]
-    return result
+    let array = new Int8Array(2)
+    array[0] = result[0]
+    array[1] = result[1]
+    return array
 }
+
+export const convertIntToOneByte = (value) => {
+    let array = new Int8Array(1)
+    array[0] = value
+    return array
+}
+
+export function hexToBytes2(hex) {
+    for (var bytes = [], c = 0; c < hex.length; c += 2)
+        bytes.push(parseInt(hex.substr(c, 2), 16));
+    return bytes;
+}
+
+export function bytesToHex2(bytes) {
+    for (var hex = [], i = 0; i < bytes.length; i++) {
+        var current = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
+        hex.push((current >>> 4).toString(16));
+        hex.push((current & 0xF).toString(16));
+    }
+    return hex.join("");
+}
+
 
 /**----------------------------------------------------------------------------------
  * HEX to Decimal.

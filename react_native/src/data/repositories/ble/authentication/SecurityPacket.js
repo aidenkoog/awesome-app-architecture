@@ -1,21 +1,21 @@
-import { convertDecimalToHexString, convertIntToByteArray, convertStringToByteArray, numberToBytes } from '../../../../utils/ble/BleUtil'
+import { convertIntToOneByte } from '../../../../utils/ble/BleUtil'
 import { randomBytes } from 'react-native-randombytes'
 import { CRYPTO_HS_AAD } from '../../../../utils/ble/BleEncryptionConstants'
 import { arrayCopy } from '../../../../utils/common/CommonUtil'
-import Constants from '../../../../utils/Constants'
-import KeyCrypto from '../crypto/key/KeyCrypto'
-import DataCrypto from '../crypto/data/DataCrypto'
-import { logDebugWithLine } from '../../../../utils/logger/Logger'
+import { logDebug, logDebugWithLine } from '../../../../utils/logger/Logger'
 import { bytesToString, stringToBytes } from "convert-string"
-import HashMac from '../hash/HashMac'
+import HashMac from '../authentication/HashMac'
+import Constants from '../../../../utils/Constants'
+import Encryptor from '../authentication/Encryptor'
+import KeyWrapper from '../authentication/KeyWrapper'
 
 const LOG_TAG = Constants.LOG.BT_SECURITY_PACKET
 
 const SecurityPacket = () => {
 
-    const { doWrappingKey } = KeyCrypto()
-    const { getEncryptedDataMessage } = DataCrypto()
-    const { getHashMac } = HashMac()
+    const { getWrappingKeyBytes } = KeyWrapper()
+    const { getEncryptedBytes } = Encryptor()
+    const { getHashMacBytes } = HashMac()
 
     getRandomByteArray = (size) => {
         const randomByteArray = randomBytes(size)
@@ -32,44 +32,41 @@ const SecurityPacket = () => {
         return randomHexArray
     }
 
-    createSecurityPacket = (data) => {
-        let upperRandom32 = new Array(16)
-        let lowerRandom32 = new Array(16)
-        let random32ByteArray = this.getRandomByteArray(32)
+    getSecurityPacketBytes = (messageBytes) => {
 
-        arrayCopy(random32ByteArray, 0, upperRandom32, 0, 16)
-        arrayCopy(random32ByteArray, 16, lowerRandom32, 0, 16)
+        let upperRandom32Bytes = new Array(16)
+        let lowerRandom32Bytes = new Array(16)
+        logDebug(LOG_TAG, ">>> upperRandom32Bytes: " + upperRandom32Bytes + ", lowerRandom32Bytes: " + lowerRandom32Bytes)
 
-        logDebugWithLine(LOG_TAG, "header raw data: " + CRYPTO_HS_AAD)  // 81 (int, decimal)
-        logDebugWithLine(LOG_TAG, "header test: " + convertStringToByteArray(convertDecimalToHexString(CRYPTO_HS_AAD)))
-        logDebugWithLine(LOG_TAG, "header binary: " + convertIntToByteArray(CRYPTO_HS_AAD))
-        this.header = numberToBytes(CRYPTO_HS_AAD)
 
-        logDebugWithLine(LOG_TAG, "header converting: " + this.header)    // 51 (hex)
+        let random32Bytes = randomBytes(32)
+        logDebug(LOG_TAG, ">>> random32Bytes: " + random32Bytes)
 
-        let test = new Uint8Array(1)
-        test[0] = header
-        logDebugWithLine(LOG_TAG, "header??? " + test.toString())
 
-        this.iv = getRandomByteArray(16)
-        this.cek = doWrappingKey(random32ByteArray)
-        logDebugWithLine(LOG_TAG, "cek[0]: " + this.cek[0])
+        arrayCopy(random32Bytes, 0, upperRandom32Bytes, 0, 16)
+        arrayCopy(random32Bytes, 16, lowerRandom32Bytes, 0, 16)
+        logDebug(LOG_TAG, ">>> copied upperRandom32Bytes: " + upperRandom32Bytes + ", copied lowerRandom32Bytes: " + lowerRandom32Bytes)
 
-        let lowerRandom32String = ""
-        for (let i = 0; i < lowerRandom32.length; i++) {
-            lowerRandom32String += lowerRandom32[i]
-        }
 
-        let ivString = ""
-        for (let i = 0; i < iv.length; i++) {
-            ivString += iv[i]
-        }
+        this.headerBytes = convertIntToOneByte(CRYPTO_HS_AAD)
+        logDebug(LOG_TAG, ">>> headerBytes: " + headerBytes)
 
-        logDebugWithLine(LOG_TAG, "lowerRandom32String: " + lowerRandom32String)
-        logDebugWithLine(LOG_TAG, "ivString: " + ivString)
 
-        this.encrypt = getEncryptedDataMessage(data, lowerRandom32String, ivString)
-        this.signature = getHashMac(encrypt, upperRandom32, iv) // byte
+        this.ivBytes = randomBytes(16)
+        logDebug(LOG_TAG, ">>> ivBytes: " + ivBytes)
+
+
+        this.cekBytes = getWrappingKeyBytes(random32Bytes)
+        logDebug(LOG_TAG, ">>> cekBytes: " + cekBytes)
+
+
+        this.encryptedBytes = getEncryptedBytes(messageBytes, lowerRandom32Bytes, ivBytes)
+        logDebug(LOG_TAG, ">>> encryptedBytes: " + encryptedBytes)
+
+
+        this.signatureBytes = getHashMacBytes(encryptedBytes, upperRandom32Bytes, ivBytes)
+        logDebug(LOG_TAG, ">>> signatureBytes: " + signatureBytes)
+
 
         logDebugWithLine(LOG_TAG, ">>> header: " + header)
         logDebugWithLine(LOG_TAG, ">>> iv: " + iv)
@@ -253,7 +250,7 @@ const SecurityPacket = () => {
 
     return {
         getRandomByteArray,
-        createSecurityPacket
+        getSecurityPacketBytes
     }
 }
 

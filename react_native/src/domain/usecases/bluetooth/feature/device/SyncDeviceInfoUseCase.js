@@ -1,7 +1,7 @@
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import Constants from '../../../../../utils/Constants.js'
 import { logDebugWithLine } from '../../../../../utils/logger/Logger.js'
-import { stringToBytes } from 'convert-string'
+import RequestMessage from '../../../../../data/repositories/ble/message/RequestMessage.js'
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
@@ -10,13 +10,18 @@ const SyncDeviceInfoUseCase = () => {
     const { sendBleCustomMessage } = BleRepository()
 
     /**
+     * create messages for authentication.
+     */
+    const { getSyncMessageBytes } = RequestMessage()
+
+    /**
      * execute usecase of syncing device information. 
      */
     executeSyncDeviceInfoUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute SyncDeviceInfoUseCase")
 
         return new Promise((fulfill, reject) => {
-            const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            const customMessage = getSyncMessageBytes()
             sendBleCustomMessage(customMessage).then(() => {
                 fulfill()
             }).catch((e) => {

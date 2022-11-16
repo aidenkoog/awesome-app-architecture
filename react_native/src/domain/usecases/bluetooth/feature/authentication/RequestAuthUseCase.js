@@ -1,6 +1,5 @@
 import Constants from '../../../../../utils/Constants.js'
-import { logDebug, logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
-import { stringToBytes } from "convert-string"
+import { logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
 import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
 import RequestMessage from '../../../../../data/repositories/ble/message/RequestMessage.js'
 
@@ -13,7 +12,10 @@ const RequestAuthUseCase = () => {
      */
     const { sendBleCustomMessage } = BleRepository()
 
-    const { getAuthenticateMessage } = RequestMessage()
+    /**
+     * create messages for authentication.
+     */
+    const { getAuthenticateMessageBytes } = RequestMessage()
 
     /**
      * execute usecase of requesting authentication to device.
@@ -21,10 +23,8 @@ const RequestAuthUseCase = () => {
     executeRequestAuthUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute RequestAuthUseCase")
 
-        logDebug(LOG_TAG, ">>> authentication message: " + getAuthenticateMessage())
-
         return new Promise((fulfill, reject) => {
-            const customMessage = stringToBytes("\x00" + "\x06" + "\x00" + "DFDFDF")
+            const customMessage = getAuthenticateMessageBytes()
             sendBleCustomMessage(customMessage).then(() => {
                 fulfill()
             }).catch((e) => {

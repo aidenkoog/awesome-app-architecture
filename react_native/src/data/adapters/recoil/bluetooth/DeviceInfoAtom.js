@@ -36,3 +36,11 @@ export const bleWriteResponseAtom = atom({
     key: 'bleWriteResponseAtom',
     default: Constants.COMMON.DEFAULT_DATA
 })
+
+/**
+ * store the data received from the BLE device.
+ */
+export const bleCharacteristcChangeAtom = atom({
+    key: 'bleCharacteristcChangeAtom',
+    default: Constants.COMMON.DEFAULT_LIST_STATE
+})

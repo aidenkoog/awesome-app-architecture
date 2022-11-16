@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react'
-import ConnectBleUseCase from '../../../domain/usecases/bluetooth/ConnectBleUseCase'
+import ConnectBleUseCase from '../../../domain/usecases/bluetooth/basic/ConnectBleUseCase'
 import Constants from '../../../utils/Constants'
 import { logDebug, outputErrorLog } from '../../../utils/logger/Logger'
 import BluetoothComponent from './BluetoothComponent'
@@ -22,6 +22,7 @@ const BluetoothContainer = ({ navigation }) => {
         executeBleModuleUseCase,
         executeStartScanUseCase
     } = ConnectBleUseCase()
+
     const { executeBluetoothPermissionUseCase } = CheckPermissionUseCase()
 
     /**

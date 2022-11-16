@@ -3,6 +3,15 @@ import { stringToBytes } from "convert-string"
 const CryptoJS = require("crypto-js")
 
 /**
+ * 
+ * 
+ * This code will be refactored soon.
+ * Under construction...
+ * 
+ * 
+ */
+
+/**
  * secret key information.
  */
 export const KEY_HEXS = [

@@ -63,7 +63,7 @@ const HashMac = () => {
         return hMacInput
     }
 
-    getHashMac = (encrypt, key, iv) => {
+    getHashMacBytes = (encrypt, key, iv) => {
         let hashMac = null
         let input = this.getHashMacInput(encrypt, iv)
         logDebug(LOG_TAG, "###1, input: " + input)

@@ -5,7 +5,7 @@ import { bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnect
 import { ACTION_AUTHENTICATE, ACTION_DISCONNECT, ACTION_SYNC, ACTION_UPGRADE_FIRMWARE } from '../../../domain/usecases/bluetooth/action/BleActions.js'
 import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
-import { bleAuthResultAtom, bleSequenceIdAtom, bleWriteResponseAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
+import { bleAuthResultAtom, bleCharacteristcChangeAtom, bleSequenceIdAtom, bleWriteResponseAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
 import { logDebug, logDebugWithLine, outputErrorLog } from '../../../utils/logger/Logger.js'
 import { byteToHex, convertBleCustomToHexData } from '../../../utils/ble/BleUtil.js'
@@ -104,6 +104,11 @@ const BleRepository = () => {
      * [ ble custom message write method's response ]
      */
     const setBleWriteResponse = useSetRecoilState(bleWriteResponseAtom)
+
+    /**
+     * [ ble characteristc change ]
+     */
+    const setBleCharacteristcChange = useSetRecoilState(bleCharacteristcChangeAtom)
 
     /**
      * listeners for catching the ble events.
@@ -247,6 +252,11 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(bleCustomMessage.value))
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
+
+        setBleCharacteristcChange(
+            "[bytes]: " + bleCustomMessage.value + "\n\n"
+            + "[hex]: " + convertBleCustomToHexData(bleCustomMessage.value)
+        )
     }
 
     /**
@@ -630,9 +640,9 @@ const BleRepository = () => {
                     RX_CHARACTERISTIC_UUID,
                     bleMessage).then(() => {
                         const responseMessage =
-                            "<<< succeeded to write ble custom message to "
-                            + peripheral.id + ",\nsequence id: " + bleSequenceId
-                            + ",\nsentBytes: " + bleMessage + ",\nsentHex: " + byteToHex(bleMessage)
+                            "<<< succeeded to write ble custom message\n"
+                            + "[Peripheral Id]: " + peripheral.id + ",\n[Sequence Id]: " + bleSequenceId
+                            + ",\n[Sent-Bytes]: " + bleMessage + ",\n\n[Sent-Hex]: " + byteToHex(bleMessage)
 
                         logDebug(LOG_TAG, responseMessage)
 

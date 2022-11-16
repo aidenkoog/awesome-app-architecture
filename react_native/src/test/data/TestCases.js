@@ -13,6 +13,7 @@ export const TEST_CATEGORY_LIST = [
 ]
 
 export const BT_TEST_CASE_LIST = [
+    new TestCase('bt_t0', "Information", "343a40"),
     new TestCase('bt_t1', "Authenticate", "343a40"),
     new TestCase('bt_t2', "Sync", "343a40"),
     new TestCase('bt_t3', "Disconnect", "343a40"),
