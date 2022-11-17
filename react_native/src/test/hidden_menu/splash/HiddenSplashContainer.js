@@ -1,15 +1,15 @@
 import { useLayoutEffect, useEffect } from 'react'
-import Constants from '../../../../utils/Constants'
 import { useIsFocused } from '@react-navigation/native'
-import { replaceToNextScreen } from '../../../../utils/navigation/NavigationUtil'
 import HiddenSplashComponent from './HiddenSplashComponent'
+import { replaceToNextScreen } from '../../../utils/navigation/NavigationUtil'
+import Constants from '../../../utils/Constants'
 
 /**
  * next screen information.
  */
 const NEXT_SCREEN = Constants.SCREEN.HIDDEN.HOME
 const NAVIGATION_PURPOSE = Constants.NAVIGATION.PURPOSE.NORMAL
-const NAVIGATION_DELAY_TIME = 2500
+const NAVIGATION_DELAY_TIME = 1000
 
 /**
  * hidden splash screen.

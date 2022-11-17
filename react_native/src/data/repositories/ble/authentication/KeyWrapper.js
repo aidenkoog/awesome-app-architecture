@@ -9,7 +9,7 @@ const LOG_TAG = Constants.LOG.BT_KEY_CRYPTO
  * load crypto module.
  */
 const CryptoJS = require("crypto-js")
-var aesjs = require('aes-js');
+var aesjs = require('aes-js')
 
 const KeyWrapper = () => {
 
@@ -70,7 +70,6 @@ const KeyWrapper = () => {
         arrayCopy(dialogueKey, 0, dialogueKey, 8, 32)
         arrayCopy(outDataArray, 0, dialogueKey, 0, 8)
         logDebug(LOG_TAG, ">>> dialogueKey: " + dialogueKey)
-
 
         return dialogueKey
     }

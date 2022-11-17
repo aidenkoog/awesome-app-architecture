@@ -9,6 +9,18 @@ import { Strings } from "../theme"
 
 const LOG_TAG = Constants.LOG.TIME_UTIL_LOG_TAG
 
+/**
+ * get current time string.
+ * @returns {string}
+ */
+export const getCurrentTime = () => {
+    let currentDate = new Date()
+    let hours = (currentDate.getHours() < 10 ? '0' : '') + currentDate.getHours();
+    let minutes = (currentDate.getMinutes() < 10 ? '0' : '') + currentDate.getMinutes();
+    let seconds = (currentDate.getSeconds() < 10 ? '0' : '') + currentDate.getSeconds();
+    return hours + ':' + minutes + ':' + seconds;
+}
+
 export const formatMonthDate = (dateObj) => {
     let month = dateObj.getMonth()
     let date = dateObj.getDate()

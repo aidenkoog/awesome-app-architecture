@@ -14,7 +14,7 @@ const ConnectBleUseCase = () => {
     const {
         connectDevice, disableNotification, disconnectDevice, enableNotification,
         initializeBleModule, getUuidList, sendBleCustomData, startScan, stopScan,
-        getBleDeviceInfo
+        getBleDeviceInfo, changeCachedDeviceInformation
     } = BleRepository()
 
     /**
@@ -204,11 +204,55 @@ const ConnectBleUseCase = () => {
         })
     }
 
+    /**
+     * execute usecase of trying to reconnect ble device.
+     * @param {string} deviceName
+     * @param {string} macAddress
+     * @returns {Promise}
+     */
+    executeReconnectBleDeviceUseCase = (deviceName, macAddress) => {
+        logDebugWithLine(LOG_TAG, "execute ReconnectBleDeviceUseCase")
+
+        return new Promise((fulfill, reject) => {
+            changeCachedDeviceInformation(deviceName, macAddress).then(() => {
+                startScan(serviceUuid, duration).then(() => {
+                    logDebug(LOG_TAG, "<<< succeeded to execute startScan with "
+                        + serviceUuid + " for " + duration + "seconds")
+                    fulfill()
+
+                }).catch((e) => {
+                    reject(e)
+                })
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * execute usecase of changing cached ble device name and mac address.
+     * @param {string} deviceName
+     * @param {string} macAddress
+     * @returns {Promise}
+     */
+    executeChangeCachedDeviceInfoUseCase = (deviceName, macAddress) => {
+        logDebugWithLine(LOG_TAG, "execute ChangeCachedDeviceInfoUseCase")
+        return new Promise((fulfill, reject) => {
+            changeCachedDeviceInformation(deviceName, macAddress).then(() => {
+                fulfill()
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
     return {
         executeConnectDeviceUseCase, executeDisableNotificationUseCase, executeDisconnectDeviceUseCase,
         executeEnableNotificationUseCase, executeBleModuleUseCase, executeGetUuidListUseCase,
         executeSendBleCustomDataUseCase, executeStartScanUseCase, executeStopScanUseCase,
-        executeGetBleDeviceInfo
+        executeGetBleDeviceInfo, executeReconnectBleDeviceUseCase, executeChangeCachedDeviceInfoUseCase
     }
 }
 

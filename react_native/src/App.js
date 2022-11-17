@@ -14,12 +14,12 @@ import HrMonitoringSettingContainer from './presentation/containers/settings/hr_
 import DeviceInfoContainer from './presentation/containers/settings/device/DeviceInfoContainer'
 import DeviveStatusContainer from './presentation/containers/home/device_status/DeviceStatusContainer'
 
-import HiddenHomeContainer from './presentation/containers/hidden/home/HiddenHomeContainer'
-import HiddenSplashContainer from './presentation/containers/hidden/splash/HiddenSplashContainer'
-import HiddenBluetoothContainer from './presentation/containers/hidden/home/bluetooth/HiddenBluetoothContainer'
-import HiddenCommonContainer from './presentation/containers/hidden/home/common/HiddenCommonContainer'
-import HiddenPlatformContainer from './presentation/containers/hidden/home/platform/HiddePlatformContainer'
-import HiddenServerContainer from './presentation/containers/hidden/home/server/HiddenServerContainer'
+import HiddenHomeContainer from './test/hidden_menu/home/HiddenHomeContainer'
+import HiddenSplashContainer from './test/hidden_menu/splash/HiddenSplashContainer'
+import HiddenBluetoothContainer from './test/hidden_menu/home/bluetooth/HiddenBluetoothContainer'
+import HiddenCommonContainer from './test/hidden_menu/home/common/HiddenCommonContainer'
+import HiddenPlatformContainer from './test/hidden_menu/home/platform/HiddePlatformContainer'
+import HiddenServerContainer from './test/hidden_menu/home/server/HiddenServerContainer'
 
 import Constants from './utils/Constants'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'

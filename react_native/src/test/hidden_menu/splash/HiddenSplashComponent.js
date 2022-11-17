@@ -1,5 +1,5 @@
 import { View, Image, StyleSheet, Text } from "react-native"
-import { Images } from "../../../../utils/theme"
+import { Images } from "../../../utils/theme"
 
 const SPLASH_MESSAGE = "Entering Test Hidden Mode"
 

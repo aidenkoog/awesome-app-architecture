@@ -30,16 +30,16 @@ const DIALOGUE_STATUS = "\x00" + "\x00" + "\x00" + "\x00" + "\x00" + "\x00" + "\
 const CMD = "\x02"
 const REQUEST_TYPE = "\x01"
 const SOURCE_IP = "\x00" + "\x00" + "\x00" + "\x00"
-const HEIGHT = "\xAF"
-const WEIGHT = "\x78"
+const HEIGHT = "\x00" + "\xAF"
+const WEIGHT = "\x00" + "\x78"
 const GENDER = "\x00"
 const AGE = "\x43"
 const REMINDER = "\x00" + "\x00" + "\x00" + "\x00"
 const DATE = "\x60" + "\x5A" + "\xEA" + "\x07"
 const FW_VERSION = "\x41" + "\x42" + "\x43" + "\x44" + "\x45" + "\x46" + "\x47" + "\x48"
 
-const SYNC_PAYLOAD = "\x80" + "\x00" + "\x01" + "\xC1"
-const DISCONNECT_PAYLOAD = "\x80" + "\x00" + "\x01" + "\xC2"
+const SYNC_PAYLOAD = "\xC0" + "\x00" + "\x01" + "\xC1"
+const DISCONNECT_PAYLOAD = "\xC0" + "\x00" + "\x01" + "\xC2"
 
 /**
  * 0x00
@@ -159,8 +159,14 @@ const RequestMessage = () => {
         return stringToBytes(FW_VERSION)
     }
 
-    getPayloadLengthBytes = () => {
-        return convertIntToBytes(syncPayloadBytes.length)
+    getPayloadLengthBytes = (action) => {
+        switch (action) {
+            case 'sync':
+                return convertIntToBytes(syncPayloadBytes.length)
+
+            case 'disconnect':
+                return convertIntToBytes(disconnectPayloadBytes.length)
+        }
     }
 
     getSyncPayloadBytes = () => {
@@ -231,7 +237,7 @@ const RequestMessage = () => {
         fwVersionBytes = this.getFwVersionBytes()
 
         syncPayloadBytes = this.getSyncPayloadBytes()
-        payloadLengthBytes = this.getPayloadLengthBytes()
+        payloadLengthBytes = this.getPayloadLengthBytes('sync')
 
         dataBytesLength =
             versionBytes.length
@@ -308,8 +314,8 @@ const RequestMessage = () => {
         dateBytes = this.getDateBytes()
         fwVersionBytes = this.getFwVersionBytes()
 
-        disconnectPayloadBytes = this.getSyncPayloadBytes()
-        payloadLengthBytes = this.getPayloadLengthBytes()
+        disconnectPayloadBytes = this.getDisconnectPayloadBytes()
+        payloadLengthBytes = this.getPayloadLengthBytes('disconnect')
 
         dataBytesLength =
             versionBytes.length

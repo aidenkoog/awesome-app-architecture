@@ -1,6 +1,6 @@
-import Constants from "../../../../utils/Constants"
-import { logDebug } from "../../../../utils/logger/Logger"
-import { navigateToNextScreen } from "../../../../utils/navigation/NavigationUtil"
+import Constants from "../../../utils/Constants"
+import { logDebug } from "../../../utils/logger/Logger"
+import { navigateToNextScreen } from "../../../utils/navigation/NavigationUtil"
 import HiddenHomeComponent from "./HiddenHomeComponent"
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG

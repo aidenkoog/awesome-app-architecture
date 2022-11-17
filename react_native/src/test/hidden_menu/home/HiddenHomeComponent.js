@@ -1,7 +1,6 @@
 import { FlatList, View, Text } from "react-native"
-import { TEST_CATEGORY_LIST } from "../../../../test/data/TestCases"
-import TestCategoryGridTile from "../../../components/hidden/TestCategoryGridTile"
-
+import TestCategoryGridTile from "../../../presentation/components/hidden/TestCategoryGridTile"
+import { TEST_CATEGORY_LIST } from "../../data/TestCases"
 
 const TEST_GUIDE_MESSAGE =
     "[ Guide ]\n\n" +

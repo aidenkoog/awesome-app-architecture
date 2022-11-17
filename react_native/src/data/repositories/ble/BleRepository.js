@@ -3,7 +3,7 @@ import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID, RX_CHARACTERISTIC_UU
 import { bleTxUuidNotificationStateAtom, bleFlowControlUuidNotificationStateAtom, bleBatteryUuidNotificationStateAtom, } from '../../adapters/recoil/bluetooth/BleNotificationAtom'
 import { bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnectionCompleteStateAtom } from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
 import { ACTION_AUTHENTICATE, ACTION_DISCONNECT, ACTION_SYNC, ACTION_UPGRADE_FIRMWARE } from '../../../domain/usecases/bluetooth/action/BleActions.js'
-import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress } from '../../../utils/storage/StorageUtil'
+import { getBleDeviceMacAddress, getBleDeviceName, storeBleDeviceMacAddress, storeBleDeviceName } from '../../../utils/storage/StorageUtil'
 import { bleScanningStateAtom, bleDeviceFoundAtom } from '../../adapters/recoil/bluetooth/ScanningStateAtom'
 import { bleAuthResultAtom, bleCharacteristcChangeAtom, bleSequenceIdAtom, bleWriteResponseAtom } from '../../adapters/recoil/bluetooth/DeviceInfoAtom'
 import { bleBatteryStateAtom } from '../../adapters/recoil/bluetooth/BatteryStateAtom.js'
@@ -16,6 +16,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil'
 import Constants from '../../../utils/Constants.js'
 import { useEffect } from 'react'
 import { getInstanceId } from 'react-native-device-info'
+import { bytesToString } from 'convert-string'
 
 
 const LOG_TAG = Constants.LOG.BT_REPO_LOG
@@ -45,6 +46,11 @@ let cachedDeviceUuid = ""
  * ble battery uuid existence.
  */
 let bleBatteryUuidExistence = false
+
+/**
+ * enable or disable the ble log characteristic message.
+ */
+let bleLogEnabled = false
 
 /**
  * bluetooth api implementation.
@@ -244,19 +250,28 @@ const BleRepository = () => {
      * @param {bytes} bleCustomMessage 
      */
     onCharacteristicChanged = (bleCustomMessage) => {
+
+        const bleCustomBytes = bleCustomMessage.value
+        const bleCustomBytesLength = bleCustomBytes.length
+
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
         logDebug(LOG_TAG, "<<< received characteristic custom message - start")
         logDebug(LOG_TAG, "peripheral: " + bleCustomMessage.peripheral)
         logDebug(LOG_TAG, "characteristic: " + bleCustomMessage.characteristic)
-        logDebug(LOG_TAG, "value: " + bleCustomMessage.value)
-        logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(bleCustomMessage.value))
+        logDebug(LOG_TAG, "bytes: " + bleCustomBytes)
+        logDebug(LOG_TAG, "bytes length: " + bleCustomBytesLength)
+        logDebug(LOG_TAG, "hex: " + convertBleCustomToHexData(bleCustomBytes))
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
 
-        setBleCharacteristcChange(
-            "[bytes]: " + bleCustomMessage.value + "\n\n"
-            + "[hex]: " + convertBleCustomToHexData(bleCustomMessage.value)
-        )
+        const lastByteValue = bleCustomBytes[bleCustomBytesLength - 1]
+        if (bleCustomBytesLength > 0 && (lastByteValue == 3 || lastByteValue == 4 || bleLogEnabled)) {
+            setBleCharacteristcChange(
+                "1. [bytes]: " + bleCustomBytes + "\n\n"
+                + "2. [hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n\n"
+                + "3. [string]: " + bytesToString(bleCustomBytes)
+            )
+        }
     }
 
     /**
@@ -640,9 +655,10 @@ const BleRepository = () => {
                     RX_CHARACTERISTIC_UUID,
                     bleMessage).then(() => {
                         const responseMessage =
-                            "<<< succeeded to write ble custom message\n"
-                            + "[Peripheral Id]: " + peripheral.id + ",\n[Sequence Id]: " + bleSequenceId
-                            + ",\n[Sent-Bytes]: " + bleMessage + ",\n\n[Sent-Hex]: " + byteToHex(bleMessage)
+                            "<<< succeeded to write ble custom message\n\n"
+                            + "1. [Peripheral Id]: " + peripheral.id + ",\n\n2. [Sequence Id]: " + bleSequenceId
+                            + ",\n\n3. [Sent-Bytes]: " + bleMessage + ",\n\n4. [Sent-Bytes-Length]: " + bleMessage.length
+                            + ",\n\n5. [Sent-Hex]: " + byteToHex(bleMessage)
 
                         logDebug(LOG_TAG, responseMessage)
 
@@ -676,6 +692,62 @@ const BleRepository = () => {
             default:
                 return null
         }
+    }
+
+    /**
+     * get cached device name.
+     * @returns {string}
+     */
+    getDeviceName = () => {
+        return cachedBleDeviceName
+    }
+
+    /**
+     * get cached device mac address.
+     * @returns {string}
+     */
+    getPeripheralId = () => {
+        return cachedBleMacAddress
+    }
+
+    /**
+     * enable or disable ble log characteristic.
+     * @param {boolean} enable
+     */
+    enableBleLog = (enable) => {
+        bleLogEnabled = enable
+    }
+
+    /**
+     * get current log enable state.
+     * @returns {boolean}
+     */
+    getCurrentLogEnableState = () => {
+        return bleLogEnabled
+    }
+
+    /**
+     * change cached device information.
+     * @param {string} deviceName
+     * @param {string} macAddress
+     * @returns {Promise}
+     */
+    changeCachedDeviceInformation = (deviceName, macAddress) => {
+        return new Promise((fulfill, reject) => {
+            storeBleDeviceName(deviceName).then(() => {
+                storeBleDeviceMacAddress(macAddress).then(() => {
+                    fulfill()
+
+                }).catch((e) => {
+                    outputErrorLog(LOG_TAG, e + " occurred by storeBleDeviceMacAddress")
+                    reject(e)
+                })
+
+            }).catch((e) => {
+                outputErrorLog(LOG_TAG, e + " occurred by storeBleDeviceName")
+                reject(e)
+            })
+        })
     }
 
     /**
@@ -719,7 +791,12 @@ const BleRepository = () => {
         getUuidList,
         retrieveServices,
         sendBleCustomMessage,
-        requestMTU
+        requestMTU,
+        getDeviceName,
+        getPeripheralId,
+        enableBleLog,
+        getCurrentLogEnableState,
+        changeCachedDeviceInformation
     }
 }
 

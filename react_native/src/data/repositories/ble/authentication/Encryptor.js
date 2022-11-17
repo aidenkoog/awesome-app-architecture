@@ -1,5 +1,5 @@
 import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../utils/ble/BleEncryptionConstants"
-import { bytesToHex } from "../../../../utils/ble/BleUtil"
+import { bytesToHex, convertIntToOneByte } from "../../../../utils/ble/BleUtil"
 import { arrayCopy } from "../../../../utils/common/CommonUtil"
 import Constants from "../../../../utils/Constants"
 import { logDebug } from "../../../../utils/logger/Logger"
@@ -11,91 +11,56 @@ const LOG_TAG = Constants.LOG.BT_CRYPTO
  * load crypto module.
  */
 const CryptoJS = require("crypto-js")
+var aesjs = require('aes-js')
 
 const Encryptor = () => {
 
     /**
-     * encrypt ble custom message and return it.
-     * @param {bytes} data
-     * @returns {Any}
+     * encrypt content bytes.
+     * @param {bytes} contentBytes
+     * @param {bytes} keyBytes
+     * @param {bytes} ivBytes 
+     * @returns {bytes}
      */
-    getEncryptedBytes = (message, key = CUSTOM_SECRET_KEY, iv = CUSTOM_IV) => {
+    getEncryptedBytes = (contentBytes, keyBytes, ivBytes) => {
 
-        logDebug(LOG_TAG, ">>> message: " + message)
-        logDebug(LOG_TAG, ">>> key: " + key)
-        logDebug(LOG_TAG, ">>> iv: " + iv)
+        logDebug(LOG_TAG, ">>> contentBytes: " + contentBytes)
+        logDebug(LOG_TAG, ">>> paddingBytes: " + padding(contentBytes))
+        logDebug(LOG_TAG, ">>> keyBytes: " + keyBytes)
+        logDebug(LOG_TAG, ">>> ivBytes: " + ivBytes)
 
-        // crypto encryptor.
-        const cipheredData =
-            CryptoJS.AES.encrypt(message, key, {
-                iv: iv,
-                padding: CryptoJS.pad.NoPadding,
-                mode: CryptoJS.mode.CBC
-            })
+        let aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes)
+        let encryptedBytes = aesCbc.encrypt(contentBytes)
+        logDebug(LOG_TAG, ">>> encryptedBytes: " + encryptedBytes)
 
-        logDebug(LOG_TAG, "<<< encryption result ------------------------------------------------------------------")
-        // logDebug(LOG_TAG, "<<< encryption, cipheredData: " + cipheredData)
-        logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext: " + cipheredData.ciphertext)
-        logDebug(LOG_TAG, "<<< encryption, cipheredData.ciphertext.length: " + cipheredData.ciphertext.length)
-        logDebug(LOG_TAG, "<<< encryption result end --------------------------------------------------------------")
-
-        // let cipheredArrayData = new Array(cipheredData.ciphertext.length / 2)
-        // for (let i = 0; i < cipheredArrayData.length; i++) {
-        //     const item = cipheredData.ciphertext.toString().substr(i + i, 2)
-        //     cipheredArrayData[i] = item
-        // }
-        // logDebug(LOG_TAG, "<<< encryption, cipheredData array: " + cipheredArrayData)
-        return cipheredArrayData
+        return encryptedBytes
     }
 
     /**
      * apply padding algorithm to data and return it.
-     * @param {Any} data
-     * @returns {Any}
+     * @param {bytes} contentBytes
+     * @returns {bytes}
      */
-    getPaddedData = (data) => {
+    padding = (contentBytes) => {
 
-        logDebug(LOG_TAG, ">>> data before padding algorithm is applied: " + data)
+        const contentLength = contentBytes.length
+        const padding = 16 - (contentLength % 16)
+        const bufferLength = ((contentLength + 16) / 16) * 16
 
-        const dataLength = data.length
-        const dataLengthDividedByTwo = dataLength / 2
-        const padding = 16 - (dataLengthDividedByTwo % 16)
-        const paddingAsInt = parseInt(padding, 16)
-        const bufferLength = ((dataLengthDividedByTwo + 16) / 16) * 16
+        logDebug(LOG_TAG,
+            ">>> contentLength: " + contentLength
+            + ", padding: " + padding
+            + ", bufferLength: " + bufferLength
+        )
 
-        logDebug(LOG_TAG, ">>> padding related data, "
-            + "original dataLength: " + dataLength
-            + ", data length divided by 2: " + dataLengthDividedByTwo
-            + ", paddingValue: " + padding
-            + ", destination buffer lLength: " + bufferLength)
+        let buffer = new Array(bufferLength)
 
-        let destination = new Array(bufferLength)
+        arrayCopy(contentBytes, 0, buffer, 0, contentLength)
 
-        let source = new Array(dataLengthDividedByTwo)
-        for (let i = 0; i < source.length; i++) {
-            const item = data.substr(i + i, 2)
-            source[i] = item
+        for (let i = contentLength; i < buffer.length; i++) {
+            buffer[i] = convertIntToOneByte(padding)[0]
         }
-        arrayCopy(source, 0, destination, 0, dataLengthDividedByTwo)
-
-        for (let i = dataLengthDividedByTwo; i < destination.length; i++) {
-            if (paddingAsInt < 10) {
-                destination[i] = "0" + padding
-            } else {
-                destination[i] = padding
-            }
-        }
-
-        let paddingResult = ""
-        for (let i = 0; i < destination.length; i++) {
-            paddingResult += destination[i]
-        }
-
-        logDebug(LOG_TAG, ">>> padding, destination buffer: " + destination)
-
-        logDebug(LOG_TAG, ">>> padding, result: " + paddingResult)
-
-        return paddingResult
+        return buffer
     }
 
     /**

@@ -1,6 +1,6 @@
-import BleRepository from '../../../../../data/repositories/ble/BleRepository.js'
-import Constants from '../../../../../utils/Constants.js'
-import { logDebug, logDebugWithLine, outputErrorLog } from '../../../../../utils/logger/Logger.js'
+import BleRepository from "../../../../../data/repositories/ble/BleRepository"
+import Constants from "../../../../../utils/Constants"
+import { logDebug, logDebugWithLine, outputErrorLog } from "../../../../../utils/logger/Logger"
 
 const LOG_TAG = Constants.LOG.BT_USECASE_LOG
 
