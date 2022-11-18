@@ -15,6 +15,8 @@ It is written based on JavaScript, and when the JavaScript-based template source
 
 ## Release Note
 
+- 2022/09/16 ~ 2022/10/21 : Review RN (React-Native) itself.
+
 - 2022/10/22 : Fixed 1st source code architecture (presentation / core / test / config / constants)
 - 2022/10/23 : (1st) Fixed logging errors and changed log function's name
 - 2022/10/23 : (2nd) Add Bluetooth related usecase source code / Separate container and component ui of root.
@@ -29,6 +31,8 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/15 : (1st) Added chart graph ui that shows device status.
 - 2022/11/15 : (2nd) Added testcases / test hidden ui
 - 2022/11/16 : Added authentication, sync device information and diconnect device functions.
+- 2022/11/17 : (1st) Added clear, reconnect BLE and en/disable BLE log option testcases.
+- 2022/11/17 : (2nd) Added testcase for automatical testing.
 
 
 ## How To Setup Environment
