@@ -40,6 +40,11 @@ let isAutoTestMode = false
 let autoTestIndex = 0
 
 /**
+ * check if ble custom message is sent to device.
+ */
+let isBleMessageSent = false
+
+/**
  * bluetooth api test screen.
  * @returns {JSX.Element}
  */
@@ -169,11 +174,14 @@ const HiddenBluetoothContainer = ({ }) => {
 
             case 'bt_t1':
                 addLogMessageHandler(">>> execute Authenticate-Device")
+                isBleMessageSent = true
+
                 executeRequestAuthUseCase().then(() => {
-                    addLogMessageHandler("<<< Succeeded to request authentication message")
+                    addLogMessageHandler("<<< [ AUTHENTICATE ] Succeeded to write")
                     executeNextTestCase()
 
                 }).catch((e) => {
+                    isBleMessageSent = false
                     outputErrorLog(LOG_TAG, e + " occurred by executeRequestAuthUseCase")
                     addLogMessageHandler("<<< Failed to request authentication message")
                     executeNextTestCase()
@@ -182,11 +190,14 @@ const HiddenBluetoothContainer = ({ }) => {
 
             case 'bt_t2':
                 addLogMessageHandler(">>> execute Sync-Device-Info")
+                isBleMessageSent = true
+
                 executeSyncDeviceInfoUseCase().then(() => {
-                    addLogMessageHandler("<<< Succeeded to request sync device message")
+                    addLogMessageHandler("<<< [ SYNC ] Succeeded to write")
                     executeNextTestCase()
 
                 }).catch((e) => {
+                    isBleMessageSent = false
                     outputErrorLog(LOG_TAG, e + " occurred by executeSyncDeviceInfoUseCase")
                     addLogMessageHandler("<<< Failed to request sync device message")
                     executeNextTestCase()
@@ -195,11 +206,14 @@ const HiddenBluetoothContainer = ({ }) => {
 
             case 'bt_t3':
                 addLogMessageHandler(">>> execute Disconnect-Device")
+                isBleMessageSent = true
+
                 executeDisconnectDeviceUseCase().then(() => {
-                    addLogMessageHandler("<<< Succeeded to request disconnection message")
+                    addLogMessageHandler("<<< [ DISCONNECT ] Succeeded to write")
                     executeNextTestCase()
 
                 }).catch((e) => {
+                    isBleMessageSent = false
                     outputErrorLog(LOG_TAG, e + " occurred by executeDisconnectDeviceUseCase")
                     addLogMessageHandler("<<< Failed to request disconnection message")
                     executeNextTestCase()
@@ -238,11 +252,14 @@ const HiddenBluetoothContainer = ({ }) => {
 
             case 'bt_t7':
                 addLogMessageHandler(">>> execute Send-Custom-Log")
+                isBleMessageSent = true
+
                 executeSendBleLogUseCase().then(() => {
-                    addLogMessageHandler("<<< Succeeded to send ble log message")
+                    addLogMessageHandler("<<< [ SEND-CUSTOM-LOG ] Succeeded to write")
                     executeNextTestCase()
 
                 }).catch((e) => {
+                    isBleMessageSent = false
                     outputErrorLog(LOG_TAG, e + " occurred by executeSendBleLogUseCase")
                     addLogMessageHandler("<<< Failed to send ble log message")
                     executeNextTestCase()
@@ -251,11 +268,14 @@ const HiddenBluetoothContainer = ({ }) => {
 
             case 'bt_t8':
                 addLogMessageHandler(">>> execute Send-Custom-Message")
+                isBleMessageSent = true
+
                 executeSendBleLogUseCase().then(() => {
-                    addLogMessageHandler("<<< Succeeded to send ble custom message")
+                    addLogMessageHandler("<<< [ SEND-CUSTOM-MESSAGE ] Succeeded to write")
                     executeNextTestCase()
 
                 }).catch((e) => {
+                    isBleMessageSent = false
                     outputErrorLog(LOG_TAG, e + " occurred by executeSendBleLogUseCase")
                     addLogMessageHandler("<<< Failed to send ble custom message")
                     executeNextTestCase()
@@ -341,10 +361,22 @@ const HiddenBluetoothContainer = ({ }) => {
             showAlertWithOneButton("Error", "Bluetooth is disconnected", "OK", false, () => { })
         }
 
-        addLogMessageHandler(bleWriteResponse)
-        addLogMessageHandler("<<< response:\n" + bleCharacteristcChange)
+        if (isBleMessageSent) {
+            if (bleWriteResponse != null && bleWriteResponse != undefined && bleWriteResponse != "") {
+                addLogMessageHandler(bleWriteResponse)
+            }
+            isBleMessageSent = false
+        }
 
-    }, [bleWriteResponse])
+        if (bleCharacteristcChange != null && bleCharacteristcChange != undefined && bleCharacteristcChange != "") {
+            addLogMessageHandler(
+                "\n---------------------------------------------------\n"
+                + "<<< response:\n" + bleCharacteristcChange
+                + "\n---------------------------------------------------\n"
+            )
+        }
+
+    }, [bleWriteResponse, bleCharacteristcChange, bleConnectionCompleteState, isFirstEntry])
 
     /**
      * handle OK button event of popup for reconnecting ble device.

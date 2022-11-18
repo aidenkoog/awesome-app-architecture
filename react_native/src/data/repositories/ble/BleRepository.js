@@ -264,12 +264,15 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
 
+        const randomValue = Math.random()
         const lastByteValue = bleCustomBytes[bleCustomBytesLength - 1]
+
         if (bleCustomBytesLength > 0 && (lastByteValue == 3 || lastByteValue == 4 || bleLogEnabled)) {
             setBleCharacteristcChange(
-                "1. [bytes]: " + bleCustomBytes + "\n\n"
-                + "2. [hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n\n"
-                + "3. [string]: " + bytesToString(bleCustomBytes)
+                "1. [Bytes]: " + bleCustomBytes + "\n\n"
+                + "2. [Hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n"
+                + "3. [String]: " + bytesToString(bleCustomBytes) + "\n"
+                + "4. [Unique Id]: " + randomValue
             )
         }
     }

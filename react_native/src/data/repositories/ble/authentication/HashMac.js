@@ -1,17 +1,8 @@
-import { stringToBytes } from "convert-string"
 import { CRYPTO_HS_AAD, CRYPTO_HS_AL } from "../../../../utils/ble/BleEncryptionConstants"
 import { arrayCopy } from "../../../../utils/common/CommonUtil"
 import Constants from "../../../../utils/Constants"
-import { logDebug, outputErrorLog } from "../../../../utils/logger/Logger"
-import { convertDecimalToHexString, convertIntToOneByte } from "../../../../utils/ble/BleUtil"
-import {
-    utils,
-    AES,
-    HMAC,
-    SHA,
-    PBKDF2,
-    RSA
-} from "@egendata/react-native-simple-crypto"
+import { logDebug } from "../../../../utils/logger/Logger"
+import { convertIntToOneByte, toUtf8Bytes } from "../../../../utils/ble/BleUtil"
 
 const CryptoJS = require("crypto-js")
 const LOG_TAG = Constants.LOG.BT_HASH_MAC
@@ -44,7 +35,7 @@ const HashMac = () => {
 
         for (const item of listBytes) {
             logDebug(LOG_TAG, ">>> listBytesItem: " + item)
-            hMacInput.push(item)
+            hMacInputBytes.push(item)
         }
 
         return hMacInputBytes
@@ -54,33 +45,23 @@ const HashMac = () => {
 
         let inputBytes = this.getHashMacInput(encryptedBytes, ivBytes)
 
-        HMAC.hmac256(inputBytes, keyBytes).then((result) => {
-            let digestBytes = result
-            let hashMacBytes = []
+        let inputWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(inputBytes))
+        let keyWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(keyBytes))
+        logDebug(LOG_TAG, ">>> inputWordArray: " + inputWordArray + ", keyWordArray: " + keyWordArray)
 
-            arrayCopy(digestBytes, 0, hashMacBytes, 0, 16
-            )
+        var digest = CryptoJS.HmacSHA256(inputWordArray, keyWordArray)
+        logDebug(LOG_TAG, ">>> digest: " + digest)
+        logDebug(LOG_TAG, ">>> digestBytes: " + toUtf8Bytes(digest))
 
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by hmac256")
-        })
+        var digestBytes = toUtf8Bytes(digest.toString())
+        let hashMacBytes = []
+        arrayCopy(digestBytes, 0, hashMacBytes, 0, 16)
 
-
-
-        let digestArray = new Array(digest.length / 2)
-
-        for (let i = 0; i < digestArray.length; i++) {
-            const item = digest.substr(i + i, 2)
-            digestArray[i] = item
-        }
-        hashMac = new Uint8Array(16)
-        arrayCopy(digestArray, 0, hashMac, 0, 16)
-
-        return hashMac
+        return hashMacBytes
     }
 
     return {
-        getHashMac
+        getHashMacBytes
     }
 
 }

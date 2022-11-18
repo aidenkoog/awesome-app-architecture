@@ -33,6 +33,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/16 : Added authentication, sync device information and diconnect device functions.
 - 2022/11/17 : (1st) Added clear, reconnect BLE and en/disable BLE log option testcases.
 - 2022/11/17 : (2nd) Added testcase for automatical testing.
+- 2022/11/18 : Fixed out of sync issue between request and response in hidden test app / Update encryption module.
 
 
 ## How To Setup Environment

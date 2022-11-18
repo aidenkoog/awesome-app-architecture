@@ -42,5 +42,5 @@ export const bleWriteResponseAtom = atom({
  */
 export const bleCharacteristcChangeAtom = atom({
     key: 'bleCharacteristcChangeAtom',
-    default: Constants.COMMON.DEFAULT_LIST_STATE
+    default: Constants.COMMON.DEFAULT_DATA
 })

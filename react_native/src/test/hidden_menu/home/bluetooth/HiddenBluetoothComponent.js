@@ -59,7 +59,9 @@ export default function HiddenBluetoothComponent(props) {
                             <View style={styles.logItem}>
                                 <Text style={itemData.item.text.indexOf(">>>") >= 0 ?
                                     styles.requestLogText : itemData.item.text.indexOf("!!!") >= 0 ?
-                                        styles.responseErrorLogText : styles.responseLogText}>{itemData.item.text} </Text>
+                                        styles.responseErrorLogText :
+                                        itemData.item.text.indexOf("[ ") >= 0 ?
+                                            styles.responseLogTitleText : styles.responseLogText}>{itemData.item.text} </Text>
                             </View>
                         )
                     }}
@@ -140,6 +142,11 @@ const styles = StyleSheet.create({
     },
     responseLogText: {
         color: '#bbff40',
+        alignSelf: 'stretch',
+        textAlign: 'left',
+    },
+    responseLogTitleText: {
+        color: '#11ffbb',
         alignSelf: 'stretch',
         textAlign: 'left',
     },

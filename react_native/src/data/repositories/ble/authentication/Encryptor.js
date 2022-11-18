@@ -1,5 +1,5 @@
 import { CUSTOM_IV, CUSTOM_SECRET_KEY } from "../../../../utils/ble/BleEncryptionConstants"
-import { bytesToHex, convertIntToOneByte } from "../../../../utils/ble/BleUtil"
+import { convertIntToOneByte, toUtf8Bytes } from "../../../../utils/ble/BleUtil"
 import { arrayCopy } from "../../../../utils/common/CommonUtil"
 import Constants from "../../../../utils/Constants"
 import { logDebug } from "../../../../utils/logger/Logger"
@@ -22,18 +22,41 @@ const Encryptor = () => {
      * @param {bytes} ivBytes 
      * @returns {bytes}
      */
-    getEncryptedBytes = (contentBytes, keyBytes, ivBytes) => {
+    getEncryptedMessage = (contentBytes, keyBytes, ivBytes) => {
 
+        const paddingBytes = padding(contentBytes)
         logDebug(LOG_TAG, ">>> contentBytes: " + contentBytes)
-        logDebug(LOG_TAG, ">>> paddingBytes: " + padding(contentBytes))
+        logDebug(LOG_TAG, ">>> contentBytes.length: " + contentBytes.length)
+        logDebug(LOG_TAG, ">>> paddingBytes: " + paddingBytes)
+        logDebug(LOG_TAG, ">>> paddingBytes.length: " + paddingBytes.length)
         logDebug(LOG_TAG, ">>> keyBytes: " + keyBytes)
         logDebug(LOG_TAG, ">>> ivBytes: " + ivBytes)
 
-        let aesCbc = new aesjs.ModeOfOperation.cbc(keyBytes, ivBytes)
-        let encryptedBytes = aesCbc.encrypt(contentBytes)
-        logDebug(LOG_TAG, ">>> encryptedBytes: " + encryptedBytes)
+        let paddingContentBytesWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(paddingBytes))
+        let keyBytesWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(keyBytes))
+        let ivBytesWordArray = CryptoJS.lib.WordArray.create(new Uint8Array(ivBytes))
 
-        return encryptedBytes
+        logDebug(LOG_TAG, ">>> paddingContentBytesWordArray: " + paddingContentBytesWordArray)
+        logDebug(LOG_TAG, ">>> paddingContentBytesWordArray,length: " + paddingContentBytesWordArray.length)
+        logDebug(LOG_TAG, ">>> keyBytesWordArray: " + keyBytesWordArray)
+        logDebug(LOG_TAG, ">>> ivBytesWordArray: " + ivBytesWordArray)
+
+        // crypto encryptor.
+        const cipher =
+            CryptoJS.AES.encrypt(paddingContentBytesWordArray, keyBytesWordArray, {
+                iv: ivBytesWordArray,
+                padding: CryptoJS.pad.NoPadding,
+                mode: CryptoJS.mode.CBC
+            })
+
+        logDebug(LOG_TAG, ">>> cipher: " + cipher)
+        logDebug(LOG_TAG, ">>> cipher.ciphertext: " + cipher.ciphertext)
+        logDebug(LOG_TAG, ">>> cipher.ciphertext.length: " + cipher.ciphertext.length)
+        logDebug(LOG_TAG, ">>> cipher.ciphertext.toString().length: " + cipher.ciphertext.toString().length)
+        logDebug(LOG_TAG, ">>> toUtf8Bytes(cipher.ciphertext): " + toUtf8Bytes(cipher.ciphertext))
+        logDebug(LOG_TAG, ">>> toUtf8Bytes(cipher.ciphertext.toString()): " + toUtf8Bytes(cipher.ciphertext.toString()))
+
+        return toUtf8Bytes(cipher.ciphertext.toString())
     }
 
     /**
@@ -68,7 +91,7 @@ const Encryptor = () => {
      * @param {Any} data
      * @returns {Any}
      */
-    getDecryptedBytes = (data) => {
+    getDecryptedMessage = (data) => {
 
         // crypto decryptor.
         let decryptedData = CryptoJS.AES.decrypt(data, CUSTOM_SECRET_KEY, {
@@ -127,8 +150,8 @@ const Encryptor = () => {
     }
 
     return {
-        getEncryptedBytes,
-        getDecryptedBytes
+        getEncryptedMessage,
+        getDecryptedMessage
     }
 }
 

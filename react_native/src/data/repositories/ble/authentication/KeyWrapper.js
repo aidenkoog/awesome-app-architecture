@@ -38,13 +38,16 @@ const KeyWrapper = () => {
         let dialogueKey = new Array(40)
         let inData = new Array(16)
         let outDataArray = new Array(16)
-        logDebug(LOG_TAG, ">>> dialogueKey: " + dialogueKey + ", inData: " + inData + ", outDataArray: " + outDataArray)
+        logDebug(LOG_TAG, ">>> dialogueKey: " + dialogueKey
+            + ", \ninData: " + inData
+            + ", \noutDataArray: " + outDataArray)
 
         var aesEcb = new aesjs.ModeOfOperation.ecb(KEY_BYTES)
 
         arrayCopy(keyBytes, 0, dialogueKey, 0, 32)
         arrayCopy(IV_BYTES, 0, outDataArray, 0, 8)
-        logDebug(LOG_TAG, ">>> dialogueKey: " + dialogueKey + ", outDataArray: " + outDataArray)
+        logDebug(LOG_TAG, ">>> dialogueKey: " + dialogueKey
+            + ", \noutDataArray: " + outDataArray)
 
 
         for (let j = 0; j < 6; j++) {

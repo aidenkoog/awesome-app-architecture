@@ -24,8 +24,7 @@ const RequestDisconnectDeviceUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute DisconnectDeviceUseCase")
 
         return new Promise((fulfill, reject) => {
-            const customMessage = getDisconnectMessageBytes()
-            sendBleCustomMessage(customMessage).then(() => {
+            sendBleCustomMessage(getDisconnectMessageBytes()).then(() => {
                 fulfill()
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occurred by sendBleCustomMessage")

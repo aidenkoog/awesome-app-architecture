@@ -24,8 +24,7 @@ const RequestAuthUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute RequestAuthUseCase")
 
         return new Promise((fulfill, reject) => {
-            const customMessage = getAuthenticateMessageBytes()
-            sendBleCustomMessage(customMessage).then(() => {
+            sendBleCustomMessage(getAuthenticateMessageBytes()).then(() => {
                 fulfill()
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occurred by sendBleCustomMessage")

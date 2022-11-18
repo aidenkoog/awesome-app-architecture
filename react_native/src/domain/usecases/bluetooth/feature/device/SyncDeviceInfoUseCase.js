@@ -21,8 +21,7 @@ const SyncDeviceInfoUseCase = () => {
         logDebugWithLine(LOG_TAG, "execute SyncDeviceInfoUseCase")
 
         return new Promise((fulfill, reject) => {
-            const customMessage = getSyncMessageBytes()
-            sendBleCustomMessage(customMessage).then(() => {
+            sendBleCustomMessage(getSyncMessageBytes()).then(() => {
                 fulfill()
             }).catch((e) => {
                 outputErrorLog(LOG_TAG, e + " occurred by sendBleCustomMessage")

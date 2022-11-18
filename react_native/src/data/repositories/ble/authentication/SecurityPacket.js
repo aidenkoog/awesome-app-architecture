@@ -2,41 +2,29 @@ import { convertIntToOneByte } from '../../../../utils/ble/BleUtil'
 import { randomBytes } from 'react-native-randombytes'
 import { CRYPTO_HS_AAD } from '../../../../utils/ble/BleEncryptionConstants'
 import { arrayCopy } from '../../../../utils/common/CommonUtil'
-import { logDebug, logDebugWithLine } from '../../../../utils/logger/Logger'
-import { bytesToString, stringToBytes } from "convert-string"
+import { logDebug } from '../../../../utils/logger/Logger'
+import { stringToBytes } from "convert-string"
 import HashMac from '../authentication/HashMac'
 import Constants from '../../../../utils/Constants'
 import Encryptor from '../authentication/Encryptor'
 import KeyWrapper from '../authentication/KeyWrapper'
 
 const LOG_TAG = Constants.LOG.BT_SECURITY_PACKET
+const PREFIX = "\x00"
+const TYPE = "\x04"
 
 const SecurityPacket = () => {
 
     const { getWrappingKeyBytes } = KeyWrapper()
-    const { getEncryptedBytes } = Encryptor()
+    const { getEncryptedMessage } = Encryptor()
     const { getHashMacBytes } = HashMac()
-
-    getRandomByteArray = (size) => {
-        const randomByteArray = randomBytes(size)
-        const randomHexString = randomByteArray.toString('hex')
-
-        let randomHexArray = new Array(randomHexString.length / 2)
-
-        for (let i = 0; i < randomHexArray.length; i++) {
-            const item = randomHexString.substr(i + i, 2)
-            randomHexArray[i] = item
-        }
-
-        logDebugWithLine(LOG_TAG, randomByteArray.toString('hex'))
-        return randomHexArray
-    }
 
     getSecurityPacketBytes = (messageBytes) => {
 
         let upperRandom32Bytes = new Array(16)
         let lowerRandom32Bytes = new Array(16)
-        logDebug(LOG_TAG, ">>> upperRandom32Bytes: " + upperRandom32Bytes + ", lowerRandom32Bytes: " + lowerRandom32Bytes)
+        logDebug(LOG_TAG, ">>> upperRandom32Bytes: " + upperRandom32Bytes
+            + ", lowerRandom32Bytes: " + lowerRandom32Bytes)
 
 
         let random32Bytes = randomBytes(32)
@@ -45,7 +33,8 @@ const SecurityPacket = () => {
 
         arrayCopy(random32Bytes, 0, upperRandom32Bytes, 0, 16)
         arrayCopy(random32Bytes, 16, lowerRandom32Bytes, 0, 16)
-        logDebug(LOG_TAG, ">>> copied upperRandom32Bytes: " + upperRandom32Bytes + ", copied lowerRandom32Bytes: " + lowerRandom32Bytes)
+        logDebug(LOG_TAG, ">>> copied upperRandom32Bytes: " + upperRandom32Bytes
+            + ", copied lowerRandom32Bytes: " + lowerRandom32Bytes)
 
 
         this.headerBytes = convertIntToOneByte(CRYPTO_HS_AAD)
@@ -60,196 +49,128 @@ const SecurityPacket = () => {
         logDebug(LOG_TAG, ">>> cekBytes: " + cekBytes)
 
 
-        this.encryptedBytes = getEncryptedBytes(messageBytes, lowerRandom32Bytes, ivBytes)
+        this.encryptedBytes = getEncryptedMessage(messageBytes, lowerRandom32Bytes, ivBytes)
         logDebug(LOG_TAG, ">>> encryptedBytes: " + encryptedBytes)
 
 
         this.signatureBytes = getHashMacBytes(encryptedBytes, upperRandom32Bytes, ivBytes)
         logDebug(LOG_TAG, ">>> signatureBytes: " + signatureBytes)
 
-
-        logDebugWithLine(LOG_TAG, ">>> header: " + header)
-        logDebugWithLine(LOG_TAG, ">>> iv: " + iv)
-        logDebugWithLine(LOG_TAG, ">>> cek: " + cek)
-        logDebugWithLine(LOG_TAG, ">>> encrypt: " + encrypt)
-        logDebugWithLine(LOG_TAG, ">>> signature: " + signature)
-
-        return this.getBytes()
+        return this.getTotalBytes()
     }
 
-    getPacketLen = () => {
-        logDebugWithLine(LOG_TAG, "Header len: " + this.getHeaderLen())
-        logDebugWithLine(LOG_TAG, "CEK len: " + this.getCekLen())
-        logDebugWithLine(LOG_TAG, "IV len: " + this.getIVLen())
-        logDebugWithLine(LOG_TAG, "Encrypt len: " + this.getEncryptLen())
-        logDebugWithLine(LOG_TAG, "Signature len: " + this.getSignatureLen())
-        logDebugWithLine(LOG_TAG, "Extra len: " + 8)
-        const total = this.getHeaderLen() + this.getCekLen() + this.getIVLen() + this.getEncryptLen() + this.getSignatureLen() + 8
-        logDebugWithLine(LOG_TAG, "Total len: " + total)
-        return total
+    getPacketBytesLength = () => {
+        const totalBytesLength =
+            this.getHeaderBytesLength()
+            + this.getCekBytesLength()
+            + this.getIvBytesLength()
+            + this.getEncryptedBytesLength()
+            + this.getSignatureBytesLength() + 8
+
+        logDebug(LOG_TAG, "header bytes length: " + this.getHeaderBytesLength())
+        logDebug(LOG_TAG, "cek bytes length: " + this.getCekBytesLength())
+        logDebug(LOG_TAG, "iv bytes length: " + this.getIvBytesLength())
+        logDebug(LOG_TAG, "encrypted bytes length: " + this.getEncryptedBytesLength())
+        logDebug(LOG_TAG, "signature bytes length: " + this.getSignatureBytesLength())
+
+        logDebug(LOG_TAG, "total bytes length: " + totalBytesLength)
+
+        return totalBytesLength
     }
 
-    getHeader = () => {
-        return this.header
+    getHeaderBytes = () => {
+        return this.headerBytes
     }
 
-    getHeaderLen = () => {
-        return this.header.length
+    getHeaderBytesLength = () => {
+        return this.headerBytes.length
     }
 
-    getCekLen = () => {
-        return this.cek.length
+    getCekBytesLength = () => {
+        return this.cekBytes.length
     }
 
-    getCek = () => {
-        return this.cek
+    getCekBytes = () => {
+        return this.cekBytes
     }
 
-    getIVLen = () => {
-        return this.iv.length
+    getIvBytesLength = () => {
+        return this.ivBytes.length
     }
 
-    getIV = () => {
-        return this.iv
+    getIvBytes = () => {
+        return this.ivBytes
     }
 
-    getEncryptLen = () => {
-        return this.encrypt.length
+    getEncryptedBytesLength = () => {
+        return this.encryptedBytes.length
     }
 
-    getEncrypt = () => {
-        return this.encrypt
+    getEncryptedBytes = () => {
+        return this.encryptedBytes
     }
 
-    getSignatureLen = () => {
-        return this.signature.length
+    getSignatureBytesLength = () => {
+        return this.signatureBytes.length
     }
 
-    getSignature = () => {
-        return this.signature
+    getSignatureBytes = () => {
+        return this.signatureBytes
     }
 
-    getBytes = () => {
-        let i = 0
+    getPrefixBytes = () => {
+        this.prefixBytes = stringToBytes(PREFIX)
+        return prefixBytes
+    }
 
-        logDebugWithLine(LOG_TAG, "PACKET LEN")
-        logDebugWithLine(LOG_TAG, "this.getPacketLen(): " + this.getPacketLen())
-        let bytes = new Uint8Array(this.getPacketLen())
-        logDebugWithLine(LOG_TAG, "-")
-        logDebugWithLine(LOG_TAG, "-")
+    getDataLengthBytes = () => {
+        this.dataBytesLength = convertIntToOneByte(this.getPacketBytesLength())
+        return dataBytesLength
+    }
 
-        bytes[i++] = stringToBytes("\x00")
-        bytes[i++] = stringToBytes("\xF4")
-        bytes[i++] = stringToBytes("\x04")
+    getTypeBytes = () => {
+        this.typeBytes = stringToBytes(TYPE)
+        return typeBytes
+    }
 
-        logDebugWithLine(LOG_TAG, "HEADER")
+    getTotalBytes = () => {
+        let totalBytes = []
 
-        const header = this.getHeader() // hex: 51
-        // const headerByte = hexToByte(header)
+        copyBytes(totalBytes, this.getPrefixBytes())
+        copyBytes(totalBytes, this.getDataLengthBytes())
+        copyBytes(totalBytes, this.getTypeBytes())
 
-        // logDebugWithLine(LOG_TAG, "headerByte:" + headerByte)   // 81
-        // const headerBytes = stringToBytes(header)
+        copyBytes(totalBytes, this.getHeaderBytes())
 
-        // logDebugWithLine(LOG_TAG, "header bytes : " + headerBytes)   // byte: 53, 49
+        totalBytes.push((this.getCekBytesLength() & 0xFF00) >> 8)
+        totalBytes.push((this.getCekBytesLength() & 0x00FF) >> 0)
 
-        // for (const headerByteItem of headerBytes) {
-        //     logDebugWithLine(LOG_TAG, "header byte item (" + i + ") index: " + headerByteItem)
-        //     bytes[i++] = headerByteItem // ??
-        // }
+        copyBytes(totalBytes, this.getCekBytes())
 
-        bytes[i++] = header
-        logDebugWithLine(LOG_TAG, "bytes: " + bytes)
+        totalBytes.push((this.getIvBytesLength() & 0xFF00) >> 8)
+        totalBytes.push((this.getIvBytesLength() & 0x00FF) >> 0)
 
-        logDebugWithLine(LOG_TAG, "HEADER final bytes: " + bytes)
-        logDebugWithLine(LOG_TAG, "-")
-        logDebugWithLine(LOG_TAG, "-")
+        copyBytes(totalBytes, this.getIvBytes())
 
+        totalBytes.push((this.getEncryptedBytesLength() & 0xFF00) >> 8)
+        totalBytes.push((this.getEncryptedBytesLength() & 0x00FF) >> 0)
 
-        logDebugWithLine(LOG_TAG, "CEK Length: " + this.getCekLen())
+        copyBytes(totalBytes, this.getSignatureBytes())
 
-        const firstCekLen = (this.getCekLen() & 0xFF00) >> 8
-        const secondCekLen = (this.getCekLen() & 0x00FF) >> 0
+        logDebug(LOG_TAG, ">>> totalBytes: " + totalBytes)
+        logDebug(LOG_TAG, ">>> totalBytes length: " + totalBytes.length)
 
-        logDebugWithLine(LOG_TAG, "cek length, first: " + firstCekLen + ", second: " + secondCekLen)
+        return totalBytes
+    }
 
-        bytes[i++] = firstCekLen
-        bytes[i++] = secondCekLen
-
-        logDebugWithLine(LOG_TAG, "CEK")
-
-        const cek = this.getCek()
-        const cekBytes = stringToBytes(cek)
-
-        logDebugWithLine(LOG_TAG, "cek hex plain text: " + cek)
-        logDebugWithLine(LOG_TAG, "cek bytes: " + cekBytes)
-
-        for (const cekByteItem of cekBytes) {
-            bytes[i++] = cekByteItem
+    copyBytes = (destinationBytes, sourceBytes) => {
+        for (const item of sourceBytes) {
+            destinationBytes.push(item)
         }
-
-        logDebugWithLine(LOG_TAG, "IV len: " + this.getIVLen())
-        logDebugWithLine(LOG_TAG, "IV: " + this.getIV())
-
-        bytes[i++] = (this.getIVLen() & 0xFF00) >> 8
-        bytes[i++] = (this.getIVLen() & 0x00FF) >> 0
-
-        const iv = this.getIV()
-        let ivHexPlainText = ""
-        for (let i = 0; i < iv.length; i++) {
-            ivHexPlainText += iv[i]
-        }
-        const ivBytes = stringToBytes(ivHexPlainText)
-        logDebugWithLine(LOG_TAG, "IV bytes: " + ivBytes)
-
-        for (const ivByteItem of ivBytes) {
-            bytes[i++] = ivByteItem
-        }
-
-        logDebugWithLine(LOG_TAG, "ENCRYPT")
-        logDebugWithLine(LOG_TAG, "encrypt len: " + this.getEncryptLen())
-
-        bytes[i++] = (this.getEncryptLen() & 0xFF00) >> 8
-        bytes[i++] = (this.getEncryptLen() & 0x00FF) >> 0
-
-        const encrypt = this.getEncrypt()
-        let encryptHexPlainText = ""
-        for (let i = 0; i < encrypt.length; i++) {
-            encryptHexPlainText += encrypt[i]
-        }
-        const encryptBytes = stringToBytes(encryptHexPlainText)
-
-        logDebugWithLine(LOG_TAG, "encrypt: " + encrypt)
-        logDebugWithLine(LOG_TAG, "encrypt hex plain text: " + encryptHexPlainText)
-        logDebugWithLine(LOG_TAG, "encrypt bytes: " + encryptBytes)
-
-        for (const encByteItem of encryptBytes) {
-            bytes[i++] = encByteItem
-        }
-
-        logDebugWithLine(LOG_TAG, "666666666")
-        bytes[i++] = (this.getSignatureLen() & 0xFF00) >> 8
-        logDebugWithLine(LOG_TAG, "@@@@@@@@@")
-
-        bytes[i++] = (this.getSignatureLen() & 0x00FF) >> 0
-        logDebugWithLine(LOG_TAG, "#########")
-
-        const signature = this.getSignature()
-        logDebugWithLine(LOG_TAG, "signature: " + signature)
-
-        for (let b in this.getSignature()) {
-            bytes[i++] = b
-        }
-        logDebugWithLine(LOG_TAG, "666666666777777777")
-        logDebugWithLine(LOG_TAG, "bytes: " + bytes)
-        logDebugWithLine(LOG_TAG, "hex: " + bytesToString(bytes))
-        //logDebugWithLine(LOG_TAG, "hex -> bytes: " + stringToBytes(bytesToString(bytes)))
-        // return bytes
-
-        return [0, 244, 4, 53, 49, 0, 80, 57, 56, 98, 53, 51, 52, 52, 102, 56, 53, 55, 97, 57, 57, 50, 52, 54, 97, 56, 52, 101, 51, 51, 55, 97, 99, 50, 97, 49, 48, 53, 52, 54, 99, 100, 99, 52, 53, 53, 57, 50, 50, 57, 50, 98, 51, 97, 98, 101, 51, 55, 101, 53, 51, 56, 49, 98, 102, 99, 101, 98, 52, 101, 51, 52, 49, 50, 97, 97, 57, 100, 50, 51, 48, 97, 101, 55, 100, 57, 51, 0, 16, 100, 99, 50, 55, 102, 101, 97, 51, 98, 49, 100, 99, 56, 54, 99, 53, 53, 99, 51, 100, 102, 98, 50, 101, 51, 98, 49, 49, 48, 50, 51, 97, 0, 122, 48, 48, 55, 48, 97, 48, 48, 102, 57, 53, 56, 101, 100, 50, 50, 101, 101, 102, 56, 54, 49, 97, 49, 50, 52, 50, 51, 52, 51, 99, 54, 97, 57, 56, 49, 98, 49, 55, 49, 52, 97, 51, 52, 57, 51, 54, 56, 99, 51, 49, 48, 57, 97, 102, 100, 52, 53, 99, 54, 50, 55, 56, 57, 49, 53, 57, 102, 100, 51, 99, 54, 57, 97, 56, 97, 102, 49, 49, 98, 99, 102, 100, 99, 52, 101, 100, 99, 100, 97, 97, 54, 99, 99, 57, 97, 50, 101, 99, 101, 102, 49, 102, 53, 56, 55, 52, 53, 98, 56, 55, 97, 101, 98, 57, 102, 50, 102, 101, 101, 53, 54]
+        logDebug(LOG_TAG, ">>> copied bytes: " + sourceBytes)
     }
 
     return {
-        getRandomByteArray,
         getSecurityPacketBytes
     }
 }
