@@ -95,6 +95,7 @@ const HiddenBluetoothContainer = ({ }) => {
 
     /**
      * store log message by sender or receiver.
+     * and then it is delivered to HiddenBluetoothComponent for logs.
      * @param {string} logMessageToAdd 
      */
     function addLogMessageHandler(logMessageToAdd) {
@@ -244,10 +245,12 @@ const HiddenBluetoothContainer = ({ }) => {
                 addLogMessageHandler(">>> Show popup for reconnecting BLE device")
                 setPopupVisible(true)
 
-                setTimeout(() => {
-                    setPopupVisible(false)
-                    executeNextTestCase()
-                }, 1000)
+                if (isAutoTestMode) {
+                    setTimeout(() => {
+                        setPopupVisible(false)
+                        executeNextTestCase()
+                    }, 1000)
+                }
                 break
 
             case 'bt_t7':
