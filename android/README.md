@@ -37,6 +37,7 @@ Kotlin + MVVM (Model-View-ViewModel) + Hilt + Retrofit + Room (DB) + Gson + RxJa
 ## Release Note
 
 - 2022/11/19 : Added entire template source code.
+- 2022/11/21 : Fixed build error occurred by wrong app's id (library) and gradle version.
 
 
 ## How To Setup Environment
