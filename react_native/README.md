@@ -35,6 +35,8 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/17 : (2nd) Added testcase for automatical testing.
 - 2022/11/18 : (1st) Fixed out of sync issue between request and response in hidden test app / Update encryption module.
 - 2022/11/18 : (2nd) Fixed BLE reconnection popup in hidden menu is terminated automatically as soon as it opens.
+- 2022/11/18 : (3rd) Added platform functions (SMS / PhoneCall directly).
+- 2022/11/21 : Added authentication response handler.
 
 
 ## How To Setup Environment
@@ -63,6 +65,34 @@ It's mandantory to set up the development environment and build the app by follo
 > Write 'gem "fastlane"' to Gemfile
 > cd ios
 > fastlane init
+
+## BLE Configuration
+
+Define the BLE uuid and other values you want in the BleConfig.js file below.
+
+```sh
+export const SERVICE_UUID = ''
+
+export const RX_CHARACTERISTIC_UUID = ''
+export const TX_CHARACTERISTIC_UUID = ''
+export const FLOW_CONTROL_CHARACTERISTIC_UUID = ''
+
+export const BATTERY_SERVICE_UUID = ''
+export const BATTERY_CHARACTERISTIC_UUID = ''
+
+export const BLE_TEST_MODE = false
+export const BLE_TEST_DEVICE_NAME = ""
+export const BLE_TEST_DEVICE_MAC_ADDRESS = ""
+
+export const BLE_PROTOCOL_VERSION_INDEX = 0
+
+export const BLE_PAIRING_VERSION = 0
+export const BLE_PAIRING_RESULT_INDEX = 0
+export const BLE_PAIRING_RESULT_SUCCESS = 0
+
+export const BLE_NOTIFICATION_SUFFIX = 0
+export const BLE_STATUS_INFO_SUFFIX = 0
+```
 
 ## Source Code
 

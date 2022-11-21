@@ -1,9 +1,12 @@
 import Constants from "../../../utils/Constants"
 import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
-import { Linking, Platform } from "react-native"
+import { Linking, Platform, NativeModules } from "react-native"
 import DeviceInfo from "react-native-device-info"
+import RNImmediatePhoneCall from 'react-native-immediate-phone-call'
 
 const LOG_TAG = Constants.LOG.PLATFORM_REPO_LOG
+
+const DirectSms = NativeModules.DirectSms
 
 /**
  * the dividers used by Android and iOS are different.
@@ -24,6 +27,7 @@ const PlatformRepository = () => {
     sendDirectSms = (receiverPhoneNumber, message = "") => {
         logDebug(LOG_TAG, "receiverPhoneNumber: " + receiverPhoneNumber)
         logDebug(LOG_TAG, "message: " + message)
+        DirectSms.sendDirectSms(receiverPhoneNumber, message)
     }
 
     /**
@@ -44,6 +48,7 @@ const PlatformRepository = () => {
      */
     sendDirectCall = (receiverPhoneNumber) => {
         logDebug(LOG_TAG, "receiverPhoneNumber: " + receiverPhoneNumber)
+        RNImmediatePhoneCall.immediatePhoneCall(receiverPhoneNumber)
     }
 
     /**

@@ -1,6 +1,6 @@
+import { checkBluetoothPermission, checkCallPhonePermission, checkCameraPermission, checkReadContactPermission, checkSendSmsPermission } from '../../../utils/permission/PermissionUtil.js'
 import Constants from '../../../utils/Constants.js'
 import { logDebugWithLine } from '../../../utils/logger/Logger.js'
-import { checkBluetoothPermission, checkCameraPermission } from '../../../utils/permission/PermissionUtil.js'
 
 
 const LOG_TAG = Constants.LOG.COMMON_USECASE_LOG
@@ -36,24 +36,36 @@ const CheckPermissionUseCase = () => {
     }
 
     /**
-     * @Deprecated
+     * exeucte usecase of checking read-contact permission.
      */
-    executeCheckReadContactPermission = () => {
+    executeCheckReadContactPermission = (onResult) => {
         logDebugWithLine(LOG_TAG, "execute CheckReadContactPermission")
+
+        checkReadContactPermission(accepted => {
+            onResult(accepted)
+        })
     }
 
     /**
-     * @Deprecated
+     * execute usecase of checking call-phone permission.
      */
-    executeCheckCallPhonePermission = () => {
+    executeCheckCallPhonePermission = (onResult) => {
         logDebugWithLine(LOG_TAG, "execute CheckCallPhonePermission")
+
+        checkCallPhonePermission(accepted => {
+            onResult(accepted)
+        })
     }
 
     /**
-     * @Deprecated
+     * execute usecase of checking send-sms permission.
      */
-    executeCheckSendSmsPermission = () => {
+    executeCheckSendSmsPermission = (onResult) => {
         logDebugWithLine(LOG_TAG, "execute CheckSendSmsPermission")
+
+        checkSendSmsPermission(accepted => {
+            onResult(accepted)
+        })
     }
 
     return {

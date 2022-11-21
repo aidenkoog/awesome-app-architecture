@@ -1,4 +1,4 @@
-import { BLE_TEST_DEVICE_MAC_ADDRESS, BLE_TEST_DEVICE_NAME, BLE_TEST_MODE, SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
+import { BLE_NOTIFICATION_SUFFIX, BLE_PAIRING_RESULT_INDEX, BLE_PAIRING_RESULT_SUCCESS, BLE_PAIRING_VERSION, BLE_PROTOCOL_VERSION_INDEX, BLE_STATUS_INFO_SUFFIX, BLE_TEST_DEVICE_MAC_ADDRESS, BLE_TEST_DEVICE_NAME, BLE_TEST_MODE, SERVICE_UUID } from '../../../utils/ble/BleConfig.js'
 import { BATTERY_CHARACTERISTIC_UUID, BATTERY_SERVICE_UUID, RX_CHARACTERISTIC_UUID, FLOW_CONTROL_CHARACTERISTIC_UUID, TX_CHARACTERISTIC_UUID } from '../../../utils/ble/BleConfig.js'
 import { bleTxUuidNotificationStateAtom, bleFlowControlUuidNotificationStateAtom, bleBatteryUuidNotificationStateAtom, } from '../../adapters/recoil/bluetooth/BleNotificationAtom'
 import { bleConnectionStateAtom, bleDeviceNameAtom, bleMacOrUuidAtom, bleConnectionCompleteStateAtom } from '../../adapters/recoil/bluetooth/ConnectionStateAtom'
@@ -264,16 +264,68 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
 
-        const randomValue = Math.random()
+        /*
+         * extract the last byte value for checking its type.
+         */
         const lastByteValue = bleCustomBytes[bleCustomBytesLength - 1]
 
-        if (bleCustomBytesLength > 0 && (lastByteValue == 3 || lastByteValue == 4 || bleLogEnabled)) {
+        /*
+         * additional processing is performed only when the data length is valid 
+         * and the value of the last byte of the data is a suffix indicating notification (3) or status information (4).
+         */
+        if (bleCustomBytesLength > 0
+            && (lastByteValue == BLE_NOTIFICATION_SUFFIX    // 3
+                || lastByteValue == BLE_STATUS_INFO_SUFFIX  // 4
+                || bleLogEnabled)) {
+
+            // check if the protocol version corresponds to the pairing version.
+            if (bleCustomBytes[BLE_PROTOCOL_VERSION_INDEX] == BLE_PAIRING_VERSION) {
+
+                // check if pairing's result is success.
+                const pairingResult = bleCustomBytes[BLE_PAIRING_RESULT_INDEX] == BLE_PAIRING_RESULT_SUCCESS
+                logDebug(LOG_TAG, "<<< ble pairing success: " + pairingResult)
+
+                setBleAuthResultState(pairingResult)
+
+            } else {
+                logDebug("<<< received device status / notification information")
+
+
+            }
+
+            // State change logic for log display in hidden menu.
             setBleCharacteristcChange(
                 "1. [Bytes]: " + bleCustomBytes + "\n\n"
                 + "2. [Hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n"
-                + "3. [String]: " + bytesToString(bleCustomBytes) + "\n"
-                + "4. [Unique Id]: " + randomValue
+                + "3. [Category]: " + this.getCategory(bleCustomBytes) + "\n"
+                + "4. [Result]: " + this.getCategoryResult(bleCustomBytes) + "\n"
+                + "5. [String]: " + bytesToString(bleCustomBytes) + "\n"
             )
+        }
+    }
+
+    /**
+     * return category string for testing reprsents if data is related to pairing or other.
+     */
+    getCategory = (bleCustomBytes) => {
+        if (bleCustomBytes[BLE_PROTOCOL_VERSION_INDEX] == BLE_PAIRING_VERSION) {
+            return "Pairing"
+        } else {
+            const bleCustomBytesLength = bleCustomBytes.length
+            const lastByteValue = bleCustomBytes[bleCustomBytesLength - 1]
+            return lastByteValue == BLE_NOTIFICATION_SUFFIX ? "Data (Notification)" : "Data (Status)"
+        }
+    }
+
+    /**
+     * return category result for testing.
+     */
+    getCategoryResult = (bleCustomBytes) => {
+        if (bleCustomBytes[BLE_PROTOCOL_VERSION_INDEX] == BLE_PAIRING_VERSION) {
+            return bleCustomBytes[BLE_PAIRING_RESULT_INDEX] == BLE_PAIRING_RESULT_SUCCESS ? "Success" : "Failed"
+
+        } else {
+            return "Success"
         }
     }
 
@@ -667,7 +719,6 @@ const BleRepository = () => {
 
                         setBleWriteResponse(responseMessage)
                         setBleSequenceId(bleSequenceId + 1)
-                        setBleAuthResultState(true)
                         fulfill()
 
                     }).catch((e) => {

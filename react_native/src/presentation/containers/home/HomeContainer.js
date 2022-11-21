@@ -11,7 +11,6 @@ import { bleConnectionCompleteStateAtom, bleConnectionStateAtom } from '../../..
 import { useRecoilValue } from 'recoil'
 import { useIsFocused } from "@react-navigation/native"
 import { navigateToDeviceStatusScreen, navigateToNextScreen, pushToNextScreen } from "../../../utils/navigation/NavigationUtil"
-import RequestAuthUseCase from "../../../domain/usecases/bluetooth/feature/authentication/RequestAuthUseCase"
 
 
 const LOG_TAG = Constants.LOG.HOME_UI_LOG
@@ -61,7 +60,6 @@ function HomeContainer({ navigation }) {
     const { executeGetProfileInfoUseCase } = GetProfileInfoUseCase()
     const { executeSyncDeviceInfoUseCase } = SyncDeviceInfoUseCase()
     const { executeGetDeviceRegistrationUseCase } = GetDeviceRegistrationUseCase()
-    const { executeRequestAuthUseCase } = RequestAuthUseCase()
 
     /**
      * state management variables to change UI according to Bluetooth operation state change
@@ -203,18 +201,6 @@ function HomeContainer({ navigation }) {
     }, [bleConnectionState, bleConnectionCompleteState])
 
     /**
-     * TEST, authenticate
-     */
-    onTestAuthenticate = () => {
-        executeRequestAuthUseCase().then(() => {
-            logDebug(LOG_TAG, "<<< succeeded to call executeRequestAuthUseCase")
-
-        }).catch((e) => {
-            outputErrorLog(LOG_TAG, e + " occurred by executeRequestAuthUseCase")
-        })
-    }
-
-    /**
      * enter the hidden menu for testing ble messages.
      */
     onEnterHiddenMenu = () => {
@@ -236,7 +222,6 @@ function HomeContainer({ navigation }) {
             refreshedTime={refreshedTime}
             onPressCardItem={onPressCardItem.bind(this)}
             onPressRefreshArea={onPressRefreshArea}
-            onTestAuthenticate={onTestAuthenticate}
             onEnterHiddenMenu={onEnterHiddenMenu}
         />
     )

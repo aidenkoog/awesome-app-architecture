@@ -27,6 +27,7 @@ import { Image } from 'react-native'
 import { Colors, Strings, Images } from './utils/theme'
 import styles from './presentation/stylesheets/StyleSet'
 import DisconnectionContainer from './presentation/containers/settings/device/disconnection/DisconnectionContainer'
+import { createDrawerNavigator } from '@react-navigation/drawer'
 
 
 /**
@@ -64,6 +65,21 @@ const HIDDEN_SERVER_SCREEN = Constants.SCREEN.HIDDEN.SERVER
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
+const DrawerStack = createDrawerNavigator()
+
+/**
+ * configure drawer navigator.
+ * @returns {JSX.Element}
+ */
+function DrawerNavigator() {
+    return (
+        <Drawer.Navigator>
+            <Drawer.Screen>
+
+            </Drawer.Screen>
+        </Drawer.Navigator>
+    )
+}
 
 /**
  * configure bottom tab navigator.

@@ -127,7 +127,7 @@ const HiddenBluetoothContainer = ({ }) => {
         if (autoTestIndex == 10) {
             autoTestIndex = 0
             isAutoTestMode = false
-            addLogMessageHandler("---------------------------------------------------\nAuto Test Finished")
+            addLogMessageHandler("\n---------------------------------------------------\nAuto Test Finished")
             return
         }
         const nextTestCaseId = 'bt_t' + autoTestIndex++
@@ -372,6 +372,7 @@ const HiddenBluetoothContainer = ({ }) => {
         }
 
         if (bleCharacteristcChange != null && bleCharacteristcChange != undefined && bleCharacteristcChange != "") {
+            logDebug(LOG_TAG, "check bleCharacteristic before setting log: " + bleCharacteristcChange)
             addLogMessageHandler(
                 "\n---------------------------------------------------\n"
                 + "<<< response:\n" + bleCharacteristcChange

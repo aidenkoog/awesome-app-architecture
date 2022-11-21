@@ -21,7 +21,7 @@ export default function HomeComponent(props) {
     const {
         userName, userImageUrl, userGender, isRefreshing, homeCardItems, onAddDevice, onSwipeRefresh,
         isDeviceRegistered, bleConnectionCompleteState, bleDeviceBatteryLevel, refreshedTime,
-        onPressCardItem, onPressRefreshArea, onTestAuthenticate, onEnterHiddenMenu
+        onPressCardItem, onPressRefreshArea, onEnterHiddenMenu
     } = props
 
     /**
@@ -44,7 +44,7 @@ export default function HomeComponent(props) {
                     </View>
                 </TouchableOpacity>
                     :
-                    <TouchableOpacity onPress={onTestAuthenticate} onLongPress={onEnterHiddenMenu}>
+                    <TouchableOpacity onLongPress={onEnterHiddenMenu}>
                         <View style={styles.addView}>
                             <Text style={{
                                 color: '#000000', fontSize: 18, fontWeight: "bold"
