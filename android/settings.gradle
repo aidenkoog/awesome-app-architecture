@@ -8,6 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Android-Architecture"
 include ':app'
-include ':bluetooth'
-include ':emulator'
-include ':common'
+include ':library'

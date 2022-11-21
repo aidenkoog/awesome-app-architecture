@@ -24,9 +24,7 @@ Kotlin + MVVM (Model-View-ViewModel) + Hilt + Retrofit + Room (DB) + Gson + RxJa
 
 ## Android Studio Project Structure
 - app
-- bluetooth
-- common
-- emulator
+- library
 
 <br>
 <p align="center">
@@ -37,7 +35,8 @@ Kotlin + MVVM (Model-View-ViewModel) + Hilt + Retrofit + Room (DB) + Gson + RxJa
 ## Release Note
 
 - 2022/11/19 : Added entire template source code.
-- 2022/11/21 : Fixed build error occurred by wrong app's id (library) and gradle version.
+- 2022/11/21 : (1st) Fixed build error occurred by wrong app's id (library) and gradle version.
+- 2022/11/21 : (2nd) Re-arrange app / library folder hierarchy.
 
 
 ## How To Setup Environment
