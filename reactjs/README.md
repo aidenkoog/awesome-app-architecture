@@ -19,7 +19,7 @@ It is written based on JavaScript.
 
 It's mandantory to set up the development environment and build the app by following the instructions below:
 
-> Visit https://reactnative.dev/docs/environment-setup
+> Visit https://ko.reactjs.org/
 > npx create-react-app reactjs
 > npm start
 
