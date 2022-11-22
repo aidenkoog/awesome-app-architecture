@@ -1,23 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
-import Table from './presentation/components/Table'
+import HomePage from "./presentation/container/HomePage"
+import { RecoilRoot } from "recoil"
 
-var data = [
-  { id: 1, name: 'Per1', value: '2' },
-  { id: 2, name: 'Per2', value: '5' },
-  { id: 3, name: 'Per3', value: '4' }
-];
-
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <p className="Table-header">Table UI Test</p>
-        <Table data={data} />
-      </div>
-    );
-  }
+const App = () => {
+  return (
+    <RecoilRoot>
+      <HomePage />
+    </RecoilRoot>
+  )
 }
 
-export default App;
+export default App

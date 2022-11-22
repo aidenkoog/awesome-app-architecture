@@ -13,6 +13,7 @@ It is written based on JavaScript.
 ## Release Note
 
 - 2022/11/22 : Initialize React.js project.
+- 2022/11/23 : Added Axios, Fetch manager / Update source's structure / Added table ui with dummy data.
 
 
 ## How To Setup Environment
