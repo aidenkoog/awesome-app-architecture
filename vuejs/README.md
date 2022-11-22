@@ -6,6 +6,7 @@ This project is to make template code that can be applied to any web based devel
 It is written based on JavaScript.
 
 - Language: Javascript
+- Framework : Vue.js (Open-source progressive JavaScript framework used to create user interfaces for web applications.)
 - Structure Summary
     - ✨ Under Construction
 
