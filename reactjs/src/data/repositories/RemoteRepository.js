@@ -1,16 +1,27 @@
-import FetchApi from "../sources/FetchUrlManager"
+import { logDebugWithLine } from "../../utils/logger/Logger"
+import AxiosManager from "../sources/AxiosManager"
 
-const RemoteRepository = () => {
+const LOG_TAG = "RemoteRepository"
 
-    const { fetchApi } = FetchUrlManager()
+function RemoteRepository() {
 
-    fetchRemoteApi = () => {
-        fetchApi()
+    const { axiosGet } = AxiosManager()
+
+    function fetchRemoteApi() {
+        return new Promise((fulfill, reject) => {
+            axiosGet().then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< response length: " + response.length + ", response: " + response)
+                fulfill(response)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
     }
 
-    return (
+    return {
         fetchRemoteApi
-    )
+    }
 }
 
 export default RemoteRepository

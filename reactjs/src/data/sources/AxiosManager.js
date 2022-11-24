@@ -1,37 +1,46 @@
 import axios from 'axios'
-import { logDebug, outputErrorLog } from '../../utils/logger/Logger'
+import { logDebugWithLine, outputErrorLog } from '../../utils/logger/Logger'
+import { API_GET_ACTIVITIES } from './api/Api'
 
 const LOG_TAG = "AxiosManager"
-const URL = "https://my-json-server.typicode.com/typicode/demo/posts"
 
-const AxiosManager = () => {
+function AxiosManager() {
 
-    axiosGet = () => {
+    function axiosGet() {
         return new Promise((fulfill, reject) => {
-            axios.get(URL, {params: {id: 1}}).then(() => {
-                logDebug(LOG_TAG, "<<< succeeded to get url")
-                fulfill()
+            axios.get(API_GET_ACTIVITIES, {
+                params: { watchMobileNumber: "01091400001", size: "100" }
+
+            }).then((response) => {
+                const responseData = response.data.data
+                logDebugWithLine(LOG_TAG, "<<< response length: " + responseData.length + ", response: " + responseData)
+                fulfill(responseData)
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by axios.get()")
+                outputErrorLog(LOG_TAG, e + " occurred by axios.get")
                 reject(e)
-
-            }).then(() => {
-                logDebug(LOG_TAG, "<<< axiosGet completed")
             })
         })
     }
 
-    axiosGetAsync = () => {
+    function axiosGetAsync() {
         let responseData = getData()
         responseData.then((data) => {
-            logDebug(LOG_TAG, "<<< response data: " + data)
+            logDebugWithLine(LOG_TAG, "<<< response data: " + data)
+
+        }).catch((e) => {
+            outputErrorLog(LOG_TAG, e + " occurred by responseData.then")
         })
     }
 
-    getData = async () => {
+    async function getData() {
         let response = await axios.get(URL)
         return response.data;
+    }
+
+    return {
+        axiosGet,
+        axiosGetAsync
     }
 }
 

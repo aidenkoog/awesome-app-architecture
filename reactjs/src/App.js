@@ -1,10 +1,14 @@
-import HomePage from "./presentation/container/HomePage"
+import HomeContainer from "./presentation/container/HomeContainer"
 import { RecoilRoot } from "recoil"
 
+/**
+ * App container.
+ * @returns {JSX.Element}
+ */
 const App = () => {
   return (
     <RecoilRoot>
-      <HomePage />
+      <HomeContainer />
     </RecoilRoot>
   )
 }

@@ -5,5 +5,5 @@ import { atom } from 'recoil'
  */
 export const locationInfoAtom = atom({
     key: 'locationInfoAtom',
-    default: [location='', date=''],
+    default: [],
 })

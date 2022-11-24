@@ -8,12 +8,15 @@ It is written based on JavaScript.
 - Language: Javascript
 - Library: React (A library for creating user interfaces.)
 - Structure Summary
-    - ✨ Under Construction
+    - ✨ presentation
+    - ✨ data
+    - ✨ domain
 
 ## Release Note
 
 - 2022/11/22 : Initialize React.js project.
 - 2022/11/23 : Added Axios, Fetch manager / Update source's structure / Added table ui with dummy data.
+- 2022/11/24 : Fixed issue that activities data is not shown in table ui.
 
 
 ## How To Setup Environment
