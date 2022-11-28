@@ -1,3 +1,6 @@
+const fs = require('fs')
+const LOG_FILE = './debug.log'
+
 /**
  * log debugging messages.
  * @param {string} logTag 
@@ -34,5 +37,19 @@ export const logError = (logTag, logMessage) => {
  * @param {string} error 
  */
 export const outputErrorLog = (logTag, error) => {
-    logError(logTag, "<<<[E] " + error + "!!!")
+    const message = "<<<[E] " + error + "!!!"
+    logError(logTag, message)
+    makeLogFile(message)
+}
+
+/**
+ * create log file.
+ * @param {string} logMessage 
+ */
+export const makeLogFile = (logMessage) => {
+    fs.writeFile(LOG_FILE, logMessage, function(err) {
+        fs.readFile(LOG_FILE, function(err, contents) {
+          outputErrorLog(contents.toString())
+        })
+      })
 }
