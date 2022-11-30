@@ -5,11 +5,21 @@ const LOG_TAG = "RemoteRepository"
 
 function RemoteRepository() {
 
-    const { axiosGet } = AxiosManager()
+    const {
+        getActivities,
+        getActivitiesWithExtraData,
+        sendSmsMessage
+    } = AxiosManager()
 
-    function fetchRemoteApi() {
+    /**
+     * get activities information.
+     * @param {String} watchMobileNumber 
+     * @param {Array} types
+     * @returns {Promise}
+     */
+    function getActivitiesInfo(watchMobileNumber, types) {
         return new Promise((fulfill, reject) => {
-            axiosGet().then((response) => {
+            getActivities(watchMobileNumber, types).then((response) => {
                 logDebugWithLine(LOG_TAG, "<<< response length: " + response.length + ", response: " + response)
                 fulfill(response)
 
@@ -19,8 +29,46 @@ function RemoteRepository() {
         })
     }
 
+    /**
+     * get activities information with extra data.
+     * @param {String} watchMobileNumber 
+     * @param {String} types
+     * @param {String} startDateTime
+     * @returns {Promise}
+     */
+    function getActivitiesWithExtra(watchMobileNumber, types, startDateTime) {
+        return new Promise((fulfill, reject) => {
+            getActivitiesWithExtraData(watchMobileNumber, types, startDateTime).then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< response: " + response)
+                fulfill(response)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
+    /**
+     * ask device to send SMS message.
+     * @param {String} watchMobileNumber 
+     * @returns {Promise}
+     */
+    function sendSms(watchMobileNumber) {
+        return new Promise((fulfill, reject) => {
+            sendSmsMessage(watchMobileNumber).then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< response: " + response)
+                fulfill(response)
+
+            }).catch((e) => {
+                reject(e)
+            })
+        })
+    }
+
     return {
-        fetchRemoteApi
+        getActivitiesInfo,
+        getActivitiesWithExtra,
+        sendSms
     }
 }
 
