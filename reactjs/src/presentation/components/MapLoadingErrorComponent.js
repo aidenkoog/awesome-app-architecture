@@ -3,6 +3,11 @@ import { logDebug } from "../../utils/logger/Logger"
 
 const LOG_TAG = "MapLoadingErrorComponent"
 
+/**
+ * map loading error component.
+ * @param {Any} props 
+ * @returns {JSX.Element}
+ */
 export default function MapLoadingErrorComponent(props) {
 
     const { isReportExpired, hasError, currentAddress, errorMessage } = props

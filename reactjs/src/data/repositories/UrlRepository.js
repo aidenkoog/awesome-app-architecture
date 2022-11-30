@@ -82,6 +82,11 @@ export default function UrlRepository() {
         return null
     }
 
+    /**
+     * check if there's parameter key that is matched with key array.
+     * @param {String} paramKeyName 
+     * @returns {Boolean}
+     */
     function hasMatchedPhoneNumber(paramKeyName) {
         for (const phoneNumberItem of DEVICE_MOBILE_NUMBER) {
             if (phoneNumberItem === paramKeyName) {

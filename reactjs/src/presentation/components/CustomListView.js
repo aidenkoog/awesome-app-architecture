@@ -1,4 +1,9 @@
 
+/**
+ * custom list component.
+ * @param {Any} props 
+ * @returns {JSX.Element}
+ */
 export default function CustomListView(props) {
 
     const { items } = props

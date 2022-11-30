@@ -7,7 +7,7 @@ function SendSmsUseCase() {
     /**
      * execute usecase of asking device to send sms message.
      * @param {String} deviceMobileNumber 
-     * @returns 
+     * @returns {Promise}
      */
     function executeSendSmsUseCase(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {

@@ -4,6 +4,11 @@ import MapLoadingLottieComponent from "./MapLoadingLottieComponent"
 import { RenderAfterNavermapsLoaded } from 'react-naver-maps'
 import NaverMapComponent from "../components/NaverMapComponent"
 
+/**
+ * main view component.
+ * @param {Any} props 
+ * @returns {JSX.Element}
+ */
 export default function MainView(props) {
 
     const {

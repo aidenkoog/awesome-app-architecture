@@ -1,4 +1,8 @@
 
+/**
+ * footer component.
+ * @returns {JSX.Element}
+ */
 export default function FooterView() {
     return (
         <div className="footer_container">

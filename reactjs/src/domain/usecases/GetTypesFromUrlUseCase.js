@@ -8,7 +8,7 @@ function GetTypesFromUrlUseCase() {
      * get type information from url.
      * @param {String} urlQueryString 
      * refs. urlQueryString format is like '?phoneNumber=01012341234&types=EVENT_TYPE1,EVENT_TYPE2'.
-     * @returns 
+     * @returns {String}
      */
     function executeGetTypesFromUrlUseCase(urlQueryString) {
         return getTypes(urlQueryString)

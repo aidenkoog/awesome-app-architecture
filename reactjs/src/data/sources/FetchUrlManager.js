@@ -38,6 +38,10 @@ const FetchManager = () => {
         })
     }
 
+    /**
+     * execute fetch's GET.
+     * @returns {Promise}
+     */
     function fetchGet() {
         return new Promise((fulfill, reject) => {
             fetch(API_GET_ACTIVITIES).then(response => response.json()).then(response => {
@@ -50,6 +54,11 @@ const FetchManager = () => {
         })
     }
 
+    /**
+     * execute fetch's POST.
+     * @param {Any} params 
+     * @returns {Promise}
+     */
     function fetchPost(params) {
         return new Promise((fulfill, reject) => {
 

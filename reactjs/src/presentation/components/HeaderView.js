@@ -1,5 +1,10 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
+/**
+ * header view component.
+ * @param {Any} props 
+ * @returns {JSX.Element}
+ */
 export default function HeaderView({ onClickSaveHistory, onPressCollectData, currentAddress }) {
 
     return (
