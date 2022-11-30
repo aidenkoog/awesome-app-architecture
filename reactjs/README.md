@@ -17,6 +17,7 @@ It is written based on JavaScript.
 - 2022/11/22 : Initialize React.js project.
 - 2022/11/23 : Added Axios, Fetch manager / Update source's structure / Added table ui with dummy data.
 - 2022/11/24 : Fixed issue that activities data is not shown in table ui.
+- 2022/12/01 : Added Naver map related components / usecases / axios manager / proxy middleware to avoid CORS errors / resources.
 
 
 ## How To Setup Environment
