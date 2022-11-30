@@ -11,6 +11,9 @@ It is written based on JavaScript.
     - ✨ presentation
     - ✨ data
     - ✨ domain
+    - ✨ assets
+    - ✨ test
+    - ✨ utils
 
 ## Release Note
 
