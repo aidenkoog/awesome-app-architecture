@@ -20,7 +20,7 @@ const CRYPTO_ENABLE = false
 /**
  * activities query parameter keys.
  */
-const DEVICE_MOBILE_NUMBER = ["mobilePhoneNumber", "watchPhoneNumber", "loadKey"]
+const DEVICE_MOBILE_NUMBER = ["mobilePhoneNumber", "loadKey"]
 const TYPES = "types"
 
 
@@ -60,7 +60,7 @@ export default function UrlRepository() {
      * @param {String} urlQueryString
      * @returns {String}
      */
-    function getdeviceMobileNumber(urlQueryString) {
+    function getDeviceMobileNumber(urlQueryString) {
 
         let urlQueryParams = getQueryParams(urlQueryString)
         if (urlQueryParams == null || urlQueryParams.length === 0) {
@@ -148,7 +148,7 @@ export default function UrlRepository() {
     }
 
     return {
-        getdeviceMobileNumber,
+        getDeviceMobileNumber,
         getTypes
     }
 }

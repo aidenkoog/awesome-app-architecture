@@ -11,20 +11,20 @@ const FetchManager = () => {
 
     /**
      * call api which gets activities information with types and startDateTime.
-     * @param {string} watchMobileNumber
+     * @param {String} deviceMobileNumber
      * @param {Array} types
-     * @param {string} startDateTime
+     * @param {String} startDateTime
      * @returns {Promise}
      */
-    function fetchActivitiesWhenRetry(watchMobileNumber, types, startDateTime) {
+    function fetchActivitiesWhenRetry(deviceMobileNumber, types, startDateTime) {
         logDebugWithLine(LOG_TAG,
-            ">>> watchMobileNumber: " + watchMobileNumber
+            ">>> deviceMobileNumber: " + deviceMobileNumber
             + ", types: " + types
             + ", startDateTime: " + startDateTime)
 
         return new Promise((fulfill, reject) => {
             let params = {
-                watchMobileNumber: watchMobileNumber,
+                deviceMobileNumber: deviceMobileNumber,
                 types: types == null ? [] : types,
                 startDateTime: ""
             }
@@ -55,7 +55,7 @@ const FetchManager = () => {
 
             fetch(API_GET_ACTIVITIES_EXTRAS, {
                 method: "POST", body: JSON.stringify({
-                    watchMobileNumber: params.watchMobileNumber,
+                    deviceMobileNumber: params.deviceMobileNumber,
                     types: params.types,
                     startDateTime: params.startDateTime
                 })

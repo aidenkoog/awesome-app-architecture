@@ -6,6 +6,13 @@ const LOG_TAG = "NaverMapRepository"
 
 export default function NaverMapRepository() {
 
+    /**
+     * get reversed address from latitude and longitude.
+     * @param {Number} latitude 
+     * @param {Number} longitude 
+     * @param {Any} onResult 
+     * @returns 
+     */
     function getReversedAddress(latitude, longitude, onResult) {
 
         if (latitude === DEFAULT_LATITUDE_AND_LONGITUDE || longitude === DEFAULT_LATITUDE_AND_LONGITUDE) {

@@ -13,13 +13,13 @@ function RemoteRepository() {
 
     /**
      * get activities information.
-     * @param {String} watchMobileNumber 
+     * @param {String} deviceMobileNumber 
      * @param {Array} types
      * @returns {Promise}
      */
-    function getActivitiesInfo(watchMobileNumber, types) {
+    function getActivitiesInfo(deviceMobileNumber, types) {
         return new Promise((fulfill, reject) => {
-            getActivities(watchMobileNumber, types).then((response) => {
+            getActivities(deviceMobileNumber, types).then((response) => {
                 logDebugWithLine(LOG_TAG, "<<< response length: " + response.length + ", response: " + response)
                 fulfill(response)
 
@@ -31,14 +31,14 @@ function RemoteRepository() {
 
     /**
      * get activities information with extra data.
-     * @param {String} watchMobileNumber 
+     * @param {String} deviceMobileNumber 
      * @param {String} types
      * @param {String} startDateTime
      * @returns {Promise}
      */
-    function getActivitiesWithExtra(watchMobileNumber, types, startDateTime) {
+    function getActivitiesWithExtra(deviceMobileNumber, types, startDateTime) {
         return new Promise((fulfill, reject) => {
-            getActivitiesWithExtraData(watchMobileNumber, types, startDateTime).then((response) => {
+            getActivitiesWithExtraData(deviceMobileNumber, types, startDateTime).then((response) => {
                 logDebugWithLine(LOG_TAG, "<<< response: " + response)
                 fulfill(response)
 
@@ -50,12 +50,12 @@ function RemoteRepository() {
 
     /**
      * ask device to send SMS message.
-     * @param {String} watchMobileNumber 
+     * @param {String} deviceMobileNumber 
      * @returns {Promise}
      */
-    function sendSms(watchMobileNumber) {
+    function sendSms(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
-            sendSmsMessage(watchMobileNumber).then((response) => {
+            sendSmsMessage(deviceMobileNumber).then((response) => {
                 logDebugWithLine(LOG_TAG, "<<< response: " + response)
                 fulfill(response)
 

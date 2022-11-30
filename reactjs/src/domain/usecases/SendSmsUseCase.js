@@ -4,9 +4,14 @@ function SendSmsUseCase() {
 
     const { sendSms } = RemoteRepository()
 
-    function executeSendSmsUseCase(watchMobileNumber) {
+    /**
+     * execute usecase of asking device to send sms message.
+     * @param {String} deviceMobileNumber 
+     * @returns 
+     */
+    function executeSendSmsUseCase(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
-            sendSms(watchMobileNumber).then((response) => {
+            sendSms(deviceMobileNumber).then((response) => {
                 fulfill(response)
 
             }).catch((e) => {

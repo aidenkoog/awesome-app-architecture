@@ -9,13 +9,13 @@ function GetActivitiesUseCase() {
 
     /**
      * get activities information corresponding to parameter, that is, mobile phone number.
-     * @param {string} watchMobileNumber
+     * @param {String} deviceMobileNumber
      * @param {Array} types
      * @returns {Promise}
      */
-    function executeGetActivitiesUseCase(watchMobileNumber, types) {
+    function executeGetActivitiesUseCase(deviceMobileNumber, types) {
         return new Promise((fulfill, reject) => {
-            getActivitiesInfo(watchMobileNumber, types).then((response) => {
+            getActivitiesInfo(deviceMobileNumber, types).then((response) => {
                 fulfill(response)
 
             }).catch((e) => {
@@ -26,16 +26,16 @@ function GetActivitiesUseCase() {
 
     /**
      * get activities information with extra data.
-     * @param {string} watchMobileNumber
-     * @param {string} types
-     * @param {string} startDateTime
+     * @param {String} deviceMobileNumber
+     * @param {String} types
+     * @param {String} startDateTime
      * @returns {Promise}
      */
-    function executeGetActivitiesWithExtraUseCase(watchMobileNumber, types, startDateTime) {
+    function executeGetActivitiesWithExtraUseCase(deviceMobileNumber, types, startDateTime) {
         logDebug(LOG_TAG, ">>> types: " + types)
 
         return new Promise((fulfill, reject) => {
-            getActivitiesWithExtra(watchMobileNumber, types, startDateTime).then((response) => {
+            getActivitiesWithExtra(deviceMobileNumber, types, startDateTime).then((response) => {
                 fulfill(response)
 
             }).catch((e) => {

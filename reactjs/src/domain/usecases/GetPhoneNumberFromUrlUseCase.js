@@ -6,7 +6,7 @@ function GetPhoneNumberFromUrlUseCase() {
 
     /**
      * get phone number information from url.
-     * @param {string} urlQueryString 
+     * @param {String} urlQueryString 
      * refs. urlQueryString format is like '?phoneNumber=01012341234'.
      * @returns 
      */
