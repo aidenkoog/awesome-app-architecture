@@ -1,6 +1,15 @@
+
+/**
+ * measured data information.
+ */
 class MeasureInfo {
-    constructor(eventType, provider, lat, lng, altitude, accuracy, battery, locationType,
-        wearing, idle, status, delay, measuredDate, createdDate) {
+
+    constructor(
+        eventType, provider, lat, lng,
+        altitude, accuracy, battery, locationType,
+        wearing, idle, status, delay, measuredDate,
+        createdDate) {
+
         this.eventType = eventType
         this.provider = provider
         this.latitude = lat

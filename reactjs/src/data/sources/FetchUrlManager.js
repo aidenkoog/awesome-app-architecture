@@ -39,7 +39,7 @@ const FetchManager = () => {
     }
 
     /**
-     * execute fetch's GET.
+     * execute fetch's get.
      * @returns {Promise}
      */
     function fetchGet() {
@@ -55,7 +55,7 @@ const FetchManager = () => {
     }
 
     /**
-     * execute fetch's POST.
+     * execute fetch's post.
      * @param {Any} params 
      * @returns {Promise}
      */
