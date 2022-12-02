@@ -1,4 +1,4 @@
-import { logDebug } from "../../utils/logger/Logger"
+import { logDebug, outputErrorLog } from "../../utils/logger/Logger"
 
 const LOG_TAG = "UrlRepository"
 
@@ -18,9 +18,14 @@ const CRYPTO_MODE = CryptoJS.mode.CBC
 const CRYPTO_ENABLE = false
 
 /**
+ * domain prefix list.
+ */
+const DOMAIN_PREFIX_LIST = ["http://", "https://"]
+
+/**
  * activities query parameter keys.
  */
-const DEVICE_MOBILE_NUMBER = ["mobilePhoneNumber", "loadKey"]
+const WATCH_MOBILE_NUMBER = ["mobilePhoneNumber", "loadKey"]
 const TYPES = "types"
 
 
@@ -83,12 +88,12 @@ export default function UrlRepository() {
     }
 
     /**
-     * check if there's parameter key that is matched with key array.
+     * check if there's matched parameter key corresponding to mobile number key array.
      * @param {String} paramKeyName 
      * @returns {Boolean}
      */
     function hasMatchedPhoneNumber(paramKeyName) {
-        for (const phoneNumberItem of DEVICE_MOBILE_NUMBER) {
+        for (const phoneNumberItem of WATCH_MOBILE_NUMBER) {
             if (phoneNumberItem === paramKeyName) {
                 return true
             }
@@ -102,7 +107,6 @@ export default function UrlRepository() {
      * @returns {String}
      */
     function getTypes(urlQueryString) {
-
         let urlQueryParams = getQueryParams(urlQueryString)
         if (urlQueryParams == null || urlQueryParams.length === 0) {
             return null
@@ -131,6 +135,61 @@ export default function UrlRepository() {
     }
 
     /**
+     * parse domain url from web url.
+     * @param {String} urlLocationString 
+     * @returns {String}
+     */
+    function getDomain(urlLocationString) {
+        if (urlLocationString == null || urlLocationString === "") {
+            outputErrorLog(LOG_TAG, "invalid urlLocationString (" + urlLocationString + ")")
+            return null
+        }
+
+        let hasDomainPrefix = false
+        let locationWithoutPrefix = ""
+        let domainPrefix = ""
+
+        for (const item of DOMAIN_PREFIX_LIST) {
+            if (urlLocationString.includes(item)) {
+                hasDomainPrefix = true
+                domainPrefix = item
+                locationWithoutPrefix = urlLocationString.replace(item, "")
+                break
+            }
+        }
+
+        if (!hasDomainPrefix) {
+            outputErrorLog(LOG_TAG, "there's no any domain prefix such as http:// or https://")
+            return null
+        }
+
+        if (locationWithoutPrefix.includes("/")) {
+            let urlItemListBySlash = locationWithoutPrefix.split("/")
+            const domainUrl = urlItemListBySlash[0]
+            if (domainUrl == null || domainUrl === "") {
+                outputErrorLog(LOG_TAG, "domainUrl is null or empty")
+                return null
+
+            } else {
+                const result = domainPrefix + domainUrl
+                logDebug(LOG_TAG, ">>> domain url: " + result)
+                return result
+            }
+
+        } else {
+            if (urlLocationString == null || urlLocationString === "") {
+                outputErrorLog(LOG_TAG, "domainUrl is null or empty (refs. with no any queries)")
+                return null
+
+            } else {
+                const result = domainPrefix + urlLocationString
+                logDebug(LOG_TAG, ">>> domain url (refs. with no any queries): " + result)
+                return result
+            }
+        }
+    }
+
+    /**
      * decrypt mobile phone number.
      * @param {String} deviceMobileNumber
      * @returns {String}
@@ -154,6 +213,7 @@ export default function UrlRepository() {
 
     return {
         getDeviceMobileNumber,
-        getTypes
+        getTypes,
+        getDomain
     }
 }

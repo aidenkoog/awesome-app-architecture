@@ -1,6 +1,6 @@
 
 /**
- * custom list component.
+ * Custom list view component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
