@@ -1,6 +1,6 @@
 
 /**
- * API response code and message.
+ * Police API response code and message.
  */
 
 export const RESPONSE_OK = {
@@ -8,30 +8,30 @@ export const RESPONSE_OK = {
     message: "OK"
 }
 export const RESPONSE_QUERY_DUPLICATE_KEY = {
-    code: 9000,
+    code: 1000,
     message: "QUERY_DUPLICATE_KEY"
 }
 export const RESPONSE_QUERY_DATA_INTEGRITY_VIOLATION = {
-    code: 9001,
+    code: 1001,
     message: "QUERY_DATA_INTEGRITY_VIOLATION"
 }
 export const RESPONSE_QUERY_DELETE_EMPTY = {
-    code: 9002,
+    code: 1002,
     message: "QUERY_DELETE_EMPTY"
 }
 export const RESPONSE_QUERY_NO_ID = {
-    code: 9003,
+    code: 1003,
     message: "QUERY_NO_ID"
 }
 export const RESPONSE_NO_MATCHED_TYPE = {
-    code: 9000,
+    code: 2000,
     message: "NO_MATCHED_TYPE"
 }
 export const RESPONSE_NO_WATCH = {
-    code: 9001,
+    code: 2001,
     message: "NO_WATCH"
 }
 export const RESPONSE_NO_USER = {
-    code: 9002,
+    code: 2002,
     message: "NO_USER"
 }

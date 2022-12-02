@@ -2,16 +2,16 @@ import UrlRepository from "../../data/repositories/UrlRepository"
 
 function GetPhoneNumberFromUrlUseCase() {
 
-    const { getDeviceMobileNumber } = UrlRepository()
+    const { getWatchMobileNumber } = UrlRepository()
 
     /**
      * get phone number information from url.
      * @param {String} urlQueryString 
      * refs. urlQueryString format is like '?phoneNumber=01012341234'.
-     * @returns {String}
+     * @returns 
      */
     function executeGetPhoneNumberFromUrlUseCase(urlQueryString) {
-        return getDeviceMobileNumber(urlQueryString)
+        return getWatchMobileNumber(urlQueryString)
     }
 
     return {

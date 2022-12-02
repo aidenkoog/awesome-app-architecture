@@ -3,6 +3,7 @@ import { RecoilRoot } from "recoil"
 
 /**
  * App container.
+ * @returns {JSX.Element}
  */
 const App = () => {
   return (

@@ -1,11 +1,10 @@
 
-export const ERROR_MSG_NO_XXX_REPORT_WITHIN_24_HOURS = "24시간 이내의 XXX가 발견되지 않았습니다."
+export const ERROR_MSG_NO_SOS_REPORT_WITHIN_24_HOURS = "24시간 이내의 SOS가 발견되지 않았습니다."
 export const ERROR_MSG_NO_VALID_LOCATION = "해당 위치가 유효하지 않습니다."
 export const ERROR_MSG_PHONE_NUMBER_ERROR = "URL 전화번호 정보 오류"
-export const ERROR_MSG_NO_XXX_REPORT = "보고된 리포트가 존재하지 않습니다."
+export const ERROR_MSG_NO_POLICE_REPORT = "보고된 리포트가 존재하지 않습니다."
 export const ERROR_MSG_FAILED_SMS = "SMS 메세지 전송에 실패하였습니다."
 export const ERROR_MSG_NO_RESPONSE = "서버로부터 받은 위치 데이터가 없습니다."
 export const ERROR_MSG_WRONG_PHONE_NUMBER = "URL 내 잘못된 형식의 전화번호가 존재합니다."
 export const ERROR_MSG_NO_FOUND_ADDRESS = "주소 정보를 찾을 수 없습니다."
 export const ERROR_MSG_FAILED_CURRENT_LOCATION = "현재 위치 조회 중 에러가 발생하였습니다."
-export const ERROR_MSG_INVALID_DOMAIN = "도메인 정보를 설정하는 중 에러가 발생하였습니다."

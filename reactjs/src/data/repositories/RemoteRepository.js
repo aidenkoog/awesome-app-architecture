@@ -8,25 +8,8 @@ function RemoteRepository() {
     const {
         getActivities,
         getActivitiesWithExtraData,
-        sendSmsMessage,
-        setDomainUrl
+        sendSmsMessage
     } = AxiosManager()
-
-    /**
-     * initialize domain url derived from web page url.
-     * @param {String} domainUrl 
-     * @returns {Promise}
-     */
-    function initializeDomainUrl(domainUrl) {
-        return new Promise((fulfill, reject) => {
-            setDomainUrl(domainUrl).then(() => {
-                fulfill()
-
-            }).catch((e) => {
-                reject(e)
-            })
-        })
-    }
 
     /**
      * get activities information.
@@ -85,8 +68,7 @@ function RemoteRepository() {
     return {
         getActivitiesInfo,
         getActivitiesWithExtra,
-        sendSms,
-        initializeDomainUrl
+        sendSms
     }
 }
 

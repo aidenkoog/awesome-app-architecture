@@ -1,11 +1,10 @@
-import mapLoadingErrorImage from "../../assets/images/wifi_alert.png"
-import { MAIN_MAP_LOADING_FAILED_1, MAIN_MAP_LOADING_FAILED_2 } from "../../assets/strings/Strings"
+import mapLoadingErrorImage from "../../assets/images/loading_error_unplugged.png"
 import { logDebug } from "../../utils/logger/Logger"
 
 const LOG_TAG = "MapLoadingErrorComponent"
 
 /**
- * Map loading error component.
+ * map loading error component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
@@ -29,28 +28,33 @@ export default function MapLoadingErrorComponent(props) {
     return (
         <div>
             <img
-                style={{ width: 100, height: 100 }}
+                style={{ width: 450, height: 450 }}
                 src={mapLoadingErrorImage}
                 alt="mapLoadingErrorUnplugged" />
 
             <br /><br /><br />
+            <text>
+                <b>[Location]</b>
+            </text>
             {!isReportExpired && !hasError ?
-                <h2>{currentAddress}</h2>
+                <text>
+                    <h2>{currentAddress}</h2>
+                </text>
                 :
-                <div>
+                <text>
                     <h2>{errorMessageTitle}</h2>
                     <b>{errorMessageSubTitle}</b>
-                </div>
+                </text>
             }
 
+            <br /><br /><br /><br />
+
             {!isReportExpired ?
-                <div>
-                    <b style={{ fontSize: 20 }}>{MAIN_MAP_LOADING_FAILED_1}</b>
-                    <br />
-                    <b style={{ fontSize: 20 }}>{MAIN_MAP_LOADING_FAILED_2}</b>
-                </div>
+                <text>
+                    <b>Failed to measure location</b>
+                </text>
                 :
-                <b></b>
+                <text></text>
             }
 
 

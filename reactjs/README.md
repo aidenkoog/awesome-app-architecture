@@ -1,9 +1,8 @@
+# React.js Architecture Project.
+## Continue to study and ponder to improve the code structure.
 
-# Relief Integration Project.
-## Summary
 
-
-This project shows data using the NAVER Map API.
+This project is to make template code that can be applied to any web based app development.
 It is written based on JavaScript.
 
 - Language: Javascript
@@ -12,30 +11,17 @@ It is written based on JavaScript.
     - ✨ presentation
     - ✨ data
     - ✨ domain
-    - ✨ utils
     - ✨ assets
+    - ✨ test
+    - ✨ utils
 
 ## Release Note
 
-- 2022/11/24 : Initialize React.js project with README / NaverMaps API dependency, client ID.
-- 2022/11/28 : Rearrange UI component / functions.
-- 2022/11/29 : (1st) Rearrange source code structure / Change page tab title.
-- 2022/11/29 : (2nd) Added HTTP POST module / Re-arrange UI.
-- 2022/11/30 : Query Several reports when entering page first / Delete unused and unnecessary variable declaration.
-- 2022/12/01 : (1st) Changed loading animation / Re-arranged ui alignment.
-- 2022/12/01 : (2nd) Added zoom controller to be shown in naver map component.
-- 2022/12/01 : (3rd) Fixed wrong send-sms api url / Deleted text tag in error component.
-- 2022/12/01 : (4th) (Workaround) Added code below that initializes Naver map instance to avoid the problem where map is NOT shown.
-- 2022/12/01 : (5th) Added module that can get domain from web page url.
-- 2022/12/01 : (6th) Added code to retry 5 times when activity information is not properly fetched in the beginning. 
-- 2022/12/01 : (7th) Added logic that calls apis every 3 seconds for 2 minutes until new report comes in.
-- 2022/12/01 : (8th) Fixed issue that refresh button doesn't work anymore after it's pressed once more.
-- 2022/12/01 : (9th) Fixed issue that refreshing current location doesn't work after new data comes in.
-- 2022/12/01 : (10th) Fixed issue that history list disappears after refreshing current location data.
-- 2022/12/02 : (1st) Fixed issue that copying link doesn't work after querying the current location.
-- 2022/12/02 : (2nd) Fix mistake happened while fixing function to copy address.
-- 2022/12/02 : (3rd) Applied all GUI data.
-- 2022/12/02 : (4th) Fixed issue that history list is duplicated, Delete provider data and Added real-time query button (template).
+- 2022/11/22 : Initialize React.js project.
+- 2022/11/23 : Added Axios, Fetch manager / Update source's structure / Added table ui with dummy data.
+- 2022/11/24 : Fixed issue that activities data is not shown in table ui.
+- 2022/12/01 : Added Naver map related components / usecases / axios manager / proxy middleware to avoid CORS errors / resources.
+
 
 ## How To Setup Environment
 
@@ -43,7 +29,6 @@ It's mandantory to set up the development environment and build the app by follo
 
 > Visit https://ko.reactjs.org/
 > npx create-react-app reactjs
-> yarn add react-naver-maps
 > npm start
 
 ## Link
@@ -55,4 +40,3 @@ If you are interested in information about me or other activities, please access
 | Youtube | [https://www.instagram.com/aidenkoog/] |
 | Github page | [https://aidenkoog.github.io/aidenkoog/] |
 | Instagram | [https://www.youtube.com/channel/UC3hT_aGpXxL4Dygz4_tNVQA] |
-

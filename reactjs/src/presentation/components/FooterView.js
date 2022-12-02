@@ -1,13 +1,14 @@
 
 /**
- * Footer view component.
- * @param {Any} props 
+ * footer component.
  * @returns {JSX.Element}
  */
 export default function FooterView() {
     return (
         <div className="footer_container">
-            <b>© github.AidenKooG.io, Inc. All rights reserved.</b><br />
+            <b>© AidenKooG, Inc. All rights reserved.</b><br />
+            Page development and data processing were carried out by <b>AidenKooG.</b><br />
+            <b>00000,</b> Republic of Korea<br />
         </div>
     )
 }

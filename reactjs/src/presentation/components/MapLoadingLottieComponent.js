@@ -1,34 +1,41 @@
-import loadingAnimation from "../../assets/images/loading_animation.gif"
-import { MAIN_MAP_LOADING_1, MAIN_MAP_LOADING_2 } from "../../assets/strings/Strings"
+import Lottie from "react-lottie"
+import animationData from "../../assets/lotties/loading_lottie.json"
 
-const ANIMATION_WIDTH = 100
-const ANIMATION_HEIGHT = 100
-const ANIMATION_MARGIN_TOP = 30
-const ANIMATION_MARGIN_BOTTOM = 30
+const LOTTIE_HEIGHT = 500
+const LOTTIE_WIDTH = 500
 
-/**
- * Map loading lottie animation view component.
- * Refs. currently, GIF typed image is used for the animation.
- * @param {Any} props 
- * @returns {JSX.Element}
- */
 export default function MapLoadingLottieComponent() {
+
+    /**
+     * lottie's option.
+     */
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    }
 
     return (
         <div>
-            <img
-                style={
-                    {
-                        width: ANIMATION_WIDTH,
-                        height: ANIMATION_HEIGHT,
-                        marginTop: ANIMATION_MARGIN_TOP,
-                        marginBottom: ANIMATION_MARGIN_BOTTOM
-                    }}
-                src={loadingAnimation} alt="loadingAnimation" />
+            <Lottie
+                options={defaultOptions}
+                height={LOTTIE_HEIGHT}
+                width={LOTTIE_WIDTH}
+            />
             <br /><br /><br /><br />
-            <b style={{ fontSize: 18 }}>{MAIN_MAP_LOADING_1}</b>
+
+            <text >
+                <b>현 위치를 측위 중입니다.</b>
+            </text>
+
             <br />
-            <b style={{ fontSize: 18 }}>{MAIN_MAP_LOADING_2}</b>
+
+            <text>
+                <b>결과가 나올때까지 좀 더 기다려 주시기 바랍니다.</b>
+            </text>
         </div>
     )
 }

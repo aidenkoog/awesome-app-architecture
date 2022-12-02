@@ -16,25 +16,20 @@ axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 /**
- * domain url fectched from web page url.
- */
-let apiDomainUrl = ""
-
-/**
  * axios manager for handling http get, post and etc.
  */
 function AxiosManager() {
 
     /**
      * call api which gets activities information.
-     * @param {String} deviceMobileNumber 
+     * @param {string} watchMobileNumber 
      * @param {Array} types 
      * @returns {Promise}
      */
-    function getActivities(deviceMobileNumber, types = null) {
+    function getActivities(watchMobileNumber, types = null) {
         return new Promise((fulfill, reject) => {
             let params = {
-                deviceMobileNumber: deviceMobileNumber,
+                watchMobileNumber: watchMobileNumber,
                 types: types == null ? [] : types,
                 size: ONLY_RECENT
             }
@@ -50,15 +45,15 @@ function AxiosManager() {
 
     /**
      * call api which gets activities information with extra data.
-     * @param {String} deviceMobileNumber
-     * @param {String} types
-     * @param {String} startDateTime
+     * @param {string} watchMobileNumber
+     * @param {string} types
+     * @param {string} startDateTime
      * @returns {Promise}
      */
-    function getActivitiesWithExtraData(deviceMobileNumber, types, startDateTime) {
+    function getActivitiesWithExtraData(watchMobileNumber, types, startDateTime) {
         return new Promise((fulfill, reject) => {
             let params = {
-                deviceMobileNumber: deviceMobileNumber,
+                watchMobileNumber: watchMobileNumber,
                 types: types,
                 startDateTime: startDateTime
             }
@@ -74,8 +69,8 @@ function AxiosManager() {
 
     /**
      * ask device to send SMS message.
-     * @param {String} sendTo 
-     * @param {String} sender 
+     * @param {string} sendTo 
+     * @param {string} sender 
      * @param {Any} type 
      * @returns {Promise}
      */
@@ -103,8 +98,6 @@ function AxiosManager() {
      * @returns {Promise}
      */
     function axiosGet(apiUrl, params) {
-        logDebugWithLine(LOG_TAG, "apiDomainUrl: " + apiDomainUrl)
-
         return new Promise((fulfill, reject) => {
             axios.get(apiUrl, { params }, { withCredentials: true }).then((response) => {
                 fulfill(getResponse(apiUrl, response))
@@ -122,8 +115,6 @@ function AxiosManager() {
      * @returns {Promise}
      */
     function axiosPost(apiUrl, params) {
-        logDebugWithLine(LOG_TAG, "apiDomainUrl: " + apiDomainUrl)
-
         return new Promise((fulfill, reject) => {
             axios.post(
                 apiUrl, params, {
@@ -142,7 +133,7 @@ function AxiosManager() {
 
     /**
      * get response data corresponding to each api with debugging log messages.
-     * @param {String} apiUrl 
+     * @param {string} apiUrl 
      * @param {Any} response 
      * @returns {Any}
      */
@@ -166,28 +157,10 @@ function AxiosManager() {
         }
     }
 
-    /**
-     * set domain url derived from web page url.
-     * @param {String} domainUrl 
-     * @returns {Promise}
-     */
-    function setDomainUrl(domainUrl) {
-        return new Promise((fulfill, reject) => {
-            try {
-                apiDomainUrl = domainUrl
-                logDebugWithLine(LOG_TAG, "succeeded to set apiDomainUrl: " + apiDomainUrl)
-                fulfill()
-            } catch (e) {
-                reject(e)
-            }
-        })
-    }
-
     return {
         getActivities,
         getActivitiesWithExtraData,
-        sendSmsMessage,
-        setDomainUrl
+        sendSmsMessage
     }
 }
 
