@@ -10,10 +10,26 @@ It is written based on JavaScript.
 - Library: React (A library for creating user interfaces.)
 - Structure Summary
     - ✨ presentation
+        - ✨ components
+        - ✨ container
     - ✨ data
+        - ✨ adapters
+        - ✨ dummy
+        - ✨ repositories
+        - ✨ sources
     - ✨ domain
+        - ✨ entities
+        - ✨ usecases
     - ✨ utils
+        - ✨ error
+        - ✨ logger
+        - ✨ regex
+        - ✨ time
+        - ✨ map
     - ✨ assets
+        - ✨ images
+        - ✨ lotties
+        - ✨ strings
 
 ## Release Note
 
