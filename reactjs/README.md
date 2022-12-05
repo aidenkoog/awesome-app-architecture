@@ -52,7 +52,8 @@ It is written based on JavaScript.
 - 2022/12/02 : (2nd) Fix mistake happened while fixing function to copy address.
 - 2022/12/02 : (3rd) Applied all GUI data.
 - 2022/12/02 : (4th) Fixed issue that history list is duplicated, Delete provider data and Added real-time query button (template).
-- 2022/12/05 : Fixed issue that location time information is NOT accurate.
+- 2022/12/05 : (1st) Fixed issue that location time information is NOT accurate and Separate elapsed time information.
+- 2022/12/05 : (2nd) Deleted unnecessary parameter key for debugging about phone number, that is, loadKey only exists.
 
 ## How To Setup Environment
 

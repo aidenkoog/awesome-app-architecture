@@ -25,7 +25,7 @@ const DOMAIN_PREFIX_LIST = ["http://", "https://"]
 /**
  * activities query parameter keys.
  */
-const WATCH_MOBILE_NUMBER = ["mobilePhoneNumber", "loadKey"]
+const WATCH_MOBILE_NUMBER = ["loadKey"]
 const TYPES = "types"
 
 
