@@ -52,6 +52,7 @@ It is written based on JavaScript.
 - 2022/12/02 : (2nd) Fix mistake happened while fixing function to copy address.
 - 2022/12/02 : (3rd) Applied all GUI data.
 - 2022/12/02 : (4th) Fixed issue that history list is duplicated, Delete provider data and Added real-time query button (template).
+- 2022/12/05 : Fixed issue that location time information is NOT accurate.
 
 ## How To Setup Environment
 

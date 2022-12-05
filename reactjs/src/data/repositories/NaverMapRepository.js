@@ -11,7 +11,7 @@ export default function NaverMapRepository() {
      * @param {Number} latitude 
      * @param {Number} longitude 
      * @param {Number} onResult 
-     * @returns 
+     * @returns {String}
      */
     function getReversedAddress(latitude, longitude, onResult) {
 
@@ -38,7 +38,17 @@ export default function NaverMapRepository() {
             }
 
             logDebug(LOG_TAG, "<<< reversed address info list: " + currentAddressInfoList)
-            onResult(currentAddressInfoList)
+
+            const addressInfoListLength = currentAddressInfoList.length
+            logDebug(LOG_TAG, "<<< addressInfoListLength: " + addressInfoListLength)
+
+            if (addressInfoListLength > 1) {
+                onResult(currentAddressInfoList[1])
+            } else if (addressInfoListLength > 0) {
+                onResult(currentAddressInfoList[0])
+            } else {
+                onResult(null)
+            }
         })
     }
 

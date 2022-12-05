@@ -23,20 +23,37 @@ export const getCurrentTime = () => {
  * @returns {String}
  */
 export const getHistoryTypedDateMessage = (createdDate) => {
-    const createdMillTime = new Date(createdDate)
+    const createdMillTime = new Date(createdDate).getTime()
     const currentMillTime = getCurrentMillTime()
-    const gapMillTime = currentMillTime - createdMillTime
+    logDebug(LOG_TAG, ">>> createdDate: " + createdDate
+        + ", createdMillTime: " + createdMillTime + ", currentMillTime: " + currentMillTime)
+
+    const gapMillTime = Math.abs(currentMillTime - createdMillTime)
     const gapDateTime = new Date(gapMillTime)
+    logDebug(LOG_TAG, ">>> gapMillTime: " + gapMillTime + ", gapDateTime: " + gapDateTime)
 
     let minutes = (gapDateTime.getMinutes() < 10 ? '0' : '') + gapDateTime.getMinutes()
     let seconds = (gapDateTime.getSeconds() < 10 ? '0' : '') + gapDateTime.getSeconds()
 
-    const result = gapMillTime > MILLISECONDS_24_HOUR ? BEFORE_24_HOURS
-        : gapMillTime > MILLISECONDS_1_HOUR ? BEFORE_1_HOURS
-            : minutes + "분 " + seconds + "초 전"
+    const expired24Hours = gapMillTime > MILLISECONDS_24_HOUR
+    const expired1Hour = gapMillTime > MILLISECONDS_1_HOUR
+    logDebug(LOG_TAG, ">>> expired24Hours: " + expired24Hours + ", expired1Hour: " + expired1Hour)
+
+    const result = expired24Hours ? getElapsedDays(gapMillTime) : expired1Hour ? getElapsedHours(gapMillTime)
+        : minutes + "분 " + seconds + "초 전"
     logDebug(LOG_TAG, ">>> historyTypedDateMessage: " + result)
 
     return result
+}
+
+const getElapsedHours = (gapMillTime) => {
+    const elapsedHours = Math.floor(gapMillTime / MILLISECONDS_1_HOUR)
+    return elapsedHours + "시간 전"
+}
+
+const getElapsedDays = (gapMillTime) => {
+    const elapsedDays = Math.floor(gapMillTime / MILLISECONDS_24_HOUR)
+    return elapsedDays + "일 전"
 }
 
 /**
@@ -44,5 +61,6 @@ export const getHistoryTypedDateMessage = (createdDate) => {
  * @returns {long}
  */
 export const getCurrentMillTime = () => {
-    return new Date().getTime()
+    let currentDate = new Date()
+    return currentDate.getTime() - (currentDate.getTimezoneOffset() * 60000)
 }

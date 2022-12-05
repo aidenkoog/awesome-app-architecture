@@ -15,7 +15,7 @@ import {
 import { REGEX_PHONE_NUMBER } from "../../utils/regex/RegexUtil"
 import SetDomainUrlUseCase from "../../domain/usecases/SetDomainUrlUseCase"
 import { NOT_SUPPORT_FUNCTION } from "../../assets/strings/Strings"
-import QueryRealtimeLocationUseCase from "../../domain/usecases/QueryRealtimeLocationUseCase"
+import InquiryRealtimeLocationUseCase from "../../domain/usecases/InquiryRealtimeLocationUseCase"
 
 /**
  * file saver module for downloading the file on the webpage.
@@ -127,7 +127,7 @@ export default function HomeContainer() {
     const { executeGetPhoneNumberFromUrlUseCase } = GetPhoneNumberFromUrlUseCase()
     const { executeSetDomainUrlUseCase } = SetDomainUrlUseCase()
     const { executeSendSmsUseCase } = SendSmsUseCase()
-    const { executeQueryRealtimeLocationUseCase } = QueryRealtimeLocationUseCase()
+    const { executeInquiryRealtimeLocationUseCase } = InquiryRealtimeLocationUseCase()
 
     /**
      * called before ui rendering and painting.
@@ -454,7 +454,7 @@ export default function HomeContainer() {
 
         alert(NOT_SUPPORT_FUNCTION)
 
-        executeQueryRealtimeLocationUseCase().then(() => {
+        executeInquiryRealtimeLocationUseCase().then(() => {
             logDebug(LOG_TAG, "<<< succeeded to query real time location")
 
         }).catch((e) => {
