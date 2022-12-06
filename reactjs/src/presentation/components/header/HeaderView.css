@@ -1,0 +1,38 @@
+.header_container {
+  max-width: auto;
+  max-height: auto;
+  height: 10%;
+  margin: 0 auto;
+  overflow: auto;
+  text-align: left;
+  color: #fff;
+  padding-left: 1.2%;
+  background-color: #1d70ec;
+}
+
+.header_title {
+  width: 50%;
+  float: left;
+}
+
+.header_button {
+  width: 50%;
+  float: left;
+  text-align: center;
+  padding: 20px;
+}
+
+.header_button_item {
+  width: 15%;
+  height: auto;
+  float: right;
+  margin-right: 30px;
+  color: #1d70ec;
+  font-size: larger;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 5px;
+  border-width: 3px;
+  border-color: #fff;
+  background-color: #fff;
+}

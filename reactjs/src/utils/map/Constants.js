@@ -1,1 +1,0 @@
-export const NAVER_CLIENT_ID = "9n75mtfld2"

@@ -1,0 +1,11 @@
+
+/**
+ * activities event type.
+ */
+export const POWER_ON = "POWER_ON"
+export const POWER_DOWN = "POWER_DOWN"
+export const SOS_REPORT = "SOS_REPORT"
+export const LOCATION_REPORT = "LOCATION_REPORT"
+export const ONDEMAND_REPORT = "ONDEMAND_REPORT"
+export const ONDEMAND_REALTIME_REPORT = "ONDEMAND_REALTIME_REPORT"
+export const ONDEMAND_POLICE_REPORT = "ONDEMAND_POLICE_REPORT"

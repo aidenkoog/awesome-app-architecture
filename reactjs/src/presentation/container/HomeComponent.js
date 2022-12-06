@@ -1,10 +1,9 @@
-import HeaderView from '../components/HeaderView'
-import MenuView from '../components/MenuView'
-import MainView from '../components/MainView'
-import FooterView from '../components/FooterView'
-import { logDebug } from '../../utils/logger/Logger'
+import HeaderView from "../components/header/HeaderView"
+import MainView from "../components/main/MainView"
+import MenuView from "../components/menu/MenuView"
+import FooterView from "../components/footer/FooterView"
+import "./HomeCss.css"
 
-const LOG_TAG = "HomeComponent"
 
 /**
  * home page component.
@@ -32,8 +31,6 @@ export default function HomeComponent(props) {
         recentHistory,
         onPressRealtimeCollectData
     } = props
-
-    logDebug(LOG_TAG, "<<< latitude: " + latitude + ", longitude: " + longitude + ", loading: " + loading)
 
     return (
         <div className="root_container">

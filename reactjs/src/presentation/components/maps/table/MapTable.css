@@ -1,0 +1,40 @@
+/* table itself. */
+.table {
+  width: 100%;
+  border-spacing: 5px;
+  background-color: #fff;
+  font-weight: bold;
+  border-style: solid;
+  border-left-color: #fff;
+  font-size: 15px;
+  border-right-color: #fff;
+  border-top-color: #1d70ec;
+  border-bottom-color: #1d70ec;
+  border-width: 1px;
+}
+
+.table_for_td {
+  width: 100%;
+  border-spacing: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background-color: #fff;
+  border-style: solid;
+  border-left-color: #fff;
+  border-right-color: #fff;
+  border-top-color: #fff;
+  border-bottom-color: #cccdd0;
+  border-width: 1px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.table th {
+  background: #fff;
+  color: #1d70ec;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-weight: bold;
+  text-align: left;
+}
