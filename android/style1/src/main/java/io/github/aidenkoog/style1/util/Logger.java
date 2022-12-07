@@ -5,7 +5,7 @@ import android.util.Log;
 public class Logger {
 
     private static final boolean LOGGER_DEBUG = true;
-    static final String TAG = "spuk";
+    static final String TAG = "Logger";
 
     public static final void e(String message) {
         if (LOGGER_DEBUG) Log.e(TAG, buildLogMsg(message));
