@@ -37,7 +37,8 @@ Kotlin + MVVM (Model-View-ViewModel) + Hilt + Retrofit + Room (DB) + Gson + RxJa
 - 2022/11/19 : Added entire template source code.
 - 2022/11/21 : (1st) Fixed build error occurred by wrong app's id (library) and gradle version.
 - 2022/11/21 : (2nd) Re-arrange app / library folder hierarchy.
-- 2022/12/07 : Added style1, Android template source code (legacy style)
+- 2022/12/07 : (1st) Added style1, Android template source code (legacy style)
+- 2022/12/07 : (2nd) Added style2, Android template source code (legacy style)
 
 
 ## How To Setup Environment
