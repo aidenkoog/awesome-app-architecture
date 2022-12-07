@@ -187,6 +187,7 @@ export default function HomeContainer() {
      * clear error related states.
      */
     function clearErrorState() {
+        createErrorAddress()
         setIsReportExpired(false)
         setErrorMessage("")
         setHasError(false)
@@ -197,6 +198,7 @@ export default function HomeContainer() {
      * @param {string} errorMessage 
      */
     function enableErrorState(errorMessage) {
+        createErrorAddress()
         setHasError(true)
         setErrorMessage(errorMessage)
         setLoading(false)
@@ -257,6 +259,7 @@ export default function HomeContainer() {
                 }
                 recentHistory = historyList != null && historyList.length > 0 ? historyList[historyList.length - 1] : ""
                 setLocationInformation(responseLat, responseLng)
+                createCurrentAddress(response)
             }
             return true
         }
@@ -414,8 +417,19 @@ export default function HomeContainer() {
      * @param {Any} response
      */
     function createCurrentAddress(response) {
+        if (response == null || response === undefined || response.length <= 0) {
+            currentAddress = ERROR_MSG_NO_FOUND_ADDRESS
+            return
+        }
         const responseAddress = response[RECENT_RESPONSE_INDEX].address
         currentAddress = responseAddress == null ? ERROR_MSG_NO_FOUND_ADDRESS : responseAddress
+    }
+
+    /**
+     * create address for error.
+     */
+    function createErrorAddress() {
+        currentAddress = ERROR_MSG_NO_FOUND_ADDRESS
     }
 
     /**

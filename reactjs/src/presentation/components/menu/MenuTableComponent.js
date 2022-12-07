@@ -14,6 +14,16 @@ function MenuTableComponent(props) {
      */
     const { historyList } = props
 
+    function getDate(historyItem) {
+        return historyItem != null && historyItem !== "" && historyItem.length >= 2 ?
+            historyItem.split("|")[1] : "--"
+    }
+
+    function getAddress(historyItem) {
+        return historyItem != null && historyItem !== "" && historyItem.length >= 3 ?
+            historyItem.split("|")[2] : "--"
+    }
+
     return (
         <div>
             <table class="table table-striped">
@@ -32,8 +42,8 @@ function MenuTableComponent(props) {
                                 <table class="table_for_td table-striped">
                                     <tbody>
                                         <tr>
-                                            <td style={{ width: '20%' }}>{info.split("|")[1]}</td>
-                                            <td style={{ width: '80%' }}>{info.split("|")[2]}</td>
+                                            <td style={{ width: '20%' }}>{getDate(info)}</td>
+                                            <td style={{ width: '80%' }}>{getAddress(info)}</td>
                                         </tr>
                                     </tbody>
                                 </table>

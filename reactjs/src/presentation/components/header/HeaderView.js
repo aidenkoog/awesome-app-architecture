@@ -1,6 +1,7 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import {
-    COPY_ADDRESS, HEADER_TITLE, HISTORY_SAVE, QUERY_CURRENT_LOCATION, QUERY_REALTIME_LOCATION
+    COPY_ADDRESS, ERROR_MSG_NO_FOUND_ADDRESS, HEADER_TITLE,
+    HISTORY_SAVE, QUERY_CURRENT_LOCATION, QUERY_REALTIME_LOCATION
 } from '../../../assets/strings/Strings'
 import "./HeaderView.css"
 
@@ -11,6 +12,11 @@ import "./HeaderView.css"
  */
 export default function HeaderView({
     onClickSaveHistory, onPressCollectData, currentAddress, historySaveSupport, onPressRealtimeCollectData }) {
+
+    let currentAddressToCopy = currentAddress
+    if (currentAddress == null || currentAddress === undefined || currentAddress === "") {
+        currentAddressToCopy = ERROR_MSG_NO_FOUND_ADDRESS
+    }
 
     return (
         <div className="header_container">
@@ -27,7 +33,7 @@ export default function HeaderView({
                 }
 
                 <div>
-                    <CopyToClipboard text={currentAddress} onCopy={{}}>
+                    <CopyToClipboard text={currentAddressToCopy} onCopy={{}}>
                         <button className="header_button_item">{COPY_ADDRESS}</button>
                     </CopyToClipboard>
                 </div>

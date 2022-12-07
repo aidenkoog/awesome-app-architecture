@@ -14,6 +14,16 @@ function MapTableComponent(props) {
      */
     const { recentHistory } = props
 
+    function getCurrentDate() {
+        return recentHistory != null && recentHistory !== "" && recentHistory.length >= 3 ?
+            recentHistory.split("|")[2] : "--"
+    }
+
+    function getCurrentAddress() {
+        return recentHistory != null && recentHistory !== "" && recentHistory.length >= 4 ?
+            recentHistory.split("|")[3] : "--"
+    }
+
     return (
         <div>
             <table class="table table-striped">
@@ -25,12 +35,12 @@ function MapTableComponent(props) {
                 </thead>
             </table>
             {
-                recentHistory != null && recentHistory != "" ?
+                recentHistory != null && recentHistory !== "" ?
                     <table class="table_for_td table-striped">
                         <tbody>
                             <tr>
-                                <td style={{ width: '20%' }}>{recentHistory.split("|")[3]}</td>
-                                <td style={{ width: '80%' }}>{recentHistory.split("|")[2]}</td>
+                                <td style={{ width: '20%' }}>{getCurrentDate()}</td>
+                                <td style={{ width: '80%' }}>{getCurrentAddress()}</td>
                             </tr>
                         </tbody>
                     </table>

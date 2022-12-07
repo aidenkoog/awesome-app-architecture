@@ -2,7 +2,7 @@ import HeaderView from "../components/header/HeaderView"
 import MainView from "../components/main/MainView"
 import MenuView from "../components/menu/MenuView"
 import FooterView from "../components/footer/FooterView"
-import "./HomeCss.css"
+import "./Home.css"
 
 
 /**
