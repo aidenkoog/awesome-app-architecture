@@ -11,3 +11,4 @@ rootProject.name = "Android-Architecture"
 include ':app'
 include ':library'
 include ':practice_1'
+include ':practice_2'
