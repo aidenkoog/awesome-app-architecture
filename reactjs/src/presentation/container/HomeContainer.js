@@ -8,7 +8,7 @@ import SendSmsUseCase from "../../domain/usecases/sms/SendSmsUseCase"
 import { RESPONSE_OK } from "../../data/sources/responses/ResponseCode"
 import { ONDEMAND_POLICE_REPORT, SOS_REPORT } from "../../data/sources/event_types/EventType"
 import {
-    ERROR_MSG_NO_POLICE_REPORT, ERROR_MSG_NO_SOS_REPORT_WITHIN_24_HOURS,
+    ERROR_MSG_NO_REPORT, ERROR_MSG_NO_REPORT_WITHIN_24_HOURS,
     ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR, ERROR_MSG_FAILED_SMS,
     ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE, ERROR_MSG_NO_FOUND_ADDRESS, ERROR_MSG_FAILED_CURRENT_LOCATION
 } from "../../assets/strings/Strings"
@@ -76,7 +76,7 @@ let isRefreshingWithRealtime = false
  * variable represents if checking if there's police report is being executed.
  * refs. why use: for controlling history list.
  */
-let isCheckingPoliceReport = false
+let isCheckingReport = false
 
 /**
  * flag used to determine whether a page has been loaded at least once.
@@ -210,7 +210,7 @@ export default function HomeContainer() {
     function update24HoursExpiration() {
         setIsReportExpired(true)
         setLocationInformation(DEFAULT_LATITUDE_AND_LONGITUDE, DEFAULT_LATITUDE_AND_LONGITUDE)
-        setErrorMessage(ERROR_MSG_NO_SOS_REPORT_WITHIN_24_HOURS)
+        setErrorMessage(ERROR_MSG_NO_REPORT_WITHIN_24_HOURS)
         setLoading(false)
     }
 
@@ -329,7 +329,7 @@ export default function HomeContainer() {
             if (!updateComponents(response, getResponseExtraErrorMessage(response))) {
                 return
             }
-            isCheckingPoliceReport = true
+            isCheckingReport = true
 
             executeGetActivitiesWithExtraUseCase(
                 devicehMobileNumber, ONDEMAND_POLICE_REPORT, getLatestCreatedDateTime(response)).then((response) => {
@@ -359,10 +359,10 @@ export default function HomeContainer() {
                             response[RECENT_RESPONSE_INDEX].lng
                         )
                     }
-                    isCheckingPoliceReport = false
+                    isCheckingReport = false
 
                 }).catch((_e) => {
-                    isCheckingPoliceReport = false
+                    isCheckingReport = false
                 })
 
         }).catch((_e) => {
@@ -402,7 +402,7 @@ export default function HomeContainer() {
         const createDateTime = createdDate.replace("T", " ").replace("Z", " ")
         let historyMessage = provider + "|" + date + "|" + address + "|" + createDateTime
 
-        if (!isRefreshing && !isCheckingPoliceReport) {
+        if (!isRefreshing && !isCheckingReport) {
             historyList = []
             historyList.push(historyMessage)
 
@@ -498,7 +498,7 @@ export default function HomeContainer() {
 
                         printResponse(response)
                         if (response.length <= 0) {
-                            retryQueryCurrentLocation(ERROR_MSG_NO_POLICE_REPORT)
+                            retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
 
                         } else {
                             const latestCreatedTime = getLatestCreatedMillTime(response)
@@ -510,12 +510,12 @@ export default function HomeContainer() {
                                 setRefresh(++refreshValue)
 
                             } else {
-                                retryQueryCurrentLocation(ERROR_MSG_NO_POLICE_REPORT)
+                                retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
                             }
                         }
 
                     }).catch((_e) => {
-                        retryQueryCurrentLocation(ERROR_MSG_NO_POLICE_REPORT)
+                        retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
                     })
 
             }).catch((_e) => {
