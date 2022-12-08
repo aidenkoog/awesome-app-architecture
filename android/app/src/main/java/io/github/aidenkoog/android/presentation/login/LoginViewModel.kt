@@ -2,13 +2,10 @@ package io.github.aidenkoog.android.presentation.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.aidenkoog.android.domain.model.User
 import io.github.aidenkoog.android.domain.usecase.LoginUseCase
-import javax.inject.Inject
 
-@HiltViewModel
-class LoginViewModel @Inject constructor(
+class LoginViewModel constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 

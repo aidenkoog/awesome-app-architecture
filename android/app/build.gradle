@@ -2,81 +2,214 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.firebase.firebase-perf'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdk 32
+    /* App signing key information */
+    signingConfigs {
+        aidenkoog {
+            storeFile file('../keystore/appkey.jks')
+            storePassword "aidenkoog0000"
+            keyAlias "aidenkoog"
+            keyPassword "aidenkoog0000"
+        }
+    }
+
+    compileSdk 33
+
     defaultConfig {
         applicationId "io.github.aidenkoog.android"
-        minSdk 23
-        targetSdk 32
-        versionCode 100
+        minSdk 26
+        targetSdk 33
         /*
-         * first : concept or app standard design
-         * second : function or specification
-         * third : bug or design
+         * -----------------------------------------------------------------------------------------
+         * major.minor.hotfix description
+         * 1) major (feature) : feature adding
+         * 2) minor (major) : critical modification
+         * 3) hotfix : modify source code quickly.
+         * -----------------------------------------------------------------------------------------
+         * versionCode & versionName rule
+         * example: versionCode is going to be 101 if versionName is 1.0.1
          */
+        versionCode 100
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures {
-        viewBinding true
-    }
+
+    /* ---------------------------------------------------------------------------------------------
+     * Build type
+     * 1) release
+     * 2) debug
+     * 3) stage
+     * - Just change the value corresponding to URL_DOMAIN_SSL key for the REST API domain URL change
+     * --------------------------------------------------------------------------------------------*/
     buildTypes {
         release {
+            debuggable true         // for debugging
+            applicationIdSuffix ""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"https://...\"")
+            buildConfigField("String", "MQTT_URL", "\"...\"")
+            manifestPlaceholders = [appLabel: "AidenKooG"]
         }
+        debug {
+            applicationIdSuffix ".dev"
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"https://...\"")
+            buildConfigField("String", "MQTT_URL", "\"...\"")
+            manifestPlaceholders = [appLabel: "AidenKooG DEV"]
+        }
+        stage {
+            debuggable true
+            applicationIdSuffix ".qa"
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"https://...\"")
+            buildConfigField("String", "MQTT_URL", "\"...\"")
+            manifestPlaceholders = [appLabel: "AidenKooG STAGE"]
+        }
+
     }
+
+    // Enable data binding option
     android.buildFeatures.dataBinding = true
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'io.github.aidenkoog.android'
+
+    /*
+     * This data is combined with the build type data.
+     * As a result, you can see the build variant below.
+     * 1) krDebug, 2) krStage, 3) krRelease
+     */
+    flavorDimensions "destination"
+    productFlavors {
+        kr {
+            dimension "destination"
+        }
+    }
+
+    // APK file's name
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "AidenKooG"
+            def SEP = "_"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMdd_HHmm')
+            def newApkName = project + SEP + buildType.toUpperCase() + SEP + versionName + SEP + versionCode + SEP + formattedDate + ".apk"
+            outputFileName = new File(newApkName)
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation fileTree(include: ['*.aar'], dir: 'libs')
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.gms:play-services-recaptcha:17.0.1'
 
-    /* hilt */
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-android-compiler:2.37"
+    // test
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
-    /* lifecycle viewmodel ktx */
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    // coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
-    /* rxjava */
+    // rxjava
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
-    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.8.0"
 
-    /* lifecycle */
-    implementation "androidx.activity:activity-ktx:1.4.0"
-    implementation "androidx.fragment:fragment-ktx:1.4.0"
+    // activity, fragment
+    implementation "androidx.activity:activity-ktx:1.6.1"
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
 
-    /* room */
-    implementation 'androidx.room:room-runtime:2.4.0'
-    implementation 'androidx.room:room-rxjava2:2.4.0'
-    kapt 'androidx.room:room-compiler:2.4.0'
+    // firebase
+    implementation 'com.google.firebase:firebase-core:21.1.1'
+    implementation 'com.google.firebase:firebase-messaging:23.1.0'
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.0'
+    implementation 'com.google.firebase:firebase-analytics:21.2.0'
+    implementation 'com.google.firebase:firebase-crashlytics:18.3.2'
+    implementation 'com.google.firebase:firebase-perf:20.3.0'
 
-    /* okhttp3 */
-    implementation 'com.squareup.okhttp3:okhttp:4.8.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
-    /* gson */
-    implementation 'com.google.code.gson:gson:2.8.6'
+    //RxBinding
+    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
 
-    /* retrofit */
+    //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //SwipeRefreshLayout
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    //Logger
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    //Navigation UI
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    //MQTT
+    implementation "com.amazonaws:aws-android-sdk-core:2.27.0"
+    implementation "com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.27.0"
+    implementation("com.amazonaws:aws-android-sdk-iot:2.27.0") {
+        exclude group: 'org.eclipse.paho', module: 'org.eclipse.paho.client.mqttv3'
+    }
+    implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5"
+    implementation "com.amazonaws:aws-android-sdk-mobile-client:2.16.12"
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.0.7'
+
+    //ReCapChar
+    implementation 'com.google.android.gms:play-services-safetynet:18.0.1'
+
+    //viewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+
+    //shimmer recyclerview
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    //flexbox
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    // Added to receive FCM messages in Android version 12 or higher (required when developing in Kotlin language)
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }
