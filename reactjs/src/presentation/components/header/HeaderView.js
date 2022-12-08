@@ -4,6 +4,8 @@ import {
     HISTORY_SAVE, QUERY_CURRENT_LOCATION, QUERY_REALTIME_LOCATION
 } from '../../../assets/strings/Strings'
 import "./HeaderView.css"
+import copyAddressImage from "../../../assets/images/copy_address.png"
+import locationImage from "../../../assets/images/location.png"
 
 /**
  * Header view component.
@@ -34,14 +36,20 @@ export default function HeaderView({
 
                 <div>
                     <CopyToClipboard text={currentAddressToCopy} onCopy={{}}>
-                        <button className="header_button_item">{COPY_ADDRESS}</button>
+                        <button className="header_button_item">
+                            <img src={copyAddressImage} alt="copyAddressImage" /> {COPY_ADDRESS}
+                        </button>
                     </CopyToClipboard>
                 </div>
                 <div>
-                    <button className="header_button_item" onClick={onPressCollectData}>{QUERY_CURRENT_LOCATION}</button>
+                    <button className="header_button_item" onClick={onPressCollectData}>
+                        <img src={locationImage} alt="locationImage" /> {QUERY_CURRENT_LOCATION}
+                    </button>
                 </div>
                 <div>
-                    <button className="header_button_item" onClick={onPressRealtimeCollectData}>{QUERY_REALTIME_LOCATION}</button>
+                    <button className="header_button_item" onClick={onPressRealtimeCollectData}>
+                        <img src={locationImage} alt="locationImage" /> {QUERY_REALTIME_LOCATION}
+                    </button>
                 </div>
             </div>
         </div>
