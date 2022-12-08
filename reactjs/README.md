@@ -1,7 +1,7 @@
 
-# Relief Integration Project.
-## Summary
+# React.js Architecture Project.
 
+## Summary
 
 This project shows data using the NAVER Map API.
 It is written based on JavaScript.
@@ -56,7 +56,7 @@ It is written based on JavaScript.
 - 2022/12/05 : (1st) Fixed issue that location time information is NOT accurate and Separate elapsed time information.
 - 2022/12/05 : (2nd) Deleted unnecessary parameter key for debugging about phone number, that is, loadKey only exists.
 - 2022/12/06 : Branched CSS style code for each component, Arranged indentation of code and Deleted unnecessary debugging log code.
-- 2022/12/07 : Fixed issue that it's NOT operated to copy address function when exception happens / Arranged UI components.
+- 2022/12/07 : Fixed issue that it's NOT operated to copy address when exception happens / Arranged UI components.
 
 ## How To Setup Environment
 
