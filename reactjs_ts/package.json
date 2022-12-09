@@ -1,0 +1,50 @@
+{
+  "name": "React.js_Typescript",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/native": "^5.9.2",
+    "@react-navigation/stack": "^5.14.2",
+    "@types/react-native-snap-carousel": "^3.8.2",
+    "axios": "^1.2.1",
+    "react": "^18.2.0",
+    "react-native": "^0.70.6",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-safe-area-context": "^3.2.0",
+    "react-native-vector-icons": "^8.1.0",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-looped-carousel": "^0.1.13",
+    "react-native-reanimated": "^1.13.2",
+    "react-native-screens": "^2.17.1",
+    "react-native-snap-carousel": "^3.9.1",
+    "react-native-svg": "^12.1.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/runtime": "^7.12.5",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "@types/jest": "^25.2.3",
+    "@types/react-native": "^0.63.2",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-test-renderer": "^16.9.2",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "0.72.3",
+    "react-test-renderer": "18.1.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
