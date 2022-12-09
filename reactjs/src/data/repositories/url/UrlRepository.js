@@ -1,4 +1,5 @@
-import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
+import { logDebug, logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
+import base64 from 'base-64'
 
 const LOG_TAG = "UrlRepository"
 
@@ -7,15 +8,15 @@ const CryptoJS = require("crypto-js")
 /**
  * cryptojs decryption secret key and iv.
  */
-const CRYPTO_SECRET_KEY = ""
-const CRYPTO_SECRET_IV = ""
+const CRYPTO_SECRET_KEY = "pol112__smartwat"
+const CRYPTO_SECRET_IV = "#smart__project#"
 const CRYPTO_PADDING_MODE = CryptoJS.pad.Pkcs7
 const CRYPTO_MODE = CryptoJS.mode.CBC
 
 /**
  * cryptojs module enable.
  */
-const CRYPTO_ENABLE = false
+const CRYPTO_ENABLE = true
 
 /**
  * domain prefix list.
@@ -80,8 +81,8 @@ export default function UrlRepository() {
             let paramKeyName = splitStrings[0]
 
             if (hasMatchedPhoneNumber(paramKeyName)) {
-                let deviceMobileNumber = splitStrings[1]
-                return decryptDeviceMobileNumber(deviceMobileNumber)
+                logDebug(LOG_TAG, "[TEST] encrypted: " + encryptDeviceMobileNumber(splitStrings[1]))
+                return splitStrings[1]
             }
         }
         return null
@@ -191,20 +192,60 @@ export default function UrlRepository() {
 
     /**
      * decrypt mobile phone number.
-     * @param {String} deviceMobileNumber
+     * @param {String} encryptedDevicePhoneNumber
      * @returns {String}
      */
-    function decryptDeviceMobileNumber(deviceMobileNumber) {
-        if (CRYPTO_ENABLE) {
-            const cipher = CryptoJS.AES.decrypt(deviceMobileNumber, CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY), {
-                iv: CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV),
-                padding: CRYPTO_PADDING_MODE,
-                mode: CRYPTO_MODE
-            })
+    function decryptDeviceMobileNumber(encryptedDevicePhoneNumber) {
+        logDebugWithLine(LOG_TAG, "decryption start: encrypted phone number: " + encryptedDevicePhoneNumber)
 
-            const utf8EncodedCiphertext = cipher.toString(CryptoJS.enc.Utf8)
-            logDebug(LOG_TAG, ">>> utf8EncodedCiphertext: " + utf8EncodedCiphertext)
-            return utf8EncodedCiphertext
+        const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
+        const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
+
+        if (CRYPTO_ENABLE) {
+            try {
+                const base64Decoded = base64.decode(encryptedDevicePhoneNumber)
+                const cipher = CryptoJS.AES.decrypt(base64Decoded, secretKeyWordArray, {
+                    iv: ivKeyWordArray,
+                    padding: CRYPTO_PADDING_MODE,
+                    mode: CRYPTO_MODE
+                })
+                logDebug(LOG_TAG, ">>> cipher: " + cipher)
+                return cipher.toString(CryptoJS.enc.Utf8)
+
+            } catch (e) {
+                outputErrorLog(LOG_TAG, e + " occurred by decrypting / decoding")
+                return null
+            }
+
+        } else {
+            return encryptedDevicePhoneNumber
+        }
+    }
+
+    /**
+     * encrypt mobile phone number.
+     * @param {String} deviceMobileNumber 
+     * @returns {String}
+     */
+    function encryptDeviceMobileNumber(deviceMobileNumber) {
+        logDebugWithLine(LOG_TAG, "encryption start: phone number: " + deviceMobileNumber)
+
+        const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
+        const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
+
+        if (CRYPTO_ENABLE) {
+            try {
+                const cipher = CryptoJS.AES.encrypt(deviceMobileNumber, secretKeyWordArray, {
+                    iv: ivKeyWordArray,
+                    padding: CRYPTO_PADDING_MODE,
+                    mode: CRYPTO_MODE
+                })
+                return base64.encode(cipher)
+
+            } catch (e) {
+                outputErrorLog(LOG_TAG, e + " occurred by encrypting / encoding")
+                return null
+            }
 
         } else {
             return deviceMobileNumber
@@ -213,6 +254,7 @@ export default function UrlRepository() {
 
     return {
         getDeviceMobileNumber,
+        decryptDeviceMobileNumber,
         getTypes,
         getDomain
     }

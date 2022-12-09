@@ -46,11 +46,11 @@ export default function HeaderView({
                         <img src={locationImage} alt="locationImage" /> {QUERY_CURRENT_LOCATION}
                     </button>
                 </div>
-                <div>
+                {/* <div>
                     <button className="header_button_item" onClick={onPressRealtimeCollectData}>
                         <img src={locationImage} alt="locationImage" /> {QUERY_REALTIME_LOCATION}
                     </button>
-                </div>
+                </div> */}
             </div>
         </div>
     )

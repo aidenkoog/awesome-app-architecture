@@ -6,15 +6,17 @@ import { getCurrentMillTime, getHistoryTypedDateMessage } from "../../utils/time
 import GetPhoneNumberFromUrlUseCase from "../../domain/usecases/url/GetPhoneNumberFromUrlUseCase"
 import SendSmsUseCase from "../../domain/usecases/sms/SendSmsUseCase"
 import { RESPONSE_OK } from "../../data/sources/responses/ResponseCode"
-import { ONDEMAND_POLICE_REPORT, SOS_REPORT } from "../../data/sources/event_types/EventType"
+import { ONDEMAND_EMERGENCY_REPORT, EMERGENCY_START_REPORT } from "../../data/sources/event_types/EventType"
 import {
     ERROR_MSG_NO_REPORT, ERROR_MSG_NO_REPORT_WITHIN_24_HOURS,
-    ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR, ERROR_MSG_FAILED_SMS,
-    ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE, ERROR_MSG_NO_FOUND_ADDRESS, ERROR_MSG_FAILED_CURRENT_LOCATION
+    ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR,
+    ERROR_MSG_FAILED_SMS, ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE,
+    ERROR_MSG_NO_FOUND_ADDRESS, ERROR_MSG_FAILED_CURRENT_LOCATION
 } from "../../assets/strings/Strings"
-import { REGEX_PHONE_NUMBER } from "../../utils/regex/RegexUtil"
+import { hasValidPhoneNumber, REGEX_PHONE_NUMBER } from "../../utils/regex/RegexUtil"
 import { NOT_SUPPORT_FUNCTION, SEND_SMS_FAILED_ERROR_MESSAGE } from "../../assets/strings/Strings"
 import SetDomainUrlUseCase from "../../domain/usecases/url/SetDomainUrlUseCase"
+import GetDecryptedPhoneNumberUseCase from "../../domain/usecases/url/GetDecryptedPhoneNumberUseCase"
 
 
 const LOG_TAG = "HomeContainer"
@@ -133,6 +135,7 @@ export default function HomeContainer() {
         executeGetActivitiesWithExtraUseCase
     } = GetActivitiesUseCase()
 
+    const { executeGetDecryptedPhoneNumberUseCase } = GetDecryptedPhoneNumberUseCase()
     const { executeGetPhoneNumberFromUrlUseCase } = GetPhoneNumberFromUrlUseCase()
     const { executeSetDomainUrlUseCase } = SetDomainUrlUseCase()
     const { executeSendSmsUseCase } = SendSmsUseCase()
@@ -215,15 +218,6 @@ export default function HomeContainer() {
     }
 
     /**
-     * check if phone number is valid or not.
-     * @param {string} deviceMobileNumber 
-     * @returns 
-     */
-    function hasValidPhoneNumber(deviceMobileNumber) {
-        return REGEX_PHONE_NUMBER.test(deviceMobileNumber)
-    }
-
-    /**
      * update ui components.
      * @param {Any} response 
      */
@@ -300,9 +294,8 @@ export default function HomeContainer() {
      * initialize web page.
      */
     function initializeWebPage() {
-        const urlLocation = window.location
-        executeSetDomainUrlUseCase(urlLocation).then(() => {
-            initializeActivitiesInformation(urlLocation)
+        executeSetDomainUrlUseCase(window.location).then(() => {
+            initializeActivitiesInformation()
 
         }).catch((e) => {
             enableErrorState(e)
@@ -310,19 +303,30 @@ export default function HomeContainer() {
     }
 
     /**
-     * initialize activities information.
-     * @param {Location} urlLocation 
+     * get device phone number.
+     * @returns {String}
      */
-    function initializeActivitiesInformation(urlLocation) {
-        const searchParam = urlLocation.search
-        const devicehMobileNumber = executeGetPhoneNumberFromUrlUseCase(searchParam)
+    function getDevicePhoneNumber() {
+        const deviceMobileNumber =
+            executeGetDecryptedPhoneNumberUseCase(
+                executeGetPhoneNumberFromUrlUseCase(window.location.search))
 
-        if (!hasValidPhoneNumber(devicehMobileNumber)) {
+        logDebug(LOG_TAG, ">>> [TEST] deviceMobileNumber: " + deviceMobileNumber)
+        return deviceMobileNumber
+    }
+
+    /**
+     * initialize activities information.
+     */
+    function initializeActivitiesInformation() {
+        const deviceMobileNumber = getDevicePhoneNumber()
+
+        if (!hasValidPhoneNumber(deviceMobileNumber)) {
             updateComponents(null, ERROR_MSG_WRONG_PHONE_NUMBER)
             return
         }
 
-        executeGetActivitiesWithExtraUseCase(devicehMobileNumber, SOS_REPORT, "").then((response) => {
+        executeGetActivitiesWithExtraUseCase(deviceMobileNumber, EMERGENCY_START_REPORT, "").then((response) => {
             printResponse(response)
             retryGetActivitiesCount = 0
 
@@ -332,7 +336,7 @@ export default function HomeContainer() {
             isCheckingReport = true
 
             executeGetActivitiesWithExtraUseCase(
-                devicehMobileNumber, ONDEMAND_POLICE_REPORT, getLatestCreatedDateTime(response)).then((response) => {
+                deviceMobileNumber, ONDEMAND_EMERGENCY_REPORT, getLatestCreatedDateTime(response)).then((response) => {
                     printResponse(response)
 
                     if (response.length > 0) {
@@ -366,10 +370,10 @@ export default function HomeContainer() {
                 })
 
         }).catch((_e) => {
-            enableErrorState(devicehMobileNumber == null ?
+            enableErrorState(deviceMobileNumber == null ?
                 ERROR_MSG_NO_VALID_LOCATION + "|" + ERROR_MSG_PHONE_NUMBER_ERROR : ERROR_MSG_NO_VALID_LOCATION)
 
-            if (devicehMobileNumber != null) { retryGetActivities() }
+            if (deviceMobileNumber != null) { retryGetActivities() }
         })
     }
 
@@ -481,8 +485,14 @@ export default function HomeContainer() {
      * query current location (triggered when the button, query current location is pressed)
      */
     function queryCurrentLocation() {
-        const devicehMobileNumber = executeGetPhoneNumberFromUrlUseCase(window.location.search)
-        executeGetActivitiesUseCase(devicehMobileNumber).then((response) => {
+        const deviceMobileNumber = getDevicePhoneNumber()
+
+        if (!hasValidPhoneNumber(deviceMobileNumber)) {
+            updateComponents(null, ERROR_MSG_WRONG_PHONE_NUMBER)
+            return
+        }
+
+        executeGetActivitiesUseCase(deviceMobileNumber).then((response) => {
             printResponse(response)
 
             if (!updateComponents(response, getResponseExtraErrorMessage(response), PURPOSE_QUERY_LOCATION_BY_BUTTON)) {
@@ -490,10 +500,10 @@ export default function HomeContainer() {
                 return
             }
 
-            sendSms(devicehMobileNumber).then(() => {
+            sendSms(deviceMobileNumber).then(() => {
                 executeGetActivitiesWithExtraUseCase(
-                    devicehMobileNumber,
-                    ONDEMAND_POLICE_REPORT,
+                    deviceMobileNumber,
+                    ONDEMAND_EMERGENCY_REPORT,
                     response[RECENT_RESPONSE_INDEX].createdDate).then((response) => {
 
                         printResponse(response)

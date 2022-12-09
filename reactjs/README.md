@@ -58,6 +58,8 @@ It is written based on JavaScript.
 - 2022/12/06 : Branched CSS style code for each component, Arranged indentation of code and Deleted unnecessary debugging log code.
 - 2022/12/07 : Fixed issue that it's NOT operated to copy address when exception happens / Arranged UI components.
 - 2022/12/08 : Added images to header's buttons.
+- 2022/12/09 : (1st) Delete button ui that can search real-time location.
+- 2022/12/09 : (2nd) Added decryption module about device mobile phone number.
 
 ## How To Setup Environment
 
