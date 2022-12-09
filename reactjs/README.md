@@ -60,6 +60,7 @@ It is written based on JavaScript.
 - 2022/12/08 : Added images to header's buttons.
 - 2022/12/09 : (1st) Delete button ui that can search real-time location.
 - 2022/12/09 : (2nd) Added decryption module about device mobile phone number.
+- 2022/12/09 : (3rd) Added missing package dependency.
 
 ## How To Setup Environment
 
