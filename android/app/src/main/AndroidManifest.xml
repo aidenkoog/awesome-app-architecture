@@ -22,5 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_Architecture"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".presentation.splash.SplashActivity"
+            android:exported="true">
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </activity>
     </application>
 </manifest>

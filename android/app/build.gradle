@@ -2,9 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'com.google.firebase.firebase-perf'
     id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
 }
 apply plugin: 'kotlin-android'
 
@@ -146,14 +144,6 @@ dependencies {
     // activity, fragment
     implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "androidx.fragment:fragment-ktx:1.5.5"
-
-    // firebase
-    implementation 'com.google.firebase:firebase-core:21.1.1'
-    implementation 'com.google.firebase:firebase-messaging:23.1.0'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.0'
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.3.2'
-    implementation 'com.google.firebase:firebase-perf:20.3.0'
 
     implementation 'com.google.code.gson:gson:2.8.9'
 
