@@ -1,4 +1,5 @@
 import { RecoilRoot } from 'recoil'
+import { LogBox } from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
@@ -28,6 +29,8 @@ import { Colors, Strings, Images } from './utils/theme'
 import styles from './presentation/stylesheets/StyleSet'
 import DisconnectionContainer from './presentation/containers/settings/device/disconnection/DisconnectionContainer'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+
+LogBox.ignoreAllLogs()
 
 
 /**
