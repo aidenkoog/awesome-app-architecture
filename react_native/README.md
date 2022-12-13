@@ -13,6 +13,27 @@ It is written based on JavaScript.
     - ✨ Modules
     - ✨ State Management Module (Recoil & Redux)
 
+- Folder Structure
+    - ✨ assets
+        - ✨ anims
+        - ✨ images
+    - ✨ configs
+    - ✨ data
+        - ✨ adapters
+        - ✨ repositories
+        - ✨ sources
+    - ✨ domain
+        - ✨ model
+        - ✨ usecases
+    - ✨ presentation
+        - ✨ apps
+        - ✨ base
+    - ✨ test
+        - ✨ presentation
+        - ✨ repositories
+        - ✨ usecases
+    - ✨ utils
+
 ## Release Note
 
 - 2022/09/16 ~ 2022/10/21 : Review RN (React-Native) itself.
