@@ -3,13 +3,16 @@ import { LogBox } from "react-native"
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import SplashContainer from './src/containers/SplashContainer'
-import AppSelectionContainer from './src/containers/AppSelectionContainer'
-import App1SplashContainer from './src/containers/App1SplashContainer'
+import SplashContainer from "./presentation/base/containers/splash/SplashContainer"
+import PermissionContainer from "./presentation/base/containers/permission/PermissionContainer"
+import AppSelectionContainer from "./presentation/base/containers/app_selection/AppSelectionContainer"
+
+import App1SplashContainer from './presentation/apps/app_1/containers/splash/App1SplashContainer'
 
 LogBox.ignoreAllLogs()
 
 const SPLASH_SCREEN = "SPLASH_SCREEN"
+const PERMISSION_SCREEN = "PERMISSION_SCREEN"
 const APP_SELECTION_SCREEN = "APP_SELECTION_SCREEN"
 const APP_1_SPLASH_SCREEN = "APP_1_SPLASH_SCREEN"
 
@@ -27,6 +30,10 @@ export default function App() {
             <Stack.Screen
               name={SPLASH_SCREEN}
               component={SplashContainer}
+              options={{ headerShown: false }} />
+            <Stack.Screen
+              name={PERMISSION_SCREEN}
+              component={PermissionContainer}
               options={{ headerShown: false }} />
             <Stack.Screen
               name={APP_SELECTION_SCREEN}
