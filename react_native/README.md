@@ -160,6 +160,6 @@ If you are interested in information about me or other activities, please access
 
 | Plugin | LINK |
 | ------ | ------ |
-| Youtube | [https://www.instagram.com/aidenkoog/] |
+| Instagram | [https://www.instagram.com/aidenkoog/] |
 | Github page | [https://aidenkoog.github.io/aidenkoog/] |
-| Instagram | [https://www.youtube.com/channel/UC3hT_aGpXxL4Dygz4_tNVQA] |
+| Youtube | [https://www.youtube.com/channel/UC3hT_aGpXxL4Dygz4_tNVQA] |
