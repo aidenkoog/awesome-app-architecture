@@ -58,6 +58,7 @@ It is written based on JavaScript.
 - 2022/11/18 : (3rd) Added platform functions (SMS / PhoneCall directly).
 - 2022/11/21 : Added authentication response handler.
 - 2022/12/13 : Renewed source structure / Added splash loading animation (Delete previous source code)
+- 2022/12/13 : Added bluetooth dependency / Updated folder structure.
 
 
 ## How To Setup Environment
