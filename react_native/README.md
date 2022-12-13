@@ -66,6 +66,12 @@ It's mandantory to set up the development environment and build the app by follo
 > cd ios
 > fastlane init
 
+## Trouble Shooting
+
+- JDK version.
+    - cd /Library/Java/JavaVirtualMachines/ ; ls -la ; rm -rf jdk*
+- Package.json
+
 ## BLE Configuration
 
 Define the BLE uuid and other values you want in the BleConfig.js file below.
