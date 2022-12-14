@@ -13,7 +13,7 @@ export default function App2SplashComponent() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#ff7271',
+        backgroundColor: '#444444',
         flex: 1
     },
 })

@@ -9,7 +9,9 @@ import { useLayoutEffect } from 'react'
 const SplashContainer = ({ navigation }) => {
 
     useLayoutEffect(() => {
-
+        setTimeout(() => {
+            navigation.replace("PERMISSION_SCREEN")
+        }, 1500)
     }, [])
 
     return (
