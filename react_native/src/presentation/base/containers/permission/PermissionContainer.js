@@ -11,8 +11,16 @@ const PermissionContainer = ({ navigation }) => {
 
     }, [])
 
+    onPressOkBtn = () => {
+        setTimeout(() => {
+            navigation.navigate("APP_SELECTION_SCREEN")
+        }, 0)
+    }
+
     return (
-        <PermissionComponent />
+        <PermissionComponent
+            onPressOkBtn={onPressOkBtn}
+        />
     )
 }
 export default PermissionContainer
