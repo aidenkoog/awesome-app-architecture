@@ -1,0 +1,25 @@
+<resources>
+    <!-- Login -->
+    <dimen name="LOGIN_IMAGE_WIDTH">120dp</dimen>
+    <dimen name="LOGIN_IMAGE_HEIGHT">60dp</dimen>
+    <dimen name="LOGIN_IMAGE_TOP_MARGIN">66dp</dimen>
+
+    <dimen name="LOGIN_ID_LABEL_LEFT_MARGIN">24dp</dimen>
+    <dimen name="LOGIN_ID_LABEL_TOP_MARGIN">42dp</dimen>
+
+    <dimen name="LOGIN_ID_EDIT_TOP_MARGIN">10dp</dimen>
+    <dimen name="LOGIN_ID_EDIT_LEFT_MARGIN">25dp</dimen>
+    <dimen name="LOGIN_ID_EDIT_WIDTH">350dp</dimen>
+
+    <dimen name="LOGIN_PW_LABEL_TOP_MARGIN">18dp</dimen>
+    <dimen name="LOGIN_PW_LABEL_LEFT_MARGIN">30dp</dimen>
+
+    <dimen name="LOGIN_PW_EDIT_WIDTH">350dp</dimen>
+    <dimen name="LOGIN_PW_EDIT_TOP_MARGIN">10dp</dimen>
+
+    <dimen name="FIND_ID_LABEL_BOTTOM_MARGIN">30dp</dimen>
+    <dimen name="FIND_PW_LABEL_BOTTOM_MARGIN">30dp</dimen>
+
+    <dimen name="LOGIN_BUTTON_WIDTH">350dp</dimen>
+    <dimen name="LOGIN_BUTTON_BOTTOM_MARGIN">24dp</dimen>
+</resources>
