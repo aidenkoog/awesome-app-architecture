@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="loginViewModel"
+            type="io.github.aidenkoog.android.presentation.intro.login.viewmodel.LoginViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/header_back_icon"
+            android:layout_width="76dp"
+            android:layout_height="56dp"
+            android:onClick="@{()-> loginViewModel.onBackButtonClick()}"
+            android:scaleType="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/header_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="@string/STR_LOGIN_BTN_TEXT"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/header_layout_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f6f6f6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_back_icon" />
+
+        <ImageView
+            android:id="@+id/login_image"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/id_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/LOGIN_ID_LABEL_LEFT_MARGIN"
+            android:layout_marginTop="78dp"
+            android:text="@string/STR_ID_LABEL"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/login_image" />
+
+        <EditText
+            android:id="@+id/id_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="@dimen/LOGIN_ID_EDIT_TOP_MARGIN"
+            android:layout_marginRight="24dp"
+            android:imeOptions="actionNext"
+            android:maxLines="1"
+            android:paddingLeft="16dp"
+            android:singleLine="true"
+            android:textColorHint="#acb2bd"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_label" />
+
+        <TextView
+            android:id="@+id/pw_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/LOGIN_PW_LABEL_LEFT_MARGIN"
+            android:layout_marginTop="@dimen/LOGIN_PW_LABEL_TOP_MARGIN"
+            android:text="@string/STR_PW_LABEL"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/id_edit" />
+
+        <EditText
+            android:id="@+id/pw_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="@dimen/LOGIN_PW_EDIT_TOP_MARGIN"
+            android:layout_marginRight="24dp"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:paddingLeft="16dp"
+            android:singleLine="true"
+            android:textColorHint="#acb2bd"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pw_label" />
+
+        <TextView
+            android:id="@+id/find_id_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/FIND_ID_LABEL_BOTTOM_MARGIN"
+            android:onClick="@{()->loginViewModel.onFindIdClick()}"
+            android:text="@string/STR_FIND_ID_LABEL"
+            android:textColor="#0f2f6e"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/find_pw_label"
+            app:layout_constraintTop_toBottomOf="@id/pw_edit" />
+
+        <TextView
+            android:id="@+id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/FIND_ID_LABEL_BOTTOM_MARGIN"
+            android:text="|"
+            android:textColor="#0f2f6e"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pw_edit" />
+
+        <TextView
+            android:id="@+id/find_pw_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="@dimen/FIND_PW_LABEL_BOTTOM_MARGIN"
+            android:onClick="@{()-> loginViewModel.onFindPwClick()}"
+            android:text="@string/STR_FIND_PW_LABEL"
+            android:textColor="#0f2f6e"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/find_id_label"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pw_edit" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sign_up_guide_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/login_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="1">
+
+            <TextView
+                android:id="@+id/sign_up_guide_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0f2f6e"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/sign_up_guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:onClick="@{()->loginViewModel.onSignUp()}"
+                android:textColor="#0f2f6e"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/sign_up_guide_label"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/LOGIN_BUTTON_BOTTOM_MARGIN"
+            android:enabled="false"
+            android:gravity="center"
+            android:onClick="@{()->loginViewModel.onLoginButtonClick()}"
+            android:text="@string/STR_LOGIN_BTN_TEXT"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
