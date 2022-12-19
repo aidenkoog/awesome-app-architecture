@@ -1,4 +1,4 @@
-import { logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
+import { outputErrorLog } from "../../../utils/logger/Logger"
 import { API_GET_ACTIVITIES, API_GET_ACTIVITIES_EXTRAS } from "../apis/ApiUrl
 
 const LOG_TAG = "FetchManager"
@@ -17,11 +17,6 @@ const FetchManager = () => {
      * @returns {Promise}
      */
     function fetchActivitiesWhenRetry(deviceMobileNumber, types, startDateTime) {
-        logDebugWithLine(LOG_TAG,
-            ">>> deviceMobileNumber: " + deviceMobileNumber
-            + ", types: " + types
-            + ", startDateTime: " + startDateTime)
-
         return new Promise((fulfill, reject) => {
             let params = {
                 watchMobileNumber: deviceMobileNumber,
@@ -71,7 +66,6 @@ const FetchManager = () => {
                 })
             }).then(
                 response => response.json()).then(response => {
-                    logDebugWithLine(LOG_TAG, "<<< response: " + response)
                     fulfill(response)
 
                 }).catch((e) => {

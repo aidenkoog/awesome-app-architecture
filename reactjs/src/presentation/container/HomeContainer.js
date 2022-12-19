@@ -6,27 +6,24 @@ import { getCurrentMillTime, getHistoryTypedDateMessage } from "../../utils/time
 import GetPhoneNumberFromUrlUseCase from "../../domain/usecases/url/GetPhoneNumberFromUrlUseCase"
 import SendSmsUseCase from "../../domain/usecases/sms/SendSmsUseCase"
 import { RESPONSE_OK } from "../../data/sources/responses/ResponseCode"
-import { ONDEMAND_EMERGENCY_REPORT, EMERGENCY_START_REPORT } from "../../data/sources/event_types/EventType"
+import { ONDEMAND_EMERGENCY_REPORT, EMERGENCY_REPORT } from "../../data/sources/event_types/EventType"
 import {
-    ERROR_MSG_NO_REPORT, ERROR_MSG_NO_REPORT_WITHIN_24_HOURS,
-    ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR,
-    ERROR_MSG_FAILED_SMS, ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE,
-    ERROR_MSG_NO_FOUND_ADDRESS, ERROR_MSG_FAILED_CURRENT_LOCATION
+    ERROR_MSG_NO_REPORT, ERROR_MSG_NO_EMERGENCY_REPORT_WITHIN_24_HOURS,
+    ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR, ERROR_MSG_FAILED_SMS,
+    ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE, ERROR_MSG_NO_FOUND_ADDRESS,
+    ERROR_MSG_FAILED_CURRENT_LOCATION
 } from "../../assets/strings/Strings"
-import { hasValidPhoneNumber, REGEX_PHONE_NUMBER } from "../../utils/regex/RegexUtil"
+import { hasValidPhoneNumber } from "../../utils/regex/RegexUtil"
 import { NOT_SUPPORT_FUNCTION, SEND_SMS_FAILED_ERROR_MESSAGE } from "../../assets/strings/Strings"
 import SetDomainUrlUseCase from "../../domain/usecases/url/SetDomainUrlUseCase"
 import GetDecryptedPhoneNumberUseCase from "../../domain/usecases/url/GetDecryptedPhoneNumberUseCase"
-
+import {
+    HISTORY_SAVE_SUPPORT, FOOTER_SUPPORT, POLLING_API_MAX_MILL_TIME,
+    POLLING_API_INTERVAL_MILL_TIME, HOURS_24_MILL, FileSaver, TEXT_TYPE, FILE_NAME_TO_SAVE
+} from "../../configs/Configs"
+import GetDomainUrlUseCase from "../../domain/usecases/url/GetDomainUrlUseCase"
 
 const LOG_TAG = "HomeContainer"
-
-/**
- * file saver module for downloading the file on the webpage.
- */
-const FileSaver = require('file-saver')
-const TEXT_TYPE = "text/plain;charset=utf-8"
-const FILE_NAME_TO_SAVE = "history.txt"
 
 /**
  * default constants.
@@ -35,20 +32,6 @@ const RECENT_RESPONSE_INDEX = 0
 const DEFAULT_LATITUDE_AND_LONGITUDE = 0
 const DEFAULT_STRING_VALUE = ""
 const DEFAULT_BOOLEAN_VALUE = false
-
-
-/**
- * support function.
- */
-const HISTORY_SAVE_SUPPORT = false
-const FOOTER_SUPPORT = false
-
-/**
- * polling apis.
- */
-const POLLING_API_MAX_MILL_TIME = 120000
-const POLLING_API_INTERVAL_MILL_TIME = 3000
-const HOURS_24_MILL = 86400000
 
 /**
  * If the value is the same as before, useState does not work, 
@@ -75,10 +58,10 @@ let isRefreshing = false
 let isRefreshingWithRealtime = false
 
 /**
- * variable represents if checking if there's police report is being executed.
+ * variable represents if checking if there's emergency report is being executed.
  * refs. why use: for controlling history list.
  */
-let isCheckingReport = false
+let isCheckingEmergencyReport = false
 
 /**
  * flag used to determine whether a page has been loaded at least once.
@@ -102,13 +85,23 @@ const MAX_RETRY_COUNT = 5
  */
 let queryStartMillTime = 0
 let queryRetryCount = 0
-let latestPoliceReportMillTime = 0
+let latestEmergencyReportMillTime = 0
 
 /**
  * purpose to update component.
  */
 let PURPOSE_QUERY_LOCATION_BY_BUTTON = "PURPOSE_QUERY_LOCATION_BY_BUTTON"
+let PURPOSE_QUERY_LOCATION_SUCCESS = "PURPOSE_QUERY_LOCATION_SUCCESS"
 
+/**
+ * check if sms is already sent
+ */
+let isSmsSent = false
+
+/**
+ * domain url.
+ */
+let domain = ""
 
 /**
  * home page.
@@ -139,6 +132,7 @@ export default function HomeContainer() {
     const { executeGetPhoneNumberFromUrlUseCase } = GetPhoneNumberFromUrlUseCase()
     const { executeSetDomainUrlUseCase } = SetDomainUrlUseCase()
     const { executeSendSmsUseCase } = SendSmsUseCase()
+    const { executeGetDomainUrlUseCase } = GetDomainUrlUseCase()
 
     /**
      * called before ui rendering and painting.
@@ -169,15 +163,6 @@ export default function HomeContainer() {
     }
 
     /**
-     * get the latest created date time from response.
-     * @param {Any} response 
-     * @returns {string}
-     */
-    function getLatestCreatedDateTime(response) {
-        return response[RECENT_RESPONSE_INDEX].createdDate
-    }
-
-    /**
      * get the latest created date mill time.
      * @param {Any} response 
      * @returns {Number}
@@ -190,7 +175,6 @@ export default function HomeContainer() {
      * clear error related states.
      */
     function clearErrorState() {
-        createErrorAddress()
         setIsReportExpired(false)
         setErrorMessage("")
         setHasError(false)
@@ -198,12 +182,12 @@ export default function HomeContainer() {
 
     /**
      * enable error state with error message.
-     * @param {string} errorMessage 
+     * @param {String} errorMessage 
      */
     function enableErrorState(errorMessage) {
         createErrorAddress()
         setHasError(true)
-        setErrorMessage(errorMessage)
+        setErrorMessage(errorMessage === undefined || errorMessage == null ? "" : errorMessage)
         setLoading(false)
     }
 
@@ -211,9 +195,10 @@ export default function HomeContainer() {
      * update sos 24hours expiration state.
      */
     function update24HoursExpiration() {
+        createErrorAddress()
         setIsReportExpired(true)
         setLocationInformation(DEFAULT_LATITUDE_AND_LONGITUDE, DEFAULT_LATITUDE_AND_LONGITUDE)
-        setErrorMessage(ERROR_MSG_NO_REPORT_WITHIN_24_HOURS)
+        setErrorMessage(ERROR_MSG_NO_EMERGENCY_REPORT_WITHIN_24_HOURS)
         setLoading(false)
     }
 
@@ -223,6 +208,9 @@ export default function HomeContainer() {
      */
     function updateComponents(response, extraErrorMessage = "", purposeToUpdate = "") {
         if (response == null || response.length < 1) {
+            if (purposeToUpdate === PURPOSE_QUERY_LOCATION_BY_BUTTON) {
+                return true
+            }
             enableErrorState(extraErrorMessage)
             return false
         }
@@ -231,38 +219,64 @@ export default function HomeContainer() {
         const currentMillTime = getCurrentMillTime()
 
         if (currentMillTime - responseCreatedDateAsMill > HOURS_24_MILL) {
-            update24HoursExpiration()
-            return false
-
-        } else {
-            clearErrorState()
-            const recentResponse = response[RECENT_RESPONSE_INDEX]
-            const responseLat = recentResponse.lat
-            const responseLng = recentResponse.lng
-
-            if (!hasValidLatAndLng(responseLat, responseLng)) {
-                enableErrorState(ERROR_MSG_NO_VALID_LOCATION)
+            if (purposeToUpdate === PURPOSE_QUERY_LOCATION_BY_BUTTON) {
+                updateComponentWithNormalCase(response, purposeToUpdate)
+                return true
 
             } else {
-                if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
-                    createHistoryList(
-                        recentResponse.provider,
-                        getHistoryTypedDateMessage(recentResponse.createdDate),
-                        recentResponse.address == null ? ERROR_MSG_NO_FOUND_ADDRESS : recentResponse.address,
-                        recentResponse.createdDate)
-                }
-                recentHistory = historyList != null && historyList.length > 0 ? historyList[historyList.length - 1] : ""
-                setLocationInformation(responseLat, responseLng)
-                createCurrentAddress(response)
+                update24HoursExpiration()
+                return false
             }
+
+        } else {
+            updateComponentWithNormalCase(response, purposeToUpdate)
             return true
         }
     }
 
     /**
+     * update ui component in case of normal.
+     * @param {Any} response 
+     * @param {String} purposeToUpdate 
+     */
+    function updateComponentWithNormalCase(response, purposeToUpdate) {
+        clearErrorState()
+        const recentResponse = response[RECENT_RESPONSE_INDEX]
+        const responseLat = recentResponse.lat
+        const responseLng = recentResponse.lng
+
+        if (!hasValidLatAndLng(responseLat, responseLng)) {
+            enableErrorState(ERROR_MSG_NO_VALID_LOCATION)
+
+        } else {
+            createCurrentAddress(response)
+            if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
+
+                let responseItemList = []
+                for (const item of response) {
+                    responseItemList.push(item)
+                }
+
+                for (const responseItem of responseItemList.reverse()) {
+                    createHistoryList(
+                        responseItem.provider,
+                        getHistoryTypedDateMessage(responseItem.createdDate),
+                        responseItem.address == null ? ERROR_MSG_NO_FOUND_ADDRESS : responseItem.address,
+                        responseItem.createdDate)
+                }
+                latestEmergencyReportMillTime = getLatestCreatedMillTime(response)
+            }
+            recentHistory = historyList != null && historyList.length > 0 ? historyList[historyList.length - 1] : ""
+            if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
+                setLocationInformation(responseLat, responseLng)
+            }
+        }
+    }
+
+    /**
      * set location infomation (latitude, longitude)
-     * @param {double} latitude 
-     * @param {double} longitude 
+     * @param {Number} latitude 
+     * @param {Number} longitude 
      */
     function setLocationInformation(latitude, longitude) {
         if (previousLatitude === 0 && previousLongitude === 0) {
@@ -284,7 +298,7 @@ export default function HomeContainer() {
     /**
      * get response's extra error message used when response is not valid.
      * @param {Any} response 
-     * @returns {string}
+     * @returns {String}
      */
     function getResponseExtraErrorMessage(response) {
         return response == null || response.length < 1 ? ERROR_MSG_NO_RESPONSE : null
@@ -295,6 +309,7 @@ export default function HomeContainer() {
      */
     function initializeWebPage() {
         executeSetDomainUrlUseCase(window.location).then(() => {
+            domain = executeGetDomainUrlUseCase()
             initializeActivitiesInformation()
 
         }).catch((e) => {
@@ -310,8 +325,6 @@ export default function HomeContainer() {
         const deviceMobileNumber =
             executeGetDecryptedPhoneNumberUseCase(
                 executeGetPhoneNumberFromUrlUseCase(window.location.search))
-
-        logDebug(LOG_TAG, ">>> [TEST] deviceMobileNumber: " + deviceMobileNumber)
         return deviceMobileNumber
     }
 
@@ -326,55 +339,24 @@ export default function HomeContainer() {
             return
         }
 
-        executeGetActivitiesWithExtraUseCase(deviceMobileNumber, EMERGENCY_START_REPORT, "").then((response) => {
-            printResponse(response)
-            retryGetActivitiesCount = 0
+        executeGetActivitiesWithExtraUseCase(deviceMobileNumber,
+            EMERGENCY_REPORT + "," + ONDEMAND_EMERGENCY_REPORT, "").then((response) => {
+                printResponse(response)
+                retryGetActivitiesCount = 0
 
-            if (!updateComponents(response, getResponseExtraErrorMessage(response))) {
-                return
-            }
-            isCheckingReport = true
+                isCheckingEmergencyReport = true
+                if (!updateComponents(response, getResponseExtraErrorMessage(response))) {
+                    isCheckingEmergencyReport = false
+                    return
+                }
 
-            executeGetActivitiesWithExtraUseCase(
-                deviceMobileNumber, ONDEMAND_EMERGENCY_REPORT, getLatestCreatedDateTime(response)).then((response) => {
-                    printResponse(response)
+            }).catch((_e) => {
+                isCheckingEmergencyReport = false
+                enableErrorState(deviceMobileNumber == null ?
+                    ERROR_MSG_NO_VALID_LOCATION + "|" + ERROR_MSG_PHONE_NUMBER_ERROR : ERROR_MSG_NO_VALID_LOCATION)
 
-                    if (response.length > 0) {
-                        latestPoliceReportMillTime = getLatestCreatedMillTime(response)
-                        createCurrentAddress(response)
-
-                        let responseAddressItemList = []
-                        for (const item of response) {
-                            responseAddressItemList.push(item)
-                        }
-
-                        for (const item of responseAddressItemList.reverse()) {
-                            createHistoryList(
-                                item.provider,
-                                getHistoryTypedDateMessage(item.createdDate),
-                                item.address == null ? ERROR_MSG_NO_FOUND_ADDRESS : item.address,
-                                item.createdDate)
-                        }
-                        recentHistory =
-                            historyList != null && historyList.length > 0 ? historyList[historyList.length - 1] : ""
-
-                        setLocationInformation(
-                            response[RECENT_RESPONSE_INDEX].lat,
-                            response[RECENT_RESPONSE_INDEX].lng
-                        )
-                    }
-                    isCheckingReport = false
-
-                }).catch((_e) => {
-                    isCheckingReport = false
-                })
-
-        }).catch((_e) => {
-            enableErrorState(deviceMobileNumber == null ?
-                ERROR_MSG_NO_VALID_LOCATION + "|" + ERROR_MSG_PHONE_NUMBER_ERROR : ERROR_MSG_NO_VALID_LOCATION)
-
-            if (deviceMobileNumber != null) { retryGetActivities() }
-        })
+                if (deviceMobileNumber != null) { retryGetActivities() }
+            })
     }
 
     /**
@@ -404,9 +386,9 @@ export default function HomeContainer() {
     function createHistoryList(provider, date, responseAddress, createdDate) {
         const address = responseAddress === ERROR_MSG_NO_FOUND_ADDRESS ? "--" : responseAddress
         const createDateTime = createdDate.replace("T", " ").replace("Z", " ")
-        let historyMessage = provider + "|" + date + "|" + address + "|" + createDateTime
+        let historyMessage = provider + "|" + date + "|" + address + "|" + createDateTime + "|" + createdDate
 
-        if (!isRefreshing && !isCheckingReport) {
+        if (!isRefreshing && !isCheckingEmergencyReport) {
             historyList = []
             historyList.push(historyMessage)
 
@@ -457,12 +439,17 @@ export default function HomeContainer() {
             return
         }
         isRefreshing = true
-
         queryStartMillTime = getCurrentMillTime()
         logDebugWithLine(LOG_TAG, "queryStartMillTime: " + queryStartMillTime + ", queryRetryCount: " + queryRetryCount)
 
-        setLoading(true)
-        queryCurrentLocation()
+        sendSms(getDevicePhoneNumber()).then(() => {
+            setLoading(true)
+            queryCurrentLocation()
+
+        }).catch((_e) => {
+            clearRetryQueryCurrentLocationStates()
+            enableErrorState(ERROR_MSG_FAILED_SMS)
+        })
     }
 
     /**
@@ -500,37 +487,39 @@ export default function HomeContainer() {
                 return
             }
 
-            sendSms(deviceMobileNumber).then(() => {
-                executeGetActivitiesWithExtraUseCase(
-                    deviceMobileNumber,
-                    ONDEMAND_EMERGENCY_REPORT,
-                    response[RECENT_RESPONSE_INDEX].createdDate).then((response) => {
+            executeGetActivitiesWithExtraUseCase(
+                deviceMobileNumber,
+                ONDEMAND_EMERGENCY_REPORT,
+                response[RECENT_RESPONSE_INDEX].createdDate).then((response) => {
 
-                        printResponse(response)
-                        if (response.length <= 0) {
-                            retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
+                    printResponse(response)
+                    if (response.length <= 0) {
+                        retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
+
+                    } else {
+                        const foundLatestCreatedTime = getLatestCreatedMillTime(response)
+                        logDebug(LOG_TAG, "latestEmergencyReportMillTime: " + latestEmergencyReportMillTime
+                            + ", foundLatestCreatedTime: " + foundLatestCreatedTime
+                            + ", queryStartMillTime: " + queryStartMillTime)
+
+                        if (latestEmergencyReportMillTime < foundLatestCreatedTime
+                            && queryStartMillTime < foundLatestCreatedTime) {
+
+                            createCurrentAddress(response)
+                            updateComponents(response, "", PURPOSE_QUERY_LOCATION_SUCCESS)
+                            latestEmergencyReportMillTime = foundLatestCreatedTime
+                            clearRetryQueryCurrentLocationStates()
+                            setLoading(false)
+                            setRefresh(++refreshValue)
 
                         } else {
-                            const latestCreatedTime = getLatestCreatedMillTime(response)
-                            if (latestPoliceReportMillTime < latestCreatedTime) {
-                                createCurrentAddress(response)
-                                updateComponents(response)
-                                clearRetryQueryCurrentLocationStates(latestCreatedTime)
-                                setLoading(false)
-                                setRefresh(++refreshValue)
-
-                            } else {
-                                retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
-                            }
+                            retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
                         }
+                    }
 
-                    }).catch((_e) => {
-                        retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
-                    })
-
-            }).catch((_e) => {
-                retryQueryCurrentLocation(ERROR_MSG_FAILED_SMS)
-            })
+                }).catch((_e) => {
+                    retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
+                })
 
         }).catch((_e) => {
             retryQueryCurrentLocation(ERROR_MSG_FAILED_CURRENT_LOCATION)
@@ -565,23 +554,29 @@ export default function HomeContainer() {
     /**
      * initialize state variables related to retrying the current location lookup operation.
      */
-    function clearRetryQueryCurrentLocationStates(latestCreatedTime = 0) {
+    function clearRetryQueryCurrentLocationStates() {
         queryRetryCount = 0
         queryStartMillTime = 0
-        latestPoliceReportMillTime = latestCreatedTime
         isRefreshing = false
+        isSmsSent = false
     }
 
 
     /**
      * ask device to send sms message.
-     * @param {string} devicehMobileNumber 
+     * @param {String} deviceMobileNumber 
      * @returns {Promise}
      */
-    function sendSms(devicehMobileNumber) {
+    function sendSms(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
-            executeSendSmsUseCase(devicehMobileNumber).then((response) => {
+            if (isSmsSent) {
+                logDebug(LOG_TAG, ">>> SMS already sent")
+                fulfill()
+            }
+            executeSendSmsUseCase(deviceMobileNumber).then((response) => {
                 if (RESPONSE_OK.code === response.code) {
+                    isSmsSent = true
+                    logDebugWithLine(LOG_TAG, "<<< succeeded to send SMS, responseCode: " + response.code)
                     fulfill()
 
                 } else {
@@ -622,6 +617,7 @@ export default function HomeContainer() {
                 historyList={historyList}
                 currentAddress={currentAddress}
                 loading={loading}
+                domainUrl={domain}
                 refresh={refresh}
                 historySaveSupport={HISTORY_SAVE_SUPPORT}
                 footerSupport={FOOTER_SUPPORT}

@@ -6,8 +6,8 @@ function GetReversedAddressUseCase() {
 
     /**
      * get address information corresponding to latitude and longitude.
-     * @param {double} latitude 
-     * @param {double} longitude 
+     * @param {Number} latitude 
+     * @param {Number} longitude 
      * @returns {Promise}
      */
     function executeGetReversedAddressUseCase(latitude, longitude) {

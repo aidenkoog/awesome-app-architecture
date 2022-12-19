@@ -4,6 +4,7 @@ import "./MapTable.css"
 
 /**
  * table component.
+ * workaround code.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
@@ -26,7 +27,7 @@ function MapTableComponent(props) {
 
     return (
         <div>
-            <table class="table table-striped">
+            <table className="table">
                 <thead>
                     <tr>
                         <th style={{ width: '20%' }}>{MENU_TABLE_HEADER_DATE}</th>
@@ -36,16 +37,16 @@ function MapTableComponent(props) {
             </table>
             {
                 recentHistory != null && recentHistory !== "" ?
-                    <table class="table_for_td table-striped">
+                    <table className="table_for_td">
                         <tbody>
                             <tr>
-                                <td style={{ width: '20%' }}>{getCurrentDate()}</td>
-                                <td style={{ width: '80%' }}>{getCurrentAddress()}</td>
+                                <td style={{ width: '20%' }}>{getCurrentAddress()}</td>
+                                <td style={{ width: '80%' }}>{getCurrentDate()}</td>
                             </tr>
                         </tbody>
                     </table>
                     :
-                    <table class="table_for_td table-striped">
+                    <table className="table_for_td">
                         <tbody>
                             <tr>
                                 <td>ㅤ</td>
@@ -53,7 +54,6 @@ function MapTableComponent(props) {
                         </tbody>
                     </table>
             }
-
         </div>
     )
 }

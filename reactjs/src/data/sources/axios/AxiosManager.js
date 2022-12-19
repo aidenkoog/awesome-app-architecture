@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { logDebugWithLine, outputErrorLog } from '../../../utils/logger/Logger'
+import { USE_DYNAMIC_DOMAIN_URL } from '../../../configs/Configs'
+import { logDebug, logDebugWithLine, outputErrorLog } from '../../../utils/logger/Logger'
 import { API_GET_ACTIVITIES, API_GET_ACTIVITIES_EXTRAS, API_SMS_SEND } from '../apis/ApiUrl'
 
 const LOG_TAG = "AxiosManager"
@@ -104,16 +105,16 @@ function AxiosManager() {
      * @returns {Promise}
      */
     function axiosGet(apiUrl, params) {
-        logDebugWithLine(LOG_TAG, "apiDomainUrl: " + apiDomainUrl)
-
         return new Promise((fulfill, reject) => {
-            axios.get(apiUrl, { params }, { withCredentials: true }).then((response) => {
-                fulfill(getResponse(apiUrl, response))
+            axios.get(
+                USE_DYNAMIC_DOMAIN_URL ? apiDomainUrl + apiUrl : apiUrl,
+                { params }, { withCredentials: true }).then((response) => {
+                    fulfill(getResponse(apiUrl, response))
 
-            }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by axios.get")
-                reject(e)
-            })
+                }).catch((e) => {
+                    outputErrorLog(LOG_TAG, e + " occurred by axios.get")
+                    reject(e)
+                })
         })
     }
 
@@ -123,11 +124,9 @@ function AxiosManager() {
      * @returns {Promise}
      */
     function axiosPost(apiUrl, params) {
-        logDebugWithLine(LOG_TAG, "apiDomainUrl: " + apiDomainUrl)
-
         return new Promise((fulfill, reject) => {
             axios.post(
-                apiUrl, params, {
+                USE_DYNAMIC_DOMAIN_URL ? apiDomainUrl + apiUrl : apiUrl, params, {
                 headers: { "Content-Type": HEADER_CONTENT_TYPE }
 
             }).then((response) => {
@@ -158,9 +157,9 @@ function AxiosManager() {
             const responseData = response.data.data
 
             logDebugWithLine(LOG_TAG,
-                "<<< response length: " + responseData.length
-                + ", response: " + responseData
-                + ", response [raw]: " + JSON.stringify(response))
+                "<<< response \nlength: " + responseData.length
+                + ", \nresponse: " + responseData
+                + ", \nresponse [raw]: " + JSON.stringify(response))
 
             return responseData
         }
@@ -175,19 +174,27 @@ function AxiosManager() {
         return new Promise((fulfill, reject) => {
             try {
                 apiDomainUrl = domainUrl
-                logDebugWithLine(LOG_TAG, "succeeded to set apiDomainUrl: " + apiDomainUrl)
-                fulfill()
+                fulfill(apiDomainUrl)
             } catch (e) {
                 reject(e)
             }
         })
     }
 
+    /**
+     * get domain url.
+     * @returns {String}
+     */
+    function getDomainUrl() {
+        return apiDomainUrl
+    }
+
     return {
         getActivities,
         getActivitiesWithExtraData,
         sendSmsMessage,
-        setDomainUrl
+        setDomainUrl,
+        getDomainUrl
     }
 }
 

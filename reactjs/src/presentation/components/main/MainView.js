@@ -6,6 +6,10 @@ import MapLoadingErrorComponent from "../maps/error/MapLoadingErrorComponent"
 import MapLoadingLottieComponent from "../maps/loading/MapLoadingLottieComponent"
 import { NAVER_CLIENT_ID } from "../../../utils/Constants"
 import "./MainView.css"
+import OpenLayersMap from '../maps/openlayers/OpenLayersMap'
+import { logDebug } from '../../../utils/logger/Logger'
+
+const LOG_TAG = "MainView"
 
 /**
  * Main view component.
@@ -22,7 +26,8 @@ export default function MainView(props) {
         errorMessage,
         hasError,
         loading,
-        recentHistory
+        recentHistory,
+        domainUrl
     } = props
 
     return (
@@ -33,25 +38,23 @@ export default function MainView(props) {
                         <div style={{ marginTop: 65, marginBottom: 22, marginLeft: 7 }}>
                             <b style={{ fontSize: 21 }}>{MAIN_TITLE}</b>
                         </div>
+
                         :
+
                         <b></b>
                     }
                     <MapTableComponent recentHistory={recentHistory} />
 
                     {loading ?
                         <div className="first_loading_container"><MapLoadingLottieComponent /></div>
+
                         :
-                        <RenderAfterNavermapsLoaded
-                            clientId={NAVER_CLIENT_ID}
-                            ncpClientId={NAVER_CLIENT_ID}
-                            loading={<div className="first_loading_container"><MapLoadingLottieComponent /></div>}
-                            error={<div className="error_message_container"><MapLoadingErrorComponent /></div>}
-                        >
-                            <NaverMapComponent
-                                latitude={latitude}
-                                longitude={longitude}
-                            />
-                        </RenderAfterNavermapsLoaded>
+
+                        <OpenLayersMap
+                            latitude={latitude}
+                            longitude={longitude}
+                            domainUrl={domainUrl}
+                        ></OpenLayersMap>
                     }
 
                 </div>
@@ -65,7 +68,10 @@ export default function MainView(props) {
                         <div className="first_loading_container">
                             <MapLoadingLottieComponent />
                         </div>
-                    </div> :
+                    </div>
+
+                    :
+
                     <div className="map_container">
                         <div className="error_container">
                             <div style={{ marginTop: 65, marginBottom: 22, marginLeft: 7 }}>
@@ -82,7 +88,6 @@ export default function MainView(props) {
                         </div>
                     </div>
             }
-
         </div>
     )
 }

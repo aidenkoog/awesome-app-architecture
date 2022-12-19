@@ -10,7 +10,7 @@ export default function FooterView() {
         <div className="footer_container">
             <b>© AidenKooG.com, Inc. All rights reserved.</b><br />
             Page development and data processing were carried out by <b>AidenKooG.</b><br />
-            <b>12345,</b> 99, aidenkoo-ro, Aiden-gu, Aiden-si, Aiden-do, Republic of Korea<br />
+            <b>18555,</b> 99, Aiden-ro, Aiden-gu, Republic of Korea<br />
         </div>
     )
 }

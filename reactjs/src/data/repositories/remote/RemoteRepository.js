@@ -1,7 +1,4 @@
-import { logDebugWithLine } from "../../../utils/logger/Logger"
 import AxiosManager from "../../sources/axios/AxiosManager"
-
-const LOG_TAG = "RemoteRepository"
 
 function RemoteRepository() {
 
@@ -9,7 +6,8 @@ function RemoteRepository() {
         getActivities,
         getActivitiesWithExtraData,
         sendSmsMessage,
-        setDomainUrl
+        setDomainUrl,
+        getDomainUrl
     } = AxiosManager()
 
     /**
@@ -29,6 +27,14 @@ function RemoteRepository() {
     }
 
     /**
+     * get domain url.
+     * @returns {String}
+     */
+    function getDomainUrlData() {
+        return getDomainUrl()
+    }
+
+    /**
      * get activities information.
      * @param {String} deviceMobileNumber 
      * @param {Array} types
@@ -37,7 +43,6 @@ function RemoteRepository() {
     function getActivitiesInfo(deviceMobileNumber, types) {
         return new Promise((fulfill, reject) => {
             getActivities(deviceMobileNumber, types).then((response) => {
-                logDebugWithLine(LOG_TAG, "<<< response length: " + response.length + ", response: " + response)
                 fulfill(response)
 
             }).catch((e) => {
@@ -56,7 +61,6 @@ function RemoteRepository() {
     function getActivitiesWithExtra(deviceMobileNumber, types, startDateTime) {
         return new Promise((fulfill, reject) => {
             getActivitiesWithExtraData(deviceMobileNumber, types, startDateTime).then((response) => {
-                logDebugWithLine(LOG_TAG, "<<< response: " + response)
                 fulfill(response)
 
             }).catch((e) => {
@@ -72,8 +76,7 @@ function RemoteRepository() {
      */
     function sendSms(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
-            sendSmsMessage(deviceMobileNumber).then((response) => {
-                logDebugWithLine(LOG_TAG, "<<< response: " + response)
+            sendSmsMessage(deviceMobileNumber, deviceMobileNumber).then((response) => {
                 fulfill(response)
 
             }).catch((e) => {
@@ -86,7 +89,8 @@ function RemoteRepository() {
         getActivitiesInfo,
         getActivitiesWithExtra,
         sendSms,
-        initializeDomainUrl
+        initializeDomainUrl,
+        getDomainUrlData
     }
 }
 

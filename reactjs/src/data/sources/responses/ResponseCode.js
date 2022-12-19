@@ -27,9 +27,9 @@ export const RESPONSE_NO_MATCHED_TYPE = {
     code: 2000,
     message: "NO_MATCHED_TYPE"
 }
-export const RESPONSE_NO_WATCH = {
+export const RESPONSE_NO_DEVICE = {
     code: 2001,
-    message: "NO_WATCH"
+    message: "NO_DEVICE"
 }
 export const RESPONSE_NO_USER = {
     code: 2002,
