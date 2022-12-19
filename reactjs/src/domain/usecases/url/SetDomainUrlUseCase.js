@@ -20,7 +20,7 @@ function SetDomainUrlUseCase() {
 
             } else {
                 initializeDomainUrl(domainUrl).then(() => {
-                    fulfill()
+                    fulfill(domainUrl)
 
                 }).catch((e) => {
                     reject(e)

@@ -4,7 +4,6 @@ import MenuView from "../components/menu/MenuView"
 import FooterView from "../components/footer/FooterView"
 import "./Home.css"
 
-
 /**
  * home page component.
  * @param {Any} props 
@@ -29,7 +28,8 @@ export default function HomeComponent(props) {
         historySaveSupport,
         footerSupport,
         recentHistory,
-        onPressRealtimeCollectData
+        onPressRealtimeCollectData,
+        domainUrl
     } = props
 
     return (
@@ -40,6 +40,7 @@ export default function HomeComponent(props) {
                 onClickSaveHistory={onClickSaveHistory}
                 onPressCollectData={onPressCollectData}
                 currentAddress={currentAddress}
+                loading={loading}
                 historySaveSupport={historySaveSupport}
                 onPressRealtimeCollectData={onPressRealtimeCollectData}
             />
@@ -58,6 +59,7 @@ export default function HomeComponent(props) {
                 currentAddress={currentAddress}
                 longitude={longitude}
                 latitude={latitude}
+                domainUrl={domainUrl}
                 recentHistory={recentHistory}
             />
 

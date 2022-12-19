@@ -47,7 +47,7 @@ export const SEND_SMS_FAILED_ERROR_MESSAGE = "NOT_OK"
 /**
  * error messages.
  */
-export const ERROR_MSG_NO_REPORT_WITHIN_24_HOURS = "No reports found within 24 hours."
+export const ERROR_MSG_NO_EMERGENCY_REPORT_WITHIN_24_HOURS = "No reports found within 24 hours."
 export const ERROR_MSG_NO_VALID_LOCATION = "The location is not valid."
 export const ERROR_MSG_PHONE_NUMBER_ERROR = "URL Phone Number Error "
 export const ERROR_MSG_NO_REPORT = "Reported report does not exist."

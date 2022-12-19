@@ -1,5 +1,7 @@
 import { logDebug, logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
 import base64 from 'base-64'
+import { hasValidPhoneNumber } from "../../../utils/regex/RegexUtil"
+import { CRYPTO_ENABLE } from "../../../configs/Configs"
 
 const LOG_TAG = "UrlRepository"
 
@@ -14,11 +16,6 @@ const CRYPTO_PADDING_MODE = CryptoJS.pad.Pkcs7
 const CRYPTO_MODE = CryptoJS.mode.CBC
 
 /**
- * cryptojs module enable.
- */
-const CRYPTO_ENABLE = true
-
-/**
  * domain prefix list.
  */
 const DOMAIN_PREFIX_LIST = ["http://", "https://"]
@@ -26,7 +23,7 @@ const DOMAIN_PREFIX_LIST = ["http://", "https://"]
 /**
  * activities query parameter keys.
  */
-const WATCH_MOBILE_NUMBER = ["loadKey"]
+const DEVICE_PHONE_NUMBER = ["loadKey"]
 const TYPES = "types"
 
 
@@ -81,7 +78,9 @@ export default function UrlRepository() {
             let paramKeyName = splitStrings[0]
 
             if (hasMatchedPhoneNumber(paramKeyName)) {
-                logDebug(LOG_TAG, "[TEST] encrypted: " + encryptDeviceMobileNumber(splitStrings[1]))
+                if (hasValidPhoneNumber(splitStrings[1])) {
+                    // logDebug(LOG_TAG, "[TEST] encrypted: " + encryptDeviceMobileNumber(splitStrings[1]))
+                }
                 return splitStrings[1]
             }
         }
@@ -94,7 +93,7 @@ export default function UrlRepository() {
      * @returns {Boolean}
      */
     function hasMatchedPhoneNumber(paramKeyName) {
-        for (const phoneNumberItem of WATCH_MOBILE_NUMBER) {
+        for (const phoneNumberItem of DEVICE_PHONE_NUMBER) {
             if (phoneNumberItem === paramKeyName) {
                 return true
             }
@@ -173,18 +172,15 @@ export default function UrlRepository() {
 
             } else {
                 const result = domainPrefix + domainUrl
-                logDebug(LOG_TAG, ">>> domain url: " + result)
                 return result
             }
 
         } else {
             if (urlLocationString == null || urlLocationString === "") {
-                outputErrorLog(LOG_TAG, "domainUrl is null or empty (refs. with no any queries)")
                 return null
 
             } else {
                 const result = domainPrefix + urlLocationString
-                logDebug(LOG_TAG, ">>> domain url (refs. with no any queries): " + result)
                 return result
             }
         }
@@ -196,20 +192,18 @@ export default function UrlRepository() {
      * @returns {String}
      */
     function decryptDeviceMobileNumber(encryptedDevicePhoneNumber) {
-        logDebugWithLine(LOG_TAG, "decryption start: encrypted phone number: " + encryptedDevicePhoneNumber)
-
+        const decodedDevicePhoneNumber = decodeURIComponent(encryptedDevicePhoneNumber)
         const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
         const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
 
         if (CRYPTO_ENABLE) {
             try {
-                const base64Decoded = base64.decode(encryptedDevicePhoneNumber)
-                const cipher = CryptoJS.AES.decrypt(base64Decoded, secretKeyWordArray, {
+                const cipher = CryptoJS.AES.decrypt(decodedDevicePhoneNumber, secretKeyWordArray, {
                     iv: ivKeyWordArray,
                     padding: CRYPTO_PADDING_MODE,
+                    keySize: 128,
                     mode: CRYPTO_MODE
                 })
-                logDebug(LOG_TAG, ">>> cipher: " + cipher)
                 return cipher.toString(CryptoJS.enc.Utf8)
 
             } catch (e) {
@@ -228,8 +222,6 @@ export default function UrlRepository() {
      * @returns {String}
      */
     function encryptDeviceMobileNumber(deviceMobileNumber) {
-        logDebugWithLine(LOG_TAG, "encryption start: phone number: " + deviceMobileNumber)
-
         const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
         const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
 
@@ -238,9 +230,10 @@ export default function UrlRepository() {
                 const cipher = CryptoJS.AES.encrypt(deviceMobileNumber, secretKeyWordArray, {
                     iv: ivKeyWordArray,
                     padding: CRYPTO_PADDING_MODE,
+                    keySize: 128,
                     mode: CRYPTO_MODE
                 })
-                return base64.encode(cipher)
+                return cipher
 
             } catch (e) {
                 outputErrorLog(LOG_TAG, e + " occurred by encrypting / encoding")

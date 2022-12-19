@@ -60,7 +60,21 @@ It is written based on JavaScript.
 - 2022/12/08 : Added images to header's buttons.
 - 2022/12/09 : (1st) Delete button ui that can search real-time location.
 - 2022/12/09 : (2nd) Added decryption module about device mobile phone number.
-- 2022/12/09 : (3rd) Added missing package dependency.
+- 2022/12/13 : (1st) Search current location even if there's no any emergency report when button which can query current location is pressed.
+- 2022/12/13 : (2nd) Fixed issue that SMS is sent to device multiple times / Disable button which can search current location when it's already being executed.
+- 2022/12/13 : (3rd) Fixed issue that date and location information are reversed in main map component.
+- 2022/12/13 : (4th) Fixed merge mistakes.
+- 2022/12/13 : (5th) Fixed warning occurred when copy address button is pressed.
+- 2022/12/13 : (6th) Fixed warning about map, menu table components.
+- 2022/12/13 : (7th) Fixed issue that map is shown even if searching current location job is failed.
+- 2022/12/13 : (8th) Changed domain url / Delete unused debugging log code.
+- 2022/12/13 : (9th) Rollback domain url.
+- 2022/12/13 : (10th) Fixed issue that it doesn't work to decode the phone number string in url.
+- 2022/12/14 : Fixed issue that webpage crash happens while parsing the error message.
+- 2022/12/16 : Deleted naver geocode related configuration / Added code that skips to show error page when response is not valid after pressing current location button.
+- 2022/12/16 : Modified logic to search the location for 2 minutes when pressing the query location button under the situation in which there is no emergency report after 24 hours or there is no data itself
+- 2022/12/19 : (1st) Scaled marker icon.
+- 2022/12/19 : (2nd) Fixed issue that duplicated map is shown and marker is too big to control.
 
 ## How To Setup Environment
 

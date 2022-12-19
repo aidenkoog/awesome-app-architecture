@@ -26,7 +26,7 @@ function MenuTableComponent(props) {
 
     return (
         <div>
-            <table class="table table-striped">
+            <table className="table">
                 <thead>
                     <tr>
                         <th style={{ width: '20%' }}>{MENU_TABLE_HEADER_DATE}</th>
@@ -39,7 +39,7 @@ function MenuTableComponent(props) {
                     historyList.map(
                         (info) => {
                             return (
-                                <table class="table_for_td table-striped">
+                                <table className="table_for_td" key={info}>
                                     <tbody>
                                         <tr>
                                             <td style={{ width: '20%' }}>{getDate(info)}</td>
@@ -50,7 +50,7 @@ function MenuTableComponent(props) {
                             )
                         })
                     :
-                    <table class="table_for_td table-striped">
+                    <table className="table_for_td">
                         <tbody>
                             <tr>
                                 <td>ㅤ</td>

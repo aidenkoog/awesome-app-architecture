@@ -13,7 +13,7 @@ import locationImage from "../../../assets/images/location.png"
  * @returns {JSX.Element}
  */
 export default function HeaderView({
-    onClickSaveHistory, onPressCollectData, currentAddress, historySaveSupport, onPressRealtimeCollectData }) {
+    onClickSaveHistory, onPressCollectData, currentAddress, historySaveSupport, onPressRealtimeCollectData, loading }) {
 
     let currentAddressToCopy = currentAddress
     if (currentAddress == null || currentAddress === undefined || currentAddress === "") {
@@ -35,14 +35,14 @@ export default function HeaderView({
                 }
 
                 <div>
-                    <CopyToClipboard text={currentAddressToCopy} onCopy={{}}>
+                    <CopyToClipboard text={currentAddressToCopy}>
                         <button className="header_button_item">
                             <img src={copyAddressImage} alt="copyAddressImage" /> {COPY_ADDRESS}
                         </button>
                     </CopyToClipboard>
                 </div>
                 <div>
-                    <button className="header_button_item" onClick={onPressCollectData}>
+                    <button className="header_button_item" onClick={onPressCollectData} disabled={loading}>
                         <img src={locationImage} alt="locationImage" /> {QUERY_CURRENT_LOCATION}
                     </button>
                 </div>
