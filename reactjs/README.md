@@ -75,6 +75,11 @@ It is written based on JavaScript.
 - 2022/12/16 : Modified logic to search the location for 2 minutes when pressing the query location button under the situation in which there is no emergency report after 24 hours or there is no data itself
 - 2022/12/19 : (1st) Scaled marker icon.
 - 2022/12/19 : (2nd) Fixed issue that duplicated map is shown and marker is too big to control.
+- 2022/12/20 : (1st) Applied image styled map container.
+- 2022/12/20 : (2nd) Fixed issue that circle shape is shown as ellipse / Added code to change circle size dynamically.
+- 2022/12/20 : (3rd) Improved map circle area position.
+- 2022/12/20 : (4th) Fixed issue that circle shape overflows outside.
+- 2022/12/20 : (5th) Adjust map circle radius value when zoom level is 13 or 14 or 15.
 
 ## How To Setup Environment
 
