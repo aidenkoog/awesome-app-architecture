@@ -28,3 +28,10 @@ export const USE_DYNAMIC_DOMAIN_URL = false
  * cryptojs module enable.
  */
 export const CRYPTO_ENABLE = true
+
+/**
+ * map.
+ */
+export const DEFAULT_ZOOM = 16
+export const MAX_MAP_ZOOM_IN_COUNT = 4
+export const MAX_MAP_ZOOM_OUT_COUNT = -3

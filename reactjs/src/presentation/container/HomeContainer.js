@@ -19,7 +19,8 @@ import SetDomainUrlUseCase from "../../domain/usecases/url/SetDomainUrlUseCase"
 import GetDecryptedPhoneNumberUseCase from "../../domain/usecases/url/GetDecryptedPhoneNumberUseCase"
 import {
     HISTORY_SAVE_SUPPORT, FOOTER_SUPPORT, POLLING_API_MAX_MILL_TIME,
-    POLLING_API_INTERVAL_MILL_TIME, HOURS_24_MILL, FileSaver, TEXT_TYPE, FILE_NAME_TO_SAVE
+    POLLING_API_INTERVAL_MILL_TIME, HOURS_24_MILL, FileSaver, TEXT_TYPE, FILE_NAME_TO_SAVE,
+    MAX_MAP_ZOOM_OUT_COUNT, MAX_MAP_ZOOM_IN_COUNT
 } from "../../configs/Configs"
 import GetDomainUrlUseCase from "../../domain/usecases/url/GetDomainUrlUseCase"
 
@@ -119,6 +120,7 @@ export default function HomeContainer() {
     const [hasError, setHasError] = useState(DEFAULT_BOOLEAN_VALUE)
     const [loading, setLoading] = useState(DEFAULT_BOOLEAN_VALUE)
     const [refresh, setRefresh] = useState(refreshValue)
+    const [additionalZoomValue, setAdditionalZoomValue] = useState(0)
 
     /**
      * usecases.
@@ -604,6 +606,26 @@ export default function HomeContainer() {
         }
     }
 
+    /**
+     * handle event occurs when pressing zoom in.
+     */
+    function onClickZoomIn() {
+        logDebug(LOG_TAG, "<<< additionalZoomValue: " + additionalZoomValue)
+        setAdditionalZoomValue(
+            additionalZoomValue + 1 > MAX_MAP_ZOOM_IN_COUNT ? additionalZoomValue : additionalZoomValue + 1
+        )
+    }
+
+    /**
+     * handle event occurs when pressing zoom out.
+     */
+    function onClickZoomOut() {
+        logDebug(LOG_TAG, "<<< additionalZoomValue: " + additionalZoomValue)
+        setAdditionalZoomValue(
+            additionalZoomValue - 1 < MAX_MAP_ZOOM_OUT_COUNT ? additionalZoomValue : additionalZoomValue - 1
+        )
+    }
+
     return (
         <>
             <HomeComponent
@@ -623,6 +645,9 @@ export default function HomeContainer() {
                 footerSupport={FOOTER_SUPPORT}
                 recentHistory={recentHistory}
                 onPressRealtimeCollectData={onPressRealtimeCollectData}
+                onClickZoomIn={onClickZoomIn}
+                onClickZoomOut={onClickZoomOut}
+                additionalZoomValue={additionalZoomValue}
             />
         </>
     )
