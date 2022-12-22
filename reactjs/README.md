@@ -80,6 +80,13 @@ It is written based on JavaScript.
 - 2022/12/20 : (3rd) Improved map circle area position.
 - 2022/12/20 : (4th) Fixed issue that circle shape overflows outside.
 - 2022/12/20 : (5th) Adjust map circle radius value when zoom level is 13 or 14 or 15.
+- 2022/12/21 : (1st) Fixed an issue where the circle size became too large and fell outside the map when the screen size increased.
+- 2022/12/21 : (2nd) Added module that can save logs as file / Deleted unused files. / Fix warning releated to circle component.
+- 2022/12/22 : (1st) Fixed warning about text component / Added debugging log messages.
+- 2022/12/22 : (2nd) Improved readability of log messages.
+- 2022/12/22 : (3rd) Deleted unused map files and dependencies.
+- 2022/12/22 : (4th) Deleted unused package dependencies and index files.
+- 2022/12/22 : (5th) Applied map's dashed border.
 
 ## How To Setup Environment
 
