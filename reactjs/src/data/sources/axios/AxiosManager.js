@@ -112,7 +112,7 @@ function AxiosManager() {
                     fulfill(getResponse(apiUrl, response))
 
                 }).catch((e) => {
-                    outputErrorLog(LOG_TAG, e + " occurred by axios.get")
+                    outputErrorLog(LOG_TAG, e + " occurred by axios.GET")
                     reject(e)
                 })
         })
@@ -133,7 +133,7 @@ function AxiosManager() {
                 fulfill(getResponse(apiUrl, response))
 
             }).catch((e) => {
-                outputErrorLog(LOG_TAG, e + " occurred by axios.post")
+                outputErrorLog(LOG_TAG, e + " occurred by axios.POST")
                 reject(e)
             })
         })
@@ -157,9 +157,9 @@ function AxiosManager() {
             const responseData = response.data.data
 
             logDebugWithLine(LOG_TAG,
-                "<<< response \nlength: " + responseData.length
-                + ", \nresponse: " + responseData
-                + ", \nresponse [raw]: " + JSON.stringify(response))
+                "<<< RESPONSE \n[LENGTH]: " + responseData.length
+                + ", \n[RESPONSE.DATA.DATA]: \n" + responseData
+                + ", \n[RESPONSE]: \n" + JSON.stringify(response))
 
             return responseData
         }
@@ -174,6 +174,7 @@ function AxiosManager() {
         return new Promise((fulfill, reject) => {
             try {
                 apiDomainUrl = domainUrl
+                logDebug(LOG_TAG, "<<< Domain URL (SET): " + apiDomainUrl)
                 fulfill(apiDomainUrl)
             } catch (e) {
                 reject(e)
@@ -186,6 +187,7 @@ function AxiosManager() {
      * @returns {String}
      */
     function getDomainUrl() {
+        logDebug(LOG_TAG, "<<< Domain URL (GET): " + apiDomainUrl)
         return apiDomainUrl
     }
 

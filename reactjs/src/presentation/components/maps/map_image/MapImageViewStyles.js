@@ -6,6 +6,14 @@ export const zoomOutContainer = {
   position: "fixed", marginTop: 38, paddingLeft: 5, paddingTop: 5
 }
 
+export const debuggingContainer = {
+  position: "fixed", marginTop: 0, paddingLeft: 5, paddingTop: 5
+}
+
+export const debuggingText = {
+  color: "#1d70ec", fontSize: 18, fontWeight: "normal"
+}
+
 export const zoomButton = {
   width: 35, height: 35, color: "#1d70ec", fontSize: 22, fontWeight: "bold"
 }
@@ -31,7 +39,7 @@ export const circleAreaImage = {
 
 export const circleAndMarkerContainer = {
   position: "relative", alignItems: "center", verticalAlign: "center",
-  display: "flex", justifyContent: "center", left: "-50%", overflow: "hidden"
+  display: "flex", justifyContent: "center", left: "-50%", overflow: "auto"
 }
 
 export const mapImage = {
@@ -39,6 +47,6 @@ export const mapImage = {
 }
 
 export const mapRootContainer = {
-  position: "relative", width: "100%", height: "100%", display: "flex", textAlign: "center", border: "solid",
-  borderWidth: 1, marginTop: 1, borderStyle: "solid", overflow: "hidden"
+  position: "relative", width: "100%", height: "100%", display: "flex", textAlign: "center",
+  marginTop: 0, overflow: "hidden", border: "1px dashed #1d70ec"
 }

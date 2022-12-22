@@ -1,10 +1,12 @@
 import React from 'react'
 import { MENU_TABLE_HEADER_ADDRESS, MENU_TABLE_HEADER_DATE } from '../../../../assets/strings/Strings'
+import { outputErrorLog } from '../../../../utils/logger/Logger'
 import "./MapTable.css"
+
+const LOG_TAG = "MapTableComponent"
 
 /**
  * table component.
- * workaround code.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
@@ -16,13 +18,23 @@ function MapTableComponent(props) {
     const { recentHistory } = props
 
     function getCurrentDate() {
-        return recentHistory != null && recentHistory !== "" && recentHistory.length >= 3 ?
-            recentHistory.split("|")[2] : "--"
+        try {
+            return recentHistory != null && recentHistory !== "" && recentHistory.length >= 4 ?
+                recentHistory.split("|")[3] : "--"
+        } catch (_e) {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting current DATE, return --")
+            return "--"
+        }
     }
 
     function getCurrentAddress() {
-        return recentHistory != null && recentHistory !== "" && recentHistory.length >= 4 ?
-            recentHistory.split("|")[3] : "--"
+        try {
+            return recentHistory != null && recentHistory !== "" && recentHistory.length >= 5 ?
+                recentHistory.split("|")[4] : "--"
+        } catch (_e) {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting current ADDRESS, return --")
+            return "--"
+        }
     }
 
     return (
@@ -54,6 +66,7 @@ function MapTableComponent(props) {
                         </tbody>
                     </table>
             }
+
         </div>
     )
 }

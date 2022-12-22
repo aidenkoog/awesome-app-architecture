@@ -16,7 +16,7 @@ export default function NaverMapRepository() {
     function getReversedAddress(latitude, longitude, onResult) {
 
         if (latitude === DEFAULT_LATITUDE_AND_LONGITUDE || longitude === DEFAULT_LATITUDE_AND_LONGITUDE) {
-            outputErrorLog(LOG_TAG, "latitude or longitude is zero")
+            outputErrorLog(LOG_TAG, "LATITUDE or LONGITUDE is 0")
             onResult(null)
             return
         }
@@ -27,7 +27,7 @@ export default function NaverMapRepository() {
         }, function (status, response) {
             if (status !== window.naver.maps.Service.Status.OK) {
                 onResult(null)
-                return alert('Failed to load naver geocode !!!')
+                return alert('FAILED to load naver geocode !!!')
             }
             let result = response.result
             let addressItems = result.items

@@ -15,7 +15,7 @@ function GetDecryptedPhoneNumberUseCase() {
      */
     function executeGetDecryptedPhoneNumberUseCase(deviceMobileNumber) {
         if (hasValidPhoneNumber(deviceMobileNumber)) {
-            logDebug(LOG_TAG, "<<< phone number is NOT encrypted and already valid")
+            logDebug(LOG_TAG, "<<< PHONE NUMBER is NOT ENCRYPTED and already VALID, return ITSELF")
             return deviceMobileNumber
         }
         return decryptDeviceMobileNumber(deviceMobileNumber)

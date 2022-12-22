@@ -1,6 +1,9 @@
 import React from 'react'
 import { MENU_TABLE_HEADER_ADDRESS, MENU_TABLE_HEADER_DATE } from '../../../assets/strings/Strings'
+import { outputErrorLog } from '../../../utils/logger/Logger'
 import "./MenuTable.css"
+
+const LOG_TAG = "MenuTableComponent"
 
 /**
  * table component.
@@ -15,13 +18,23 @@ function MenuTableComponent(props) {
     const { historyList } = props
 
     function getDate(historyItem) {
-        return historyItem != null && historyItem !== "" && historyItem.length >= 2 ?
-            historyItem.split("|")[1] : "--"
+        try {
+            return historyItem != null && historyItem !== "" && historyItem.length >= 3 ?
+                historyItem.split("|")[2] : "--"
+        } catch (_e) {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting DATE, return --")
+            return "--"
+        }
     }
 
     function getAddress(historyItem) {
-        return historyItem != null && historyItem !== "" && historyItem.length >= 3 ?
-            historyItem.split("|")[2] : "--"
+        try {
+            return historyItem != null && historyItem !== "" && historyItem.length >= 4 ?
+                historyItem.split("|")[3] : "--"
+        } catch (_e) {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting ADDRESS, return --")
+            return "--"
+        }
     }
 
     return (

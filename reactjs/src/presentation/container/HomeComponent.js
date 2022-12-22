@@ -1,7 +1,6 @@
 import HeaderView from "../components/header/HeaderView"
 import MainView from "../components/main/MainView"
 import MenuView from "../components/menu/MenuView"
-import FooterView from "../components/footer/FooterView"
 import "./Home.css"
 
 /**
@@ -21,15 +20,18 @@ export default function HomeComponent(props) {
         longitude,
         historyList,
         currentAddress,
+        shortAddress,
         isReportExpired,
         errorMessage,
         hasError,
         loading,
-        historySaveSupport,
-        footerSupport,
         recentHistory,
         onPressRealtimeCollectData,
-        domainUrl
+        domainUrl,
+        onClickZoomOut,
+        onClickZoomIn,
+        currentZoomLevel,
+        onClickHeaderArea,
     } = props
 
     return (
@@ -41,7 +43,7 @@ export default function HomeComponent(props) {
                 onPressCollectData={onPressCollectData}
                 currentAddress={currentAddress}
                 loading={loading}
-                historySaveSupport={historySaveSupport}
+                onClickHeaderArea={onClickHeaderArea}
                 onPressRealtimeCollectData={onPressRealtimeCollectData}
             />
 
@@ -60,11 +62,12 @@ export default function HomeComponent(props) {
                 longitude={longitude}
                 latitude={latitude}
                 domainUrl={domainUrl}
+                onClickZoomIn={onClickZoomIn}
+                onClickZoomOut={onClickZoomOut}
+                currentZoomLevel={currentZoomLevel}
                 recentHistory={recentHistory}
+                shortAddress={shortAddress}
             />
-
-            {/* footer. */}
-            {footerSupport ? <FooterView /> : <div />}
         </div>
     )
 }

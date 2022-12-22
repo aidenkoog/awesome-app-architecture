@@ -1,8 +1,8 @@
-import { logDebug, logDebugWithLine, outputErrorLog } from "../../utils/logger/Logger"
+import { getCachedLogMessages, logDebug, logDebugWithLine, outputErrorLog } from "../../utils/logger/Logger"
 import HomeComponent from "./HomeComponent"
 import { useLayoutEffect, useState } from "react"
 import GetActivitiesUseCase from "../../domain/usecases/activities/GetActivitiesUseCase"
-import { getCurrentMillTime, getHistoryTypedDateMessage } from "../../utils/time/TimeUtil"
+import { getCurrentCustomDateTime, getCurrentMillTime, getHistoryTypedDateMessage } from "../../utils/time/TimeUtil"
 import GetPhoneNumberFromUrlUseCase from "../../domain/usecases/url/GetPhoneNumberFromUrlUseCase"
 import SendSmsUseCase from "../../domain/usecases/sms/SendSmsUseCase"
 import { RESPONSE_OK } from "../../data/sources/responses/ResponseCode"
@@ -10,46 +10,41 @@ import { ONDEMAND_EMERGENCY_REPORT, EMERGENCY_REPORT } from "../../data/sources/
 import {
     ERROR_MSG_NO_REPORT, ERROR_MSG_NO_EMERGENCY_REPORT_WITHIN_24_HOURS,
     ERROR_MSG_NO_VALID_LOCATION, ERROR_MSG_PHONE_NUMBER_ERROR, ERROR_MSG_FAILED_SMS,
-    ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE, ERROR_MSG_NO_FOUND_ADDRESS,
-    ERROR_MSG_FAILED_CURRENT_LOCATION
+    ERROR_MSG_WRONG_PHONE_NUMBER, ERROR_MSG_NO_RESPONSE, ERROR_MSG_NO_FOUND_ADDRESS, ERROR_MSG_FAILED_CURRENT_LOCATION
 } from "../../assets/strings/Strings"
 import { hasValidPhoneNumber } from "../../utils/regex/RegexUtil"
 import { NOT_SUPPORT_FUNCTION, SEND_SMS_FAILED_ERROR_MESSAGE } from "../../assets/strings/Strings"
 import SetDomainUrlUseCase from "../../domain/usecases/url/SetDomainUrlUseCase"
 import GetDecryptedPhoneNumberUseCase from "../../domain/usecases/url/GetDecryptedPhoneNumberUseCase"
 import {
-    HISTORY_SAVE_SUPPORT, FOOTER_SUPPORT, POLLING_API_MAX_MILL_TIME,
-    POLLING_API_INTERVAL_MILL_TIME, HOURS_24_MILL, FileSaver, TEXT_TYPE, FILE_NAME_TO_SAVE,
-    MAX_MAP_ZOOM_OUT_COUNT, MAX_MAP_ZOOM_IN_COUNT
+    POLLING_API_MAX_MILL_TIME, POLLING_API_INTERVAL_MILL_TIME, HOURS_24_MILL, FileSaver, TEXT_TYPE,
+    FILE_NAME_TO_SAVE, DEFAULT_ZOOM_LEVEL, MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL, FILE_NAME_FOR_LOG
 } from "../../configs/Configs"
 import GetDomainUrlUseCase from "../../domain/usecases/url/GetDomainUrlUseCase"
 
+
 const LOG_TAG = "HomeContainer"
 
-/**
- * default constants.
- */
-const RECENT_RESPONSE_INDEX = 0
-const DEFAULT_LATITUDE_AND_LONGITUDE = 0
-const DEFAULT_STRING_VALUE = ""
-const DEFAULT_BOOLEAN_VALUE = false
-
-/**
- * If the value is the same as before, useState does not work, 
- * so, use this variable to increase the value and render the UI.
- */
-let refreshValue = 0
-
-/**
- * history list of searching location.
- */
 let historyList = []
+let recentHistory = ""
+let currentAddress = ""
+let shortAddress = ""
+let domain = ""
+let previousLatitude = 0
+let previousLongitude = 0
+let refreshValue = 0
+let retryGetActivitiesCount = 0
+let headerClickCountForExtractingLog = 0
+let previousHeaderClickTime = 0
+let isSmsSent = false
 
 /**
- * the latest address information
+ * purpose to update component.
  */
-let currentAddress = ""
-let recentHistory = ""
+const PURPOSE_QUERY_LOCATION_BY_BUTTON = "PURPOSE_QUERY_LOCATION_BY_BUTTON"
+const PURPOSE_QUERY_LOCATION_SUCCESS = "PURPOSE_QUERY_LOCATION_SUCCESS"
+
+const MAX_RETRY_COUNT = 5
 
 /**
  * purpose of determining whether the location inquiry update button was pressed.
@@ -59,7 +54,7 @@ let isRefreshing = false
 let isRefreshingWithRealtime = false
 
 /**
- * variable represents if checking if there's emergency report is being executed.
+ * variable represents if checking if there's EMERGENCY report is being executed.
  * refs. why use: for controlling history list.
  */
 let isCheckingEmergencyReport = false
@@ -70,39 +65,11 @@ let isCheckingEmergencyReport = false
 let loaded = false
 
 /**
- * previous location information (latitude, longitude)
- */
-let previousLatitude = 0
-let previousLongitude = 0
-
-/**
- * flag set to reload the page if the activity information is not properly fetched when first entering the page.
- */
-let retryGetActivitiesCount = 0
-const MAX_RETRY_COUNT = 5
-
-/**
  * flag to store query start milliseconds time and retry-count needed when querying the current location.
  */
 let queryStartMillTime = 0
 let queryRetryCount = 0
 let latestEmergencyReportMillTime = 0
-
-/**
- * purpose to update component.
- */
-let PURPOSE_QUERY_LOCATION_BY_BUTTON = "PURPOSE_QUERY_LOCATION_BY_BUTTON"
-let PURPOSE_QUERY_LOCATION_SUCCESS = "PURPOSE_QUERY_LOCATION_SUCCESS"
-
-/**
- * check if sms is already sent
- */
-let isSmsSent = false
-
-/**
- * domain url.
- */
-let domain = ""
 
 /**
  * home page.
@@ -113,14 +80,14 @@ export default function HomeContainer() {
     /**
      * use state for ui interacting.
      */
-    const [latitude, setLatitude] = useState(DEFAULT_LATITUDE_AND_LONGITUDE)
-    const [longitude, setLongitude] = useState(DEFAULT_LATITUDE_AND_LONGITUDE)
-    const [isReportExpired, setIsReportExpired] = useState(DEFAULT_BOOLEAN_VALUE)
-    const [errorMessage, setErrorMessage] = useState(DEFAULT_STRING_VALUE)
-    const [hasError, setHasError] = useState(DEFAULT_BOOLEAN_VALUE)
-    const [loading, setLoading] = useState(DEFAULT_BOOLEAN_VALUE)
+    const [latitude, setLatitude] = useState(0)
+    const [longitude, setLongitude] = useState(0)
+    const [isReportExpired, setIsReportExpired] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [hasError, setHasError] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [refresh, setRefresh] = useState(refreshValue)
-    const [additionalZoomValue, setAdditionalZoomValue] = useState(0)
+    const [currentZoomLevel, setCurrentZoomLevel] = useState(DEFAULT_ZOOM_LEVEL)
 
     /**
      * usecases.
@@ -142,10 +109,9 @@ export default function HomeContainer() {
     useLayoutEffect(() => {
         if (!loaded) {
             loaded = true
-            printDefaultSettings()
+            logDebugWithLine(LOG_TAG, "<<< WebPage is LOADED: " + loaded)
             initializeWebPage()
         }
-
     }, [initializeWebPage])
 
     /**
@@ -153,15 +119,15 @@ export default function HomeContainer() {
      */
     function printResponse(response) {
         if (response == null) {
-            outputErrorLog(LOG_TAG, "response is null, cannot print response information")
+            outputErrorLog(LOG_TAG, "response is NULL, CANNOT print response information")
             return
         }
         const responseJsonString = JSON.stringify(response)
-        const responseJsonParsed = JSON.parse(responseJsonString)
+        const responseJsonParsedObject = JSON.parse(responseJsonString)
 
-        logDebug(LOG_TAG, "<<< responseJsonString: " + responseJsonString)
-        logDebug(LOG_TAG, "<<< responseJsonParsed: " + responseJsonParsed)
-        logDebug(LOG_TAG, "<<< response length: " + response.length)
+        logDebug(LOG_TAG, "<<< response \n[LENGTH]: " + response.length)
+        logDebug(LOG_TAG, "<<< response \n[JSON-STRING]: \n" + responseJsonString)
+        logDebug(LOG_TAG, "<<< response \n[JSON-PARSED-OBJECT]: \n" + responseJsonParsedObject)
     }
 
     /**
@@ -170,7 +136,7 @@ export default function HomeContainer() {
      * @returns {Number}
      */
     function getLatestCreatedMillTime(response) {
-        return new Date(response[RECENT_RESPONSE_INDEX].createdDate).getTime()
+        return new Date(response[0].createdDate).getTime()
     }
 
     /**
@@ -187,6 +153,7 @@ export default function HomeContainer() {
      * @param {String} errorMessage 
      */
     function enableErrorState(errorMessage) {
+        outputErrorLog(LOG_TAG, "enable error state, ERROR Message: " + errorMessage)
         createErrorAddress()
         setHasError(true)
         setErrorMessage(errorMessage === undefined || errorMessage == null ? "" : errorMessage)
@@ -197,9 +164,10 @@ export default function HomeContainer() {
      * update sos 24hours expiration state.
      */
     function update24HoursExpiration() {
+        outputErrorLog(LOG_TAG, "SOS report is EXPIRED (24 hours)")
         createErrorAddress()
         setIsReportExpired(true)
-        setLocationInformation(DEFAULT_LATITUDE_AND_LONGITUDE, DEFAULT_LATITUDE_AND_LONGITUDE)
+        setLocationInformation(0, 0)
         setErrorMessage(ERROR_MSG_NO_EMERGENCY_REPORT_WITHIN_24_HOURS)
         setLoading(false)
     }
@@ -214,6 +182,7 @@ export default function HomeContainer() {
                 return true
             }
             enableErrorState(extraErrorMessage)
+            outputErrorLog(LOG_TAG, "response is NOT valid")
             return false
         }
 
@@ -243,17 +212,17 @@ export default function HomeContainer() {
      */
     function updateComponentWithNormalCase(response, purposeToUpdate) {
         clearErrorState()
-        const recentResponse = response[RECENT_RESPONSE_INDEX]
-        const responseLat = recentResponse.lat
-        const responseLng = recentResponse.lng
+        const recentResponse = response[0]
+        const responseLatitude = recentResponse.lat
+        const responseLongitude = recentResponse.lng
 
-        if (!hasValidLatAndLng(responseLat, responseLng)) {
+        if (!hasValidLatAndLng(responseLatitude, responseLongitude)) {
             enableErrorState(ERROR_MSG_NO_VALID_LOCATION)
 
         } else {
             createCurrentAddress(response)
-            if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
 
+            if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
                 let responseItemList = []
                 for (const item of response) {
                     responseItemList.push(item)
@@ -261,16 +230,19 @@ export default function HomeContainer() {
 
                 for (const responseItem of responseItemList.reverse()) {
                     createHistoryList(
+                        responseItem.shortAddress,
                         responseItem.provider,
-                        getHistoryTypedDateMessage(responseItem.createdDate),
+                        getHistoryTypedDateMessage(responseItem.measuredDate),
                         responseItem.address == null ? ERROR_MSG_NO_FOUND_ADDRESS : responseItem.address,
-                        responseItem.createdDate)
+                        responseItem.measuredDate)
                 }
                 latestEmergencyReportMillTime = getLatestCreatedMillTime(response)
             }
             recentHistory = historyList != null && historyList.length > 0 ? historyList[historyList.length - 1] : ""
+            logDebug(LOG_TAG, ">>> RECENT history: " + recentHistory)
+
             if (purposeToUpdate !== PURPOSE_QUERY_LOCATION_BY_BUTTON) {
-                setLocationInformation(responseLat, responseLng)
+                setLocationInformation(responseLatitude, responseLongitude)
             }
         }
     }
@@ -287,12 +259,12 @@ export default function HomeContainer() {
 
         } else {
             if (previousLatitude === latitude && previousLongitude === longitude) {
-                logDebug(LOG_TAG, ">>> no need to update location information")
+                outputErrorLog(LOG_TAG, "NO need to update location information")
                 setRefresh(++refreshValue)
                 return
             }
         }
-        logDebug(LOG_TAG, ">>> set location information: latitude: " + latitude + ", longitude: " + longitude)
+        logDebug(LOG_TAG, ">>> SET location information: LATITUDE: " + latitude + ", LONGITUDE: " + longitude)
         setLatitude(latitude)
         setLongitude(longitude)
     }
@@ -312,9 +284,11 @@ export default function HomeContainer() {
     function initializeWebPage() {
         executeSetDomainUrlUseCase(window.location).then(() => {
             domain = executeGetDomainUrlUseCase()
+            logDebug(LOG_TAG, "<<< SUCCEEDED to set domain url, current domain: " + domain)
             initializeActivitiesInformation()
 
         }).catch((e) => {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to set domain")
             enableErrorState(e)
         })
     }
@@ -335,12 +309,14 @@ export default function HomeContainer() {
      */
     function initializeActivitiesInformation() {
         const deviceMobileNumber = getDevicePhoneNumber()
+        logDebug(LOG_TAG, ">>> START to initialize activities, PHONE NUMBER: " + deviceMobileNumber)
 
         if (!hasValidPhoneNumber(deviceMobileNumber)) {
             updateComponents(null, ERROR_MSG_WRONG_PHONE_NUMBER)
             return
         }
 
+        logDebug(LOG_TAG, ">>> REQUEST SOS and EMERGENCY report")
         executeGetActivitiesWithExtraUseCase(deviceMobileNumber,
             EMERGENCY_REPORT + "," + ONDEMAND_EMERGENCY_REPORT, "").then((response) => {
                 printResponse(response)
@@ -353,6 +329,7 @@ export default function HomeContainer() {
                 }
 
             }).catch((_e) => {
+                outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to get activities (SOS, EMERGENCY)")
                 isCheckingEmergencyReport = false
                 enableErrorState(deviceMobileNumber == null ?
                     ERROR_MSG_NO_VALID_LOCATION + "|" + ERROR_MSG_PHONE_NUMBER_ERROR : ERROR_MSG_NO_VALID_LOCATION)
@@ -366,11 +343,12 @@ export default function HomeContainer() {
      */
     function retryGetActivities() {
         if (++retryGetActivitiesCount >= MAX_RETRY_COUNT) {
+            outputErrorLog(LOG_TAG, "NO succeeded to get activities (SOS, EMERGENCY) even retry it")
             enableErrorState(ERROR_MSG_NO_VALID_LOCATION)
             retryGetActivitiesCount = 0
             return
         }
-        logDebugWithLine(LOG_TAG, "retry to get activities")
+        logDebugWithLine(LOG_TAG, "RETRY to get activities (SOS, EMERGENCY)")
         initializeWebPage()
     }
 
@@ -378,17 +356,25 @@ export default function HomeContainer() {
      * check if latitude and longitude is valid.
      */
     function hasValidLatAndLng(latitude, longitude) {
-        return (latitude === DEFAULT_LATITUDE_AND_LONGITUDE || latitude < 0)
-            || (longitude === DEFAULT_LATITUDE_AND_LONGITUDE || longitude < 0) ? false : true
+        return (latitude === 0 || latitude < 0)
+            || (longitude === 0 || longitude < 0) ? false : true
     }
 
     /**
      * create history list.
      */
-    function createHistoryList(provider, date, responseAddress, createdDate) {
+    function createHistoryList(responseShortAddress, provider, date, responseAddress, createdDate) {
         const address = responseAddress === ERROR_MSG_NO_FOUND_ADDRESS ? "--" : responseAddress
+        const shortAddress = responseShortAddress === ERROR_MSG_NO_FOUND_ADDRESS ? "--" : responseShortAddress
         const createDateTime = createdDate.replace("T", " ").replace("Z", " ")
-        let historyMessage = provider + "|" + date + "|" + address + "|" + createDateTime + "|" + createdDate
+        const providerData = provider === undefined || provider == null ? "--" : provider
+
+        let historyMessage =
+            shortAddress + "|" + providerData + "|"
+            + date + "|" + address + "|"
+            + createDateTime + "|" + createdDate
+
+        logDebug(LOG_TAG, ">>> HISTORY Message to be SET: " + historyMessage)
 
         if (!isRefreshing && !isCheckingEmergencyReport) {
             historyList = []
@@ -397,7 +383,14 @@ export default function HomeContainer() {
         } else {
             historyList.push(historyMessage)
         }
-        logDebugWithLine(LOG_TAG, ">>> history length: " + historyList.length + ", history list: " + historyList)
+
+        logDebugWithLine(LOG_TAG, ">>> HISTORY Length: " + historyList.length)
+
+        let historyListForDebugging = []
+        for (const item of historyList) {
+            historyListForDebugging.push("\n" + item)
+        }
+        logDebugWithLine(LOG_TAG, ">>> HISTORY List: " + historyListForDebugging)
     }
 
     /**
@@ -406,11 +399,18 @@ export default function HomeContainer() {
      */
     function createCurrentAddress(response) {
         if (response == null || response === undefined || response.length <= 0) {
+            outputErrorLog(LOG_TAG, "CANNOT create current address because of invalid response")
             currentAddress = ERROR_MSG_NO_FOUND_ADDRESS
+            shortAddress = ""
             return
         }
-        const responseAddress = response[RECENT_RESPONSE_INDEX].address
+        const latestResponse = response[0]
+        const responseAddress = latestResponse.address
         currentAddress = responseAddress == null ? ERROR_MSG_NO_FOUND_ADDRESS : responseAddress
+
+        const responseShortAddress = latestResponse.shortAddress
+        shortAddress = responseShortAddress == null ? "" : responseShortAddress
+        logDebug(LOG_TAG, ">>> CURRENT Address: " + currentAddress + ", CURRENT SHORT Address: " + shortAddress)
     }
 
     /**
@@ -421,34 +421,27 @@ export default function HomeContainer() {
     }
 
     /**
-     * print default setting information.
-     */
-    function printDefaultSettings() {
-        logDebugWithLine(LOG_TAG,
-            "history save support: " + HISTORY_SAVE_SUPPORT + "\n"
-            + ", file name to save: " + FILE_NAME_TO_SAVE + "\n"
-            + ", text type: " + TEXT_TYPE + "\n"
-            + ", default latitude: " + DEFAULT_LATITUDE_AND_LONGITUDE + "\n"
-            + ", default longitude: " + DEFAULT_LATITUDE_AND_LONGITUDE)
-    }
-
-    /**
      * handle event occurred when collect data button is pressed.
      */
     function onPressCollectData() {
         if (isRefreshing) {
-            outputErrorLog(LOG_TAG, "refreshing current location now")
+            outputErrorLog(LOG_TAG, "NOW, refreshing current location")
             return
         }
         isRefreshing = true
         queryStartMillTime = getCurrentMillTime()
-        logDebugWithLine(LOG_TAG, "queryStartMillTime: " + queryStartMillTime + ", queryRetryCount: " + queryRetryCount)
+
+        logDebugWithLine(LOG_TAG, ""
+            + "queryStartMillTime: " + queryStartMillTime
+            + ", queryRetryCount: " + queryRetryCount)
 
         sendSms(getDevicePhoneNumber()).then(() => {
+            logDebug(LOG_TAG, "<<< SUCCEEDED to send SMS, START to query the current location")
             setLoading(true)
             queryCurrentLocation()
 
         }).catch((_e) => {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to send SMS")
             clearRetryQueryCurrentLocationStates()
             enableErrorState(ERROR_MSG_FAILED_SMS)
         })
@@ -459,7 +452,7 @@ export default function HomeContainer() {
      */
     function onPressRealtimeCollectData() {
         if (isRefreshing) {
-            outputErrorLog(LOG_TAG, "refreshing current location now")
+            outputErrorLog(LOG_TAG, "NOW, refreshing current location")
             return
         }
         logDebug(LOG_TAG, "<<< current isRefreshingWithRealtime before pressing button: " + isRefreshingWithRealtime)
@@ -475,12 +468,14 @@ export default function HomeContainer() {
      */
     function queryCurrentLocation() {
         const deviceMobileNumber = getDevicePhoneNumber()
+        logDebug(LOG_TAG, ">>> START to query current location, PHONE NUMBER: " + deviceMobileNumber)
 
         if (!hasValidPhoneNumber(deviceMobileNumber)) {
             updateComponents(null, ERROR_MSG_WRONG_PHONE_NUMBER)
             return
         }
 
+        logDebug(LOG_TAG, ">>> request ALL report")
         executeGetActivitiesUseCase(deviceMobileNumber).then((response) => {
             printResponse(response)
 
@@ -489,10 +484,13 @@ export default function HomeContainer() {
                 return
             }
 
+            const latestAcitivityCreateDate = response[0].createdDate
+            logDebug(LOG_TAG, ">>> request EMERGENCY report with " + latestAcitivityCreateDate)
+
             executeGetActivitiesWithExtraUseCase(
                 deviceMobileNumber,
                 ONDEMAND_EMERGENCY_REPORT,
-                response[RECENT_RESPONSE_INDEX].createdDate).then((response) => {
+                latestAcitivityCreateDate).then((response) => {
 
                     printResponse(response)
                     if (response.length <= 0) {
@@ -500,7 +498,8 @@ export default function HomeContainer() {
 
                     } else {
                         const foundLatestCreatedTime = getLatestCreatedMillTime(response)
-                        logDebug(LOG_TAG, "latestEmergencyReportMillTime: " + latestEmergencyReportMillTime
+                        logDebug(LOG_TAG, "<<< "
+                            + "LATEST CachedEmergencyReportMillTime: " + latestEmergencyReportMillTime
                             + ", foundLatestCreatedTime: " + foundLatestCreatedTime
                             + ", queryStartMillTime: " + queryStartMillTime)
 
@@ -509,21 +508,28 @@ export default function HomeContainer() {
 
                             createCurrentAddress(response)
                             updateComponents(response, "", PURPOSE_QUERY_LOCATION_SUCCESS)
+
                             latestEmergencyReportMillTime = foundLatestCreatedTime
+                            logDebug(LOG_TAG, "<<< "
+                                + "RE-SET LATEST CachedEmergencyReportMillTime (" + latestEmergencyReportMillTime + ")")
+
                             clearRetryQueryCurrentLocationStates()
                             setLoading(false)
                             setRefresh(++refreshValue)
 
                         } else {
+                            outputErrorLog(LOG_TAG, "NO found the recent EMERGENCY report")
                             retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
                         }
                     }
 
                 }).catch((_e) => {
+                    outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to get EMERGENCY report")
                     retryQueryCurrentLocation(ERROR_MSG_NO_REPORT)
                 })
 
         }).catch((_e) => {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to get ALL report")
             retryQueryCurrentLocation(ERROR_MSG_FAILED_CURRENT_LOCATION)
         })
     }
@@ -534,11 +540,11 @@ export default function HomeContainer() {
      */
     function retryQueryCurrentLocation(errorMessage) {
         let consumedTime = getCurrentMillTime() - queryStartMillTime
-        logDebug(LOG_TAG, ">>> consumedTime: " + consumedTime)
+        logDebug(LOG_TAG, ">>> consumedTime (RETRY): " + consumedTime)
 
         if (consumedTime >= POLLING_API_MAX_MILL_TIME) {
             logDebug(LOG_TAG, ">>> API had been called for 2 minutes, "
-                + "but no data came in (retryCount: " + queryRetryCount + ")")
+                + "but NO data came in (retryCount: " + queryRetryCount + ")")
 
             clearRetryQueryCurrentLocationStates()
             enableErrorState(errorMessage)
@@ -546,7 +552,7 @@ export default function HomeContainer() {
         } else {
             setTimeout(() => {
                 queryRetryCount++
-                logDebugWithLine(LOG_TAG, "<<< retry to call queryCurrentLocation with query" + queryRetryCount)
+                logDebugWithLine(LOG_TAG, "<<< RETRY to call queryCurrentLocation with query" + queryRetryCount)
                 queryCurrentLocation()
 
             }, POLLING_API_INTERVAL_MILL_TIME)
@@ -563,7 +569,6 @@ export default function HomeContainer() {
         isSmsSent = false
     }
 
-
     /**
      * ask device to send sms message.
      * @param {String} deviceMobileNumber 
@@ -572,20 +577,22 @@ export default function HomeContainer() {
     function sendSms(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
             if (isSmsSent) {
-                logDebug(LOG_TAG, ">>> SMS already sent")
+                outputErrorLog(LOG_TAG, "SMS is already sent, no need to send SMS again")
                 fulfill()
             }
             executeSendSmsUseCase(deviceMobileNumber).then((response) => {
                 if (RESPONSE_OK.code === response.code) {
                     isSmsSent = true
-                    logDebugWithLine(LOG_TAG, "<<< succeeded to send SMS, responseCode: " + response.code)
+                    logDebugWithLine(LOG_TAG, "<<< SUCCEEDED to send SMS, responseCode: " + response.code)
                     fulfill()
 
                 } else {
+                    outputErrorLog(LOG_TAG, "FAILED to send SMS")
                     reject(SEND_SMS_FAILED_ERROR_MESSAGE)
                 }
 
             }).catch((e) => {
+                outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs when trying to send SMS")
                 reject(e)
             })
         })
@@ -610,20 +617,65 @@ export default function HomeContainer() {
      * handle event occurs when pressing zoom in.
      */
     function onClickZoomIn() {
-        logDebug(LOG_TAG, "<<< additionalZoomValue: " + additionalZoomValue)
-        setAdditionalZoomValue(
-            additionalZoomValue + 1 > MAX_MAP_ZOOM_IN_COUNT ? additionalZoomValue : additionalZoomValue + 1
-        )
+        if (currentZoomLevel === MAX_ZOOM_LEVEL) {
+            outputErrorLog(LOG_TAG, "CANNOT zoom-in anymore")
+            return
+        }
+        const zoomLevelToBeSet = currentZoomLevel + 1
+        logDebug(LOG_TAG, "<<< (ZOOM-IN) zoomLevel to be set: " + zoomLevelToBeSet)
+
+        setCurrentZoomLevel(zoomLevelToBeSet)
     }
 
     /**
      * handle event occurs when pressing zoom out.
      */
     function onClickZoomOut() {
-        logDebug(LOG_TAG, "<<< additionalZoomValue: " + additionalZoomValue)
-        setAdditionalZoomValue(
-            additionalZoomValue - 1 < MAX_MAP_ZOOM_OUT_COUNT ? additionalZoomValue : additionalZoomValue - 1
-        )
+        if (currentZoomLevel === MIN_ZOOM_LEVEL) {
+            outputErrorLog(LOG_TAG, "CANNOT zoom-out anymore")
+            return
+        }
+        const zoomLevelToBeSet = currentZoomLevel - 1
+        logDebug(LOG_TAG, "<<< (ZOOM-OUT) zoomLevel to be set: " + zoomLevelToBeSet)
+
+        setCurrentZoomLevel(zoomLevelToBeSet)
+    }
+
+    /**
+     * handle event occurs when pressing header area.
+     */
+    function onClickHeaderArea() {
+        if (previousHeaderClickTime === 0) {
+            headerClickCountForExtractingLog = 0
+            previousHeaderClickTime = getCurrentMillTime()
+
+        } else {
+            if (getCurrentMillTime() - previousHeaderClickTime >= 300) {
+                previousHeaderClickTime = headerClickCountForExtractingLog = 0
+
+            } else {
+                previousHeaderClickTime = getCurrentMillTime()
+                if (++headerClickCountForExtractingLog > 10) {
+                    const cachedLogMessages = getCachedLogMessages()
+                    if (cachedLogMessages.length <= 0) {
+                        return
+                    }
+                    let logMessageList = []
+                    for (const item of cachedLogMessages) {
+                        logMessageList.push(item + "\n")
+                    }
+                    if (logMessageList.length <= 0) {
+                        return
+                    } else {
+                        FileSaver.saveAs(
+                            new Blob(logMessageList, { type: TEXT_TYPE }),
+                            getCurrentCustomDateTime() + "_" + FILE_NAME_FOR_LOG
+                        )
+                    }
+                    previousHeaderClickTime = headerClickCountForExtractingLog = 0
+                }
+            }
+        }
     }
 
     return (
@@ -631,6 +683,9 @@ export default function HomeContainer() {
             <HomeComponent
                 onPressCollectData={onPressCollectData}
                 onClickSaveHistory={onClickSaveHistory}
+                onPressRealtimeCollectData={onPressRealtimeCollectData}
+                onClickZoomIn={onClickZoomIn}
+                onClickZoomOut={onClickZoomOut}
                 isReportExpired={isReportExpired}
                 errorMessage={errorMessage}
                 hasError={hasError}
@@ -641,13 +696,10 @@ export default function HomeContainer() {
                 loading={loading}
                 domainUrl={domain}
                 refresh={refresh}
-                historySaveSupport={HISTORY_SAVE_SUPPORT}
-                footerSupport={FOOTER_SUPPORT}
+                shortAddress={shortAddress}
                 recentHistory={recentHistory}
-                onPressRealtimeCollectData={onPressRealtimeCollectData}
-                onClickZoomIn={onClickZoomIn}
-                onClickZoomOut={onClickZoomOut}
-                additionalZoomValue={additionalZoomValue}
+                currentZoomLevel={currentZoomLevel}
+                onClickHeaderArea={onClickHeaderArea}
             />
         </>
     )

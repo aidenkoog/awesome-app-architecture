@@ -1,15 +1,9 @@
-import { RenderAfterNavermapsLoaded } from 'react-naver-maps'
-import NaverMapComponent from "../maps/map/NaverMapComponent"
 import MapTableComponent from "../maps/table/MapTableComponent"
 import { MAIN_TITLE } from "../../../assets/strings/Strings"
 import MapLoadingErrorComponent from "../maps/error/MapLoadingErrorComponent"
-import MapLoadingLottieComponent from "../maps/loading/MapLoadingLottieComponent"
-import { NAVER_CLIENT_ID } from "../../../utils/Constants"
+import MapLoadingProgressComponent from "../maps/loading/MapLoadingProgressComponent"
 import "./MainView.css"
-import OpenLayersMap from '../maps/openlayers/OpenLayersMap'
-import { logDebug } from '../../../utils/logger/Logger'
-
-const LOG_TAG = "MainView"
+import MapImageView from '../maps/map_image/MapImageView'
 
 /**
  * Main view component.
@@ -20,6 +14,7 @@ export default function MainView(props) {
 
     const {
         currentAddress,
+        shortAddress,
         longitude,
         latitude,
         isReportExpired,
@@ -27,7 +22,10 @@ export default function MainView(props) {
         hasError,
         loading,
         recentHistory,
-        domainUrl
+        domainUrl,
+        currentZoomLevel,
+        onClickZoomIn,
+        onClickZoomOut,
     } = props
 
     return (
@@ -38,23 +36,25 @@ export default function MainView(props) {
                         <div style={{ marginTop: 65, marginBottom: 22, marginLeft: 7 }}>
                             <b style={{ fontSize: 21 }}>{MAIN_TITLE}</b>
                         </div>
-
                         :
-
                         <b></b>
                     }
                     <MapTableComponent recentHistory={recentHistory} />
 
                     {loading ?
-                        <div className="first_loading_container"><MapLoadingLottieComponent /></div>
-
+                        <div className="first_loading_container"><MapLoadingProgressComponent /></div>
                         :
 
-                        <OpenLayersMap
+                        <MapImageView
                             latitude={latitude}
                             longitude={longitude}
                             domainUrl={domainUrl}
-                        ></OpenLayersMap>
+                            currentAddress={currentAddress}
+                            shortAddress={shortAddress}
+                            currentZoomLevel={currentZoomLevel}
+                            onClickZoomIn={onClickZoomIn}
+                            onClickZoomOut={onClickZoomOut}
+                        />
                     }
 
                 </div>
@@ -64,20 +64,23 @@ export default function MainView(props) {
                         <div style={{ marginTop: 65, marginBottom: 22, marginLeft: 7 }}>
                             <b style={{ fontSize: 21 }}>{MAIN_TITLE}</b>
                         </div>
+
                         <MapTableComponent recentHistory={recentHistory} />
+
                         <div className="first_loading_container">
-                            <MapLoadingLottieComponent />
+                            <MapLoadingProgressComponent />
                         </div>
+
                     </div>
-
                     :
-
                     <div className="map_container">
                         <div className="error_container">
                             <div style={{ marginTop: 65, marginBottom: 22, marginLeft: 7 }}>
                                 <b style={{ fontSize: 21 }}>{MAIN_TITLE}</b>
                             </div>
+
                             <MapTableComponent recentHistory={null} />
+
                             <div className="error_message_container">
                                 <MapLoadingErrorComponent
                                     errorMessage={errorMessage}

@@ -1,4 +1,7 @@
 import RemoteRepository from "../../../data/repositories/remote/RemoteRepository"
+import { logDebug } from "../../../utils/logger/Logger"
+
+const LOG_TAG = "GetActivitiesUseCase"
 
 function GetActivitiesUseCase() {
 

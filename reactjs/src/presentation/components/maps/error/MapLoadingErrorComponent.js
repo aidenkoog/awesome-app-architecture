@@ -31,7 +31,7 @@ export default function MapLoadingErrorComponent(props) {
         }
     }
 
-    logDebugWithLine(LOG_TAG, "errorMessage: " + errorMessage + ",\nerrorMessageSubTitle: " + errorMessageSubTitle)
+    logDebugWithLine(LOG_TAG, "ERROR Message: " + errorMessage + ",\nError Message SubTitle: " + errorMessageSubTitle)
 
     return (
         <div>
@@ -59,6 +59,8 @@ export default function MapLoadingErrorComponent(props) {
                 :
                 <b></b>
             }
+
+
         </div>
     )
 }

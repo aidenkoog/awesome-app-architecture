@@ -12,7 +12,7 @@ const ANIMATION_MARGIN_BOTTOM = 30
  * @param {Any} props 
  * @returns {JSX.Element}
  */
-export default function MapLoadingLottieComponent() {
+export default function MapLoadingProgressComponent() {
 
     return (
         <div>

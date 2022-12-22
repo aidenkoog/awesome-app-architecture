@@ -1,6 +1,7 @@
-import { ERROR_MSG_INVALID_DOMAIN } from "../../../assets/strings/Strings"
-import UrlRepository from "../../../data/repositories/url/UrlRepository"
 import RemoteRepository from "../../../data/repositories/remote/RemoteRepository"
+import { logDebug } from "../../../utils/logger/Logger"
+
+const LOG_TAG = "GetDomainUrlUseCase"
 
 function GetDomainUrlUseCase() {
 
@@ -11,7 +12,10 @@ function GetDomainUrlUseCase() {
      * @returns {Promise}
      */
     function executeGetDomainUrlUseCase() {
-        return getDomainUrlData()
+        const domainUrlData = getDomainUrlData()
+        logDebug(LOG_TAG, ">>> DOMAIN URL Data: " + domainUrlData)
+
+        return domainUrlData
     }
 
     return {

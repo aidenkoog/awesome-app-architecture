@@ -1,4 +1,7 @@
+import { logDebug, logDebugWithLine } from "../../../utils/logger/Logger"
 import AxiosManager from "../../sources/axios/AxiosManager"
+
+const LOG_TAG = "RemoteRepository"
 
 function RemoteRepository() {
 
@@ -16,6 +19,7 @@ function RemoteRepository() {
      * @returns {Promise}
      */
     function initializeDomainUrl(domainUrl) {
+        logDebug(LOG_TAG, ">>> initializeDomainUrl::Domain URL: " + domainUrl)
         return new Promise((fulfill, reject) => {
             setDomainUrl(domainUrl).then(() => {
                 fulfill()
@@ -43,6 +47,7 @@ function RemoteRepository() {
     function getActivitiesInfo(deviceMobileNumber, types) {
         return new Promise((fulfill, reject) => {
             getActivities(deviceMobileNumber, types).then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< response LENGTH: " + response.length + "\n, RESPONSE: \n" + response)
                 fulfill(response)
 
             }).catch((e) => {
@@ -61,6 +66,7 @@ function RemoteRepository() {
     function getActivitiesWithExtra(deviceMobileNumber, types, startDateTime) {
         return new Promise((fulfill, reject) => {
             getActivitiesWithExtraData(deviceMobileNumber, types, startDateTime).then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< RESPONSE: \n" + response)
                 fulfill(response)
 
             }).catch((e) => {
@@ -77,6 +83,7 @@ function RemoteRepository() {
     function sendSms(deviceMobileNumber) {
         return new Promise((fulfill, reject) => {
             sendSmsMessage(deviceMobileNumber, deviceMobileNumber).then((response) => {
+                logDebugWithLine(LOG_TAG, "<<< RESPONSE: \n" + response)
                 fulfill(response)
 
             }).catch((e) => {

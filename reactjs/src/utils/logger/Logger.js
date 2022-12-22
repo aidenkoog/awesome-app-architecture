@@ -1,10 +1,18 @@
+import { DEBUGGING_MODE } from "../../configs/Configs"
+import { getCurrentDateTime } from "../time/TimeUtil"
+
+let cachedLogMessages = []
+
 /**
  * log debugging messages.
  * @param {string} logTag 
  * @param {string} logMessage 
  */
 export const logDebug = (logTag, logMessage) => {
-    console.log(logTag, logMessage)
+    if (DEBUGGING_MODE) {
+        console.log(logTag, logMessage)
+    }
+    addLogMessageHandler(getLogTag(logTag) + logMessage + "\n")
 }
 
 /**
@@ -13,10 +21,13 @@ export const logDebug = (logTag, logMessage) => {
  * @param {string} logMessage 
  */
 export const logDebugWithLine = (logTag, logMessage) => {
-    console.log("START:", "---------------------------------------------------------------")
-    console.log("Topic:", logTag)
-    console.log("Message:", logMessage)
-    console.log("END:", "-----------------------------------------------------------------")
+    if (DEBUGGING_MODE) {
+        console.log("START:", "---------------------------------------------------------------")
+        console.log("Topic:", logTag)
+        console.log("Message:", logMessage)
+        console.log("END:", "-----------------------------------------------------------------")
+    }
+    addLogMessageHandler(getLogTag(logTag) + logMessage + "\n")
 }
 
 /**
@@ -25,7 +36,10 @@ export const logDebugWithLine = (logTag, logMessage) => {
  * @param {string} logMessage 
  */
 export const logError = (logTag, logMessage) => {
-    console.error(logTag, logMessage)
+    if (DEBUGGING_MODE) {
+        console.error(logTag, logMessage)
+    }
+    addLogMessageHandler(getLogTag(logTag) + logMessage + "\n")
 }
 
 /**
@@ -34,5 +48,26 @@ export const logError = (logTag, logMessage) => {
  * @param {string} error 
  */
 export const outputErrorLog = (logTag, error) => {
-    logError(logTag, "<<<[E] " + error + "!!!")
+    if (DEBUGGING_MODE) {
+        logError(logTag, "<<<[E] " + error + "!!!")
+    }
+}
+
+/**
+ * store log messages.
+ * @param {string} logMessageToAdd 
+ */
+function addLogMessageHandler(logMessageToAdd) {
+    if (logMessageToAdd == null || logMessageToAdd === "") {
+        return
+    }
+    cachedLogMessages.push(logMessageToAdd)
+}
+
+function getLogTag(logTag) {
+    return "[" + getCurrentDateTime() + "]::" + "[" + logTag + "]:: "
+}
+
+export function getCachedLogMessages() {
+    return cachedLogMessages
 }

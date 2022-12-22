@@ -1,5 +1,4 @@
 import { logDebug, logDebugWithLine, outputErrorLog } from "../../../utils/logger/Logger"
-import base64 from 'base-64'
 import { hasValidPhoneNumber } from "../../../utils/regex/RegexUtil"
 import { CRYPTO_ENABLE } from "../../../configs/Configs"
 
@@ -23,7 +22,7 @@ const DOMAIN_PREFIX_LIST = ["http://", "https://"]
 /**
  * activities query parameter keys.
  */
-const DEVICE_PHONE_NUMBER = ["loadKey"]
+const WATCH_MOBILE_NUMBER = ["loadKey"]
 const TYPES = "types"
 
 
@@ -79,7 +78,7 @@ export default function UrlRepository() {
 
             if (hasMatchedPhoneNumber(paramKeyName)) {
                 if (hasValidPhoneNumber(splitStrings[1])) {
-                    // logDebug(LOG_TAG, "[TEST] encrypted: " + encryptDeviceMobileNumber(splitStrings[1]))
+                    logDebug(LOG_TAG, "[TEST] ENCRYPTED Result: " + encryptDeviceMobileNumber(splitStrings[1]))
                 }
                 return splitStrings[1]
             }
@@ -93,7 +92,7 @@ export default function UrlRepository() {
      * @returns {Boolean}
      */
     function hasMatchedPhoneNumber(paramKeyName) {
-        for (const phoneNumberItem of DEVICE_PHONE_NUMBER) {
+        for (const phoneNumberItem of WATCH_MOBILE_NUMBER) {
             if (phoneNumberItem === paramKeyName) {
                 return true
             }
@@ -141,7 +140,7 @@ export default function UrlRepository() {
      */
     function getDomain(urlLocationString) {
         if (urlLocationString == null || urlLocationString === "") {
-            outputErrorLog(LOG_TAG, "invalid urlLocationString (" + urlLocationString + ")")
+            outputErrorLog(LOG_TAG, "INVALID urlLocationString (" + urlLocationString + ")")
             return null
         }
 
@@ -159,7 +158,7 @@ export default function UrlRepository() {
         }
 
         if (!hasDomainPrefix) {
-            outputErrorLog(LOG_TAG, "there's no any domain prefix such as http:// or https://")
+            outputErrorLog(LOG_TAG, "there's NO any domain prefix such as http:// or https://")
             return null
         }
 
@@ -167,7 +166,7 @@ export default function UrlRepository() {
             let urlItemListBySlash = locationWithoutPrefix.split("/")
             const domainUrl = urlItemListBySlash[0]
             if (domainUrl == null || domainUrl === "") {
-                outputErrorLog(LOG_TAG, "domainUrl is null or empty")
+                outputErrorLog(LOG_TAG, "domainUrl is NULL or EMPTY")
                 return null
 
             } else {
@@ -192,22 +191,33 @@ export default function UrlRepository() {
      * @returns {String}
      */
     function decryptDeviceMobileNumber(encryptedDevicePhoneNumber) {
+        logDebugWithLine(LOG_TAG, "decryption START: ENCRYPTED PHONE NUMBER: " + encryptedDevicePhoneNumber)
+
         const decodedDevicePhoneNumber = decodeURIComponent(encryptedDevicePhoneNumber)
+        logDebugWithLine(LOG_TAG, "decryption START: URI Decoded PHONE NUMBER: " + decodedDevicePhoneNumber)
+
         const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
         const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
 
         if (CRYPTO_ENABLE) {
             try {
+
+                // There was an issue in the sample code.
+                // base64 encoding is NOT necessary.
+                // const base64Decoded = base64.decode(encryptedDevicePhoneNumber)
+
                 const cipher = CryptoJS.AES.decrypt(decodedDevicePhoneNumber, secretKeyWordArray, {
                     iv: ivKeyWordArray,
                     padding: CRYPTO_PADDING_MODE,
                     keySize: 128,
                     mode: CRYPTO_MODE
                 })
+
+                logDebug(LOG_TAG, ">>> CIPHERED Decrypted Result: " + cipher)
                 return cipher.toString(CryptoJS.enc.Utf8)
 
             } catch (e) {
-                outputErrorLog(LOG_TAG, e + " occurred by decrypting / decoding")
+                outputErrorLog(LOG_TAG, e + " occurred by Decrypting / Decoding")
                 return null
             }
 
@@ -222,6 +232,8 @@ export default function UrlRepository() {
      * @returns {String}
      */
     function encryptDeviceMobileNumber(deviceMobileNumber) {
+        logDebugWithLine(LOG_TAG, "encryption START: PHONE NUMBER: " + deviceMobileNumber)
+
         const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
         const ivKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_IV)
 
@@ -236,7 +248,7 @@ export default function UrlRepository() {
                 return cipher
 
             } catch (e) {
-                outputErrorLog(LOG_TAG, e + " occurred by encrypting / encoding")
+                outputErrorLog(LOG_TAG, e + " occurred by Encrypting / Encoding")
                 return null
             }
 

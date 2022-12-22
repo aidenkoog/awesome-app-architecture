@@ -1,4 +1,7 @@
 import UrlRepository from "../../../data/repositories/url/UrlRepository"
+import { logDebug } from "../../../utils/logger/Logger"
+
+const LOG_TAG = "GetPhoneNumberFromUrlUseCase"
 
 function GetPhoneNumberFromUrlUseCase() {
 
@@ -11,6 +14,7 @@ function GetPhoneNumberFromUrlUseCase() {
      * @returns {String}
      */
     function executeGetPhoneNumberFromUrlUseCase(urlQueryString) {
+        logDebug(LOG_TAG, ">>> START to get PHONE NUMBER from Url, urlQueryString param: " + urlQueryString)
         return getDeviceMobileNumber(urlQueryString)
     }
 

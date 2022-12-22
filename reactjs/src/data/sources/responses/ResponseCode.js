@@ -8,30 +8,30 @@ export const RESPONSE_OK = {
     message: "OK"
 }
 export const RESPONSE_QUERY_DUPLICATE_KEY = {
-    code: 1000,
+    code: 8000,
     message: "QUERY_DUPLICATE_KEY"
 }
 export const RESPONSE_QUERY_DATA_INTEGRITY_VIOLATION = {
-    code: 1001,
+    code: 8001,
     message: "QUERY_DATA_INTEGRITY_VIOLATION"
 }
 export const RESPONSE_QUERY_DELETE_EMPTY = {
-    code: 1002,
+    code: 8002,
     message: "QUERY_DELETE_EMPTY"
 }
 export const RESPONSE_QUERY_NO_ID = {
-    code: 1003,
+    code: 8003,
     message: "QUERY_NO_ID"
 }
 export const RESPONSE_NO_MATCHED_TYPE = {
-    code: 2000,
+    code: 9000,
     message: "NO_MATCHED_TYPE"
 }
 export const RESPONSE_NO_DEVICE = {
-    code: 2001,
+    code: 9001,
     message: "NO_DEVICE"
 }
 export const RESPONSE_NO_USER = {
-    code: 2002,
+    code: 9002,
     message: "NO_USER"
 }
