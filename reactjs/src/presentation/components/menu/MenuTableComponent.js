@@ -38,7 +38,7 @@ function MenuTableComponent(props) {
     }
 
     return (
-        <div>
+        <div style={{ height: "100%" }}>
             <table className="table">
                 <thead>
                     <tr>
@@ -47,10 +47,13 @@ function MenuTableComponent(props) {
                     </tr>
                 </thead>
             </table>
-            {
-                historyList != null && historyList.length > 0 ?
-                    historyList.map(
-                        (info) => {
+            <div style={{
+                width: "100%", height: "650px", overflowX: "hidden",
+                overflowY: "scroll", scrollbarWidth: "none", msOverflowStyle: "none", WebkitScrollSnapType: "none"
+            }}>
+                {
+                    historyList != null && historyList.length > 0 ?
+                        historyList.map((info) => {
                             return (
                                 <table className="table_for_td" key={info}>
                                     <tbody>
@@ -62,15 +65,16 @@ function MenuTableComponent(props) {
                                 </table>
                             )
                         })
-                    :
-                    <table className="table_for_td">
-                        <tbody>
-                            <tr>
-                                <td>ㅤ</td>
-                            </tr>
-                        </tbody>
-                    </table>
-            }
+                        :
+                        <table className="table_for_td">
+                            <tbody>
+                                <tr>
+                                    <td>ㅤ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                }
+            </div>
         </div>
     )
 }
