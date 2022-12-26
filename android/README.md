@@ -16,6 +16,7 @@ It is written based on Kotlin.
 
 - 2022/12/14 : Renew and initialize Android Architecture Project.
 - 2022/12/15 : Upload first renewed source code.
+- 2022/12/26 : Added splash lottie animation.
 
 
 ## How To Setup Environment
