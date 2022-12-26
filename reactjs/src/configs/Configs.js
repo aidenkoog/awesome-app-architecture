@@ -119,7 +119,7 @@ export function getCircleRadius(currentZoomLevel, innerWidth) {
  */
 function processRadiusFormula(radiusForBenchmark, innerWidth) {
     const result = (innerWidth * radiusForBenchmark) / 1760
-    logDebug(LOG_TAG, ">>> RADIUS for Benchmark: " + radiusForBenchmark)
+    logDebug(LOG_TAG, ">>> RAIDUS for Benchmark: " + radiusForBenchmark)
     logDebug(LOG_TAG, ">>> SCRREN Size: " + innerWidth)
     logDebug(LOG_TAG, ">>> Formula Result: " + result)
     return result

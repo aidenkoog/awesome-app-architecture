@@ -3,8 +3,8 @@ import customMarkerInHover from "../../../../assets/images/blue_marker.png"
 import { logDebugWithLine } from "../../../../utils/logger/Logger"
 import { DEBUGGING_MODE, getCircleRadius, getMapImageLink, NAVER_MAP_DOMAIN_URL } from "../../../../configs/Configs"
 import {
-    debuggingContainer, debuggingText, mapImage, mapRootContainer,
-    markerImage, shortAddressContainer, zoomButton, zoomInContainer, zoomOutContainer
+    circleAndMarkerContainer, debuggingContainer, debuggingText, mapImage, mapRootContainer,
+    markerContainer, markerImage, zoomButton, zoomInContainer, zoomOutContainer
 } from "./MapImageViewStyles"
 import { useState, useEffect } from "react"
 
@@ -64,37 +64,44 @@ export default function MapImageView(props) {
                     src={getMapImageLink(mapImageDomainUrl, latitude, longitude, currentZoomLevel)}
                     alt="MapSnapShot" />
 
-                {currentZoomLevel !== 21 ?
-                    < div style={{
-                        width: circleRadius * 2, height: circleRadius * 2,
-                        top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                        position: "absolute", backgroundColor: "#1d70ec", borderRadius: "50%", opacity: 0.3,
-                    }} />
-                    :
-                    < div style={{
-                        width: circleRadius * 1.75, height: circleRadius * 1.055,
-                        top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                        position: "absolute", backgroundColor: "#1d70ec", borderRadius: "2%", opacity: 0.3,
-                    }} />
-                }
+                {/* circle, rectangle and marker container. */}
+                <div style={circleAndMarkerContainer}>
+                    {currentZoomLevel !== 21 ?
+                        < div style={{
+                            width: circleRadius * 2, height: circleRadius * 2,
+                            position: "fixed", textAlign: "center",
+                            alignItems: "center", alignContent: "center",
+                            backgroundColor: "#1d70ec", borderRadius: "50%", opacity: 0.3,
+                        }} />
+                        :
+                        < div style={{
+                            width: circleRadius * 1.75, height: circleRadius * 1.055,
+                            position: "fixed", textAlign: "center",
+                            alignItems: "center", alignContent: "center",
+                            backgroundColor: "#1d70ec", borderRadius: "2%", opacity: 0.3,
+                        }} />
+                    }
 
-                {/* marker image */}
-                <img
-                    style={markerImage}
-                    src={isHover ? customMarkerInHover : customMarker}
-                    onMouseOver={() => setIsHover(true)}
-                    onMouseOut={() => setIsHover(false)}
-                    onClick={onClickZoomIn}
-                    alt="mapMarkerImage" />
+                    {/* marker. */}
+                    <div style={markerContainer} >
+                        <img
+                            style={markerImage}
+                            src={isHover ? customMarkerInHover : customMarker}
+                            onMouseOver={() => setIsHover(true)}
+                            onMouseOut={() => setIsHover(false)}
+                            onClick={onClickZoomIn}
+                            alt="mapMarkerImage" />
 
-                {/* short address. */}
-                {isHover ?
-                    <div style={shortAddressContainer}>
-                        <h3>{shortAddress}</h3>
+                        {isHover ?
+                            <div>
+                                <h3>{shortAddress}</h3>
+                            </div>
+                            :
+                            <div />
+                        }
                     </div>
-                    :
-                    <div />
-                }
+
+                </div>
 
                 {/* zoom in. */}
                 <div style={zoomInContainer}>
