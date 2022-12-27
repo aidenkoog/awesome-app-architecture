@@ -91,6 +91,7 @@ It is written based on JavaScript.
 - 2022/12/22 : (7th) Fixed issue that date information is NOT changed after searching the current location.
 - 2022/12/22 : (8th) Added vertical scroll bar to menu table.
 - 2022/12/23 : Fixed position of map, circle, marker and zoom buttons / Enabled vertical scroll bar of webpage / Adjust menu table vertical length.
+- 2022/12/27 : Added license list file.
 
 ## How To Setup Environment
 
