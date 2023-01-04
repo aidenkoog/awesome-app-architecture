@@ -17,6 +17,7 @@ It is written based on Kotlin.
 
 - 2022/09/16 ~ 2022/12/31 : Reviewed Android source code I had made.
 - 2023/01/04 : Update Android template source code.
+- 2023/01/05 : Updated .gitignore / Added dummy data / Rearrange fragments.
 
 ## Link
 
