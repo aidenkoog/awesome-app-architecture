@@ -102,6 +102,7 @@ It is written based on JavaScript.
 - 2023/01/04 : (1st) Applied auto scale function of map / Added history selection function / Changed button's position as scenario.
 - 2023/01/04 : (2nd) Fix incorrect circle range and zoom level.
 - 2023/01/04 : (3rd) Adjusted history table field spacing.
+- 2023/01/05 : Made accuracy round to one decimal place.
 
 ## How To Setup Environment
 
