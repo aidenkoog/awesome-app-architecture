@@ -92,16 +92,16 @@ It is written based on JavaScript.
 - 2022/12/22 : (8th) Added vertical scroll bar to menu table.
 - 2022/12/23 : Fixed position of map, circle, marker and zoom buttons / Enabled vertical scroll bar of webpage / Adjust menu table vertical length.
 - 2022/12/26 : Added normal phone number style support.
-- 2022/01/02 : (1st) Made the latest position information located at the first position / Changed time information of menu / Delete cached log messages in 24 hours. / Enable normal phone number style url when domain is for debugging. / Add provider, event type fields.
-- 2022/01/02 : (2nd) Adjust menu and map component size ratio.
-- 2022/01/02 : (3rd) Hide history item that has expired after 24 hours.
-- 2022/01/02 : (4th) Applied provider value to upper case's.
-- 2022/01/03 : (1st) Applied additional requirement / Deleted rectangle shape feature of map / Applied dynamic error radius feature.
-- 2022/01/03 : (2nd) Disable debugging mode (mistake)
-- 2022/01/03 : (3rd) Update formula for calculating error radius.
-- 2022/01/04 : (1st) Applied auto scale function of map / Added history selection function / Changed button's position as scenario.
-- 2022/01/04 : (2nd) Fix incorrect circle range and zoom level.
-- 2022/01/04 : (3rd) Adjusted history table field spacing.
+- 2023/01/02 : (1st) Made the latest position information located at the first position / Changed time information of menu / Delete cached log messages in 24 hours. / Enable normal phone number style url when domain is for debugging. / Add provider, event type fields.
+- 2023/01/02 : (2nd) Adjust menu and map component size ratio.
+- 2023/01/02 : (3rd) Hide history item that has expired after 24 hours.
+- 2023/01/02 : (4th) Applied provider value to upper case's.
+- 2023/01/03 : (1st) Applied additional requirement / Deleted rectangle shape feature of map / Applied dynamic error radius feature.
+- 2023/01/03 : (2nd) Disable debugging mode (mistake)
+- 2023/01/03 : (3rd) Update formula for calculating error radius.
+- 2023/01/04 : (1st) Applied auto scale function of map / Added history selection function / Changed button's position as scenario.
+- 2023/01/04 : (2nd) Fix incorrect circle range and zoom level.
+- 2023/01/04 : (3rd) Adjusted history table field spacing.
 
 ## How To Setup Environment
 
