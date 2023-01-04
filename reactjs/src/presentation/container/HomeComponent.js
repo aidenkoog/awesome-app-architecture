@@ -4,14 +4,14 @@ import MenuView from "../components/menu/MenuView"
 import "./Home.css"
 
 /**
- * home page component.
+ * Home page component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
 export default function HomeComponent(props) {
 
     /**
-     * props delivered from home page container.
+     * Props delivered from home page container.
      */
     const {
         onPressCollectData,
@@ -32,12 +32,17 @@ export default function HomeComponent(props) {
         onClickZoomIn,
         currentZoomLevel,
         onClickHeaderArea,
+        isZoomTriggered,
+        isZoomUpdated,
+        updateZoomLevel,
+        onClickHistoryItem,
+        selectedHistoryIndex
     } = props
 
     return (
         <div className="root_container">
 
-            {/* header. */}
+            {/* Header. */}
             <HeaderView
                 onClickSaveHistory={onClickSaveHistory}
                 onPressCollectData={onPressCollectData}
@@ -47,12 +52,14 @@ export default function HomeComponent(props) {
                 onPressRealtimeCollectData={onPressRealtimeCollectData}
             />
 
-            {/* menu (located in left side of page.) */}
+            {/* Menu (located in left side of page.) */}
             <MenuView
                 historyList={historyList}
+                onClickHistoryItem={onClickHistoryItem}
+                selectedHistoryIndex={selectedHistoryIndex}
             />
 
-            {/* main including naver map. */}
+            {/* Main including naver map. */}
             <MainView
                 isReportExpired={isReportExpired}
                 hasError={hasError}
@@ -61,6 +68,9 @@ export default function HomeComponent(props) {
                 currentAddress={currentAddress}
                 longitude={longitude}
                 latitude={latitude}
+                isZoomTriggered={isZoomTriggered}
+                isZoomUpdated={isZoomUpdated}
+                updateZoomLevel={updateZoomLevel}
                 domainUrl={domainUrl}
                 onClickZoomIn={onClickZoomIn}
                 onClickZoomOut={onClickZoomOut}

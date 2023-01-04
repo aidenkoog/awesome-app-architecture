@@ -2,12 +2,12 @@ import moment from "moment"
 import { logDebug } from "../logger/Logger"
 
 const MILLISECONDS_1_HOUR = 3600000
-const MILLISECONDS_24_HOUR = 86400000
+export const MILLISECONDS_24_HOUR = 86400000
 
 const LOG_TAG = "TimeUtil"
 
 /**
- * get current time string.
+ * Get current time string.
  * @returns {string}
  */
 export const getCurrentTime = () => {
@@ -17,39 +17,29 @@ export const getCurrentTime = () => {
     let seconds = (currentDate.getSeconds() < 10 ? '0' : '') + currentDate.getSeconds()
 
     const result = hours + ':' + minutes + ':' + seconds
-    logDebug(LOG_TAG, ">>> getCurrentTime(): " + result)
     return result
 }
 
 /**
- * get history typed date message.
- * @param {String} createdDate 
+ * Get history typed date message.
+ * @param {String} measuredDate 
  * @returns {String}
  */
-export const getHistoryTypedDateMessage = (createdDate) => {
-    const createdMillTime = new Date(createdDate).getTime()
+export const getHistoryTypedDateMessage = (measuredDate) => {
+    const measuredMillTime = new Date(measuredDate).getTime()
     const currentMillTime = getCurrentMillTimeForUi()
-    logDebug(LOG_TAG, ">>> CREATED MillTime: " + createdMillTime)
-    logDebug(LOG_TAG, ">>> CURRENT MillTime: " + currentMillTime)
 
-    const gapMillTime = Math.abs(currentMillTime - createdMillTime)
-    logDebug(LOG_TAG, ">>> GAP millTime: " + gapMillTime)
-
+    const gapMillTime = Math.abs(currentMillTime - measuredMillTime)
     const gapDateTime = new Date(gapMillTime)
-    logDebug(LOG_TAG, ">>> GAP dateTime: " + gapDateTime)
 
     let minutes = (gapDateTime.getMinutes() < 10 ? '0' : '') + gapDateTime.getMinutes()
     let seconds = (gapDateTime.getSeconds() < 10 ? '0' : '') + gapDateTime.getSeconds()
-    logDebug(LOG_TAG, ">>> GAP minutes: " + minutes + ", seconds: " + seconds)
 
     const expired24Hours = gapMillTime > MILLISECONDS_24_HOUR
     const expired1Hour = gapMillTime > MILLISECONDS_1_HOUR
-    logDebug(LOG_TAG, ">>> EXPIRED 24 hours: " + expired24Hours + ", EXPIRED 1 hour: " + expired1Hour)
 
     const result = expired24Hours ? getElapsedDays(gapMillTime) : expired1Hour ? getElapsedHours(gapMillTime)
         : minutes + "분 " + seconds + "초 전"
-    logDebug(LOG_TAG, ">>> DISPLAY String: " + result)
-
     return result
 }
 
@@ -64,7 +54,7 @@ const getElapsedDays = (gapMillTime) => {
 }
 
 /**
- * get current time as milliseconds.
+ * Get current time as milliseconds.
  * @returns {long}
  */
 export const getCurrentMillTime = () => {

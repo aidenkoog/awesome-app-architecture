@@ -1,13 +1,9 @@
-import { logDebug, outputErrorLog } from "../../../utils/logger/Logger"
-
 const DEFAULT_LATITUDE_AND_LONGITUDE = 0
-
-const LOG_TAG = "NaverMapRepository"
 
 export default function NaverMapRepository() {
 
     /**
-     * get reversed address corresponding to latitude and longitude.
+     * Get reversed address corresponding to latitude and longitude.
      * @param {Number} latitude 
      * @param {Number} longitude 
      * @param {Number} onResult 
@@ -16,7 +12,6 @@ export default function NaverMapRepository() {
     function getReversedAddress(latitude, longitude, onResult) {
 
         if (latitude === DEFAULT_LATITUDE_AND_LONGITUDE || longitude === DEFAULT_LATITUDE_AND_LONGITUDE) {
-            outputErrorLog(LOG_TAG, "LATITUDE or LONGITUDE is 0")
             onResult(null)
             return
         }
@@ -33,15 +28,12 @@ export default function NaverMapRepository() {
             let addressItems = result.items
 
             let currentAddressInfoList = []
+
             for (const item of addressItems) {
                 currentAddressInfoList.push(item.address)
             }
 
-            logDebug(LOG_TAG, "<<< reversed address info list: " + currentAddressInfoList)
-
             const addressInfoListLength = currentAddressInfoList.length
-            logDebug(LOG_TAG, "<<< addressInfoListLength: " + addressInfoListLength)
-
             if (addressInfoListLength > 1) {
                 onResult(currentAddressInfoList[1])
             } else if (addressInfoListLength > 0) {

@@ -7,20 +7,20 @@ const LOG_TAG = "UrlRepository"
 const CryptoJS = require("crypto-js")
 
 /**
- * cryptojs decryption secret key and iv.
+ * Cryptojs decryption secret key and iv.
  */
-const CRYPTO_SECRET_KEY = "pol112__smartwat"
-const CRYPTO_SECRET_IV = "#smart__project#"
+const CRYPTO_SECRET_KEY = "..."
+const CRYPTO_SECRET_IV = "..."
 const CRYPTO_PADDING_MODE = CryptoJS.pad.Pkcs7
 const CRYPTO_MODE = CryptoJS.mode.CBC
 
 /**
- * domain prefix list.
+ * Domain prefix list.
  */
 const DOMAIN_PREFIX_LIST = ["http://", "https://"]
 
 /**
- * activities query parameter keys.
+ * Activities query parameter keys.
  */
 const WATCH_MOBILE_NUMBER = ["loadKey"]
 const TYPES = "types"
@@ -29,7 +29,7 @@ const TYPES = "types"
 export default function UrlRepository() {
 
     /**
-     * parse url query parameters with delimeters and return array.
+     * Parse url query parameters with delimeters and return array.
      * @param {String} urlQueryString
      * @returns {Array}
      */
@@ -58,7 +58,7 @@ export default function UrlRepository() {
     }
 
     /**
-     * parse mobile phone number information from query parameter array.
+     * Parse mobile phone number information from query parameter array.
      * @param {String} urlQueryString
      * @returns {String}
      */
@@ -87,7 +87,7 @@ export default function UrlRepository() {
     }
 
     /**
-     * check if there's matched parameter key corresponding to mobile number key array.
+     * Check if there's matched parameter key corresponding to mobile number key array.
      * @param {String} paramKeyName 
      * @returns {Boolean}
      */
@@ -134,7 +134,7 @@ export default function UrlRepository() {
     }
 
     /**
-     * parse domain url from web url.
+     * Parse domain url from web url.
      * @param {String} urlLocationString 
      * @returns {String}
      */
@@ -186,14 +186,13 @@ export default function UrlRepository() {
     }
 
     /**
-     * decrypt mobile phone number.
+     * Decrypt mobile phone number.
      * @param {String} encryptedDevicePhoneNumber
      * @returns {String}
      */
     function decryptDeviceMobileNumber(encryptedDevicePhoneNumber) {
-        logDebugWithLine(LOG_TAG, "decryption START: ENCRYPTED PHONE NUMBER: " + encryptedDevicePhoneNumber)
-
         const decodedDevicePhoneNumber = decodeURIComponent(encryptedDevicePhoneNumber)
+        logDebugWithLine(LOG_TAG, "decryption START: ENCRYPTED PHONE NUMBER: " + encryptedDevicePhoneNumber)
         logDebugWithLine(LOG_TAG, "decryption START: URI Decoded PHONE NUMBER: " + decodedDevicePhoneNumber)
 
         const secretKeyWordArray = CryptoJS.enc.Utf8.parse(CRYPTO_SECRET_KEY)
@@ -201,18 +200,12 @@ export default function UrlRepository() {
 
         if (CRYPTO_ENABLE) {
             try {
-
-                // There was an issue in the sample code.
-                // base64 encoding is NOT necessary.
-                // const base64Decoded = base64.decode(encryptedDevicePhoneNumber)
-
                 const cipher = CryptoJS.AES.decrypt(decodedDevicePhoneNumber, secretKeyWordArray, {
                     iv: ivKeyWordArray,
                     padding: CRYPTO_PADDING_MODE,
                     keySize: 128,
                     mode: CRYPTO_MODE
                 })
-
                 logDebug(LOG_TAG, ">>> CIPHERED Decrypted Result: " + cipher)
                 return cipher.toString(CryptoJS.enc.Utf8)
 
@@ -227,7 +220,7 @@ export default function UrlRepository() {
     }
 
     /**
-     * encrypt mobile phone number.
+     * Encrypt mobile phone number.
      * @param {String} deviceMobileNumber 
      * @returns {String}
      */

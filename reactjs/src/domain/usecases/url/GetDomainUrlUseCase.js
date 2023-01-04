@@ -8,13 +8,12 @@ function GetDomainUrlUseCase() {
     const { getDomainUrlData } = RemoteRepository()
 
     /**
-     * execute usecase of getting domain url.
+     * Execute usecase of getting domain url.
      * @returns {Promise}
      */
     function executeGetDomainUrlUseCase() {
         const domainUrlData = getDomainUrlData()
         logDebug(LOG_TAG, ">>> DOMAIN URL Data: " + domainUrlData)
-
         return domainUrlData
     }
 

@@ -1,14 +1,11 @@
 import RemoteRepository from "../../../data/repositories/remote/RemoteRepository"
-import { logDebug } from "../../../utils/logger/Logger"
-
-const LOG_TAG = "GetActivitiesUseCase"
 
 function GetActivitiesUseCase() {
 
     const { getActivitiesInfo, getActivitiesWithExtra } = RemoteRepository()
 
     /**
-     * get activities information corresponding to parameter, that is, mobile phone number.
+     * Get activities information corresponding to parameter, that is, mobile phone number.
      * @param {String} deviceMobileNumber
      * @param {Array} types
      * @returns {Promise}
@@ -25,7 +22,7 @@ function GetActivitiesUseCase() {
     }
 
     /**
-     * get activities information with extra data.
+     * Get activities information with extra data.
      * @param {String} deviceMobileNumber
      * @param {String} types
      * @param {String} startDateTime

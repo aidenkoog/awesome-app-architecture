@@ -6,29 +6,29 @@ import { API_GET_ACTIVITIES, API_GET_ACTIVITIES_EXTRAS, API_SMS_SEND } from '../
 const LOG_TAG = "AxiosManager"
 
 /**
- * activities query item size.
+ * Activities query item size.
  */
 const ONLY_RECENT = 1
 
 /**
- * axios default setting.
+ * Axios default setting.
  */
 const HEADER_CONTENT_TYPE = "application/x-www-form-urlencoded"
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = HEADER_CONTENT_TYPE
 
 /**
- * domain url fectched from web page url.
+ * Domain url fectched from web page url.
  */
 let apiDomainUrl = ""
 
 /**
- * axios manager for handling http get, post and etc.
+ * Axios manager for handling http get, post and etc.
  */
 function AxiosManager() {
 
     /**
-     * call api which gets activities information.
+     * Call api which gets activities information.
      * @param {String} deviceMobileNumber 
      * @param {Array} types 
      * @returns {Promise}
@@ -51,7 +51,7 @@ function AxiosManager() {
     }
 
     /**
-     * call api which gets activities information with extra data.
+     * Call api which gets activities information with extra data.
      * @param {String} deviceMobileNumber
      * @param {String} types
      * @param {String} startDateTime
@@ -75,13 +75,13 @@ function AxiosManager() {
     }
 
     /**
-     * ask device to send SMS message.
+     * Ask device to send SMS message.
      * @param {String} sendTo 
      * @param {String} sender 
      * @param {Any} type 
      * @returns {Promise}
      */
-    function sendSmsMessage(sendTo, sender = "112", type = "ONDEMAND_POLICE_REPORT") {
+    function sendSmsMessage(sendTo, sender = "112", type = "ONDEMAND_EMERGENCY_REPORT") {
         return new Promise((fulfill, reject) => {
             let params = {
                 sendTo: sendTo,
@@ -100,7 +100,7 @@ function AxiosManager() {
     }
 
     /**
-     * execute HTTP GET.
+     * Execute HTTP GET.
      * @param {Any} params
      * @returns {Promise}
      */
@@ -119,7 +119,7 @@ function AxiosManager() {
     }
 
     /**
-     * execute HTTP POST.
+     * Execute HTTP POST.
      * @param {Any} params 
      * @returns {Promise}
      */
@@ -140,7 +140,7 @@ function AxiosManager() {
     }
 
     /**
-     * get response data corresponding to each api with debugging log messages.
+     * Get response data corresponding to each api with debugging log messages.
      * @param {String} apiUrl 
      * @param {Any} response 
      * @returns {Any}
@@ -166,7 +166,7 @@ function AxiosManager() {
     }
 
     /**
-     * set domain url derived from web page url.
+     * Set domain url derived from web page url.
      * @param {String} domainUrl 
      * @returns {Promise}
      */
@@ -183,7 +183,7 @@ function AxiosManager() {
     }
 
     /**
-     * get domain url.
+     * Get domain url.
      * @returns {String}
      */
     function getDomainUrl() {

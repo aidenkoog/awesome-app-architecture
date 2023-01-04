@@ -15,11 +15,14 @@ export const MENU_TITLE = "History"
 export const MENU_TABLE_HEADER_PROVIDER = "Provider"
 export const MENU_TABLE_HEADER_DATE = "Date"
 export const MENU_TABLE_HEADER_ADDRESS = "Address"
+export const MENU_TABLE_EVENT_TYPE = "Category"
+export const MENU_TABLE_ERROR_RADIUS = "Error Radius"
 
 /**
  * map.
  */
 export const MAIN_TITLE = "Current"
+export const MAIN_TITLE_CURRENT_POS = "Current Position"
 export const MAIN_TABLE_HEADER_PROVIDER = "Provider"
 export const MAIN_TABLE_HEADER_DATE = "Date"
 export const MAIN_TABLE_HEADER_ADDRESS = "Address"

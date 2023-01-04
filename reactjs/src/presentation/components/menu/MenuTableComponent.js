@@ -1,40 +1,56 @@
 import React from 'react'
-import { MENU_TABLE_HEADER_ADDRESS, MENU_TABLE_HEADER_DATE } from '../../../assets/strings/Strings'
+import {
+    MENU_TABLE_EVENT_TYPE, MENU_TABLE_HEADER_ADDRESS,
+    MENU_TABLE_HEADER_DATE, MENU_TABLE_HEADER_PROVIDER
+} from '../../../assets/strings/Strings'
 import { outputErrorLog } from '../../../utils/logger/Logger'
 import "./MenuTable.css"
+import Ripple from 'rippl'
 
 const LOG_TAG = "MenuTableComponent"
 
 /**
- * table component.
+ * Table component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
 function MenuTableComponent(props) {
 
     /**
-     * props devlivered from HomeComponent.
+     * Props devlivered from HomeComponent.
      */
-    const { historyList } = props
+    const { historyList, onClickHistoryItem, selectedHistoryIndex } = props
 
-    function getDate(historyItem) {
-        try {
-            return historyItem != null && historyItem !== "" && historyItem.length >= 3 ?
-                historyItem.split("|")[2] : "--"
-        } catch (_e) {
-            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting DATE, return --")
-            return "--"
-        }
+    function getMenuItem(info, index) {
+        return <table className="table_for_td" key={index}>
+            <tbody>
+                <Ripple>
+                    <tr onClick={() => onClickHistoryItem(info, index)}>
+                        <td style={{ width: '12%' }}>{info.provider}</td>
+                        <td style={{ width: '20%' }}>{info.eventType}</td>
+                        <td style={{ width: '25%' }}>{info.measuredDateTime}</td>
+                        <td style={{ width: '43%', paddingLeft: 7 }}>{info.fullAddress}</td>
+                    </tr>
+                </Ripple>
+            </tbody>
+        </table>
     }
 
-    function getAddress(historyItem) {
-        try {
-            return historyItem != null && historyItem !== "" && historyItem.length >= 4 ?
-                historyItem.split("|")[3] : "--"
-        } catch (_e) {
-            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting ADDRESS, return --")
-            return "--"
-        }
+    function getFocusedMenuItem(info, index) {
+        return <table style={{
+            backgroundColor: '#1d70ec', opacity: 0.75, color: "white"
+        }} className="table_for_td" key={index}>
+            <tbody>
+                <Ripple>
+                    <tr onClick={() => onClickHistoryItem(info, index)}>
+                        <td style={{ width: '12%', fontWeight: 'bolder' }}>{info.provider}</td>
+                        <td style={{ width: '20%', fontWeight: 'bolder' }}>{info.eventType}</td>
+                        <td style={{ width: '25%', fontWeight: 'bolder' }}>{info.measuredDateTime}</td>
+                        <td style={{ width: '43%', fontWeight: 'bolder', paddingLeft: 7 }}>{info.fullAddress}</td>
+                    </tr>
+                </Ripple>
+            </tbody>
+        </table >
     }
 
     return (
@@ -42,8 +58,10 @@ function MenuTableComponent(props) {
             <table className="table">
                 <thead>
                     <tr>
-                        <th style={{ width: '20%' }}>{MENU_TABLE_HEADER_DATE}</th>
-                        <th style={{ width: '80%' }}>{MENU_TABLE_HEADER_ADDRESS}</th>
+                        <th style={{ width: '12%' }}>{MENU_TABLE_HEADER_PROVIDER}</th>
+                        <th style={{ width: '19%' }}>{MENU_TABLE_EVENT_TYPE}</th>
+                        <th style={{ width: '25%' }}>{MENU_TABLE_HEADER_DATE}</th>
+                        <th style={{ width: '44%' }}>{MENU_TABLE_HEADER_ADDRESS}</th>
                     </tr>
                 </thead>
             </table>
@@ -53,17 +71,9 @@ function MenuTableComponent(props) {
             }}>
                 {
                     historyList != null && historyList.length > 0 ?
-                        historyList.map((info) => {
-                            return (
-                                <table className="table_for_td" key={info}>
-                                    <tbody>
-                                        <tr>
-                                            <td style={{ width: '20%' }}>{getDate(info)}</td>
-                                            <td style={{ width: '80%' }}>{getAddress(info)}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            )
+                        historyList.map((info, index) => {
+                            return selectedHistoryIndex == index ?
+                                getFocusedMenuItem(info, index) : getMenuItem(info, index)
                         })
                         :
                         <table className="table_for_td">

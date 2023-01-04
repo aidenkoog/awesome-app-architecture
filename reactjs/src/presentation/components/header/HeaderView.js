@@ -6,6 +6,7 @@ import {
 import "./HeaderView.css"
 import copyAddressImage from "../../../assets/images/copy_address.png"
 import locationImage from "../../../assets/images/location.png"
+import { DEBUGGING_MODE } from '../../../configs/Configs'
 
 /**
  * Header view component.
@@ -13,7 +14,7 @@ import locationImage from "../../../assets/images/location.png"
  * @returns {JSX.Element}
  */
 export default function HeaderView({
-    onClickSaveHistory, onPressCollectData, currentAddress, historySaveSupport, onPressRealtimeCollectData, loading }) {
+    onClickSaveHistory, onPressCollectData, currentAddress, onPressRealtimeCollectData, loading, onClickHeaderArea }) {
 
     let currentAddressToCopy = currentAddress
     if (currentAddress == null || currentAddress === undefined || currentAddress === "") {
@@ -22,11 +23,12 @@ export default function HeaderView({
 
     return (
         <div className="header_container">
-            <div className="header_title">
+            <div className="header_title" onClick={onClickHeaderArea}>
                 <h1>{HEADER_TITLE}</h1>
             </div>
             <div className="header_button">
-                {historySaveSupport ?
+                {/* Save history. */}
+                {DEBUGGING_MODE ?
                     <div>
                         <button className="header_button_item" onClick={onClickSaveHistory}>{HISTORY_SAVE}</button>
                     </div>
@@ -34,6 +36,14 @@ export default function HeaderView({
                     <div></div>
                 }
 
+                {/* Location collect. */}
+                <div>
+                    <button className="header_button_item" onClick={onPressCollectData} disabled={loading}>
+                        <img src={locationImage} alt="locationImage" /> {QUERY_CURRENT_LOCATION}
+                    </button>
+                </div>
+
+                {/* Copy address. */}
                 <div>
                     <CopyToClipboard text={currentAddressToCopy}>
                         <button className="header_button_item">
@@ -41,16 +51,17 @@ export default function HeaderView({
                         </button>
                     </CopyToClipboard>
                 </div>
-                <div>
-                    <button className="header_button_item" onClick={onPressCollectData} disabled={loading}>
-                        <img src={locationImage} alt="locationImage" /> {QUERY_CURRENT_LOCATION}
-                    </button>
-                </div>
-                {/* <div>
-                    <button className="header_button_item" onClick={onPressRealtimeCollectData}>
-                        <img src={locationImage} alt="locationImage" /> {QUERY_REALTIME_LOCATION}
-                    </button>
-                </div> */}
+
+                {/* Real-time location collect. */}
+                {DEBUGGING_MODE ?
+                    <div>
+                        <button className="header_button_item" onClick={onPressRealtimeCollectData}>
+                            <img src={locationImage} alt="locationImage" /> {QUERY_REALTIME_LOCATION}
+                        </button>
+                    </div>
+                    :
+                    <div />
+                }
             </div>
         </div>
     )

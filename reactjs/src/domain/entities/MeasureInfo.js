@@ -1,6 +1,6 @@
 
 /**
- * measured data information.
+ * Measured data information.
  */
 class MeasureInfo {
 

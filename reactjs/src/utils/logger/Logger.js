@@ -1,10 +1,11 @@
 import { DEBUGGING_MODE } from "../../configs/Configs"
-import { getCurrentDateTime } from "../time/TimeUtil"
+import { getCurrentDateTime, getCurrentMillTime, MILLISECONDS_24_HOUR } from "../time/TimeUtil"
 
 let cachedLogMessages = []
+let logCacheStartTime = 0
 
 /**
- * log debugging messages.
+ * Log debugging messages.
  * @param {string} logTag 
  * @param {string} logMessage 
  */
@@ -16,7 +17,7 @@ export const logDebug = (logTag, logMessage) => {
 }
 
 /**
- * log debugging messages with line for reading.
+ * Log debugging messages with line for reading.
  * @param {string} logTag 
  * @param {string} logMessage 
  */
@@ -31,7 +32,7 @@ export const logDebugWithLine = (logTag, logMessage) => {
 }
 
 /**
- * log error messages.
+ * Log error messages.
  * @param {string} logTag 
  * @param {string} logMessage 
  */
@@ -43,7 +44,7 @@ export const logError = (logTag, logMessage) => {
 }
 
 /**
- * print common error log.
+ * Print common error log.
  * @param {string} logTag
  * @param {string} error 
  */
@@ -54,12 +55,22 @@ export const outputErrorLog = (logTag, error) => {
 }
 
 /**
- * store log messages.
+ * Store log messages.
  * @param {string} logMessageToAdd 
  */
 function addLogMessageHandler(logMessageToAdd) {
     if (logMessageToAdd == null || logMessageToAdd === "") {
         return
+    }
+    if (cachedLogMessages.length <= 0) {
+        logCacheStartTime = getCurrentMillTime()
+    } else {
+        const currentMillTime = getCurrentMillTime()
+        const gapTime = Math.abs(currentMillTime - logCacheStartTime)
+        if (gapTime > MILLISECONDS_24_HOUR) {
+            logCacheStartTime = currentMillTime
+            cachedLogMessages = []
+        }
     }
     cachedLogMessages.push(logMessageToAdd)
 }

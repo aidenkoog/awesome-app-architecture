@@ -1,5 +1,5 @@
 .header_container {
-  max-width: auto;
+  max-width: 100%;
   max-height: auto;
   height: 10%;
   margin: 0 auto;
@@ -11,7 +11,7 @@
 }
 
 .header_title {
-  width: 50%;
+  width: 17.7%;
   float: left;
 }
 
@@ -26,6 +26,7 @@
   width: 15%;
   height: auto;
   float: right;
+  float: left;
   margin-right: 30px;
   color: #1d70ec;
   font-size: larger;

@@ -38,16 +38,16 @@ It is written based on JavaScript.
 - 2022/11/28 : Rearrange UI component / functions.
 - 2022/11/29 : (1st) Rearrange source code structure / Change page tab title.
 - 2022/11/29 : (2nd) Added HTTP POST module / Re-arrange UI.
-- 2022/11/30 : Query SOS & POLICE reports when entering page first / Delete unused and unnecessary variable declaration.
+- 2022/11/30 : Query emergency reports when entering page first / Delete unused and unnecessary variable declaration.
 - 2022/12/01 : (1st) Changed loading animation / Re-arranged ui alignment.
 - 2022/12/01 : (2nd) Added zoom controller to be shown in naver map component.
 - 2022/12/01 : (3rd) Fixed wrong send-sms api url / Deleted text tag in error component.
 - 2022/12/01 : (4th) (Workaround) Added code below that initializes Naver map instance to avoid the problem where map is NOT shown.
 - 2022/12/01 : (5th) Added module that can get domain from web page url.
 - 2022/12/01 : (6th) Added code to retry 5 times when activity information is not properly fetched in the beginning. 
-- 2022/12/01 : (7th) Added logic that calls apis every 3 seconds for 2 minutes until police report comes in.
+- 2022/12/01 : (7th) Added logic that calls apis every 3 seconds for 2 minutes until emergency report comes in.
 - 2022/12/01 : (8th) Fixed issue that refresh button doesn't work anymore after it's pressed once more.
-- 2022/12/01 : (9th) Fixed issue that refreshing current location doesn't work after new police data comes in.
+- 2022/12/01 : (9th) Fixed issue that refreshing current location doesn't work after new emergency data comes in.
 - 2022/12/01 : (10th) Fixed issue that history list disappears after refreshing current location data.
 - 2022/12/02 : (1st) Fixed issue that copying link doesn't work after querying the current location.
 - 2022/12/02 : (2nd) Fix mistake happened while fixing function to copy address.
@@ -56,7 +56,7 @@ It is written based on JavaScript.
 - 2022/12/05 : (1st) Fixed issue that location time information is NOT accurate and Separate elapsed time information.
 - 2022/12/05 : (2nd) Deleted unnecessary parameter key for debugging about phone number, that is, loadKey only exists.
 - 2022/12/06 : Branched CSS style code for each component, Arranged indentation of code and Deleted unnecessary debugging log code.
-- 2022/12/07 : Fixed issue that it's NOT operated to copy address when exception happens / Arranged UI components.
+- 2022/12/07 : Fixed issue that it's NOT operated to copy address function when exception happens / Arranged UI components.
 - 2022/12/08 : Added images to header's buttons.
 - 2022/12/09 : (1st) Delete button ui that can search real-time location.
 - 2022/12/09 : (2nd) Added decryption module about device mobile phone number.
@@ -91,7 +91,17 @@ It is written based on JavaScript.
 - 2022/12/22 : (7th) Fixed issue that date information is NOT changed after searching the current location.
 - 2022/12/22 : (8th) Added vertical scroll bar to menu table.
 - 2022/12/23 : Fixed position of map, circle, marker and zoom buttons / Enabled vertical scroll bar of webpage / Adjust menu table vertical length.
-- 2022/12/27 : Added license list file.
+- 2022/12/26 : Added normal phone number style support.
+- 2022/01/02 : (1st) Made the latest position information located at the first position / Changed time information of menu / Delete cached log messages in 24 hours. / Enable normal phone number style url when domain is for debugging. / Add provider, event type fields.
+- 2022/01/02 : (2nd) Adjust menu and map component size ratio.
+- 2022/01/02 : (3rd) Hide history item that has expired after 24 hours.
+- 2022/01/02 : (4th) Applied provider value to upper case's.
+- 2022/01/03 : (1st) Applied difine additional requirement / Deleted rectangle shape feature of map / Applied dynamic error radius feature.
+- 2022/01/03 : (2nd) Disable debugging mode (mistake)
+- 2022/01/03 : (3rd) Update formula for calculating error radius.
+- 2022/01/04 : (1st) Applied auto scale function of map / Added history selection function / Changed button's position as scenario.
+- 2022/01/04 : (2nd) Fix incorrect circle range and zoom level.
+- 2022/01/04 : (3rd) Adjusted history table field spacing.
 
 ## How To Setup Environment
 

@@ -5,7 +5,7 @@ function GetReversedAddressUseCase() {
     const { getReversedAddress } = NaverMapRepository()
 
     /**
-     * get address information corresponding to latitude and longitude.
+     * Get address information corresponding to latitude and longitude.
      * @param {double} latitude 
      * @param {double} longitude 
      * @returns {Promise}

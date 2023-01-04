@@ -5,7 +5,7 @@ function SendSmsUseCase() {
     const { sendSms } = RemoteRepository()
 
     /**
-     * ask device to send sms message.
+     * Ask device to send sms message.
      * @param {String} deviceMobileNumber 
      * @returns {Promise}
      */

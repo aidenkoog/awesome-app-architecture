@@ -3,12 +3,12 @@ import { logDebug } from '../utils/logger/Logger'
 const LOG_TAG = "Configs"
 
 /**
- * support function.
+ * Support function.
  */
 export const DEBUGGING_MODE = false
 
 /**
- * polling apis.
+ * Polling apis.
  * MAX: 120000
  */
 export const POLLING_API_MAX_MILL_TIME = 120000
@@ -16,7 +16,7 @@ export const POLLING_API_INTERVAL_MILL_TIME = 3000
 export const HOURS_24_MILL = 86400000
 
 /**
- * file saver module for downloading the file on the webpage.
+ * File saver module for downloading the file on the webpage.
  */
 export const FileSaver = require('file-saver')
 export const TEXT_TYPE = "text/plain;charset=utf-8"
@@ -29,14 +29,9 @@ export const FILE_NAME_FOR_LOG = "logs.txt"
 export const USE_DYNAMIC_DOMAIN_URL = false
 
 /**
- * cryptojs module enable.
+ * Cryptojs module enable.
  */
 export const CRYPTO_ENABLE = true
-
-/**
- * Naver Map.
- */
-export const NAVER_CLIENT_ID = "..."
 
 /**
  * Map.
@@ -46,6 +41,14 @@ export const MAX_ZOOM_LEVEL = 21
 export const MIN_ZOOM_LEVEL = 11
 export const NAVER_MAP_DOMAIN_URL = "https://naveropenapi.apigw.ntruss.com"
 
+/**
+ * Current zoom level.
+ */
+export let currentZoomLevel = DEFAULT_ZOOM_LEVEL
+export function updateCurrentZoomLevel(zoomLevel) {
+    currentZoomLevel = zoomLevel
+}
+
 export const getMapImageLink = (mapImageDomainUrl, latitude, longitude, currentZoomLevel) => {
     return ""
         + mapImageDomainUrl + "/map-static/v2/raster-cors?"
@@ -54,7 +57,7 @@ export const getMapImageLink = (mapImageDomainUrl, latitude, longitude, currentZ
         + ","
         + latitude
         + "&level=" + currentZoomLevel
-        + "&X-NCP-APIGW-API-KEY-ID=9n75mtfld2"
+        + "&X-NCP-APIGW-API-KEY-ID=..."
 }
 
 /**
@@ -63,50 +66,64 @@ export const getMapImageLink = (mapImageDomainUrl, latitude, longitude, currentZ
  * Refs. zoom: 16, 250: 300m
  * Refs. zoom: 20, 260: 20.8m 
  * Refs. A radius of 260 for the benchmark allows you to draw the largest circle the map can show.
- * @param {Number}
+ * @param {Number} currentZoomLevel
+ * @param {Number} innerWidth
+ * @param {Number} errorRadius
  * @returns {Number}
  */
-export function getCircleRadius(currentZoomLevel, innerWidth) {
+export function getCircleRadius(currentZoomLevel, innerWidth, errorRadius) {
     let radiusForBenchmark = 0
     switch (currentZoomLevel) {
         case 11:
-            radiusForBenchmark = 5
+            radiusForBenchmark = getRadiusForBenchmark(0.5078125, errorRadius)
             break
         case 12:
-            radiusForBenchmark = 6
+            radiusForBenchmark = getRadiusForBenchmark(1.015625, errorRadius)
             break
         case 13:
-            radiusForBenchmark = 7
+            radiusForBenchmark = getRadiusForBenchmark(2.03125, errorRadius)
             break
         case 14:
-            radiusForBenchmark = 8
+            radiusForBenchmark = getRadiusForBenchmark(4.0625, errorRadius)
             break
         case 15:
-            radiusForBenchmark = 9
+            radiusForBenchmark = getRadiusForBenchmark(8.125, errorRadius)
             break
         case 16:
-            radiusForBenchmark = 17
+            radiusForBenchmark = getRadiusForBenchmark(16.25, errorRadius)
             break
         case 17:
-            radiusForBenchmark = 33
+            radiusForBenchmark = getRadiusForBenchmark(32.5, errorRadius)
             break
         case 18:
-            radiusForBenchmark = 65
+            radiusForBenchmark = getRadiusForBenchmark(65, errorRadius)
             break
         case 19:
-            radiusForBenchmark = 130
+            radiusForBenchmark = getRadiusForBenchmark(130, errorRadius)
             break
         case 20:
-            radiusForBenchmark = 260
+            radiusForBenchmark = getRadiusForBenchmark(260, errorRadius)
             break
         case 21:
-            radiusForBenchmark = 520
+            radiusForBenchmark = getRadiusForBenchmark(520, errorRadius)
             break
         default:
-            radiusForBenchmark = 260
+            radiusForBenchmark = getRadiusForBenchmark(260, errorRadius)
     }
-    logDebug(LOG_TAG, ">>> CURRENT ZoomLevel: " + currentZoomLevel + ", START to process RADIUS formula")
     return processRadiusFormula(radiusForBenchmark, innerWidth)
+}
+
+/**
+ * Get radius for benchmark.
+ * @param {Number} radiusForBenchmark 
+ * @param {Number} errorRadius 
+ * @returns {Number}
+ */
+function getRadiusForBenchmark(radiusForBenchmark, errorRadius) {
+    if (errorRadius == null || errorRadius === undefined || errorRadius === "" || isNaN(errorRadius)) {
+        return radiusForBenchmark
+    }
+    return radiusForBenchmark * errorRadius / 20.8
 }
 
 /**
@@ -119,8 +136,6 @@ export function getCircleRadius(currentZoomLevel, innerWidth) {
  */
 function processRadiusFormula(radiusForBenchmark, innerWidth) {
     const result = (innerWidth * radiusForBenchmark) / 1760
-    logDebug(LOG_TAG, ">>> RADIUS for Benchmark: " + radiusForBenchmark)
-    logDebug(LOG_TAG, ">>> SCRREN Size: " + innerWidth)
-    logDebug(LOG_TAG, ">>> Formula Result: " + result)
+    logDebug(LOG_TAG, ">>> Formula Result (Circle Radius): " + result)
     return result
 }

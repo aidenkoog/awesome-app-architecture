@@ -11,7 +11,7 @@ function SetDomainUrlUseCase() {
     const { getDomain } = UrlRepository()
 
     /**
-     * execute usecase of setting domain url derived from web page url.
+     * Execute usecase of setting domain url derived from web page url.
      * @param {Location} urlLocation 
      * @returns {Promise}
      */

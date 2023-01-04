@@ -1,6 +1,6 @@
 
 /**
- * activities event type.
+ * Activities event type.
  */
 export const POWER_ON = "POWER_ON"
 export const POWER_DOWN = "POWER_DOWN"

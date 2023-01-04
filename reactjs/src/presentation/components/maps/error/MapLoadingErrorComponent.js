@@ -1,8 +1,5 @@
 import mapLoadingErrorImage from "../../../../assets/images/wifi_alert.png"
 import { MAIN_MAP_LOADING_FAILED_1, MAIN_MAP_LOADING_FAILED_2 } from "../../../../assets/strings/Strings"
-import { logDebugWithLine } from "../../../../utils/logger/Logger"
-
-const LOG_TAG = "MapLoadingErrorComponent"
 
 /**
  * Map loading error component.
@@ -30,8 +27,6 @@ export default function MapLoadingErrorComponent(props) {
             errorMessageTitle = errorMessage
         }
     }
-
-    logDebugWithLine(LOG_TAG, "ERROR Message: " + errorMessage + ",\nError Message SubTitle: " + errorMessageSubTitle)
 
     return (
         <div>

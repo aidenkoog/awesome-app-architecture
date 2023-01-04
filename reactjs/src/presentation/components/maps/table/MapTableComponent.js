@@ -1,49 +1,35 @@
 import React from 'react'
-import { MENU_TABLE_HEADER_ADDRESS, MENU_TABLE_HEADER_DATE } from '../../../../assets/strings/Strings'
+import {
+    MENU_TABLE_ERROR_RADIUS, MENU_TABLE_EVENT_TYPE, MENU_TABLE_HEADER_ADDRESS,
+    MENU_TABLE_HEADER_DATE, MENU_TABLE_HEADER_PROVIDER
+} from '../../../../assets/strings/Strings'
 import { outputErrorLog } from '../../../../utils/logger/Logger'
 import "./MapTable.css"
 
 const LOG_TAG = "MapTableComponent"
 
 /**
- * table component.
+ * Table component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
 function MapTableComponent(props) {
 
     /**
-     * props devlivered from HomeComponent.
+     * Props devlivered from HomeComponent.
      */
     const { recentHistory } = props
-
-    function getCurrentDate() {
-        try {
-            return recentHistory != null && recentHistory !== "" && recentHistory.length >= 4 ?
-                recentHistory.split("|")[3] : "--"
-        } catch (_e) {
-            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting current DATE, return --")
-            return "--"
-        }
-    }
-
-    function getCurrentAddress() {
-        try {
-            return recentHistory != null && recentHistory !== "" && recentHistory.length >= 5 ?
-                recentHistory.split("|")[4] : "--"
-        } catch (_e) {
-            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting current ADDRESS, return --")
-            return "--"
-        }
-    }
 
     return (
         <div>
             <table className="table">
                 <thead>
                     <tr>
+                        <th style={{ width: '15%' }}>{MENU_TABLE_HEADER_PROVIDER}</th>
+                        <th style={{ width: '20%' }}>{MENU_TABLE_EVENT_TYPE}</th>
+                        <th style={{ width: '8%' }}>{MENU_TABLE_ERROR_RADIUS}</th>
                         <th style={{ width: '20%' }}>{MENU_TABLE_HEADER_DATE}</th>
-                        <th style={{ width: '80%' }}>{MENU_TABLE_HEADER_ADDRESS}</th>
+                        <th style={{ width: '37%' }}>{MENU_TABLE_HEADER_ADDRESS}</th>
                     </tr>
                 </thead>
             </table>
@@ -52,8 +38,11 @@ function MapTableComponent(props) {
                     <table className="table_for_td">
                         <tbody>
                             <tr>
-                                <td style={{ width: '20%' }}>{getCurrentAddress()}</td>
-                                <td style={{ width: '80%' }}>{getCurrentDate()}</td>
+                                <td style={{ width: '15%' }}>{recentHistory.provider}</td>
+                                <td style={{ width: '20%' }}>{recentHistory.eventType}</td>
+                                <td style={{ width: '8%' }}>{recentHistory.accuracy}m</td>
+                                <td style={{ width: '20%' }}>{recentHistory.measuredDateTime}</td>
+                                <td style={{ width: '37%' }}>{recentHistory.fullAddress}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -67,7 +56,7 @@ function MapTableComponent(props) {
                     </table>
             }
 
-        </div>
+        </div >
     )
 }
 

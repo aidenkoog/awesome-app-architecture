@@ -1,7 +1,10 @@
 import customMarker from "../../../../assets/images/custom_naver_map_marker.png"
 import customMarkerInHover from "../../../../assets/images/blue_marker.png"
-import { logDebugWithLine } from "../../../../utils/logger/Logger"
-import { DEBUGGING_MODE, getCircleRadius, getMapImageLink, NAVER_MAP_DOMAIN_URL } from "../../../../configs/Configs"
+import { logDebug, logDebugWithLine, outputErrorLog } from "../../../../utils/logger/Logger"
+import {
+    DEBUGGING_MODE, getCircleRadius, getMapImageLink, MAX_ZOOM_LEVEL, MIN_ZOOM_LEVEL,
+    NAVER_MAP_DOMAIN_URL, updateCurrentZoomLevel
+} from "../../../../configs/Configs"
 import {
     debuggingContainer, debuggingText, mapImage, mapRootContainer,
     markerImage, shortAddressContainer, zoomButton, zoomInContainer, zoomOutContainer
@@ -11,14 +14,15 @@ import { useState, useEffect } from "react"
 const LOG_TAG = "MapImageView"
 
 /**
- * map image view component.
+ * Map image view component.
  * @param {Any} props 
  * @returns {JSX.Element}
  */
 export default function MapImageView(props) {
 
     const {
-        latitude, longitude, onClickZoomIn, onClickZoomOut, currentZoomLevel, domainUrl, currentAddress, shortAddress
+        latitude, longitude, onClickZoomIn, onClickZoomOut, currentZoomLevel, domainUrl, currentAddress, shortAddress,
+        recentHistory, isZoomTriggered, isZoomUpdated, updateZoomLevel
     } = props
 
     const [innerWidth, setInnerWidth] = useState(window.innerWidth)
@@ -26,12 +30,92 @@ export default function MapImageView(props) {
 
     const mapImageDomainUrl = domainUrl.includes("localhost:") ? NAVER_MAP_DOMAIN_URL : domainUrl
 
-    let circleRadius = getCircleRadius(currentZoomLevel, innerWidth)
+    function getAccuracy() {
+        const accuracy = recentHistory.accuracy
+        try {
+            return accuracy != null && accuracy !== "" ? accuracy : "--"
+        } catch (_e) {
+            outputErrorLog(LOG_TAG, "UNKNOWN ERROR occurs while getting ACCURACY, return --")
+            return "--"
+        }
+    }
+    let circleRadius = getCircleRadius(currentZoomLevel, innerWidth, getAccuracy())
+    let zoomLevel = currentZoomLevel
+
+    if (!isZoomTriggered && !isZoomUpdated) {
+
+        let divideCount = 0
+        let dividedRadius = circleRadius
+        let ratio = innerWidth / dividedRadius
+
+        if (ratio > 9.5) {
+            logDebug(LOG_TAG, ">>> ratio > 9.5")
+            let multiplyCount = 0
+            let multipliedRadius = circleRadius
+
+            if (innerWidth / multipliedRadius >= 14.2) {
+                for (let i = 0; innerWidth / multipliedRadius > 9.5; i++) {
+                    multipliedRadius = multipliedRadius * 2
+                    multiplyCount++
+                    if (innerWidth / multipliedRadius <= 9.5) {
+                        break
+                    }
+                }
+                zoomLevel = currentZoomLevel + multiplyCount
+                if (zoomLevel > MAX_ZOOM_LEVEL) {
+                    logDebug(LOG_TAG, ">>> zoomLevel > MAX Zoom Level")
+                    const gap = zoomLevel - MAX_ZOOM_LEVEL
+                    zoomLevel = zoomLevel - gap
+                    circleRadius = multipliedRadius / Math.pow(2, gap)
+                    multiplyCount = 0
+
+                } else {
+                    if (multiplyCount !== 0) {
+                        circleRadius = multipliedRadius
+                    }
+                }
+                updateCurrentZoomLevel(zoomLevel)
+            }
+        }
+
+        if (innerWidth / circleRadius < 7) {
+            circleRadius /= 2
+            zoomLevel -= 1
+            updateCurrentZoomLevel(zoomLevel)
+        }
+
+        if (ratio < 7) {
+            logDebug(LOG_TAG, ">>> ratio < 7")
+            if (innerWidth / dividedRadius <= 6.4) {
+                for (let i = 0; innerWidth / dividedRadius < 7; i++) {
+                    dividedRadius = dividedRadius / 2
+                    if (innerWidth / dividedRadius >= 7) {
+                        divideCount = i + 1
+                        break
+                    }
+                }
+                zoomLevel = currentZoomLevel - divideCount
+                if (zoomLevel < MIN_ZOOM_LEVEL) {
+                    logDebug(LOG_TAG, ">>> zoomLevel < MIN Zoom Level")
+                    zoomLevel = currentZoomLevel
+                    dividedRadius = circleRadius
+                    divideCount = 0
+
+                } else {
+                    if (divideCount !== 0) {
+                        circleRadius = dividedRadius
+                    }
+                }
+                updateCurrentZoomLevel(zoomLevel)
+            }
+        }
+    }
 
     logDebugWithLine(LOG_TAG, "<<< \n"
         + "LATITUDE: " + latitude
         + "\n, LONGITUDE: " + longitude
         + "\n, CURRENT ZoomLevel: " + currentZoomLevel
+        + "\n, Artifacted ZoomLevel: " + zoomLevel
         + "\n, MAP IMAGE DOMAIN URL: " + mapImageDomainUrl
         + "\n, RADIUS: " + circleRadius
         + "\n, SCRREN SIZE: " + innerWidth
@@ -39,7 +123,7 @@ export default function MapImageView(props) {
         + "\n, CURRENT Address: " + currentAddress)
 
     /**
-     * it's called whenever ui rendering and paiting is executed.
+     * It's called whenever ui rendering and paiting is executed.
      */
     useEffect(() => {
         const resizeListener = () => {
@@ -58,27 +142,20 @@ export default function MapImageView(props) {
                         onClickZoomOut()
                     }
                 }}>
-                {/* map image. */}
+                {/* Map image. */}
                 <img
                     style={mapImage}
-                    src={getMapImageLink(mapImageDomainUrl, latitude, longitude, currentZoomLevel)}
+                    src={getMapImageLink(mapImageDomainUrl, latitude, longitude, zoomLevel)}
                     alt="MapSnapShot" />
 
-                {currentZoomLevel !== 21 ?
-                    < div style={{
-                        width: circleRadius * 2, height: circleRadius * 2,
-                        top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                        position: "absolute", backgroundColor: "#1d70ec", borderRadius: "50%", opacity: 0.3,
-                    }} />
-                    :
-                    < div style={{
-                        width: circleRadius * 1.75, height: circleRadius * 1.055,
-                        top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-                        position: "absolute", backgroundColor: "#1d70ec", borderRadius: "2%", opacity: 0.3,
-                    }} />
-                }
+                {/* Circle image. */}
+                < div style={{
+                    width: circleRadius * 2, height: circleRadius * 2,
+                    top: "50%", left: "50%", transform: "translate(-50%, -50%)",
+                    position: "absolute", backgroundColor: "#1d70ec", borderRadius: "50%", opacity: 0.2,
+                }} />
 
-                {/* marker image */}
+                {/* Marker image */}
                 <img
                     style={markerImage}
                     src={isHover ? customMarkerInHover : customMarker}
@@ -87,7 +164,7 @@ export default function MapImageView(props) {
                     onClick={onClickZoomIn}
                     alt="mapMarkerImage" />
 
-                {/* short address. */}
+                {/* Short address. */}
                 {isHover ?
                     <div style={shortAddressContainer}>
                         <h3>{shortAddress}</h3>
@@ -96,30 +173,24 @@ export default function MapImageView(props) {
                     <div />
                 }
 
-                {/* zoom in. */}
+                {/* Zoom in. */}
                 <div style={zoomInContainer}>
                     <button style={zoomButton} onClick={onClickZoomIn}>+</button>
                 </div>
 
-                {/* zoom out. */}
+                {/* Zoom out. */}
                 <div style={zoomOutContainer}>
                     <button style={zoomButton} onClick={onClickZoomOut}>-</button>
                 </div>
             </div >
-            {/* screen size. */}
+            {/* Screen size. */}
             {DEBUGGING_MODE ?
                 <div style={debuggingContainer}>
                     <h2 style={debuggingText}>>>> Current Scrren Width: <b>{innerWidth}</b></h2>
                     <h2 style={debuggingText}>>>> Current Latitude: <b>{latitude}</b>, Current Longitude: <b>{longitude}</b></h2>
                     <h2 style={debuggingText}>>>> Current Address: <b>{currentAddress}</b></h2>
                     <h2 style={debuggingText}>>>> Current Zoom Level: <b>{currentZoomLevel}</b></h2>
-                    {currentZoomLevel === 21 ?
-                        <h2 style={debuggingText}>
-                            >>> Current Rectangle Width: <b>{circleRadius * 1.75}</b>, Height: <b>{circleRadius * 1.055}</b>
-                        </h2>
-                        :
-                        <div></div>
-                    }
+                    <h2 style={debuggingText}>>>> Artifacted Zoom Level: <b>{zoomLevel}</b></h2>
                     <h2 style={debuggingText}>>>> Current Circle Radius: <b>{circleRadius}</b></h2>
                     <h2 style={debuggingText}>>>> Current Map Image Domain URl: <b>{mapImageDomainUrl}</b></h2>
                 </div>
