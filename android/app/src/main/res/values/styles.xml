@@ -1,31 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="CustomDialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:windowNoTitle">true</item>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:fontFamily" tools:targetApi="jelly_bean">@font/atlantic</item>
     </style>
 
-    <style name="NumberPickerCustomStyle">
-        <item name="android:textSize">19sp</item>
-        <item name="android:textStyle">bold</item>
+    <style name="NoTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="TabLayoutCustomStyle" parent="android:Widget">
-        <item name="tabIndicatorHeight">0dp</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SeekBarStyle" parent="Widget.AppCompat.SeekBar">
-        <item name="colorAccent">@color/purple_200</item>
-    </style>
-
-    <style name="DeviceAddTabLayoutStyle" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize" tools:ignore="SpUsage">16dp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="IndoorMonitorRadioButtonStyle" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/purple_500</item>
-    </style>
 </resources>

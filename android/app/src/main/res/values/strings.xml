@@ -1,18 +1,3 @@
 <resources>
-    <string name="STR_APP_NAME">Android Architecture</string>
-    <string name="STR_DEV_APP_NAME">Android Architecture DEV</string>
-
-    <string name="common_api_error_msg">Unknown error occurs.\nPlease retry it.\nError code: %s</string>
-
-    <!-- Common -->
-    <string name="STR_LOGIN_BTN_TEXT">Login</string>
-    <string name="STR_SIGNUP_BTN_TEXT">Sign-Up</string>
-
-    <!-- Login -->
-    <string name="STR_ACCOUNT_LINK">Link Account</string>
-    <string name="STR_ID_LABEL">ID</string>
-    <string name="STR_PW_LABEL">Password</string>
-    <string name="STR_FIND_ID_LABEL">Find ID</string>
-    <string name="STR_FIND_PW_LABEL">Find PW</string>
-
+    <string name="app_name">Android Architecture</string>
 </resources>

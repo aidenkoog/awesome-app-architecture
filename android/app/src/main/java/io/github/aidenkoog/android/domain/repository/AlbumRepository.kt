@@ -1,0 +1,11 @@
+package io.github.aidenkoog.android.domain.repository
+
+import io.github.aidenkoog.android.domain.model.Album
+import io.reactivex.Single
+
+/**
+ * To make an interaction between [AlbumRepositoryImp] & [GetAlbumsUseCase]
+ * */
+interface AlbumRepository {
+    fun getAlbums(): Single<List<Album>>
+}

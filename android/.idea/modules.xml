@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_Architecture.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_Architecture.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android_Architecture.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android_Architecture.app.iml" />
-    </modules>
-  </component>
-</project>

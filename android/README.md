@@ -7,24 +7,16 @@ It is written based on Kotlin.
 
 - Language: Kotlin
 - Structure Summary
-    - ✨ data
-    - ✨ domain
-    - ✨ presentation
-    - ✨ util
+  - ✨ Data
+  - ✨ Di
+  - ✨ Domain
+  - ✨ Presentation
+  - ✨ Util
 
 ## Release Note
 
-- 2022/12/14 : Renew and initialize Android Architecture Project.
-- 2022/12/15 : Upload first renewed source code.
-- 2022/12/26 : Added splash lottie animation.
-
-
-## How To Setup Environment
-
-It's mandantory to set up the development environment and build the app by following the instructions below:
-
-> Visit https://developer.android.com/
-> 
+- 2022/09/16 ~ 2022/12/31 : Reviewed Android source code I had made.
+- 2023/01/04 : Update Android template source code.
 
 ## Link
 
