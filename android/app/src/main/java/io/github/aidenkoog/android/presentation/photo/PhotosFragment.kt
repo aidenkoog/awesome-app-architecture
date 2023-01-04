@@ -81,8 +81,8 @@ class PhotosFragment : Fragment(), OnPhotosAdapterListener {
 
     companion object {
 
-        val KEY_ALBUM_ID = "KEY_ALBUM_ID"
-        val FRAGMENT_NAME = PhotosFragment::class.java.name
+        const val KEY_ALBUM_ID = "KEY_ALBUM_ID"
+        val FRAGMENT_NAME: String = PhotosFragment::class.java.name
 
         @JvmStatic
         fun newInstance(id: Long) = PhotosFragment().apply {
