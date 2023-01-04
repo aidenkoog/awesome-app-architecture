@@ -96,7 +96,7 @@ It is written based on JavaScript.
 - 2022/01/02 : (2nd) Adjust menu and map component size ratio.
 - 2022/01/02 : (3rd) Hide history item that has expired after 24 hours.
 - 2022/01/02 : (4th) Applied provider value to upper case's.
-- 2022/01/03 : (1st) Applied difine additional requirement / Deleted rectangle shape feature of map / Applied dynamic error radius feature.
+- 2022/01/03 : (1st) Applied additional requirement / Deleted rectangle shape feature of map / Applied dynamic error radius feature.
 - 2022/01/03 : (2nd) Disable debugging mode (mistake)
 - 2022/01/03 : (3rd) Update formula for calculating error radius.
 - 2022/01/04 : (1st) Applied auto scale function of map / Added history selection function / Changed button's position as scenario.
