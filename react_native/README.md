@@ -3,7 +3,7 @@
 
 
 This project is to make template code that can be applied to any app development.
-It is written based on JavaScript.
+It is written based on JavaScript, and when the JavaScript-based template source code structure is completed, a TypeScript-based source code will also be created.
 
 - Language: Javascript
 - Structure Summary
@@ -11,32 +11,12 @@ It is written based on JavaScript.
     - ✨ UseCases
     - ✨ Repositories
     - ✨ Modules
-    - ✨ State Management Module (Recoil & Redux)
-
-- Folder Structure
-    - ✨ assets
-        - ✨ anims
-        - ✨ images
-    - ✨ configs
-    - ✨ data
-        - ✨ adapters
-        - ✨ repositories
-        - ✨ sources
-    - ✨ domain
-        - ✨ model
-        - ✨ usecases
-    - ✨ presentation
-        - ✨ apps
-        - ✨ base
-    - ✨ test
-        - ✨ presentation
-        - ✨ repositories
-        - ✨ usecases
-    - ✨ utils
+    - ✨ State Management Module (Recoil)
 
 ## Release Note
 
 - 2022/09/16 ~ 2022/10/21 : Review RN (React-Native) itself.
+
 - 2022/10/22 : Fixed 1st source code architecture (presentation / core / test / config / constants)
 - 2022/10/23 : (1st) Fixed logging errors and changed log function's name
 - 2022/10/23 : (2nd) Add Bluetooth related usecase source code / Separate container and component ui of root.
@@ -57,9 +37,7 @@ It is written based on JavaScript.
 - 2022/11/18 : (2nd) Fixed BLE reconnection popup in hidden menu is terminated automatically as soon as it opens.
 - 2022/11/18 : (3rd) Added platform functions (SMS / PhoneCall directly).
 - 2022/11/21 : Added authentication response handler.
-- 2022/12/13 : Renewed source structure / Added splash loading animation (Delete previous source code)
-- 2022/12/13 : Added bluetooth dependency / Updated folder structure.
-- 2022/12/14 : Added base skeleton ui components.
+- 2023/01/04 : Re-arrange entire source code. (cannot build)
 
 
 ## How To Setup Environment
@@ -88,12 +66,6 @@ It's mandantory to set up the development environment and build the app by follo
 > Write 'gem "fastlane"' to Gemfile
 > cd ios
 > fastlane init
-
-## Trouble Shooting
-
-- JDK version.
-    - cd /Library/Java/JavaVirtualMachines/ ; ls -la ; rm -rf jdk*
-- Package.json
 
 ## BLE Configuration
 

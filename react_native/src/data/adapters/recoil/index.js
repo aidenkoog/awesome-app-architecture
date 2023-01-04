@@ -1,3 +1,3 @@
-export * from "./adapters"
-export * from "./repositories"
-export * from "./sources"
+export * from './bluetooth'
+export * from './profile'
+export * from './platform'
