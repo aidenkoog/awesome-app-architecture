@@ -5,7 +5,6 @@ import { BackHandler } from 'react-native'
 import { useLayoutEffect } from "react"
 
 const MY_PROFILE_SCREEN = Constants.SCREEN.EDIT_PROFILE
-const HR_MONITORING_SCREEN = Constants.SCREEN.HR_MONITORING
 const DEVICE_INFO_SCREEN = Constants.SCREEN.DEVICE_INFO
 
 const NAVIGATION_NO_DELAY_TIME = Constants.NAVIGATION.NO_DELAY_TIME
@@ -60,13 +59,6 @@ const SettingsContainer = ({ navigation }) => {
     }
 
     /**
-     * HR monitoring menu.
-     */
-    onPressHrMonitoringMenu = () => {
-        navigateToNextScreen(navigation, HR_MONITORING_SCREEN, NAVIGATION_NO_DELAY_TIME)
-    }
-
-    /**
      * device information menu.
      */
     onPressDeviceMenu = () => {
@@ -76,7 +68,6 @@ const SettingsContainer = ({ navigation }) => {
     return (
         <SettingsComponent
             onPressMyProfileMenu={onPressMyProfileMenu}
-            onPressHrMonitoringMenu={onPressHrMonitoringMenu}
             onPressDeviceMenu={onPressDeviceMenu}
         />
     )

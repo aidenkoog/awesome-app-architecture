@@ -4,7 +4,6 @@ import RowItem from "../../../presentation/components/RowItem"
 import _ from 'lodash'
 
 const MY_PROFILE_STRING = "My profile"
-const HR_MONITORING = "HR monitoring"
 const DEVICE = "Device"
 
 /**
@@ -16,7 +15,7 @@ export default function SettingsComponent(props) {
     /**
      * props delivered from SettingsContainer.
      */
-    const { onPressMyProfileMenu, onPressHrMonitoringMenu, onPressDeviceMenu } = props
+    const { onPressMyProfileMenu, onPressDeviceMenu } = props
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f6" }}>
@@ -27,11 +26,6 @@ export default function SettingsComponent(props) {
                         <RowItem
                             title={MY_PROFILE_STRING}
                             onPress={onPressMyProfileMenu}
-                        />
-                        <View style={styles.borderView} />
-                        <RowItem
-                            title={HR_MONITORING}
-                            onPress={onPressHrMonitoringMenu}
                         />
                         <View style={styles.borderView} />
                         <RowItem

@@ -264,44 +264,13 @@ const BleRepository = () => {
         logDebug(LOG_TAG, "<<< received characteristic custom message - end")
         logDebug(LOG_TAG, "-----------------------------------------------------------------------")
 
-        /*
-         * extract the last byte value for checking its type.
-         */
-        const lastByteValue = bleCustomBytes[bleCustomBytesLength - 1]
-
-        /*
-         * additional processing is performed only when the data length is valid 
-         * and the value of the last byte of the data is a suffix indicating notification (3) or status information (4).
-         */
-        if (bleCustomBytesLength > 0
-            && (lastByteValue == BLE_NOTIFICATION_SUFFIX    // 3
-                || lastByteValue == BLE_STATUS_INFO_SUFFIX  // 4
-                || bleLogEnabled)) {
-
-            // check if the protocol version corresponds to the pairing version.
-            if (bleCustomBytes[BLE_PROTOCOL_VERSION_INDEX] == BLE_PAIRING_VERSION) {
-
-                // check if pairing's result is success.
-                const pairingResult = bleCustomBytes[BLE_PAIRING_RESULT_INDEX] == BLE_PAIRING_RESULT_SUCCESS
-                logDebug(LOG_TAG, "<<< ble pairing success: " + pairingResult)
-
-                setBleAuthResultState(pairingResult)
-
-            } else {
-                logDebug("<<< received device status / notification information")
-
-
-            }
-
-            // State change logic for log display in hidden menu.
-            setBleCharacteristcChange(
-                "1. [Bytes]: " + bleCustomBytes + "\n\n"
-                + "2. [Hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n"
-                + "3. [Category]: " + this.getCategory(bleCustomBytes) + "\n"
-                + "4. [Result]: " + this.getCategoryResult(bleCustomBytes) + "\n"
-                + "5. [String]: " + bytesToString(bleCustomBytes) + "\n"
-            )
-        }
+        setBleCharacteristcChange(
+            "1. [Bytes]: " + bleCustomBytes + "\n\n"
+            + "2. [Hex]: " + convertBleCustomToHexData(bleCustomBytes) + "\n"
+            + "3. [Category]: " + this.getCategory(bleCustomBytes) + "\n"
+            + "4. [Result]: " + this.getCategoryResult(bleCustomBytes) + "\n"
+            + "5. [String]: " + bytesToString(bleCustomBytes) + "\n"
+        )
     }
 
     /**
