@@ -38,6 +38,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/18 : (3rd) Added platform functions (SMS / PhoneCall directly).
 - 2022/11/21 : Added authentication response handler.
 - 2023/01/04 : Re-arrange entire source code. (cannot build)
+- 2023/01/04 : Delete unused source code / files.
 
 
 ## How To Setup Environment
