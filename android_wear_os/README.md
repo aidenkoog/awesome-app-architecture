@@ -11,7 +11,8 @@ It is written based on Kotlin.
   - ✨ Di
   - ✨ Domain
   - ✨ Presentation
-  - ✨ Util
+  - ✨ Services
+  - ✨ Utils
 
 ## Release Note
 
