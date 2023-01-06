@@ -17,6 +17,7 @@ It is written based on Kotlin.
 ## Release Note
 
 - 2022/01/05 : Initialize App source template.
+- 2022/01/06 : Setup splash, login, home and setting screens.
 
 ## Link
 
