@@ -14,7 +14,6 @@ import io.github.aidenkoog.android_wear_os.databinding.FragmentSettingMainBindin
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.setting.viewmodel.SettingMainViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
-import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
 class SettingMainFragment : BaseFragment() {
     private var viewDataBinding: FragmentSettingMainBinding? = null
@@ -34,7 +33,18 @@ class SettingMainFragment : BaseFragment() {
         viewDataBinding?.setVariable(BR.settingMainViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
         loadingLottieView = viewDataBinding?.loadingLottieView!!
+
+        registerBackPressedCallback()
         return viewDataBinding?.root!!
+    }
+
+    override fun onHandleBackPressed() {
+        super.onHandleBackPressed()
+        handleBackPress()
+    }
+
+    private fun handleBackPress() {
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

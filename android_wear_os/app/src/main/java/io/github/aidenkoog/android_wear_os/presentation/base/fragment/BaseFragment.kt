@@ -32,5 +32,7 @@ open class BaseFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backPressedCallback)
     }
 
-    open fun onHandleBackPressed() {}
+    open fun onHandleBackPressed() {
+        Logger.d("onHandleBackPressed:")
+    }
 }

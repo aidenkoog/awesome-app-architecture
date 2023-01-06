@@ -15,7 +15,6 @@ import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHomeMainBinding
 import io.github.aidenkoog.android_wear_os.domain.model.HomeCard
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
-import io.github.aidenkoog.android_wear_os.presentation.home.activity.HomeActivity
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.HomeMainViewModel
 import io.github.aidenkoog.android_wear_os.presentation.setting.activity.SettingActivity

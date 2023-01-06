@@ -35,7 +35,18 @@ class LoginFragment : BaseFragment() {
         viewDataBinding?.setVariable(BR.loginViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
         loadingLottieView = viewDataBinding?.loadingLottieView!!
+
+        registerBackPressedCallback()
         return viewDataBinding?.root!!
+    }
+
+    override fun onHandleBackPressed() {
+        super.onHandleBackPressed()
+        handleBackPress()
+    }
+
+    private fun handleBackPress() {
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

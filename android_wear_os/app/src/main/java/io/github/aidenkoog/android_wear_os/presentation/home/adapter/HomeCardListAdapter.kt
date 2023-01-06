@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.orhanobut.logger.Logger
@@ -29,13 +30,14 @@ class HomeCardListAdapter(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         @SuppressLint("SetTextI18n")
         fun bind(position: Int) {
-            val homeCardTitle = itemView.findViewById<TextView>(R.id.homecard_title)
+            val homeCardIcon = itemView.findViewById<ImageView>(R.id.homecard_icon)
+            homeCardIcon.setImageResource(homeCardList[position].imageRes)
 
+            val homeCardTitle = itemView.findViewById<TextView>(R.id.homecard_title)
             homeCardTitle.text = homeCardList[position].title
+
             itemView.setOnClickListener {
-                itemClickListener?.let {
-                    it.onItemClick(position, null)
-                }
+                itemClickListener?.onItemClick(position, null)
             }
         }
     }

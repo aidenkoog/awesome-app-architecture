@@ -10,16 +10,25 @@
         android:id="@+id/homecard_title"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/basic_btn_bg"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="13dp"
         android:textStyle="bold"
-        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlHardcoded,SpUsage" />
+
+    <ImageView
+        android:id="@+id/homecard_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/homecard_title"
+        app:layout_constraintLeft_toLeftOf="@id/homecard_title"
+        app:layout_constraintTop_toTopOf="@id/homecard_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
