@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import io.github.aidenkoog.android_wear_os.data.sources.local.AppDatabase
 import io.github.aidenkoog.android_wear_os.data.sources.remote.rest.RetrofitService
-import io.github.aidenkoog.android_wear_os.utils.Constants.BASE_URL
+import io.github.aidenkoog.android_wear_os.utils.constants.Constants.BASE_URL
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

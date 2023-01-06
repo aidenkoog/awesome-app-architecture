@@ -9,22 +9,98 @@ android {
     namespace 'io.github.aidenkoog.android_wear_os'
     compileSdk 33
 
+    /* App signing key information */
+    signingConfigs {
+        aidenkoog {
+            storeFile file('../keystore/android_aidenkoog_appkey.jks')
+            storePassword "aidenkoog0000"
+            keyAlias "android_aidenkoog"
+            keyPassword "aidenkoog0000"
+        }
+    }
+
     defaultConfig {
         applicationId "io.github.aidenkoog.android_wear_os"
         minSdk 30
         targetSdk 33
+        /*
+         * -----------------------------------------------------------------------------------------
+         * major.minor.hotfix description
+         * 1) major (feature) : feature adding
+         * 2) minor (major) : critical modification
+         * 3) hotfix
+         * -----------------------------------------------------------------------------------------
+         */
         versionCode 100
         versionName "1.0.0"
     }
 
+    /* ---------------------------------------------------------------------------------------------
+     * Build type
+     * 1) release
+     * 2) debug
+     * 3) stage
+     * --------------------------------------------------------------------------------------------*/
     buildTypes {
         release {
+            debuggable true
+            applicationIdSuffix ""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
+            buildConfigField("String", "URL_TCP", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture"]
+        }
+        debug {
+            applicationIdSuffix ".dev"
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
+            buildConfigField("String", "URL_TCP", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture DEV"]
+        }
+        stage {
+            debuggable true
+            applicationIdSuffix ".qa"
+            signingConfig signingConfigs.aidenkoog
+            buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
+            buildConfigField("String", "URL_TCP", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture STAGE"]
         }
     }
+
+    // Enable data binding option
+    android.buildFeatures.dataBinding = true
+
     buildFeatures {
         viewBinding true
+    }
+
+    /*
+     * This data is combined with the build type data.
+     * As a result, you can see the build variant below.
+     * 1) krDebug, 2) krStage, 3) krRelease
+     */
+    flavorDimensions "destination"
+    productFlavors {
+        kr {
+            dimension "destination"
+        }
+    }
+
+    // APK file's name
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "AndroidWearOsAppArchitecture"
+            def SEP = "_"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMdd_HHmm')
+            def newApkName = project + SEP + buildType.toUpperCase() + SEP + versionName + SEP + versionCode + SEP + formattedDate + ".apk"
+            outputFileName = new File(newApkName)
+        }
     }
 }
 
@@ -38,32 +114,48 @@ dependencies {
     implementation 'androidx.wear:wear:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
 
-    //rx-java
+    //Constraint layout
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //Rx-java
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.8.0"
 
-    //room
+    //Room
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-rxjava2:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
 
-    //hilt
+    //Hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-android-compiler:2.37"
 
-    //retrofit
+    //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    //okhttp
+    //Okhttp
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
 
-    //multidex
+    //Multidex
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //Logger
     implementation 'com.orhanobut:logger:2.2.0'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:5.1.1'
+
+    //Navigation UI
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    //Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
