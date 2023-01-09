@@ -45,7 +45,7 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-
+        finishActivity()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class SplashFragment : BaseFragment() {
         LottieUtil.setLottieRawResource(loadingLottieView, R.raw.loading)
         LottieUtil.setLottieSpeed(loadingLottieView, 1.2f)
         LottieUtil.addLottieAnimatorListener(loadingLottieView, lottieAnimationCallback)
-        LottieUtil.playLottie(loadingLottieView, 3000)
+        LottieUtil.playLottie(loadingLottieView, 1500)
     }
 
     private val lottieAnimationCallback = object : LottieUtil.LottieAnimatorListener {

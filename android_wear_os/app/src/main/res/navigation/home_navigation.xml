@@ -9,5 +9,42 @@
         android:id="@+id/homeMainFragment"
         android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.HomeMainFragment"
         android:label="HomeMainFragment"
-        tools:layout="@layout/fragment_home_main" />
+        tools:layout="@layout/fragment_home_main">
+        <action
+            android:id="@+id/action_homeMainFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
+        <action
+            android:id="@+id/action_homeMainFragment_to_sleepFragment"
+            app:destination="@id/sleepFragment" />
+        <action
+            android:id="@+id/action_homeMainFragment_to_hrFragment"
+            app:destination="@id/hrFragment" />
+        <action
+            android:id="@+id/action_homeMainFragment_to_rhrFragment"
+            app:destination="@id/rhrFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/stepFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.StepFragment"
+        android:label="StepFragment"
+        tools:layout="@layout/fragment_step" />
+
+    <fragment
+        android:id="@+id/sleepFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.SleepFragment"
+        android:label="SleepFragment"
+        tools:layout="@layout/fragment_sleep" />
+
+    <fragment
+        android:id="@+id/hrFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.HrFragment"
+        android:label="HrFragment"
+        tools:layout="@layout/fragment_hr" />
+
+    <fragment
+        android:id="@+id/rhrFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.RhrFragment"
+        android:label="RhrFragment"
+        tools:layout="@layout/fragment_rhr" />
 </navigation>

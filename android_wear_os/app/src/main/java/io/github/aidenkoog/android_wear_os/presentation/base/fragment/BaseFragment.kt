@@ -13,7 +13,7 @@ open class BaseFragment : Fragment() {
         (activity as BaseActivity).showSnackBar(message)
     }
 
-    open fun finish() {
+    open fun finishActivity() {
         requireActivity().finish()
     }
 

@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="loginViewModel"
-            type="io.github.aidenkoog.android_wear_os.presentation.intro.viewmodel.LoginViewModel" />
+            name="sleepViewModel"
+            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.SleepViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:gravity="center"
-            android:text="Authenticating..."
+            android:text="Sleep"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold"
@@ -30,8 +30,8 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/loading_lottie_view"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:background="@color/black"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="parent"

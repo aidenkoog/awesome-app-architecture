@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.wear.widget.WearableLinearLayoutManager
 import androidx.wear.widget.WearableRecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
@@ -16,8 +17,15 @@ import io.github.aidenkoog.android_wear_os.databinding.FragmentHomeMainBinding
 import io.github.aidenkoog.android_wear_os.domain.model.HomeCard
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_HR
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_RHR
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SETTING
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SLEEP
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_STEP
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.HomeMainViewModel
 import io.github.aidenkoog.android_wear_os.presentation.setting.activity.SettingActivity
+import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
+import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
 class HomeMainFragment : BaseFragment() {
     private var viewDataBinding: FragmentHomeMainBinding? = null
@@ -25,6 +33,8 @@ class HomeMainFragment : BaseFragment() {
 
     private lateinit var homeCardRecyclerView: WearableRecyclerView
     private lateinit var homeCardListAdapter: HomeCardListAdapter
+
+    private lateinit var loadingLottieView: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +47,7 @@ class HomeMainFragment : BaseFragment() {
         viewDataBinding = FragmentHomeMainBinding.inflate(inflater, container, false)
         viewDataBinding?.setVariable(BR.homeMainViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
+        loadingLottieView = viewDataBinding?.loadingLottieView!!
 
         initializeHomeCardList()
         registerBackPressedCallback()
@@ -49,12 +60,19 @@ class HomeMainFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-
+        finishActivity()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Logger.d("onViewCreated:")
+        startLottieAnimation()
+    }
+
+    private fun startLottieAnimation() {
+        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.home_loading)
+        LottieUtil.setLottieSpeed(loadingLottieView, 1.2f)
+        LottieUtil.playLottie(loadingLottieView)
     }
 
     private fun initializeHomeCardList() {
@@ -70,23 +88,46 @@ class HomeMainFragment : BaseFragment() {
 
     private fun getCardList(): ArrayList<HomeCard> {
         val homeCardList = ArrayList<HomeCard>()
-        homeCardList.add(HomeCard(R.drawable.circle_blue, "Step"))
-        homeCardList.add(HomeCard(R.drawable.circle_green, "Sleep"))
-        homeCardList.add(HomeCard(R.drawable.circle_orange, "HR"))
-        homeCardList.add(HomeCard(R.drawable.circle_red, "RHR"))
-        homeCardList.add(HomeCard(R.drawable.circle_yellow, "Setting"))
+        homeCardList.add(HomeCard(R.drawable.circle_item, "Step"))
+        homeCardList.add(HomeCard(R.drawable.circle_item, "Sleep"))
+        homeCardList.add(HomeCard(R.drawable.circle_item, "HR"))
+        homeCardList.add(HomeCard(R.drawable.circle_item, "RHR"))
+        homeCardList.add(HomeCard(R.drawable.circle_item, "Setting"))
         return homeCardList
     }
 
     private val homeCardItemClickCallback = object : HomeCardListAdapter.OnItemClickListener {
         override fun onItemClick(position: Int, extras: Bundle?) {
             Logger.d("onItemClick: position: $position")
-            if (position == 4) {
-                val intent = Intent(requireActivity(), SettingActivity::class.java)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                startActivity(intent)
-                requireActivity().finish()
+
+            when (position) {
+                POS_STEP -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_stepFragment
+                    )
+                }
+                POS_SLEEP -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_sleepFragment
+                    )
+                }
+                POS_HR -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_hrFragment
+                    )
+                }
+                POS_RHR -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_rhrFragment
+                    )
+                }
+                POS_SETTING -> {
+                    val intent = Intent(requireActivity(), SettingActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
             }
         }
     }

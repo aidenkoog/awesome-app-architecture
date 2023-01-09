@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android_wear_os.presentation.intro.fragment
+package io.github.aidenkoog.android_wear_os.presentation.home.fragment
 
 import android.animation.Animator
 import android.content.Intent
@@ -11,15 +11,16 @@ import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.databinding.FragmentLoginBinding
+import io.github.aidenkoog.android_wear_os.databinding.FragmentSleepBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.activity.HomeActivity
-import io.github.aidenkoog.android_wear_os.presentation.intro.viewmodel.LoginViewModel
+import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.SleepViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
+import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
-class LoginFragment : BaseFragment() {
-    private var viewDataBinding: FragmentLoginBinding? = null
-    private val viewModelData: LoginViewModel? by viewModels()
+class SleepFragment : BaseFragment() {
+    private var viewDataBinding: FragmentSleepBinding? = null
+    private val viewModelData: SleepViewModel? by viewModels()
 
     private lateinit var loadingLottieView: LottieAnimationView
 
@@ -31,8 +32,8 @@ class LoginFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = FragmentLoginBinding.inflate(inflater, container, false)
-        viewDataBinding?.setVariable(BR.loginViewModel, viewModelData)
+        viewDataBinding = FragmentSleepBinding.inflate(inflater, container, false)
+        viewDataBinding?.setVariable(BR.sleepViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
         loadingLottieView = viewDataBinding?.loadingLottieView!!
 
@@ -46,7 +47,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-        finishActivity()
+        NavigationUtil.popBackStack(view)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,10 +57,10 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun startLottieAnimation() {
-        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.login_loading)
+        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.setting_loading)
         LottieUtil.setLottieSpeed(loadingLottieView, 1.2f)
         LottieUtil.addLottieAnimatorListener(loadingLottieView, lottieAnimationCallback)
-        LottieUtil.playLottie(loadingLottieView, 1500)
+        LottieUtil.playLottie(loadingLottieView)
     }
 
     private val lottieAnimationCallback = object : LottieUtil.LottieAnimatorListener {
@@ -69,11 +70,6 @@ class LoginFragment : BaseFragment() {
 
         override fun onAnimationEnd(animator: Animator?) {
             Logger.i("End animation")
-            val intent = Intent(requireActivity(), HomeActivity::class.java)
-            intent.flags =
-                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-            requireActivity().finish()
         }
 
         override fun onAnimationCancel(animator: Animator?) {

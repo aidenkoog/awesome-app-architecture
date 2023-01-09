@@ -21,6 +21,7 @@ It is written based on Kotlin.
 - 2023/01/06 : Setup splash, login, home and setting screens.
 - 2023/01/06 : Added back-key event handler to each fragment / Added icon to each item of main list.
 - 2023/01/09 : Modified to go back to the home screen when pressing the back key on the setting screen / Added color icon to home main list item.
+- 2023/01/09 : Added health related screens.
 
 ## Link
 

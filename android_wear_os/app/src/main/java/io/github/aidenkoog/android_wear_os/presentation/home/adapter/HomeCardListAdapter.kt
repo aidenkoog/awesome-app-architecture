@@ -17,6 +17,14 @@ class HomeCardListAdapter(
     private val context: Context?, private var homeCardList: ArrayList<HomeCard>
 ) : RecyclerView.Adapter<HomeCardListAdapter.ViewHolder>() {
 
+    companion object {
+        const val POS_STEP = 0
+        const val POS_SLEEP = 1
+        const val POS_HR = 2
+        const val POS_RHR = 3
+        const val POS_SETTING = 4
+    }
+
     interface OnItemClickListener {
         fun onItemClick(position: Int, extras: Bundle?)
     }
