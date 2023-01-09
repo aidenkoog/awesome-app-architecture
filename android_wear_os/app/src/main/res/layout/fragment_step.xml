@@ -6,7 +6,7 @@
 
         <variable
             name="stepViewModel"
-            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.StepViewModel" />
+            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature.StepViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,7 +6,7 @@
 
         <variable
             name="rhrViewModel"
-            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.RhrViewModel" />
+            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature.RhrViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,9 +1,9 @@
-package io.github.aidenkoog.android_wear_os.presentation.home.viewmodel
+package io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature
 
 import androidx.lifecycle.MutableLiveData
 import io.github.aidenkoog.android_wear_os.presentation.base.viewmodel.BaseViewModel
 
-class RhrViewModel: BaseViewModel() {
+class StepViewModel: BaseViewModel() {
 
     val isLoaded = MutableLiveData<Boolean>()
 
@@ -12,6 +12,6 @@ class RhrViewModel: BaseViewModel() {
     }
 
     override fun getViewModelTag(): String {
-        return RhrViewModel::class.java.simpleName
+        return StepViewModel::class.java.simpleName
     }
 }

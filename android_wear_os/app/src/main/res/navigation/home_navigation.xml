@@ -22,29 +22,38 @@
         <action
             android:id="@+id/action_homeMainFragment_to_rhrFragment"
             app:destination="@id/rhrFragment" />
+        <action
+            android:id="@+id/action_homeMainFragment_to_hiddenFragment"
+            app:destination="@id/hiddenFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/stepFragment"
-        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.StepFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.feature.StepFragment"
         android:label="StepFragment"
         tools:layout="@layout/fragment_step" />
 
     <fragment
         android:id="@+id/sleepFragment"
-        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.SleepFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.feature.SleepFragment"
         android:label="SleepFragment"
         tools:layout="@layout/fragment_sleep" />
 
     <fragment
         android:id="@+id/hrFragment"
-        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.HrFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.feature.HrFragment"
         android:label="HrFragment"
         tools:layout="@layout/fragment_hr" />
 
     <fragment
         android:id="@+id/rhrFragment"
-        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.RhrFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.feature.RhrFragment"
         android:label="RhrFragment"
         tools:layout="@layout/fragment_rhr" />
+
+    <fragment
+        android:id="@+id/hiddenFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.hidden.HiddenFragment"
+        android:label="HiddenFragment"
+        tools:layout="@layout/fragment_hidden" />
 </navigation>

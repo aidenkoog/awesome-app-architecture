@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="hrViewModel"
-            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature.HrViewModel" />
+            name="hiddenViewModel"
+            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.hidden.HiddenViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:gravity="center"
-            android:text="HR"
+            android:text="Hidden Mode"
             android:textColor="@color/white"
             android:textSize="13dp"
             android:textStyle="bold"

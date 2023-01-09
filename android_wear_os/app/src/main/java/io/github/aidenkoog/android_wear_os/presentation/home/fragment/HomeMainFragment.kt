@@ -35,6 +35,7 @@ class HomeMainFragment : BaseFragment() {
     private lateinit var homeCardListAdapter: HomeCardListAdapter
 
     private lateinit var loadingLottieView: LottieAnimationView
+    private var isLongClick = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +99,10 @@ class HomeMainFragment : BaseFragment() {
 
     private val homeCardItemClickCallback = object : HomeCardListAdapter.OnItemClickListener {
         override fun onItemClick(position: Int, extras: Bundle?) {
+            if (isLongClick) {
+                isLongClick = false
+                return
+            }
             Logger.d("onItemClick: position: $position")
 
             when (position) {
@@ -127,6 +132,19 @@ class HomeMainFragment : BaseFragment() {
                         Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                     requireActivity().finish()
+                }
+            }
+        }
+
+        override fun onItemLongClick(position: Int, extras: Bundle?) {
+            Logger.d("onItemLongClick: position: $position")
+            isLongClick = true
+            when (position) {
+                POS_SETTING -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_hiddenFragment
+                    )
+                    isLongClick = false
                 }
             }
         }

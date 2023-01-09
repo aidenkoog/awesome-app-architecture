@@ -6,7 +6,7 @@
 
         <variable
             name="sleepViewModel"
-            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.SleepViewModel" />
+            type="io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature.SleepViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -27,6 +27,7 @@ class HomeCardListAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(position: Int, extras: Bundle?)
+        fun onItemLongClick(position: Int, extras: Bundle?)
     }
 
     private var itemClickListener: OnItemClickListener? = null
@@ -46,6 +47,10 @@ class HomeCardListAdapter(
 
             itemView.setOnClickListener {
                 itemClickListener?.onItemClick(position, null)
+            }
+            itemView.setOnLongClickListener {
+                itemClickListener?.onItemLongClick(position, null)
+                false
             }
         }
     }

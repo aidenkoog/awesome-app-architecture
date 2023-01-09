@@ -1,7 +1,6 @@
-package io.github.aidenkoog.android_wear_os.presentation.home.fragment
+package io.github.aidenkoog.android_wear_os.presentation.home.fragment.feature
 
 import android.animation.Animator
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,15 @@ import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.databinding.FragmentStepBinding
+import io.github.aidenkoog.android_wear_os.databinding.FragmentHrBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
-import io.github.aidenkoog.android_wear_os.presentation.home.activity.HomeActivity
-import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.StepViewModel
+import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.feature.HrViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
-class StepFragment : BaseFragment() {
-    private var viewDataBinding: FragmentStepBinding? = null
-    private val viewModelData: StepViewModel? by viewModels()
+class HrFragment : BaseFragment() {
+    private var viewDataBinding: FragmentHrBinding? = null
+    private val viewModelData: HrViewModel? by viewModels()
 
     private lateinit var loadingLottieView: LottieAnimationView
 
@@ -32,8 +30,8 @@ class StepFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = FragmentStepBinding.inflate(inflater, container, false)
-        viewDataBinding?.setVariable(BR.stepViewModel, viewModelData)
+        viewDataBinding = FragmentHrBinding.inflate(inflater, container, false)
+        viewDataBinding?.setVariable(BR.hrViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
         loadingLottieView = viewDataBinding?.loadingLottieView!!
 
