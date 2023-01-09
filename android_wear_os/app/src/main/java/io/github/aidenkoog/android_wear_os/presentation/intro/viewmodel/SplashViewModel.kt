@@ -5,9 +5,12 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import androidx.lifecycle.MutableLiveData
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.aidenkoog.android_wear_os.presentation.base.viewmodel.BaseViewModel
+import javax.inject.Inject
 
-class SplashViewModel : BaseViewModel() {
+@HiltViewModel
+class SplashViewModel @Inject constructor() : BaseViewModel() {
 
     val isLoaded = MutableLiveData<Boolean>()
 
@@ -52,8 +55,7 @@ class SplashViewModel : BaseViewModel() {
             manager.getPackageInfo(activity.packageName, PackageManager.GET_ACTIVITIES)
                 ?: return null
         Logger.d(
-            "PackageName = " + info.packageName + "\nVersionName = "
-                    + info.versionName + "\nPermissions = " + info.permissions
+            "PackageName = " + info.packageName + "\nVersionName = " + info.versionName + "\nPermissions = " + info.permissions
         )
         return info.versionName
     }

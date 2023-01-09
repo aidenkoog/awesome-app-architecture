@@ -23,6 +23,7 @@ It is written based on Kotlin.
 - 2023/01/09 : Modified to go back to the home screen when pressing the back key on the setting screen / Added color icon to home main list item.
 - 2023/01/09 : Added health related screens.
 - 2023/01/09 : Added hidden mode navigation / Added long click event handler.
+- 2023/01/09 : Added Hilt setup to view models.
 
 ## Link
 

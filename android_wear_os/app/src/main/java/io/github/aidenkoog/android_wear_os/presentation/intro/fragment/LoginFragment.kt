@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentLoginBinding
@@ -17,6 +18,7 @@ import io.github.aidenkoog.android_wear_os.presentation.home.activity.HomeActivi
 import io.github.aidenkoog.android_wear_os.presentation.intro.viewmodel.LoginViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment() {
     private var viewDataBinding: FragmentLoginBinding? = null
     private val viewModelData: LoginViewModel? by viewModels()

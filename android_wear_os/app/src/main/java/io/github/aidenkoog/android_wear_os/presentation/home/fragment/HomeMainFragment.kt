@@ -11,6 +11,7 @@ import androidx.wear.widget.WearableLinearLayoutManager
 import androidx.wear.widget.WearableRecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHomeMainBinding
@@ -27,6 +28,7 @@ import io.github.aidenkoog.android_wear_os.presentation.setting.activity.Setting
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
+@AndroidEntryPoint
 class HomeMainFragment : BaseFragment() {
     private var viewDataBinding: FragmentHomeMainBinding? = null
     private val viewModelData: HomeMainViewModel? by viewModels()

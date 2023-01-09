@@ -3,11 +3,13 @@ package io.github.aidenkoog.android_wear_os.presentation.intro.activity
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Bundle
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BuildConfig
 import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.presentation.base.activity.BaseActivity
 import io.github.aidenkoog.android_wear_os.utils.utils.FileLogUtil
 
+@AndroidEntryPoint
 class IntroActivity: BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

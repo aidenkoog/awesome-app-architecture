@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHiddenBinding
@@ -16,6 +17,7 @@ import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.hidden.Hi
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 
+@AndroidEntryPoint
 class HiddenFragment : BaseFragment() {
     private var viewDataBinding: FragmentHiddenBinding? = null
     private val viewModelData: HiddenViewModel? by viewModels()
