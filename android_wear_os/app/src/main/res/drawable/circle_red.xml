@@ -4,5 +4,5 @@
     android:shape="rectangle">
     <corners android:radius="@dimen/homecard_item_radius" />
     <solid android:color="@color/red"/>
-    <size android:width="@dimen/homecard_item_width" android:height="@dimen/homecard_item_height"/>
+    <size android:width="@dimen/homecard_image_width" android:height="@dimen/homecard_image_height"/>
 </shape>

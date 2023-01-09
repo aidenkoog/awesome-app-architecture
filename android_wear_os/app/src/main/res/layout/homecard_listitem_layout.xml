@@ -24,9 +24,10 @@
 
     <ImageView
         android:id="@+id/homecard_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_marginLeft="5dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/homecard_title"
         app:layout_constraintLeft_toLeftOf="@id/homecard_title"
         app:layout_constraintTop_toTopOf="@id/homecard_title" />

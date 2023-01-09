@@ -15,5 +15,8 @@
 
     <dimen name="homecard_item_width">150dp</dimen>
     <dimen name="homecard_item_height">50dp</dimen>
+
+    <dimen name="homecard_image_width">15dp</dimen>
+    <dimen name="homecard_image_height">15dp</dimen>
     <dimen name="homecard_item_radius">15dp</dimen>
 </resources>

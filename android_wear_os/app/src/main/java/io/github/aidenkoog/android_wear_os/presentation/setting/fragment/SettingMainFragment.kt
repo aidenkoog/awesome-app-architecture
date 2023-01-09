@@ -1,6 +1,7 @@
 package io.github.aidenkoog.android_wear_os.presentation.setting.fragment
 
 import android.animation.Animator
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentSettingMainBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
+import io.github.aidenkoog.android_wear_os.presentation.home.activity.HomeActivity
 import io.github.aidenkoog.android_wear_os.presentation.setting.viewmodel.SettingMainViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 
@@ -44,7 +46,11 @@ class SettingMainFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-
+        val intent = Intent(requireActivity(), HomeActivity::class.java)
+        intent.flags =
+            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

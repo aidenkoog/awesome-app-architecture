@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+    android:shape="oval">
     <corners android:radius="@dimen/homecard_item_radius" />
-    <solid android:color="#22a2ff"/>
-    <size android:width="@dimen/homecard_item_width" android:height="@dimen/homecard_item_height"/>
+    <solid android:color="#22a299"/>
+    <size android:width="@dimen/homecard_image_width" android:height="@dimen/homecard_image_height"/>
 </shape>
