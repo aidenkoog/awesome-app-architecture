@@ -58,7 +58,7 @@ class LoginFragment : BaseFragment() {
     }
 
     private fun startLottieAnimation() {
-        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.login_loading)
+        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.setting_loading)
         LottieUtil.setLottieSpeed(loadingLottieView, 1.2f)
         LottieUtil.addLottieAnimatorListener(loadingLottieView, lottieAnimationCallback)
         LottieUtil.playLottie(loadingLottieView, 1500)

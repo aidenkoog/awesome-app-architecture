@@ -29,7 +29,6 @@ class MainApplication : Application(), Application.ActivityLifecycleCallbacks {
         super.onCreate()
 
         /**
-         * Study - 2023/01/05
          * Android runs on top of JVM-based ART.
          * To run on top of ART, Android code is compiled into dex files.
          * The number of methods cannot exceed 64k (65536).

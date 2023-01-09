@@ -3,15 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.github.aidenkoog.android_wear_os">
 
+    <uses-feature android:name="android.hardware.type.watch" />
+
+    <!-- For receiving exercise metrics. -->
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
+    <!-- For ambient mode. -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- For network -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- For storage access -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    <!-- For showing an ongoing notification. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <queries>
+        <package android:name="com.google.android.wearable.healthservices" />
+    </queries>
 
     <application
         android:name=".app.MainApplication"
@@ -24,14 +42,12 @@
             android:name="com.google.android.wearable"
             android:required="true" />
 
-        <!--
-               Set to true if your app is Standalone, that is, it does not require the handheld
-               app to run.
-        -->
+        <!-- Set to true if your app is Standalone, that is, it does not require the handheld app to run. -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
+        <!-- First activity -->
         <activity
             android:name=".presentation.intro.activity.IntroActivity"
             android:exported="true">
@@ -44,6 +60,11 @@
 
         <activity android:name=".presentation.home.activity.HomeActivity" />
         <activity android:name=".presentation.setting.activity.SettingActivity" />
-    </application>
 
+        <!-- Add foreground service location permission for exercise tracking -->
+        <service
+            android:name=".services.ExerciseService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+    </application>
 </manifest>

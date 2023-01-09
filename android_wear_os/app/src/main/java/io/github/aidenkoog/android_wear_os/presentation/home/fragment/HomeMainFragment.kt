@@ -18,6 +18,7 @@ import io.github.aidenkoog.android_wear_os.databinding.FragmentHomeMainBinding
 import io.github.aidenkoog.android_wear_os.domain.model.HomeCard
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_HEALTH_SERVICE
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_HR
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_RHR
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SETTING
@@ -73,7 +74,7 @@ class HomeMainFragment : BaseFragment() {
     }
 
     private fun startLottieAnimation() {
-        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.home_loading)
+        LottieUtil.setLottieRawResource(loadingLottieView, R.raw.setting_loading)
         LottieUtil.setLottieSpeed(loadingLottieView, 1.2f)
         LottieUtil.playLottie(loadingLottieView)
     }
@@ -91,11 +92,17 @@ class HomeMainFragment : BaseFragment() {
 
     private fun getCardList(): ArrayList<HomeCard> {
         val homeCardList = ArrayList<HomeCard>()
-        homeCardList.add(HomeCard(R.drawable.circle_item, "Step"))
-        homeCardList.add(HomeCard(R.drawable.circle_item, "Sleep"))
-        homeCardList.add(HomeCard(R.drawable.circle_item, "HR"))
-        homeCardList.add(HomeCard(R.drawable.circle_item, "RHR"))
-        homeCardList.add(HomeCard(R.drawable.circle_item, "Setting"))
+        homeCardList.add(
+            HomeCard(
+                R.drawable.circle_item,
+                getString(R.string.home_item_health_service)
+            )
+        )
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_step)))
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_sleep)))
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_hr)))
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_rhr)))
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_setting)))
         return homeCardList
     }
 
@@ -108,6 +115,11 @@ class HomeMainFragment : BaseFragment() {
             Logger.d("onItemClick: position: $position")
 
             when (position) {
+                POS_HEALTH_SERVICE -> {
+                    NavigationUtil.navigateScreen(
+                        view, R.id.action_homeMainFragment_to_healthServiceSplashFragment
+                    )
+                }
                 POS_STEP -> {
                     NavigationUtil.navigateScreen(
                         view, R.id.action_homeMainFragment_to_stepFragment

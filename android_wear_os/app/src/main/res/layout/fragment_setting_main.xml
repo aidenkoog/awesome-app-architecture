@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="Settings"
             android:textColor="@color/white"
-            android:textSize="13dp"
+            android:textSize="@dimen/screen_title_text_size"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

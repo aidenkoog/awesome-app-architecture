@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android_wear_os.presentation.intro.fragment
+package io.github.aidenkoog.android_wear_os.presentation.home.fragment.health_service
 
 import android.animation.Animator
 import android.os.Bundle
@@ -6,23 +6,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.databinding.FragmentSplashBinding
+import io.github.aidenkoog.android_wear_os.data.repositories.HealthServicesManager
+import io.github.aidenkoog.android_wear_os.databinding.FragmentHealthServiceSplashBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
-import io.github.aidenkoog.android_wear_os.presentation.intro.viewmodel.SplashViewModel
+import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.health_service.HealthServiceViewModel
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class SplashFragment : BaseFragment() {
-    private var viewDataBinding: FragmentSplashBinding? = null
-    private val viewModelData: SplashViewModel? by viewModels()
+class HealthServiceSplashFragment : BaseFragment() {
+    private var viewDataBinding: FragmentHealthServiceSplashBinding? = null
+    private val viewModelData: HealthServiceViewModel? by viewModels()
 
     private lateinit var loadingLottieView: LottieAnimationView
+
+    @Inject
+    lateinit var healthServicesManager: HealthServicesManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +41,8 @@ class SplashFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = FragmentSplashBinding.inflate(inflater, container, false)
-        viewDataBinding?.setVariable(BR.splashViewModel, viewModelData)
+        viewDataBinding = FragmentHealthServiceSplashBinding.inflate(inflater, container, false)
+        viewDataBinding?.setVariable(BR.healthServiceViewModel, viewModelData)
         viewDataBinding?.executePendingBindings()
         loadingLottieView = viewDataBinding?.loadingLottieView!!
 
@@ -47,7 +56,7 @@ class SplashFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-        finishActivity()
+        NavigationUtil.popBackStack(view)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,7 +79,16 @@ class SplashFragment : BaseFragment() {
 
         override fun onAnimationEnd(animator: Animator?) {
             Logger.i("End animation")
-            NavigationUtil.navigateScreen(view, R.id.action_splashFragment_to_loginFragment)
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    val action = if (healthServicesManager.hasExerciseCapability()) {
+                        R.id.action_healthServiceSplashFragment_to_healthServicePrepareFragment
+                    } else {
+                        R.id.action_healthServiceSplashFragment_to_healthServiceNotAvailableFragment
+                    }
+                    NavigationUtil.navigateScreen(getView(), action)
+                }
+            }
         }
 
         override fun onAnimationCancel(animator: Animator?) {
@@ -80,7 +98,6 @@ class SplashFragment : BaseFragment() {
         override fun onAnimationRepeat(animator: Animator?) {
             Logger.i("Repeated animation")
         }
-
     }
 
     private fun setDataObserver() {

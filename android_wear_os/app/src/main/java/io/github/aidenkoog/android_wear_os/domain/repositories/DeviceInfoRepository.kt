@@ -6,4 +6,6 @@ import io.reactivex.Single
 interface DeviceInfoRepository {
     fun getDevices(): ArrayList<String>?
     fun getDevice(id: Long?): Single<DeviceInfo>?
+
+
 }

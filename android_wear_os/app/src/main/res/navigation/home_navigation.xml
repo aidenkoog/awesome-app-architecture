@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeMainFragment_to_hiddenFragment"
             app:destination="@id/hiddenFragment" />
+        <action
+            android:id="@+id/action_homeMainFragment_to_healthServiceSplashFragment"
+            app:destination="@id/healthServiceSplashFragment" />
     </fragment>
 
     <fragment
@@ -56,4 +59,39 @@
         android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.hidden.HiddenFragment"
         android:label="HiddenFragment"
         tools:layout="@layout/fragment_hidden" />
+
+    <fragment
+        android:id="@+id/healthServiceSplashFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.health_service.HealthServiceSplashFragment"
+        android:label="HealthServiceSplashFragment"
+        tools:layout="@layout/fragment_health_service_splash">
+        <action
+            android:id="@+id/action_healthServiceSplashFragment_to_healthServicePrepareFragment"
+            app:destination="@id/healthServicePrepareFragment" />
+        <action
+            android:id="@+id/action_healthServiceSplashFragment_to_healthServiceNotAvailableFragment"
+            app:destination="@id/healthServiceNotAvailableFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthServiceNotAvailableFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.health_service.HealthServiceNoAvailableFragment"
+        android:label="HealthServiceNotAvailableFragment"
+        tools:layout="@layout/fragment_health_service_not_available" />
+
+    <fragment
+        android:id="@+id/healthServicePrepareFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.health_service.HealthServicePrepareFragment"
+        android:label="HealthServicePrepareFragment"
+        tools:layout="@layout/fragment_health_service_preparing">
+        <action
+            android:id="@+id/action_healthServicePrepareFragment_to_healthServiceExerciseFragment"
+            app:destination="@id/healthServiceExerciseFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthServiceExerciseFragment"
+        android:name="io.github.aidenkoog.android_wear_os.presentation.home.fragment.health_service.HealthServiceExerciseFragment"
+        android:label="HealthServiceExerciseFragment"
+        tools:layout="@layout/fragment_health_service_exercise" />
 </navigation>

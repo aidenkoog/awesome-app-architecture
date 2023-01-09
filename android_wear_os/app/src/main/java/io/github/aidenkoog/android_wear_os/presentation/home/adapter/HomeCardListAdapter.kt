@@ -18,11 +18,12 @@ class HomeCardListAdapter(
 ) : RecyclerView.Adapter<HomeCardListAdapter.ViewHolder>() {
 
     companion object {
-        const val POS_STEP = 0
-        const val POS_SLEEP = 1
-        const val POS_HR = 2
-        const val POS_RHR = 3
-        const val POS_SETTING = 4
+        const val POS_HEALTH_SERVICE = 0
+        const val POS_STEP = 1
+        const val POS_SLEEP = 2
+        const val POS_HR = 3
+        const val POS_RHR = 4
+        const val POS_SETTING = 5
     }
 
     interface OnItemClickListener {
