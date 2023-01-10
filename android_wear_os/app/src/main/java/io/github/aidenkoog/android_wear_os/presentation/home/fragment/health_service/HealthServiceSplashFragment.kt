@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.services.health_service.HealthServicesManager
+import io.github.aidenkoog.android_wear_os.services.health.HealthServicesManager
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHealthServiceSplashBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.health_service.HealthServiceViewModel
@@ -29,6 +29,7 @@ class HealthServiceSplashFragment : BaseFragment() {
     private val viewModelData: HealthServiceViewModel? by viewModels()
 
     private lateinit var loadingLottieView: LottieAnimationView
+    private var isLottieCancelTriggered = false
 
     @Inject
     lateinit var healthServicesManager: HealthServicesManager
@@ -56,6 +57,10 @@ class HealthServiceSplashFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
+        if (LottieUtil.isLottieAnimating(loadingLottieView)) {
+            isLottieCancelTriggered = true
+            LottieUtil.cancelLottie(loadingLottieView)
+        }
         NavigationUtil.popBackStack(view)
     }
 
@@ -79,15 +84,22 @@ class HealthServiceSplashFragment : BaseFragment() {
 
         override fun onAnimationEnd(animator: Animator?) {
             Logger.i("End animation")
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    val action = if (healthServicesManager.hasExerciseCapability()) {
-                        R.id.action_healthServiceSplashFragment_to_healthServicePrepareFragment
-                    } else {
-                        R.id.action_healthServiceSplashFragment_to_healthServiceNotAvailableFragment
+            if (isLottieCancelTriggered) {
+                return
+            }
+            try {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        val action = if (healthServicesManager.hasExerciseCapability()) {
+                            R.id.action_healthServiceSplashFragment_to_healthServicePrepareFragment
+                        } else {
+                            R.id.action_healthServiceSplashFragment_to_healthServiceNotAvailableFragment
+                        }
+                        NavigationUtil.navigateScreen(getView(), action)
                     }
-                    NavigationUtil.navigateScreen(getView(), action)
                 }
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
             }
         }
 

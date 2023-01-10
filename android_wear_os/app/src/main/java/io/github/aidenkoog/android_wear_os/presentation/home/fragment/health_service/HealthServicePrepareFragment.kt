@@ -19,8 +19,8 @@ import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHealthServicePreparingBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.health_service.HealthServiceViewModel
-import io.github.aidenkoog.android_wear_os.services.health_service.ExerciseService
-import io.github.aidenkoog.android_wear_os.services.health_service.ExerciseServiceConnection
+import io.github.aidenkoog.android_wear_os.services.health.ExerciseService
+import io.github.aidenkoog.android_wear_os.services.health.ExerciseServiceConnection
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 import kotlinx.coroutines.launch

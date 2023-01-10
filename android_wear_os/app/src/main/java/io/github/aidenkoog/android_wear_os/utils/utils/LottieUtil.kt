@@ -34,7 +34,7 @@ object LottieUtil {
             }
             CoroutineScope(Dispatchers.Main).launch {
                 view.cancelAnimation()
-                view.visibility = View.GONE
+                view.visibility = View.INVISIBLE
             }
         }
     }
@@ -46,7 +46,7 @@ object LottieUtil {
     fun cancelLottie(view: LottieAnimationView) {
         Logger.d("cancelLottie!")
         view.cancelAnimation()
-        view.visibility = View.GONE
+        view.visibility = View.INVISIBLE
     }
 
     fun cancelLottieWithInvisible(view: LottieAnimationView) {

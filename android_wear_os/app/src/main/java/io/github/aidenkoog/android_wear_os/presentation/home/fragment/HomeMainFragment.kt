@@ -64,6 +64,7 @@ class HomeMainFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
+        Logger.i("back button is pressed.")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -142,7 +143,9 @@ class HomeMainFragment : BaseFragment() {
                 POS_SETTING -> {
                     val intent = Intent(requireActivity(), SettingActivity::class.java)
                     intent.flags =
-                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        Intent.FLAG_ACTIVITY_NEW_TASK or
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                     requireActivity().finish()
                 }

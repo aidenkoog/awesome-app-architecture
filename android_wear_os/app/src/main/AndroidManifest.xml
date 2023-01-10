@@ -75,16 +75,18 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity android:name=".presentation.setting.activity.SettingActivity" />
 
         <!-- Add foreground service location permission for exercise tracking -->
         <service
-            android:name="io.github.aidenkoog.android_wear_os.services.health_service.ExerciseService"
+            android:name="io.github.aidenkoog.android_wear_os.services.health.ExerciseService"
             android:exported="false"
             android:foregroundServiceType="location" />
 
+        <!-- Watch Face Service -->
         <service
-            android:name=".services.watch_face.AnalogWatchFaceService"
+            android:name=".services.watchface.AnalogWatchFaceService"
             android:directBootAware="true"
             android:exported="true"
             android:label="@string/analog_watch_face_name"
@@ -112,8 +114,9 @@
                 android:value="true" />
         </service>
 
+        <!-- Watch Face Configuration Activity -->
         <activity
-            android:name=".services.watch_face.editor.WatchFaceConfigActivity"
+            android:name=".services.watchface.editor.WatchFaceConfigActivity"
             android:exported="true"
             android:label="@string/title_activity_watch_face_config">
 
@@ -121,6 +124,53 @@
                 <action android:name="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
 
                 <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- TileService 1 -->
+        <service
+            android:name=".services.tile.guide.GuideTileService"
+            android:description="@string/hello_tile_description"
+            android:exported="true"
+            android:icon="@drawable/ic_waving_hand_24"
+            android:label="@string/hello_tile_label"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <!-- The tile preview shown when configuring tiles on your phone -->
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/tile_hello" />
+        </service>
+
+        <!-- TileService 2 -->
+        <service
+            android:name=".services.tile.messaging.tile.MessagingTileService"
+            android:description="@string/tile_description"
+            android:exported="true"
+            android:icon="@drawable/ic_message_24"
+            android:label="@string/tile_label"
+            android:permission="com.google.android.wearable.permission.BIND_TILE_PROVIDER">
+            <intent-filter>
+                <action android:name="androidx.wear.tiles.action.BIND_TILE_PROVIDER" />
+            </intent-filter>
+
+            <!-- The tile preview shown when configuring tiles on your phone -->
+            <meta-data
+                android:name="androidx.wear.tiles.PREVIEW"
+                android:resource="@drawable/tile_messaging" />
+        </service>
+
+        <!-- TileService 2 Activity -->
+        <activity
+            android:name=".services.tile.messaging.MainActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
+            <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -125,4 +125,15 @@
     <string name="activity_config_screenshot_content_description">Screenshot of Watch Face</string>
     <string name="activity_config_complication_button_right_content_description">Button to edit the right complication data</string>
     <string name="activity_config_complication_button_left_content_description">Button to edit the left complication data</string>
+
+    <!--
+        [ Custom Tile Service ]
+    -->
+    <string name="tile_description">Shows conversations</string>
+    <string name="tile_label">Conversations</string>
+    <string name="tile_messaging_create_new">New</string>
+    <string name="tile_messaging_search">Search</string>
+    <string name="hello_tile_label">Guide Tile</string>
+    <string name="hello_tile_description">First Tile</string>
+    <string name="hello_tile_body">Default Guide Tile</string>
 </resources>
