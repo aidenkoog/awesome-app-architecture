@@ -3,6 +3,7 @@
     <!--
         [ Custom Watch Launcher ]
     -->
+    <string name="license_screen_title">Open Source Licenses</string>
     <string name="app_name">Custom Watch Launcher</string>
     <string name="hello_world">Custom Watch Launcher</string>
     <string name="screen_title_loading">Loading…</string>

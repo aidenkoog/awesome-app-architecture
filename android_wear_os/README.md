@@ -8,12 +8,34 @@ It is written based on Kotlin.
 - Language: Kotlin
 - Structure Summary
   - ✨ App
+
   - ✨ Data
+    - ✨ Mapper
+    - ✨ Repositories
+    - ✨ Sources
+
   - ✨ Di
+
   - ✨ Domain
+    - ✨ Model
+    - ✨ Repositories
+    - ✨ UseCases
+
   - ✨ Presentation
+    - ✨ Base
+    - ✨ Home
+    - ✨ Intro
+    - ✨ Setting
+
   - ✨ Services
+    - ✨ Fcm
+    - ✨ Health
+    - ✨ Tile
+    - ✨ WatchFace
+
   - ✨ Utils
+    - ✨ Utils
+    - ✨ Constants
 
 ## Release Note
 
@@ -28,6 +50,7 @@ It is written based on Kotlin.
 - 2023/01/10 : Added Watch face service.
 - 2023/01/10 : Added Watch tile service. (SuspendingTileService, Compose UI)
 - 2023/01/10 : Added Firebase modules / Fixed isse that crash occurs when back to home from health service screen / Added time format util / Added android unit test folder hierarchy.
+- 2023/01/11 : Added Open source license gathering module & UI.
 
 ## Link
 

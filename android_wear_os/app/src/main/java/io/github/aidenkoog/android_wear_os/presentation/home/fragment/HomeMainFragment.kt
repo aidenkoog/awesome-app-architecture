@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.wear.widget.WearableLinearLayoutManager
 import androidx.wear.widget.WearableRecyclerView
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
@@ -20,6 +21,7 @@ import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragme
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_HEALTH_SERVICE
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_HR
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_LICENSES
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_RHR
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SETTING
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SLEEP
@@ -142,6 +144,16 @@ class HomeMainFragment : BaseFragment() {
                 }
                 POS_SETTING -> {
                     val intent = Intent(requireActivity(), SettingActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_NEW_TASK or
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    startActivity(intent)
+                    requireActivity().finish()
+                }
+                POS_LICENSES -> {
+                    OssLicensesMenuActivity.setActivityTitle(getString(R.string.license_screen_title))
+                    val intent = Intent(requireActivity(), OssLicensesMenuActivity::class.java)
                     intent.flags =
                         Intent.FLAG_ACTIVITY_NEW_TASK or
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or

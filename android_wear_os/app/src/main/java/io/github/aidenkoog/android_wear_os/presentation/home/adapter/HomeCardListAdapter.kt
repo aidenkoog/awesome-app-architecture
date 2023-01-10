@@ -24,6 +24,7 @@ class HomeCardListAdapter(
         const val POS_HR = 3
         const val POS_RHR = 4
         const val POS_SETTING = 5
+        const val POS_LICENSES = 6
     }
 
     interface OnItemClickListener {
