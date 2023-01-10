@@ -49,8 +49,9 @@ It is written based on Kotlin.
 - 2023/01/09 : Added Health service & UI (Draft 1 - Splash > Auth > Home > Health Service)
 - 2023/01/10 : Added Watch face service.
 - 2023/01/10 : Added Watch tile service. (SuspendingTileService, Compose UI)
-- 2023/01/10 : Added Firebase modules / Fixed isse that crash occurs when back to home from health service screen / Added time format util / Added android unit test folder hierarchy.
-- 2023/01/11 : Added Open source license gathering module & UI.
+- 2023/01/10 : Added Firebase modules / Fixed issue that crash occurs when back to home from health service screen / Added time format util / Added android unit test folder hierarchy.
+- 2023/01/10 : Added Open source license gathering module & UI.
+- 2023/01/10 : Fixed build error caused by firebase modules / issue that license ui is not shown in home list.
 
 ## Link
 

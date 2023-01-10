@@ -105,6 +105,7 @@ class HomeMainFragment : BaseFragment() {
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_hr)))
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_rhr)))
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_setting)))
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_licenses)))
         return homeCardList
     }
 

@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'com.google.gms.google-services'
     id 'com.google.android.gms.oss-licenses-plugin'
+    id 'com.google.firebase.firebase-perf'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -45,21 +47,20 @@ android {
      * --------------------------------------------------------------------------------------------*/
     buildTypes {
         release {
-            debuggable true
             applicationIdSuffix ""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
             buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture"]
+            manifestPlaceholders = [appLabel: "Android Wear OS App"]
         }
         debug {
             applicationIdSuffix ""
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
             buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture DEV"]
+            manifestPlaceholders = [appLabel: "Android Wear OS App DEV"]
         }
         stage {
             debuggable true
@@ -67,7 +68,7 @@ android {
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
             buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android Wear OS App Architecture STAGE"]
+            manifestPlaceholders = [appLabel: "Android Wear OS App STAGE"]
         }
     }
 
@@ -108,12 +109,12 @@ android {
     // APK file's name
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def project = "AndroidWearOsAppArchitecture"
+            def project = "AndroidWearOsApp"
             def SEP = "_"
             def buildType = variant.buildType.name
             def versionName = variant.versionName
             def versionCode = variant.versionCode
-            def date = new Date();
+            def date = new Date()
             def formattedDate = date.format('yyyyMMdd_HHmm')
             def newApkName = project + SEP + buildType.toUpperCase() + SEP + versionName + SEP + versionCode + SEP + formattedDate + ".apk"
             outputFileName = new File(newApkName)
@@ -266,6 +267,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-perf-ktx'
+    implementation 'com.google.firebase:firebase-perf'
+    implementation 'com.google.firebase:firebase-core'
 
     // License
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'

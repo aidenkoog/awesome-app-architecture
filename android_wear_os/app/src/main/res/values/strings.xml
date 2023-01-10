@@ -22,6 +22,7 @@
     <string name="home_item_hr">HR</string>
     <string name="home_item_rhr">RHR</string>
     <string name="home_item_setting">Setting</string>
+    <string name="home_item_licenses">Licenses</string>
     <string name="health_service_loading">Loading…</string>
     <string name="health_service_title">Health Service</string>
     <string name="health_service_not_available">Not available on this device</string>
