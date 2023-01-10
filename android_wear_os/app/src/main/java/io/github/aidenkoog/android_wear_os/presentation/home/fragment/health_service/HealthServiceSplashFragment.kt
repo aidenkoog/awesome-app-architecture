@@ -14,7 +14,7 @@ import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.BR
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.data.repositories.HealthServicesManager
+import io.github.aidenkoog.android_wear_os.services.health_service.HealthServicesManager
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHealthServiceSplashBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.health_service.HealthServiceViewModel

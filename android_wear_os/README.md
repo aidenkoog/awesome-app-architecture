@@ -25,6 +25,7 @@ It is written based on Kotlin.
 - 2023/01/09 : Added hidden mode navigation / Added long click event handler.
 - 2023/01/09 : Added Hilt setup to view models.
 - 2023/01/09 : Added Health service & UI (Draft 1 - Splash > Auth > Home > Health Service)
+- 2023/01/10 : Added Watch face service.
 
 ## Link
 

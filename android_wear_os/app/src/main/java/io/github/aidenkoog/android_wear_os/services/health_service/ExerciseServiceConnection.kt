@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.aidenkoog.android_wear_os.services
+package io.github.aidenkoog.android_wear_os.services.health_service
 
 import android.content.ComponentName
 import android.content.ServiceConnection

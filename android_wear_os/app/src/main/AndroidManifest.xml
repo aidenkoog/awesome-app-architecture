@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.github.aidenkoog.android_wear_os">
 
+    <!-- Required for complications to receive complication data and open the provider chooser. -->
     <uses-feature android:name="android.hardware.type.watch" />
 
     <!-- For receiving exercise metrics. -->
@@ -27,17 +28,26 @@
     <!-- For showing an ongoing notification. -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+    <!-- For Health services -->
     <queries>
         <package android:name="com.google.android.wearable.healthservices" />
     </queries>
 
+    <!-- For Watch face -->
+    <uses-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND" />
+    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA" />
+    <uses-permission android:name="com.google.android.wearable.permission.RECEIVE_COMPLICATION_DATA_PRIVILEGED" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:name=".app.MainApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/app_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <!-- Wearable feature library -->
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true" />
@@ -47,24 +57,72 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <!-- First activity -->
+        <!-- First activity (Not used currently) -->
+        <activity android:name=".presentation.intro.activity.IntroActivity" />
+
+        <!-- Home activity (Launcher) -->
         <activity
-            android:name=".presentation.intro.activity.IntroActivity"
-            android:exported="true">
+            android:name=".presentation.home.activity.HomeActivity"
+            android:clearTaskOnLaunch="true"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".presentation.home.activity.HomeActivity" />
         <activity android:name=".presentation.setting.activity.SettingActivity" />
 
         <!-- Add foreground service location permission for exercise tracking -->
         <service
-            android:name=".services.ExerciseService"
+            android:name="io.github.aidenkoog.android_wear_os.services.health_service.ExerciseService"
             android:exported="false"
             android:foregroundServiceType="location" />
+
+        <service
+            android:name=".services.watch_face.AnalogWatchFaceService"
+            android:directBootAware="true"
+            android:exported="true"
+            android:label="@string/analog_watch_face_name"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <intent-filter>
+                <action android:name="android.service.wallpaper.WallpaperService" />
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/watch_preview" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/watch_preview" />
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+                android:value="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
+
+            <meta-data
+                android:name="com.google.android.wearable.watchface.companionBuiltinConfigurationEnabled"
+                android:value="true" />
+        </service>
+
+        <activity
+            android:name=".services.watch_face.editor.WatchFaceConfigActivity"
+            android:exported="true"
+            android:label="@string/title_activity_watch_face_config">
+
+            <intent-filter>
+                <action android:name="androidx.wear.watchface.editor.action.WATCH_FACE_EDITOR" />
+
+                <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

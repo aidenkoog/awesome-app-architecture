@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-    Because the window insets on round devices are larger than 15dp, this padding only applies
-    to square screens.
-    -->
+        [ Custom Watch Launcher ]
+     -->
     <dimen name="box_inset_layout_padding">0dp</dimen>
-
-    <!--
-    This padding applies to both square and round screens. The total padding between the buttons
-    and the window insets is box_inset_layout_padding (above variable) on square screens and
-    inner_frame_layout_padding (below variable) on round screens.
-    -->
     <dimen name="inner_frame_layout_padding">5dp</dimen>
     <dimen name="screen_title_text_size">20dp</dimen>
     <dimen name="homecard_item_width">150dp</dimen>
@@ -18,6 +11,7 @@
     <dimen name="homecard_image_width">19dp</dimen>
     <dimen name="homecard_image_height">19dp</dimen>
     <dimen name="homecard_item_radius">15dp</dimen>
+    <dimen name="homecard_item_text_size">20dp</dimen>
 
     <dimen name="header_top_margin">32dp</dimen>
     <dimen name="header_start_margin">16dp</dimen>
@@ -27,4 +21,23 @@
     <dimen name="space_2dp">2dp</dimen>
     <dimen name="space_4dp">4dp</dimen>
     <dimen name="default_padding">16dp</dimen>
+
+    <!--
+        [ Custom Watch Face ]
+    -->
+    <!-- constants for watch face element renderer. -->
+    <dimen name="hour_mark_size">10sp</dimen>
+    <dimen name="clock_hand_stroke_width">2dp</dimen>
+    <!-- Values for WatchFaceConfigActivity -->
+    <dimen name="activity_config_padding">6dp</dimen>
+    <dimen name="activity_config_spacer_height_post_content">60dp</dimen>
+    <dimen name="activity_config_spacer_height_pre_slider">20dp</dimen>
+    <dimen name="activity_config_more_options_padding">10dp</dimen>
+    <dimen name="activity_config_style_picker_icon_padding">2dp</dimen>
+    <dimen name="activity_config_ticks_enabled_switch_icon_padding">2dp</dimen>
+    <dimen name="settings_default_text_size">12sp</dimen>
+    <dimen name="analog_complication_settings_preview_size">160dp</dimen>
+    <dimen name="analog_complication_color_picker_size">70dp</dimen>
+    <dimen name="watch_face_preview_background_padding">16dp</dimen>
+    <dimen name="no_padding">0dp</dimen>
 </resources>

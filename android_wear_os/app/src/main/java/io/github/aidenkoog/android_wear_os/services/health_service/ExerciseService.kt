@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.aidenkoog.android_wear_os.services
+package io.github.aidenkoog.android_wear_os.services.health_service
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -38,8 +38,6 @@ import androidx.wear.ongoing.Status
 import com.orhanobut.logger.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android_wear_os.R
-import io.github.aidenkoog.android_wear_os.data.repositories.ExerciseMessage
-import io.github.aidenkoog.android_wear_os.data.repositories.HealthServicesManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

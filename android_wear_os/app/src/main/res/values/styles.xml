@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+        [ Custom Watch Launcher ]
+    -->
 
-    <style name="CustomDialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:windowNoTitle">true</item>
+    <!--
+        [ Custom Watch Face ]
+    -->
+    <!-- Base application theme. -->
+    <style name="Theme.WatchFace" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorSecondary">@color/color_secondary</item>
     </style>
 
-    <style name="NumberPickerCustomStyle">
-        <item name="android:textSize">19sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TabLayoutCustomStyle" parent="android:Widget">
-        <item name="tabIndicatorHeight">0dp</item>
-    </style>
-
-    <style name="SeekBarStyle" parent="Widget.AppCompat.SeekBar">
-        <item name="colorAccent">@color/purple_200</item>
+    <style name="Widget.WatchFace.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/color_primary_button</item>
     </style>
 </resources>

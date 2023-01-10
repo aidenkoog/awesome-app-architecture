@@ -1,4 +1,7 @@
 <resources>
+    <!--
+        [ Custom Watch Launcher ]
+    -->
     <!-- Base application theme. -->
     <style name="Theme.AndroidArchitecture" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -11,15 +14,9 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
     </style>
 
-    <style name="BottomSheetDialogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/AppModalStyle</item>
-    </style>
-
-    <style name="AppModalStyle"
-        parent="Widget.Design.BottomSheet.Modal">
-    </style>
+    <!--
+        [ Custom Watch Face ]
+    -->
 </resources>

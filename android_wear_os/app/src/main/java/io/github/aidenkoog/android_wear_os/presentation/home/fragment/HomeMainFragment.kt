@@ -64,7 +64,6 @@ class HomeMainFragment : BaseFragment() {
     }
 
     private fun handleBackPress() {
-        finishActivity()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

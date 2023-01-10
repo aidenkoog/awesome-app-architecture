@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.aidenkoog.android_wear_os.data.repositories
+package io.github.aidenkoog.android_wear_os.services.health_service
 
 import androidx.concurrent.futures.await
 import androidx.health.services.client.ExerciseUpdateCallback

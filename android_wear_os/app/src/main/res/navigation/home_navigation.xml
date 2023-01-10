@@ -12,22 +12,46 @@
         tools:layout="@layout/fragment_home_main">
         <action
             android:id="@+id/action_homeMainFragment_to_stepFragment"
-            app:destination="@id/stepFragment" />
+            app:destination="@id/stepFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeMainFragment_to_sleepFragment"
-            app:destination="@id/sleepFragment" />
+            app:destination="@id/sleepFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeMainFragment_to_hrFragment"
-            app:destination="@id/hrFragment" />
+            app:destination="@id/hrFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeMainFragment_to_rhrFragment"
-            app:destination="@id/rhrFragment" />
+            app:destination="@id/rhrFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeMainFragment_to_hiddenFragment"
-            app:destination="@id/hiddenFragment" />
+            app:destination="@id/hiddenFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_homeMainFragment_to_healthServiceSplashFragment"
-            app:destination="@id/healthServiceSplashFragment" />
+            app:destination="@id/healthServiceSplashFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -67,10 +91,18 @@
         tools:layout="@layout/fragment_health_service_splash">
         <action
             android:id="@+id/action_healthServiceSplashFragment_to_healthServicePrepareFragment"
-            app:destination="@id/healthServicePrepareFragment" />
+            app:destination="@id/healthServicePrepareFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
         <action
             android:id="@+id/action_healthServiceSplashFragment_to_healthServiceNotAvailableFragment"
-            app:destination="@id/healthServiceNotAvailableFragment" />
+            app:destination="@id/healthServiceNotAvailableFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment
@@ -86,7 +118,11 @@
         tools:layout="@layout/fragment_health_service_preparing">
         <action
             android:id="@+id/action_healthServicePrepareFragment_to_healthServiceExerciseFragment"
-            app:destination="@id/healthServiceExerciseFragment" />
+            app:destination="@id/healthServiceExerciseFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
     <fragment

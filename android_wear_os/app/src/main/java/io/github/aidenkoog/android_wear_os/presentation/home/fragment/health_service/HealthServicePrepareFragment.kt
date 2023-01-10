@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.health.services.client.data.LocationAvailability
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.orhanobut.logger.Logger
@@ -21,8 +19,8 @@ import io.github.aidenkoog.android_wear_os.R
 import io.github.aidenkoog.android_wear_os.databinding.FragmentHealthServicePreparingBinding
 import io.github.aidenkoog.android_wear_os.presentation.base.fragment.BaseFragment
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.health_service.HealthServiceViewModel
-import io.github.aidenkoog.android_wear_os.services.ExerciseService
-import io.github.aidenkoog.android_wear_os.services.ExerciseServiceConnection
+import io.github.aidenkoog.android_wear_os.services.health_service.ExerciseService
+import io.github.aidenkoog.android_wear_os.services.health_service.ExerciseServiceConnection
 import io.github.aidenkoog.android_wear_os.utils.utils.LottieUtil
 import io.github.aidenkoog.android_wear_os.utils.utils.NavigationUtil
 import kotlinx.coroutines.launch

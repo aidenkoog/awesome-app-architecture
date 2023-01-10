@@ -102,6 +102,19 @@ android {
             outputFileName = new File(newApkName)
         }
     }
+
+    packagingOptions {
+        exclude "META-INF/atomicfu.kotlin_module"
+    }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -170,4 +183,23 @@ dependencies {
 
     //Ongoing Activity
     implementation "androidx.wear:wear-ongoing:1.0.0"
+
+    /**
+     * Watch Face
+     */
+    // Use to implement wear watchfaces
+    implementation("androidx.wear.watchface:watchface:1.1.1")
+
+    // Use to implement wear watchface complications
+    implementation "androidx.wear.watchface:watchface-complications-data-source:1.1.1"
+    // (Kotlin-specific extensions)
+    implementation "androidx.wear.watchface:watchface-complications-data-source-ktx:1.1.1"
+
+    // Use to implement a watchface style and complication editor
+    implementation("androidx.wear.watchface:watchface-editor:1.1.1")
+
+    // Can use to render complications.
+    // This library is optional and watchfaces may have custom implementation for rendering
+    // complications.
+    implementation "androidx.wear.watchface:watchface-complications-rendering:1.1.1"
 }
