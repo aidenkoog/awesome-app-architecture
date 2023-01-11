@@ -1,9 +1,9 @@
 package io.github.aidenkoog.android_wear_os.data.sources.remote.tcp
 
+import com.orhanobut.logger.Logger
 import java.io.InputStream
 import java.io.OutputStream
 import java.io.Serializable
-import java.net.InetAddress
 import java.net.Socket
 
 class SocketClient : Serializable {
@@ -11,16 +11,21 @@ class SocketClient : Serializable {
     private lateinit var inputStream: InputStream
     private lateinit var outputStream: OutputStream
 
-    fun connect(port: Int) {
-        try {
-            val socketAddress = InetAddress.getLocalHost()
-            socket = Socket(socketAddress, port)
-            outputStream = socket.getOutputStream()
-            inputStream = socket.getInputStream()
-        } catch (e: Exception) {
-            println("socket connect exception start!!")
-            println("e: $e")
-        }
+    fun connect(ip: String = "112.170.6.125", port: Int = 3000) {
+        Logger.d("connect: ip: $ip, port: $port")
+        Thread {
+            try {
+                // val socketAddress = InetAddress.getLocalHost()
+                socket = Socket(ip, port)
+                Logger.d("socket created")
+                outputStream = socket.getOutputStream()
+                inputStream = socket.getInputStream()
+                Logger.d("socket completed")
+            } catch (e: Exception) {
+                Logger.d("socket connect exception start!!")
+                Logger.d("e: $e")
+            }
+        }.start()
     }
 
     fun sendData(data: String) {
@@ -39,7 +44,7 @@ class SocketClient : Serializable {
             isRead = true
         }
         inputStream.bufferedReader(Charsets.UTF_8).forEachLine {
-            println(it)
+            Logger.d(it)
         }
         return isRead
     }

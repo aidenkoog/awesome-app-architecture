@@ -13,6 +13,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.github.aidenkoog.android_wear_os.data.repositories.DeviceInfoRepositoryImpl
+import io.github.aidenkoog.android_wear_os.data.sources.remote.tcp.RxSocketClient
 import io.github.aidenkoog.android_wear_os.data.sources.remote.tcp.SocketClient
 import io.github.aidenkoog.android_wear_os.domain.repositories.DeviceInfoRepository
 import okhttp3.Cache
@@ -117,15 +118,15 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSocketClient(): SocketClient {
-        return SocketClient()
+    fun provideSocketClient(): RxSocketClient {
+        return RxSocketClient()
     }
 
     @Singleton
     @Provides
     fun provideDeviceInfoRepository(
         appDatabase: AppDatabase,
-        socketClient: SocketClient
+        socketClient: RxSocketClient
     ): DeviceInfoRepository {
         return DeviceInfoRepositoryImpl(appDatabase, socketClient)
     }

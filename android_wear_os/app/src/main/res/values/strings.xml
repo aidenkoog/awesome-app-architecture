@@ -17,6 +17,7 @@
     <string name="screen_title_sleep">Sleep</string>
     <string name="screen_title_health_data">Health Data</string>
     <string name="home_item_health_service">Health Service</string>
+    <string name="home_item_sos">SOS</string>
     <string name="home_item_step">Step</string>
     <string name="home_item_sleep">Sleep</string>
     <string name="home_item_hr">HR</string>

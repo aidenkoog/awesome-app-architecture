@@ -52,6 +52,7 @@ It is written based on Kotlin.
 - 2023/01/10 : Added Firebase modules / Fixed issue that crash occurs when back to home from health service screen / Added time format util / Added android unit test folder hierarchy.
 - 2023/01/10 : Added Open source license gathering module & UI.
 - 2023/01/10 : Fixed build error caused by firebase modules / issue that license ui is not shown in home list.
+- 2023/01/11 : Added RxSocketClient / Added test code to connect to server socket / Added SOS ui.
 
 ## Link
 

@@ -19,12 +19,13 @@ class HomeCardListAdapter(
 
     companion object {
         const val POS_HEALTH_SERVICE = 0
-        const val POS_STEP = 1
-        const val POS_SLEEP = 2
-        const val POS_HR = 3
-        const val POS_RHR = 4
-        const val POS_SETTING = 5
-        const val POS_LICENSES = 6
+        const val POS_SOS = 1
+        const val POS_STEP = 2
+        const val POS_SLEEP = 3
+        const val POS_HR = 4
+        const val POS_RHR = 5
+        const val POS_SETTING = 6
+        const val POS_LICENSES = 7
     }
 
     interface OnItemClickListener {

@@ -25,6 +25,7 @@ import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardLis
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_RHR
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SETTING
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SLEEP
+import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_SOS
 import io.github.aidenkoog.android_wear_os.presentation.home.adapter.HomeCardListAdapter.Companion.POS_STEP
 import io.github.aidenkoog.android_wear_os.presentation.home.viewmodel.HomeMainViewModel
 import io.github.aidenkoog.android_wear_os.presentation.setting.activity.SettingActivity
@@ -100,6 +101,7 @@ class HomeMainFragment : BaseFragment() {
                 getString(R.string.home_item_health_service)
             )
         )
+        homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_sos)))
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_step)))
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_sleep)))
         homeCardList.add(HomeCard(R.drawable.circle_item, getString(R.string.home_item_hr)))
@@ -122,6 +124,9 @@ class HomeMainFragment : BaseFragment() {
                     NavigationUtil.navigateScreen(
                         view, R.id.action_homeMainFragment_to_healthServiceSplashFragment
                     )
+                }
+                POS_SOS -> {
+                    viewModelData?.sendSos()
                 }
                 POS_STEP -> {
                     NavigationUtil.navigateScreen(
