@@ -7,9 +7,6 @@ import io.github.aidenkoog.android.domain.usecase.GetPhotosUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-/**A helper class for the UI controller that is responsible for
- * preparing data for the UI [PhotosFragment]
- * */
 @HiltViewModel
 class PhotosViewModel @Inject constructor(
     private val getPhotosUseCase: GetPhotosUseCase

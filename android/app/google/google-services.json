@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1031500456789",
+    "project_id": "android-project",
+    "storage_bucket": "android-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031500456789:android:1d6e5d8d8e3c2fc331b0897",
+        "android_client_info": {
+          "package_name": "io.github.aidenkoog.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031500456789-iv70jeckimgt1fubcie59987h8j7k89k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_spJ5lbAW_YRy3KlcKAlIm57h8j7klo9"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031500456789-iv70jeckimgt1fubcie59987h8j7k89k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031500456900-d7adk0u1tqvmff44qm0vdb78j9998k90.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.github.aidenkoog.android"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

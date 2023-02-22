@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android
+package io.github.aidenkoog.android.app
 
 import android.app.Application
 import android.content.Context

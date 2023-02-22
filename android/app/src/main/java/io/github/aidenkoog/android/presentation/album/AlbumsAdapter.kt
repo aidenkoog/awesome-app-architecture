@@ -11,19 +11,11 @@ import io.github.aidenkoog.android.databinding.HolderAlbumBinding
 import io.github.aidenkoog.android.domain.model.Album
 import io.github.aidenkoog.android.presentation.album.AlbumsAdapter.AlbumViewHolder
 
-/**
- * This class is responsible for converting each data entry [Album]
- * into [AlbumViewHolder] that can then be added to the AdapterView.
- */
 internal class AlbumsAdapter(val mListener: OnAlbumsAdapterListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val albums: MutableList<Album> = ArrayList()
 
-    /*
-     * This method is called right when adapter is created &
-     * is used to initialize ViewHolders
-     * */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val holderAlbumBinding = DataBindingUtil.inflate<ViewDataBinding>(
             LayoutInflater.from(parent.context), R.layout.holder_album, parent, false
@@ -31,9 +23,6 @@ internal class AlbumsAdapter(val mListener: OnAlbumsAdapterListener) :
         return AlbumViewHolder(holderAlbumBinding)
     }
 
-    /* It is called for each ViewHolder to bind it to the adapter &
-     * This is where we pass data to ViewHolder
-     * */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as AlbumViewHolder).onBind(getItem(position))
     }
@@ -42,9 +31,6 @@ internal class AlbumsAdapter(val mListener: OnAlbumsAdapterListener) :
         return albums[position]
     }
 
-    /*
-     * This method returns the size of collection that contains the items we want to display
-     * */
     override fun getItemCount(): Int {
         return albums.size
     }

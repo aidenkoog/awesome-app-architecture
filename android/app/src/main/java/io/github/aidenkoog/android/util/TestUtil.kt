@@ -4,12 +4,7 @@ import io.github.aidenkoog.android.domain.model.Photo
 
 object TestUtil {
 
-    fun createPhoto(id: Long) = Photo(
-        id = id,
-        title = "",
-        url = "",
-        thumbnailUrl = ""
-    )
+    fun createPhoto(id: Long) = Photo(id = id, title = "", url = "", thumbnailUrl = "")
 
     fun makePhotoList(size: Int): MutableList<Photo> {
         val list = ArrayList<Photo>(size)

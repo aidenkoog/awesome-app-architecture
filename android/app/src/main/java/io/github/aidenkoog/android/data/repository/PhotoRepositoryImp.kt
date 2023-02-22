@@ -7,10 +7,6 @@ import io.github.aidenkoog.android.domain.model.Photo
 import io.github.aidenkoog.android.domain.repository.PhotoRepository
 import io.reactivex.Single
 
-/**
- * This repository is responsible for
- * fetching data [photo] from server or db
- * */
 class PhotoRepositoryImp(
     private val database: AppDatabase,
     private val retrofitService: RetrofitService

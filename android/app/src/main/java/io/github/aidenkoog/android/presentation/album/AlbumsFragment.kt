@@ -41,7 +41,7 @@ class AlbumsFragment : Fragment(), OnAlbumsAdapterListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentAlbumsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_albums, container, false)
         fragmentAlbumsBinding.albumsViewModel = viewModel

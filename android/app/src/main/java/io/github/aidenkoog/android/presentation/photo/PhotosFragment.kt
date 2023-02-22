@@ -33,38 +33,31 @@ class PhotosFragment : Fragment(), OnPhotosAdapterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = PhotosAdapter(this)
-        val albumId = arguments?.let { it.getLong(KEY_ALBUM_ID) }
+        val albumId = arguments?.getLong(KEY_ALBUM_ID)
         viewModel.loadPhotos(albumId)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        fragmentPhotosBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_photos, container, false)
+        fragmentPhotosBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_photos, container, false
+        )
         fragmentPhotosBinding.photosViewModel = viewModel
         fragmentPhotosBinding.photosRecyclerView.adapter = adapter
 
-        viewModel.isLoad.observe(
-            viewLifecycleOwner,
-            Observer {
-                it?.let { visibility ->
-                    fragmentPhotosBinding.photosProgressBar.visibility =
-                        if (visibility) View.GONE else View.VISIBLE
-                }
+        viewModel.isLoad.observe(viewLifecycleOwner, Observer {
+            it?.let { visibility ->
+                fragmentPhotosBinding.photosProgressBar.visibility =
+                    if (visibility) View.GONE else View.VISIBLE
             }
-        )
+        })
 
-        viewModel.photoListReceivedLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                it?.let {
-                    adapter?.addData(it)
-                }
+        viewModel.photoListReceivedLiveData.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter?.addData(it)
             }
-        )
+        })
 
         return fragmentPhotosBinding.root
     }

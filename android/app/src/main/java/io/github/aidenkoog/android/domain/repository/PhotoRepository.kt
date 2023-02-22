@@ -3,9 +3,6 @@ package io.github.aidenkoog.android.domain.repository
 import io.github.aidenkoog.android.domain.model.Photo
 import io.reactivex.Single
 
-/**
- * To make an interaction between [PhotoRepositoryImp] & [GetPhotosUseCase]
- * */
 interface PhotoRepository {
     fun getPhotos(albumId: Long?): Single<List<Photo>>
     fun getPhotoDetail(photoId: Long?): Single<Photo>

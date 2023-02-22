@@ -13,10 +13,6 @@ import io.github.aidenkoog.android.domain.model.Photo
 import io.github.aidenkoog.android.presentation.loadImage
 import io.github.aidenkoog.android.presentation.photo.PhotosAdapter.PhotoViewHolder
 
-/**
- * [android.support.v7.widget.RecyclerView.Adapter] to adapt
- * [Photo] items into [RecyclerView] via [PhotoViewHolder]
- */
 internal class PhotosAdapter(val mListener: OnPhotosAdapterListener) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

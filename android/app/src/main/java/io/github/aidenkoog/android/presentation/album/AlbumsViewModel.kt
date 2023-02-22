@@ -7,10 +7,6 @@ import io.github.aidenkoog.android.domain.usecase.GetAlbumsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-/**To store & manage UI-related data in a lifecycle conscious way!
- * this class allows data to survive configuration changes such as screen rotation
- * by interacting with [GetAlbumsUseCase]
- * */
 @HiltViewModel
 class AlbumsViewModel @Inject constructor(private val getAlbumListUseCase: GetAlbumsUseCase) :
     ViewModel() {

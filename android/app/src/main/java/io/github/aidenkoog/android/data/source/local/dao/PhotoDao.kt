@@ -8,9 +8,6 @@ import androidx.room.Query
 import androidx.room.Update
 import io.github.aidenkoog.android.data.source.local.entity.PhotoEntity
 
-/**
- * it provides access to [Photo] underlying database
- * */
 @Dao
 interface PhotoDao {
 
