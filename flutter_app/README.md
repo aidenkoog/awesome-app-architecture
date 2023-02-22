@@ -1,0 +1,44 @@
+# Flutter Architecture Project.
+
+## Continue to study and ponder to improve the code structure.
+
+This project is to make template code that can be applied to any app development.
+
+- Language: Dart
+- Structure Summary
+  - ✨ Under Construction.
+
+## Getting Started (Flutter Default README)
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
+
+## Release Note
+
+- 2023/02/22 : Initialize flutter project.
+
+## How To Setup Environment
+
+It's mandantory to set up the development environment and build the app by following the instructions below:
+
+> Visit https://docs.flutter.dev/development/tools/sdk/releases?tab=macos
+> Download the latest flutter of stable channel.
+> Execute export PATH="$PATH:`pwd`/flutter/bin" on console or Modify bash_profile.
+> flutter precache
+> flutter doctor
+
+## Link
+
+If you are interested in information about me or other activities, please access the link below.
+
+| Plugin      | LINK                                     |
+| ----------- | ---------------------------------------- |
+| Github page | [https://aidenkoog.github.io/aidenkoog/] |
