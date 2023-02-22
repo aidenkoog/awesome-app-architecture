@@ -1,4 +1,3 @@
-
 # React.js Architecture Project.
 
 ## Summary
@@ -9,28 +8,28 @@ It is written based on JavaScript.
 - Language: Javascript
 - Library: React (A library for creating user interfaces.)
 - Structure Summary
-    - ✨ presentation
-        - ✨ components
-        - ✨ container
-    - ✨ data
-        - ✨ adapters
-        - ✨ dummy
-        - ✨ repositories
-        - ✨ sources
-    - ✨ domain
-        - ✨ entities
-        - ✨ usecases
-    - ✨ utils
-        - ✨ logger
-        - ✨ regex
-        - ✨ time
-    - ✨ assets
-        - ✨ images
-        - ✨ lotties
-        - ✨ strings
-    - ✨ test
-        - ✨ hidden
-        - ✨ dummy
+  - ✨ presentation
+    - ✨ components
+    - ✨ container
+  - ✨ data
+    - ✨ adapters
+    - ✨ dummy
+    - ✨ repositories
+    - ✨ sources
+  - ✨ domain
+    - ✨ entities
+    - ✨ usecases
+  - ✨ utils
+    - ✨ logger
+    - ✨ regex
+    - ✨ time
+  - ✨ assets
+    - ✨ images
+    - ✨ lotties
+    - ✨ strings
+  - ✨ test
+    - ✨ hidden
+    - ✨ dummy
 
 ## Release Note
 
@@ -44,7 +43,7 @@ It is written based on JavaScript.
 - 2022/12/01 : (3rd) Fixed wrong send-sms api url / Deleted text tag in error component.
 - 2022/12/01 : (4th) (Workaround) Added code below that initializes Naver map instance to avoid the problem where map is NOT shown.
 - 2022/12/01 : (5th) Added module that can get domain from web page url.
-- 2022/12/01 : (6th) Added code to retry 5 times when activity information is not properly fetched in the beginning. 
+- 2022/12/01 : (6th) Added code to retry 5 times when activity information is not properly fetched in the beginning.
 - 2022/12/01 : (7th) Added logic that calls apis every 3 seconds for 2 minutes until emergency report comes in.
 - 2022/12/01 : (8th) Fixed issue that refresh button doesn't work anymore after it's pressed once more.
 - 2022/12/01 : (9th) Fixed issue that refreshing current location doesn't work after new emergency data comes in.
@@ -117,9 +116,6 @@ It's mandantory to set up the development environment and build the app by follo
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin | LINK |
-| ------ | ------ |
-| Instagram | [https://www.instagram.com/aidenkoog/] |
+| Plugin      | LINK                                     |
+| ----------- | ---------------------------------------- |
 | Github page | [https://aidenkoog.github.io/aidenkoog/] |
-| Youtube | [https://www.youtube.com/channel/UC3hT_aGpXxL4Dygz4_tNVQA] |
-
