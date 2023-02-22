@@ -47,6 +47,7 @@ It is written based on Kotlin.
 - 2023/01/10 : Added Open source license gathering module & UI.
 - 2023/01/10 : Fixed build error caused by firebase modules / issue that license ui is not shown in home list.
 - 2023/01/11 : Added RxSocketClient / Added test code to connect to server socket / Added SOS ui.
+- 2023/02/22 : Increased outdated version of dependencies.
 
 ## Link
 
@@ -54,6 +55,4 @@ If you are interested in information about me or other activities, please access
 
 | Plugin | LINK |
 | ------ | ------ |
-| Instagram | [https://www.instagram.com/aidenkoog/] |
 | Github page | [https://aidenkoog.github.io/aidenkoog/] |
-| Youtube | [https://www.youtube.com/channel/UC3hT_aGpXxL4Dygz4_tNVQA] |
