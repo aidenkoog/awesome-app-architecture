@@ -24,6 +24,7 @@ samples, guidance on mobile development, and a full API reference.
 ## Release Note
 
 - 2023/02/22 : Initialize flutter project.
+- 2023/02/23 : Update presentation, domain and data hierarchy.
 
 ## How To Setup Environment
 
