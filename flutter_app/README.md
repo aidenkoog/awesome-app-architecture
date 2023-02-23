@@ -35,6 +35,13 @@ It's mandantory to set up the development environment and build the app by follo
 > Execute export PATH="$PATH:`pwd`/flutter/bin" on console or Modify bash_profile.
 > flutter precache
 > flutter doctor
+> if you encounter this error ---> Flutter - Unable to find bundled Java version.
+> cd /Applications/Android\ Studio.app/Contents/jre
+> [Not Electric Eel] ln -s ../jre jdk
+> [Not Electric Eel] ln -s "/Library/Internet Plug-Ins/JavaAppletPlugin.plugin" jdk
+> [Electric Eel] cd /Applications/Android\ Studio.app/Contents
+> [Electric Eel] ln -s jbr jre
+> flutter doctor
 
 ## Link
 
