@@ -1,6 +1,6 @@
-# React.js Architecture Project.
+## React.js Architecture Project.
 
-## Summary
+#### Summary
 
 This project shows data using the NAVER Map API.
 It is written based on JavaScript.
@@ -31,7 +31,7 @@ It is written based on JavaScript.
     - ✨ hidden
     - ✨ dummy
 
-## Release Note
+#### Release Note
 
 - 2022/11/24 : Initialize React.js project with README / NaverMaps API dependency, client ID.
 - 2022/11/28 : Rearrange UI component / functions.
@@ -103,7 +103,7 @@ It is written based on JavaScript.
 - 2023/01/04 : (3rd) Adjusted history table field spacing.
 - 2023/01/05 : Made accuracy round to one decimal place.
 
-## How To Setup Environment
+#### How To Setup Environment
 
 It's mandantory to set up the development environment and build the app by following the instructions below:
 
@@ -112,10 +112,10 @@ It's mandantory to set up the development environment and build the app by follo
 > yarn add react-naver-maps
 > npm start
 
-## Link
+#### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
 | Plugin      | LINK                                     |
 | ----------- | ---------------------------------------- |
-| Github page | [https://aidenkoog.github.io/aidenkoog/] |
+| Github page | [https://aidenkoog.github.io/] |

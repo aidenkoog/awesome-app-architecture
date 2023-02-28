@@ -1,6 +1,6 @@
-# Flutter Architecture Project.
+## Flutter Architecture Project.
 
-## Continue to study and ponder to improve the code structure.
+#### Continue to study and ponder to improve the code structure.
 
 This project is to make template code that can be applied to any app development.
 
@@ -8,7 +8,7 @@ This project is to make template code that can be applied to any app development
 - Structure Summary
   - ✨ Under Construction.
 
-## Getting Started (Flutter Default README)
+#### Getting Started (Flutter Default README)
 
 This project is a starting point for a Flutter application.
 
@@ -21,12 +21,12 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-## Release Note
+#### Release Note
 
 - 2023/02/22 : Initialize flutter project.
 - 2023/02/23 : Update presentation, domain and data hierarchy.
 
-## How To Setup Environment
+#### How To Setup Environment
 
 It's mandantory to set up the development environment and build the app by following the instructions below:
 
@@ -43,10 +43,10 @@ It's mandantory to set up the development environment and build the app by follo
 > [Electric Eel] ln -s jbr jre
 > flutter doctor
 
-## Link
+#### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
 | Plugin      | LINK                                     |
 | ----------- | ---------------------------------------- |
-| Github page | [https://aidenkoog.github.io/aidenkoog/] |
+| Github page | [https://aidenkoog.github.io/] |
