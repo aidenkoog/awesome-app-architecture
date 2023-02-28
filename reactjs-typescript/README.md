@@ -1,4 +1,4 @@
-## React Native Architecture Project.
+## React Typescript Architecture Project.
 
 #### Continue to study and ponder to improve the code structure.
 
