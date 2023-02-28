@@ -1,5 +1,6 @@
-# React Native Architecture Project.
-## Continue to study and ponder to improve the code structure.
+## React Native Architecture Project.
+
+#### Continue to study and ponder to improve the code structure.
 
 
 This project is to make template code that can be applied to any app development.
@@ -13,7 +14,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
     - ✨ Modules
     - ✨ State Management Module (Recoil)
 
-## Release Note
+#### Release Note
 
 - 2022/09/16 ~ 2022/10/21 : Review RN (React-Native) itself.
 
@@ -41,7 +42,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2023/01/04 : Delete unused source code / files. (cannot build)
 
 
-## How To Setup Environment
+#### How To Setup Environment
 
 It's mandantory to set up the development environment and build the app by following the instructions below:
 
@@ -68,7 +69,7 @@ It's mandantory to set up the development environment and build the app by follo
 > cd ios
 > fastlane init
 
-## BLE Configuration
+#### BLE Configuration
 
 Define the BLE uuid and other values you want in the BleConfig.js file below.
 
@@ -96,7 +97,7 @@ export const BLE_NOTIFICATION_SUFFIX = 0
 export const BLE_STATUS_INFO_SUFFIX = 0
 ```
 
-## Source Code
+#### Source Code
 
 From UI To Core Module.
 
@@ -156,10 +157,10 @@ const setBleScanningStateAtom = useSetRecoilState(bleScanningStateAtom)
 const bleScanningState = useRecoilValue(bleScanningStateAtom)
 ```
 
-## Link
+#### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
 | Plugin | LINK |
 | ------ | ------ |
-| Github page | [https://aidenkoog.github.io/aidenkoog/] |
+| Github page | [https://aidenkoog.github.io/] |

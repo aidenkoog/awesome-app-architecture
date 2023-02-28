@@ -1,5 +1,6 @@
-# Android (Wear OS) Architecture Project.
-## Continue to study and ponder to improve the code structure.
+## Android Wear OS Architecture Project.
+
+#### Continue to study and ponder to improve the code structure.
 
 
 This project is to make template code that can be applied to any app development.
@@ -31,7 +32,7 @@ It is written based on Kotlin.
     - ✨ Utils
     - ✨ Constants
 
-## Release Note
+#### Release Note
 
 - 2023/01/05 : Initialize App source template.
 - 2023/01/06 : Setup splash, login, home and setting screens.
@@ -49,10 +50,10 @@ It is written based on Kotlin.
 - 2023/01/11 : Added RxSocketClient / Added test code to connect to server socket / Added SOS ui.
 - 2023/02/22 : Increased outdated version of dependencies.
 
-## Link
+#### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
 | Plugin | LINK |
 | ------ | ------ |
-| Github page | [https://aidenkoog.github.io/aidenkoog/] |
+| Github page | [https://aidenkoog.github.io/] |
