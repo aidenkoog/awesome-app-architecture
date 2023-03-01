@@ -4,6 +4,8 @@ A collection of templates to discuss and showcase different architectural tools 
 #### Template source code.
 - **React Native** Mobile App template.
 - **React Web** Front-end template.
+  - Javascript.
+  - Typescript.
 
 - **Android**
   - Android Mobile App template.
