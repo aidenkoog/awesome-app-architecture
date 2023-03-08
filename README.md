@@ -1,4 +1,4 @@
-## Architecture
+## Pretty architecture samples
 A collection of templates to discuss and showcase different architectural tools and patterns for apps in different languages.
 
 #### Template source code.
@@ -11,6 +11,8 @@ A collection of templates to discuss and showcase different architectural tools 
   - Android Mobile App template.
   - Android Wear-OS App template.
   - Android TV App template.
+    - Kotlin
+    - Java
   
 - **iOS** Mobile Swift App template.
 
