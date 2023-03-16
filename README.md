@@ -3,6 +3,10 @@ A collection of templates to discuss and showcase different architectural tools 
 
 #### Template source code.
 - **React Native** Mobile App template.
+  - Major BLE module
+    - Javascript: https://github.com/aidenkoog/pretty-architecture-samples/tree/master/react_native/src 
+    - Typescript: https://github.com/aidenkoog/beautiful-ble-manager-module 
+    
 - **React Web** Front-end template.
   - Javascript.
   - Typescript.
