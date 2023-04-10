@@ -16,20 +16,35 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
-          appBar: AppBar(),
-          body: ElevatedButton(
-            child: const Text('EveText'),
-            onPressed: () {
-              Fluttertoast.showToast(
-                  msg: "Test Toast !!!!!!!!!!!!!!!!!!!",
-                  toastLength: Toast.LENGTH_LONG,
-                  gravity: ToastGravity.CENTER_RIGHT,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.black,
-                  fontSize: 20);
-            },
-          ),
-        ));
+            appBar: AppBar(),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: const Text('EveText'),
+                  onPressed: () {
+                    Fluttertoast.showToast(
+                        msg: "Test Toast !!!!!!!!!!!!!!!!!!!",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.CENTER_RIGHT,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.black,
+                        fontSize: 20);
+                  },
+                ),
+                const Text('Test Flutter App AidenKooG')
+              ],
+            )));
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
