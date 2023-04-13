@@ -1,0 +1,15 @@
+const Map<String, String> koKR = {
+  'intro_title': 'AidenKooG\'s Admin System',
+  'id_label': 'Username or e-mail',
+  'pw_label': 'Password',
+  'id_placeholder_msg': 'Enter username or e-mail',
+  'pw_placeholder_msg': 'Enter password',
+  'intro_btn_msg': 'Sign In',
+  'main_title': 'AidenKooG\'s Admin System',
+  'menu_title_customer': 'CUSTOMER',
+  'menu_title_inventory': 'INVENTORY',
+  'menu_title_agency': 'AGENCY',
+  'menu_title_accounting': 'ACCOUNTING',
+  'menu_title_events': 'EVENTS',
+  'menu_title_qna': 'Q&A',
+};
