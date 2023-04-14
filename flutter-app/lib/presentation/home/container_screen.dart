@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/screens/components/main_account_icon.dart';
-import 'package:flutter_web_navigation/screens/components/main_logout_info.dart';
-import 'package:flutter_web_navigation/screens/components/main_tab_item.dart';
-import 'package:flutter_web_navigation/screens/components/main_title.dart';
+import 'package:flutter_web_navigation/presentation/components/main_account_icon.dart';
+import 'package:flutter_web_navigation/presentation/components/main_logout_info.dart';
+import 'package:flutter_web_navigation/presentation/components/main_tab_item.dart';
+import 'package:flutter_web_navigation/presentation/components/main_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class ContainerScreen extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/screens/components/custom_input_box.dart';
-import 'package:flutter_web_navigation/screens/components/custom_normal_button.dart';
-import 'package:flutter_web_navigation/screens/components/intro_logo.dart';
-import 'package:flutter_web_navigation/screens/components/intro_title.dart';
+import 'package:flutter_web_navigation/presentation/components/custom_input_box.dart';
+import 'package:flutter_web_navigation/presentation/components/custom_normal_button.dart';
+import 'package:flutter_web_navigation/presentation/components/intro_logo.dart';
+import 'package:flutter_web_navigation/presentation/components/intro_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class Intro extends StatelessWidget {

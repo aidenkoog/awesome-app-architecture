@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/screens/main/feature_1_screen.dart';
-import 'package:flutter_web_navigation/screens/main/feature_4_screen.dart';
-import 'package:flutter_web_navigation/screens/main/feature_2_screen.dart';
-import 'package:flutter_web_navigation/screens/main/feature_3_screen.dart';
-import 'package:flutter_web_navigation/screens/main/feature_5_screen.dart';
-import 'package:flutter_web_navigation/screens/main/feature_6_screen.dart';
-import 'package:flutter_web_navigation/screens/exception/unknown_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_1_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_4_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_2_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_3_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_5_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/feature_6_screen.dart';
+import 'package:flutter_web_navigation/presentation/exception/unknown_screen.dart';
 
 enum RouteData {
   unkownRoute,

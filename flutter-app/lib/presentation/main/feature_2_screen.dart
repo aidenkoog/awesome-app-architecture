@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/screens/components/custom_outlined_button.dart';
+import 'package:flutter_web_navigation/presentation/components/custom_outlined_button.dart';
 
 import '../components/main_left_panel.dart';
 import '../components/main_right_panel.dart';

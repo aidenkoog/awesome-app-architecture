@@ -3,9 +3,9 @@ export 'services/custom_navigation_key.dart';
 export 'services/split_route_params.dart';
 
 // screens
-export 'screens/exception/unknown_screen.dart';
-export 'screens/intro/intro_screen.dart';
-export 'screens/home/container_screen.dart';
+export 'presentation/exception/unknown_screen.dart';
+export 'presentation/intro/intro_screen.dart';
+export 'presentation/home/container_screen.dart';
 
 // routes
 export 'routes/route_path.dart';

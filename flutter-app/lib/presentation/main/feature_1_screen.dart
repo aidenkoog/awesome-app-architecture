@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/screens/components/main_left_panel.dart';
-import 'package:flutter_web_navigation/screens/components/main_right_panel.dart';
+import 'package:flutter_web_navigation/presentation/components/main_left_panel.dart';
+import 'package:flutter_web_navigation/presentation/components/main_right_panel.dart';
 
 import '../components/custom_outlined_button.dart';
 
