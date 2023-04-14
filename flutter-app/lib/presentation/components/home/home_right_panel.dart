@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/images.dart';
+import '../../../utils/images.dart';
 
-class MainLeftPanel extends StatelessWidget {
+class MainRightPanel extends StatelessWidget {
   final String sectionName;
   final String description;
   final String subDecription;
 
-  const MainLeftPanel({
+  const MainRightPanel({
     Key? key,
     required this.sectionName,
     required this.description,
@@ -17,9 +17,9 @@ class MainLeftPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 4,
+        flex: 6,
         child: Container(
-          margin: const EdgeInsets.fromLTRB(100, 20, 20, 100),
+          margin: const EdgeInsets.fromLTRB(20, 20, 100, 100),
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),

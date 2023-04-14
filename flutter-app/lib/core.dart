@@ -5,7 +5,7 @@ export 'services/split_route_params.dart';
 // screens
 export 'presentation/exception/unknown_screen.dart';
 export 'presentation/intro/intro_screen.dart';
-export 'presentation/home/container_screen.dart';
+export 'presentation/container/container_screen.dart';
 
 // routes
 export 'routes/route_path.dart';

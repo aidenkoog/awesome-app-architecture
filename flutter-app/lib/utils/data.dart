@@ -9,6 +9,7 @@ class SubNavigationRoutes {
       {required this.title, required this.icon, required this.route});
 }
 
+// route pages list.
 List<SubNavigationRoutes> routeList = [
   SubNavigationRoutes(
       title: RouteData.feature1.name.toUpperCase(),

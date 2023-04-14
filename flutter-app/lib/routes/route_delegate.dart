@@ -23,7 +23,7 @@ class AppRouterDelegate extends RouterDelegate<RoutePath>
     if (isError) {
       return RoutePath.unknown();
     }
-    if (pathName == null) return RoutePath.home('splash'); //main
+    if (pathName == null) return RoutePath.home('splash');
     return RoutePath.otherPage(pathName);
   }
 

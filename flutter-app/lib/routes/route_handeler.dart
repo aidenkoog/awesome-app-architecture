@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_1_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_4_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_2_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_3_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_5_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/feature_6_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_1_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_4_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_2_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_3_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_5_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/feature_6_screen.dart';
 import 'package:flutter_web_navigation/presentation/exception/unknown_screen.dart';
 
 enum RouteData {
@@ -24,6 +24,7 @@ class RouteHandeler {
   factory RouteHandeler() => _instance;
   RouteHandeler._();
 
+  // get route widget corresponding to route name.
   Widget getRouteWidget(String? routeName) {
     RouteData routeData;
 

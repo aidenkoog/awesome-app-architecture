@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/presentation/components/main_account_icon.dart';
-import 'package:flutter_web_navigation/presentation/components/main_logout_info.dart';
-import 'package:flutter_web_navigation/presentation/components/main_tab_item.dart';
-import 'package:flutter_web_navigation/presentation/components/main_title.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_account_icon.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_logout_info.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_tab_item.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class ContainerScreen extends StatefulWidget {
@@ -24,12 +24,19 @@ class _ContainerScreenState extends State<ContainerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // app bar background color.
         backgroundColor: Colors.white,
+
+        // app bar border style.
         shape: const Border(bottom: BorderSide(color: Colors.red, width: 2)),
+
+        // app bar title.
         title: MainTitle(
             mainTitle: 'AidenKooG\'s Admin System',
             mainLogo:
                 Image.asset(AllImages.flutterLogo, width: 30, height: 30)),
+
+        // app bar action tab items.
         actions: [
           const TabItem(tabName: 'CUSTOMER', routeName: 'feature1'),
           const TabItem(tabName: 'INVENTORY', routeName: 'feature2'),
@@ -37,7 +44,11 @@ class _ContainerScreenState extends State<ContainerScreen> {
           const TabItem(tabName: 'ACCOUNTING', routeName: 'feature4'),
           const TabItem(tabName: 'EVENTS', routeName: 'feature5'),
           const TabItem(tabName: 'Q&A', routeName: 'feature6'),
+
+          // app bar logout information.
           const MainLogoutInfo(logoutInfo: 'Logout: 100 Hours 59 Mins 59 Secs'),
+
+          // app bar login account icon.
           MainAccountIcon(
               accountIcon:
                   Image.asset(AllImages.flutterLogo, width: 30, height: 30),
@@ -45,6 +56,8 @@ class _ContainerScreenState extends State<ContainerScreen> {
               callback: _logOut)
         ],
       ),
+
+      // screen corresponding to route name.
       body: Row(
         key: UniqueKey(),
         children: [
@@ -57,6 +70,8 @@ class _ContainerScreenState extends State<ContainerScreen> {
     );
   }
 
+// logout user and go back to intro screen.
+// internally user is deleted from hive repository.
   _logOut() async {
     await HiveDataStorageService.logOutUser();
     AppRouterDelegate().setPathName(RouteData.intro.name, loggedIn: false);

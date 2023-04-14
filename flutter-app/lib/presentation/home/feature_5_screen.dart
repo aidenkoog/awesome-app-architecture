@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../components/main_left_panel.dart';
-import '../components/main_right_panel.dart';
+import '../components/custom_outlined_button.dart';
+import '../components/home/home_left_panel.dart';
+import '../components/home/home_right_panel.dart';
 
-const featureName = 'Q&A';
+const featureName = 'EVENTS';
 
-class Feature6 extends StatelessWidget {
+class Feature5 extends StatelessWidget {
   final String routeName;
 
-  const Feature6({
+  const Feature5({
     Key? key,
     required this.routeName,
   }) : super(key: key);
@@ -16,12 +17,19 @@ class Feature6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      // button container.
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
           child: Row(
-            children: const [],
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              const CustomOutlinedButton(
+                  buttonName: 'DOWNLOAD EXCEL', color: Colors.green),
+            ],
           )),
+
+      // main left and right panels.
       Expanded(
           flex: 1,
           child: Row(

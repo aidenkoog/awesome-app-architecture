@@ -5,10 +5,10 @@ import '../../../../core/usecases/usecase.dart';
 import '../../../core/errors/failures.dart';
 import '../../entities/customer.dart';
 
-class GetInventoryListUseCase implements UseCase<Customer, Params> {
+class GetCustomerListUseCase implements UseCase<Customer, Params> {
   final CustomerRepository repository;
 
-  GetInventoryListUseCase(this.repository);
+  GetCustomerListUseCase(this.repository);
 
   @override
   Future<Either<Failure, Customer>> call(Params params) async {

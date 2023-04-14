@@ -11,11 +11,17 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp.router(
+      // disable debug mode banner.
       debugShowCheckedModeBanner: false,
       title: 'Flutter AidenKooG\'s Admin System',
+
+      // locale setting. (refs. currently, not working)
       translations: Messages(),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'US'),
+
+      // route setting.
+      // pass login related information obtained from main.dart to AppRouterDelegate.
       routeInformationParser: RoutesInformationParser(),
       routerDelegate: AppRouterDelegate(isLoggedIn: isLoggedIn),
     );

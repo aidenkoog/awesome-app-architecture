@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/custom_outlined_button.dart';
 
-import '../components/main_left_panel.dart';
-import '../components/main_right_panel.dart';
+import '../components/custom_outlined_button.dart';
+import '../components/home/home_left_panel.dart';
+import '../components/home/home_right_panel.dart';
 
-const featureName = 'INVENTORY';
+const featureName = 'AGENCY';
 
-class Feature2 extends StatelessWidget {
+class Feature3 extends StatelessWidget {
   final String routeName;
-  const Feature2({
+
+  const Feature3({
     Key? key,
     required this.routeName,
   }) : super(key: key);
@@ -16,26 +17,29 @@ class Feature2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      // button container.
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
           child: Row(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              spaceBox,
               const CustomOutlinedButton(
-                  buttonName: 'IMPORT 2', color: Colors.red),
-              spaceBox,
+                  buttonName: 'AGENCY 1', color: Colors.red),
+              const SizedBox(
+                width: 8,
+              ),
               const CustomOutlinedButton(
-                  buttonName: 'EXPORT', color: Colors.red),
-              spaceBox,
+                  buttonName: 'AGENCY 2', color: Colors.red),
+              const SizedBox(
+                width: 8,
+              ),
               const CustomOutlinedButton(
-                  buttonName: 'BATCH REGISTRATION', color: Colors.red),
-              spaceBox,
-              const CustomOutlinedButton(
-                  buttonName: 'DOWNLOAD SAMPLE', color: Colors.green),
+                  buttonName: 'AGENCY 3', color: Colors.red),
             ],
           )),
+
+      // main left and right panels.
       Expanded(
           flex: 1,
           child: Row(
@@ -56,7 +60,3 @@ class Feature2 extends StatelessWidget {
     ]);
   }
 }
-
-const spaceBox = SizedBox(
-  width: 8,
-);

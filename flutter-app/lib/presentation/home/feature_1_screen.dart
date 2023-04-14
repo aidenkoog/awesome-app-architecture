@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/main_left_panel.dart';
-import 'package:flutter_web_navigation/presentation/components/main_right_panel.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_left_panel.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_right_panel.dart';
 
 import '../components/custom_outlined_button.dart';
 
@@ -17,6 +17,7 @@ class Feature1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      // button container.
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
@@ -24,6 +25,8 @@ class Feature1 extends StatelessWidget {
             buttonName: "+ ADD CUSTOMER",
             color: Colors.red,
           )),
+
+      // main left and right panels.
       Expanded(
           flex: 1,
           child: Row(

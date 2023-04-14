@@ -6,11 +6,12 @@ This project is to make template code that can be applied to any app development
 
 - Language: Dart
 - Structure Summary
-  - ✨ configs
+  - ✨ assets
+  - ✨ core
   - ✨ data
   - ✨ domain
+  - ✨ presentation
   - ✨ routes
-  - ✨ screens
   - ✨ services
   - ✨ utils
 
@@ -36,6 +37,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/14 : Componentized tab widgets at the top of the main screen
 - 2023/04/14 : Componentized all widgets which are used duplicately
 - 2023/04/14 : Changed screens to presentation and installed get_it package
+- 2023/04/14 : Added datasource, repository, usecase, core modules and entities / Added scripts for running and releasing app
 
 #### How To Setup Environment
 

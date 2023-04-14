@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/presentation/components/custom_outlined_button.dart';
 
-import '../components/custom_outlined_button.dart';
-import '../components/main_left_panel.dart';
-import '../components/main_right_panel.dart';
+import '../components/home/home_left_panel.dart';
+import '../components/home/home_right_panel.dart';
 
-const featureName = 'AGENCY';
+const featureName = 'INVENTORY';
 
-class Feature3 extends StatelessWidget {
+class Feature2 extends StatelessWidget {
   final String routeName;
-
-  const Feature3({
+  const Feature2({
     Key? key,
     required this.routeName,
   }) : super(key: key);
@@ -17,26 +16,16 @@ class Feature3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
+      // button container.
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
           child: Row(
             // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              const CustomOutlinedButton(
-                  buttonName: 'AGENCY 1', color: Colors.red),
-              const SizedBox(
-                width: 8,
-              ),
-              const CustomOutlinedButton(
-                  buttonName: 'AGENCY 2', color: Colors.red),
-              const SizedBox(
-                width: 8,
-              ),
-              const CustomOutlinedButton(
-                  buttonName: 'AGENCY 3', color: Colors.red),
-            ],
+            children: buttonWidgetList,
           )),
+
+      // main left and right panels.
       Expanded(
           flex: 1,
           child: Row(
@@ -57,3 +46,20 @@ class Feature3 extends StatelessWidget {
     ]);
   }
 }
+
+// widget for putting space between buttons.
+const spaceBox = SizedBox(
+  width: 8,
+);
+
+// button list.
+const buttonWidgetList = [
+  spaceBox,
+  CustomOutlinedButton(buttonName: 'IMPORT 2', color: Colors.red),
+  spaceBox,
+  CustomOutlinedButton(buttonName: 'EXPORT', color: Colors.red),
+  spaceBox,
+  CustomOutlinedButton(buttonName: 'BATCH REGISTRATION', color: Colors.red),
+  spaceBox,
+  CustomOutlinedButton(buttonName: 'DOWNLOAD SAMPLE', color: Colors.green),
+];
