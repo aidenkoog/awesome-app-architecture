@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
+import 'package:flutter_web_navigation/screens/components/top_menu_tab_item.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class ContainerScreen extends StatefulWidget {
@@ -43,96 +44,13 @@ class _ContainerScreenState extends State<ContainerScreen> {
           ],
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature1')},
-              child: const Center(
-                child: Text(
-                  'CUSTOMER',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature2')},
-              child: const Center(
-                child: Text(
-                  'INVENTORY',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature3')},
-              child: const Center(
-                child: Text(
-                  'AGENCY',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature4')},
-              child: const Center(
-                child: Text(
-                  'ACCOUNTING',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature5')},
-              child: const Center(
-                child: Text(
-                  'EVENTS',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () => {AppRouterDelegate().setPathName('feature6')},
-              child: const Center(
-                child: Text(
-                  'Q&A',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-          ),
+          // tab items.
+          const TabItem(tabName: 'CUSTOMER', routeName: 'feature1'),
+          const TabItem(tabName: 'INVENTORY', routeName: 'feature2'),
+          const TabItem(tabName: 'AGENCY', routeName: 'feature3'),
+          const TabItem(tabName: 'ACCOUNTING', routeName: 'feature4'),
+          const TabItem(tabName: 'EVENTS', routeName: 'feature5'),
+          const TabItem(tabName: 'Q&A', routeName: 'feature6'),
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

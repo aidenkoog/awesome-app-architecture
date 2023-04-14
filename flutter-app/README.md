@@ -33,6 +33,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/02/23 : Updated presentation, domain and data hierarchy.
 - 2023/04/10 : Updated flutter clean architecture template source code (Deleted previous initial project source code)
 - 2023/04/13 : Added fake login and multiple screens operated by route
+- 2023/04/14 : Componentized tab widgets at the top of the main screen
 
 #### How To Setup Environment
 
