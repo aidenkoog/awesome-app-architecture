@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
+import 'package:flutter_web_navigation/screens/components/custom_input_box.dart';
+import 'package:flutter_web_navigation/screens/components/custom_normal_button.dart';
+import 'package:flutter_web_navigation/screens/components/intro_logo.dart';
+import 'package:flutter_web_navigation/screens/components/intro_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class Intro extends StatelessWidget {
-  final TextEditingController emailController = TextEditingController(text: "");
-  final TextEditingController passwordController =
-      TextEditingController(text: "");
   Intro({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -21,77 +22,21 @@ class Intro extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              const SizedBox(
-                height: 120,
-                width: 350,
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: Center(
-                      child: Text('AidenKooG\'s Admin System',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 25,
-                          )),
-                    )),
+              const IntroTitle(introTitle: 'AidenKooG\'s Admin System'),
+              IntroLogo(logoImage: Image.asset(AllImages.flutterLogo)),
+              CustomInputBox(
+                placeHolder: "Username or e-mail",
+                focusedPlaceHolder: 'Please enter your username',
+                errorMessage: 'Space input is not allowed for the name',
+                isPassword: false,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 25.0, bottom: 20),
-                child: Center(
-                  child: SizedBox(
-                      width: 200,
-                      height: 150,
-                      child: Image.asset(AllImages.flutterLogo)),
-                ),
+              CustomInputBox(
+                placeHolder: "Password",
+                focusedPlaceHolder: 'Please enter a password',
+                errorMessage: 'Wrong password in not allowed',
+                isPassword: true,
               ),
-              SizedBox(
-                height: 80,
-                width: 350,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextFormField(
-                    validator: (String? str) {
-                      if (str!.isEmpty) {
-                        return "Space input is not allowed for the name.";
-                      }
-                    },
-                    controller: emailController,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Username or e-mail',
-                        hintText: 'Please enter your username.'),
-                  ),
-                ),
-              ),
-              SizedBox(
-                  height: 80,
-                  width: 350,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Password',
-                          hintText: 'Please enter a password.'),
-                    ),
-                  )),
-              Container(
-                height: 50,
-                width: 320,
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(20)),
-                child: TextButton(
-                  onPressed: () => _logIn(),
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-              ),
+              CustomNormalButton(buttonText: 'Sign In', callback: logIn)
             ],
           ),
         ),
@@ -99,7 +44,7 @@ class Intro extends StatelessWidget {
     );
   }
 
-  _logIn() async {
+  logIn() async {
     if (_formKey.currentState!.validate()) {
       await HiveDataStorageService.logUserIn();
       AppRouterDelegate().setPathName(RouteData.feature1.name);

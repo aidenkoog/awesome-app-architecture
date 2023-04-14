@@ -34,6 +34,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/10 : Updated flutter clean architecture template source code (Deleted previous initial project source code)
 - 2023/04/13 : Added fake login and multiple screens operated by route
 - 2023/04/14 : Componentized tab widgets at the top of the main screen
+- 2023/04/14 : Componentized all widgets which are used duplicately
 
 #### How To Setup Environment
 
