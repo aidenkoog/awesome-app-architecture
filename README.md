@@ -1,37 +1,42 @@
-## Pretty architecture samples
+## App architecture
+
 A collection of templates to discuss and showcase different architectural tools and patterns for apps in different languages.
 
+- It is a project that develops the source code gradually through the application of coding conventions and clean architecture after writing apps in various types of languages.
+
 #### Template source code.
-- **React Native** Mobile App template.
+
+- **React Native** Mobile App
+
+  - Template (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/src
+
   - Major BLE module
-    - Javascript: https://github.com/aidenkoog/pretty-architecture-samples/tree/master/react_native/src 
-    - Typescript: https://github.com/aidenkoog/beautiful-ble-manager-module 
-    
-- **React Web** Front-end template.
-  - Javascript.
-  - Typescript.
+
+    - Template (Javascript): https://github.com/aidenkoog/pretty-architecture-samples/tree/master/react_native/src
+    - Template (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
+
+* **React Web** Front-end
+
+  - Template (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs/src
+  - Template (Typescript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs-typescript/src
 
 - **Android**
-  - Android Mobile App template.
-  - Android Wear-OS App template.
-  - Android TV App template.
-    - Kotlin
-    - Java
-  
-- **iOS** Mobile Swift App template.
 
-- **Flutter**
-  - Flutter Mobile App template.
-  - Flutter PC App template.
+  - Template: https://github.com/aidenkoog/app-architecture/tree/master/android_wear_os/app/src/main/java/io/github/aidenkoog/android_wear_os
+
+* **Flutter**
+
+  - Template: https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
 
 #### Description
-Study various architectural patterns such as mvc, mvp, mvvm and other's once again and implement them myself. 
-Then keep thinking about good structure and keep refactoring.
+
+To explain this project in more detail, it is a project that creates a simple app from HTTP, database, and login to the main screen, then considers the reusability of each module, creates a structure, and continuously develops the source code structure. .
+The ultimate goal of this project is to continuously study various design patterns and create template source code that can quickly and easily create maintainable apps through separation between UI and business logic.
 
 #### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin      | LINK                                     |
-| ----------- | ---------------------------------------- |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
 | Github page | [https://aidenkoog.github.io/] |
