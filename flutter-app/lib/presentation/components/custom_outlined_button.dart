@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class CustomOutlinedButton extends StatelessWidget {
   final String buttonName;
   final MaterialColor color;
+  final VoidCallback callback;
 
-  const CustomOutlinedButton({
-    Key? key,
-    required this.buttonName,
-    required this.color,
-  }) : super(key: key);
+  const CustomOutlinedButton(
+      {Key? key,
+      required this.buttonName,
+      required this.color,
+      required this.callback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,9 @@ class CustomOutlinedButton extends StatelessWidget {
           foregroundColor: color,
           side: BorderSide(color: color, width: 2),
           padding: const EdgeInsets.all(20)),
-      onPressed: () {},
+      onPressed: () {
+        callback();
+      },
     );
   }
 }

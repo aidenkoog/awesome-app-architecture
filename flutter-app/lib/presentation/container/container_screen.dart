@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
+import 'package:flutter_web_navigation/presentation/components/custom_drawer.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_account_icon.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_logout_info.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_tab_item.dart';
@@ -8,7 +9,9 @@ import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 class ContainerScreen extends StatefulWidget {
   final String routeName;
-  const ContainerScreen({
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  ContainerScreen({
     Key? key,
     required this.routeName,
   }) : super(key: key);
@@ -23,6 +26,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: widget._scaffoldKey,
       appBar: AppBar(
         // app bar background color.
         backgroundColor: Colors.white,
@@ -57,13 +61,19 @@ class _ContainerScreenState extends State<ContainerScreen> {
         ],
       ),
 
+      // drawer ui
+      endDrawer: CustomRightDrawer(
+        parentScaffoldKey: widget._scaffoldKey,
+      ),
+
       // screen corresponding to route name.
       body: Row(
         key: UniqueKey(),
         children: [
           Expanded(
-            child:
-                Center(child: RouteHandeler().getRouteWidget(widget.routeName)),
+            child: Center(
+                child: RouteHandeler()
+                    .getRouteWidget(widget.routeName, widget._scaffoldKey)),
           ),
         ],
       ),

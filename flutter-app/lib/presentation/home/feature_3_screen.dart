@@ -25,17 +25,23 @@ class Feature3 extends StatelessWidget {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               const CustomOutlinedButton(
-                  buttonName: 'AGENCY 1', color: Colors.red),
+                  buttonName: 'AGENCY 1',
+                  color: Colors.red,
+                  callback: _onClickAgency),
               const SizedBox(
                 width: 8,
               ),
               const CustomOutlinedButton(
-                  buttonName: 'AGENCY 2', color: Colors.red),
+                  buttonName: 'AGENCY 2',
+                  color: Colors.red,
+                  callback: _onClickAgency2),
               const SizedBox(
                 width: 8,
               ),
               const CustomOutlinedButton(
-                  buttonName: 'AGENCY 3', color: Colors.red),
+                  buttonName: 'AGENCY 3',
+                  color: Colors.red,
+                  callback: _onClickAgency3),
             ],
           )),
 
@@ -60,3 +66,7 @@ class Feature3 extends StatelessWidget {
     ]);
   }
 }
+
+_onClickAgency() {}
+_onClickAgency2() {}
+_onClickAgency3() {}

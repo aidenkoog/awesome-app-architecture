@@ -25,7 +25,9 @@ class Feature5 extends StatelessWidget {
             // ignore: prefer_const_literals_to_create_immutables
             children: [
               const CustomOutlinedButton(
-                  buttonName: 'DOWNLOAD EXCEL', color: Colors.green),
+                  buttonName: 'DOWNLOAD EXCEL',
+                  color: Colors.green,
+                  callback: _onDownloadExcel),
             ],
           )),
 
@@ -50,3 +52,5 @@ class Feature5 extends StatelessWidget {
     ]);
   }
 }
+
+_onDownloadExcel() {}

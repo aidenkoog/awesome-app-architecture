@@ -55,11 +55,24 @@ const spaceBox = SizedBox(
 // button list.
 const buttonWidgetList = [
   spaceBox,
-  CustomOutlinedButton(buttonName: 'IMPORT 2', color: Colors.red),
+  CustomOutlinedButton(
+      buttonName: 'IMPORT 2', color: Colors.red, callback: _onImport),
   spaceBox,
-  CustomOutlinedButton(buttonName: 'EXPORT', color: Colors.red),
+  CustomOutlinedButton(
+      buttonName: 'EXPORT', color: Colors.red, callback: _onExport),
   spaceBox,
-  CustomOutlinedButton(buttonName: 'BATCH REGISTRATION', color: Colors.red),
+  CustomOutlinedButton(
+      buttonName: 'BATCH REGISTRATION',
+      color: Colors.red,
+      callback: _onBatchRegistration),
   spaceBox,
-  CustomOutlinedButton(buttonName: 'DOWNLOAD SAMPLE', color: Colors.green),
+  CustomOutlinedButton(
+      buttonName: 'DOWNLOAD SAMPLE',
+      color: Colors.green,
+      callback: _onDownloadSample),
 ];
+
+_onImport() {}
+_onExport() {}
+_onBatchRegistration() {}
+_onDownloadSample() {}

@@ -38,6 +38,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/14 : Componentized all widgets which are used duplicately
 - 2023/04/14 : Changed screens to presentation and installed get_it package
 - 2023/04/14 : Added datasource, repository, usecase, core modules and entities / Added scripts for running and releasing app
+- 2023/04/16 : Added drawer to be shown on the right side of the screen when the button, 'add customer' in first tab screen is pressed
 
 #### How To Setup Environment
 

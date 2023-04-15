@@ -25,7 +25,8 @@ class RouteHandeler {
   RouteHandeler._();
 
   // get route widget corresponding to route name.
-  Widget getRouteWidget(String? routeName) {
+  Widget getRouteWidget(
+      String? routeName, GlobalKey<ScaffoldState> scaffoldKey) {
     RouteData routeData;
 
     if (routeName != null) {
@@ -40,8 +41,7 @@ class RouteHandeler {
           switch (routeData) {
             case RouteData.feature1:
               return Feature1(
-                routeName: routeName,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature2:
               return Feature2(
@@ -70,16 +70,13 @@ class RouteHandeler {
 
             default:
               return Feature1(
-                routeName: routeName,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
           }
         } else {
           return const UnknownRoute();
         }
       } else {
-        return Feature1(
-          routeName: routeName,
-        );
+        return Feature1(routeName: routeName, parentScaffoldKey: scaffoldKey);
       }
     } else {
       return const UnknownRoute();

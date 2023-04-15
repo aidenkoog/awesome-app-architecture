@@ -6,13 +6,20 @@ import '../components/custom_outlined_button.dart';
 
 const String featureName = "CUSTOMER";
 
-class Feature1 extends StatelessWidget {
+class Feature1 extends StatefulWidget {
   final String routeName;
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  const Feature1({
-    Key? key,
-    required this.routeName,
-  }) : super(key: key);
+  const Feature1(
+      {Key? key, required this.routeName, required this.parentScaffoldKey})
+      : super(key: key);
+
+  @override
+  State<Feature1> createState() => _Feature1State();
+}
+
+class _Feature1State extends State<Feature1> {
+  Widget? render;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +28,10 @@ class Feature1 extends StatelessWidget {
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
-          child: const CustomOutlinedButton(
-            buttonName: "+ ADD CUSTOMER",
-            color: Colors.red,
-          )),
+          child: CustomOutlinedButton(
+              buttonName: "+ ADD CUSTOMER",
+              color: Colors.red,
+              callback: _onAddCustomer)),
 
       // main left and right panels.
       Expanded(
@@ -45,5 +52,10 @@ class Feature1 extends StatelessWidget {
             ],
           ))
     ]);
+  }
+
+  // show ui for adding customer information.
+  void _onAddCustomer() {
+    widget.parentScaffoldKey.currentState!.openEndDrawer();
   }
 }
