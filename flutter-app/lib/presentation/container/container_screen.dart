@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
 import 'package:flutter_web_navigation/presentation/components/custom_drawer.dart';
@@ -6,6 +8,9 @@ import 'package:flutter_web_navigation/presentation/components/home/home_logout_
 import 'package:flutter_web_navigation/presentation/components/home/home_tab_item.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
+
+import '../components/custom_loading.dart';
+import 'dart:html' as html;
 
 class ContainerScreen extends StatefulWidget {
   final String routeName;
@@ -22,6 +27,7 @@ class ContainerScreen extends StatefulWidget {
 
 class _ContainerScreenState extends State<ContainerScreen> {
   Widget? render;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +42,57 @@ class _ContainerScreenState extends State<ContainerScreen> {
 
         // app bar title.
         title: MainTitle(
-            mainTitle: 'AidenKooG\'s Admin System',
-            mainLogo:
-                Image.asset(AllImages.flutterLogo, width: 30, height: 30)),
+          mainTitle: 'AidenKooG\'s Admin System',
+          mainLogo: Image.asset(AllImages.flutterLogo, width: 30, height: 30),
+          onTabCallback: () {
+            onClickWebPageTitle();
+          },
+        ),
 
         // app bar action tab items.
         actions: [
-          const TabItem(tabName: 'CUSTOMER', routeName: 'feature1'),
-          const TabItem(tabName: 'INVENTORY', routeName: 'feature2'),
-          const TabItem(tabName: 'AGENCY', routeName: 'feature3'),
-          const TabItem(tabName: 'ACCOUNTING', routeName: 'feature4'),
-          const TabItem(tabName: 'EVENTS', routeName: 'feature5'),
-          const TabItem(tabName: 'Q&A', routeName: 'feature6'),
+          TabItem(
+            tabName: 'CUSTOMER',
+            routeName: 'feature1',
+            onTabCallback: () {
+              onTabItemPressed('feature1');
+            },
+          ),
+          TabItem(
+            tabName: 'INVENTORY',
+            routeName: 'feature2',
+            onTabCallback: () {
+              onTabItemPressed('feature2');
+            },
+          ),
+          TabItem(
+            tabName: 'AGENCY',
+            routeName: 'feature3',
+            onTabCallback: () {
+              onTabItemPressed('feature3');
+            },
+          ),
+          TabItem(
+            tabName: 'ACCOUNTING',
+            routeName: 'feature4',
+            onTabCallback: () {
+              onTabItemPressed('feature4');
+            },
+          ),
+          TabItem(
+            tabName: 'EVENTS',
+            routeName: 'feature5',
+            onTabCallback: () {
+              onTabItemPressed('feature5');
+            },
+          ),
+          TabItem(
+            tabName: 'Q&A',
+            routeName: 'feature6',
+            onTabCallback: () {
+              onTabItemPressed('feature6');
+            },
+          ),
 
           // app bar logout information.
           const MainLogoutInfo(logoutInfo: 'Logout: 100 Hours 59 Mins 59 Secs'),
@@ -71,17 +116,37 @@ class _ContainerScreenState extends State<ContainerScreen> {
         key: UniqueKey(),
         children: [
           Expanded(
-            child: Center(
-                child: RouteHandeler()
-                    .getRouteWidget(widget.routeName, widget._scaffoldKey)),
+            child: isLoading
+                ? const CustomLoading()
+                : Center(
+                    child: RouteHandeler()
+                        .getRouteWidget(widget.routeName, widget._scaffoldKey)),
           ),
         ],
       ),
     );
   }
 
-// logout user and go back to intro screen.
-// internally user is deleted from hive repository.
+  // handler for tab item click event.
+  onTabItemPressed(String routeName) {
+    setState(() {
+      isLoading = true;
+    });
+    Timer(const Duration(seconds: 1), () async {
+      setState(() {
+        isLoading = false;
+      });
+      AppRouterDelegate().setPathName(routeName);
+    });
+  }
+
+  // handler for web page title click event.
+  onClickWebPageTitle() {
+    html.window.location.reload();
+  }
+
+  // logout user and go back to intro screen.
+  // internally user is deleted from hive repository.
   _logOut() async {
     await HiveDataStorageService.logOutUser();
     AppRouterDelegate().setPathName(RouteData.intro.name, loggedIn: false);

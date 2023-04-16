@@ -7,7 +7,6 @@ import 'package:flutter_web_navigation/presentation/components/custom_normal_but
 import 'package:flutter_web_navigation/presentation/components/intro/intro_logo.dart';
 import 'package:flutter_web_navigation/presentation/components/intro/intro_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../components/custom_loading.dart';
 

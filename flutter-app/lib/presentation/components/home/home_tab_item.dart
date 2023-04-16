@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/core.dart';
 
 class TabItem extends StatelessWidget {
   final String tabName;
   final String routeName;
+  final VoidCallback onTabCallback;
 
-  const TabItem({
-    Key? key,
-    required this.tabName,
-    required this.routeName,
-  }) : super(key: key);
+  const TabItem(
+      {Key? key,
+      required this.tabName,
+      required this.routeName,
+      required this.onTabCallback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => {AppRouterDelegate().setPathName(routeName)},
+        onTap: () => {onTabCallback()},
         child: Center(
           child: Text(
             tabName,
