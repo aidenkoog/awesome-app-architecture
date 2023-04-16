@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/custom_outlined_button.dart';
+import 'package:flutter_web_navigation/presentation/components/custom/custom_outlined_button.dart';
 
-import '../../utils/drawer_util.dart';
-import '../components/home/home_left_panel.dart';
-import '../components/home/home_right_panel.dart';
+import '../../../utils/drawer_util.dart';
+import '../../components/home/home_content.dart';
 
 const featureName = 'INVENTORY';
 
-class Feature2 extends StatelessWidget {
+class InventoryScreen extends StatelessWidget {
   final String routeName;
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  const Feature2({
+  const InventoryScreen({
     Key? key,
     required this.routeName,
     required this.parentScaffoldKey,
@@ -49,23 +48,7 @@ class Feature2 extends StatelessWidget {
           )),
 
       // main left and right panels.
-      Expanded(
-          flex: 1,
-          child: Row(
-            children: const [
-              MainLeftPanel(
-                  sectionName: featureName,
-                  description: featureName,
-                  subDecription: featureName),
-              SizedBox(
-                width: 25,
-              ),
-              MainRightPanel(
-                  sectionName: '$featureName SETTING',
-                  description: '$featureName SETTING',
-                  subDecription: '$featureName SETTING')
-            ],
-          ))
+      const HomeContent(featureName: featureName)
     ]);
   }
 

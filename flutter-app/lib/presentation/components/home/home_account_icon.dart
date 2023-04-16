@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MainAccountIcon extends StatelessWidget {
+class HomeAccountIcon extends StatelessWidget {
   final Image accountIcon;
   final String accountId;
   final VoidCallback callback;
 
-  const MainAccountIcon({
+  const HomeAccountIcon({
     Key? key,
     required this.accountIcon,
     required this.accountId,

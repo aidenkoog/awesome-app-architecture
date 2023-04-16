@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_1_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_4_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_2_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_3_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_5_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/feature_6_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/customer/customer_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/accounting/accounting_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/inventory/inventory_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/agency/agency_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/events/events_screen.dart';
+import 'package:flutter_web_navigation/presentation/home/qna/qna_screen.dart';
 import 'package:flutter_web_navigation/presentation/exception/unknown_screen.dart';
 
 enum RouteData {
@@ -40,43 +40,44 @@ class RouteHandeler {
         if (routeData != RouteData.notFound) {
           switch (routeData) {
             case RouteData.feature1:
-              return Feature1(
+              return CustomerScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature2:
-              return Feature2(
+              return InventoryScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature3:
-              return Feature3(
+              return AgencyScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature4:
-              return Feature4(
+              return AccountingScreen(
                 routeName: routeName,
                 parentScaffoldKey: scaffoldKey,
               );
 
             case RouteData.feature5:
-              return Feature5(
+              return EventScreen(
                 routeName: routeName,
                 parentScaffoldKey: scaffoldKey,
               );
 
             case RouteData.feature6:
-              return Feature6(
+              return QnaScreen(
                 routeName: routeName,
               );
 
             default:
-              return Feature1(
+              return CustomerScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
           }
         } else {
           return const UnknownRoute();
         }
       } else {
-        return Feature1(routeName: routeName, parentScaffoldKey: scaffoldKey);
+        return CustomerScreen(
+            routeName: routeName, parentScaffoldKey: scaffoldKey);
       }
     } else {
       return const UnknownRoute();

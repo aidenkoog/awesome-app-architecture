@@ -43,7 +43,7 @@ class AppRouterDelegate extends RouterDelegate<RoutePath>
   List<Page> get _authStack => [
         MaterialPage(
           key: const ValueKey('intro'),
-          child: Intro(),
+          child: IntroScreen(),
         ),
       ];
 

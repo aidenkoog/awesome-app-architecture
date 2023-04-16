@@ -2,23 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/presentation/components/custom_input_box.dart';
-import 'package:flutter_web_navigation/presentation/components/custom_normal_button.dart';
+import 'package:flutter_web_navigation/presentation/components/custom/custom_input_box.dart';
+import 'package:flutter_web_navigation/presentation/components/custom/custom_normal_button.dart';
 import 'package:flutter_web_navigation/presentation/components/intro/intro_logo.dart';
 import 'package:flutter_web_navigation/presentation/components/intro/intro_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
-import '../components/custom_loading.dart';
+import '../components/custom/custom_loading.dart';
 
-class Intro extends StatefulWidget {
-  Intro({Key? key}) : super(key: key);
+class IntroScreen extends StatefulWidget {
+  IntroScreen({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  State<Intro> createState() => _IntroState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroState extends State<Intro> {
+class _IntroScreenState extends State<IntroScreen> {
   Widget? render;
   bool isLoading = false;
 

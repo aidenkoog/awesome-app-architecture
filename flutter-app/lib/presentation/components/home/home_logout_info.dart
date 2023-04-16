@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MainLogoutInfo extends StatelessWidget {
+class HomeLogoutInfo extends StatelessWidget {
   final String logoutInfo;
 
-  const MainLogoutInfo({
+  const HomeLogoutInfo({
     Key? key,
     required this.logoutInfo,
   }) : super(key: key);

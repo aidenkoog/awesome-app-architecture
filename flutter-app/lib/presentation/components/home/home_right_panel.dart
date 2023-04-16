@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../utils/images.dart';
 
-class MainRightPanel extends StatelessWidget {
+class HomeRightPanel extends StatelessWidget {
   final String sectionName;
   final String description;
   final String subDecription;
 
-  const MainRightPanel({
+  const HomeRightPanel({
     Key? key,
     required this.sectionName,
     required this.description,

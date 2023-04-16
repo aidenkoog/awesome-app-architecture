@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/presentation/components/custom_drawer.dart';
+import 'package:flutter_web_navigation/presentation/components/custom/custom_drawer.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_account_icon.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_logout_info.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_tab_item.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
-import '../components/custom_loading.dart';
+import '../components/custom/custom_loading.dart';
+// ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
 
 class ContainerScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         shape: const Border(bottom: BorderSide(color: Colors.red, width: 2)),
 
         // app bar title.
-        title: MainTitle(
+        title: HomeTitle(
           mainTitle: 'AidenKooG\'s Admin System',
           mainLogo: Image.asset(AllImages.flutterLogo, width: 30, height: 30),
           onTabCallback: () {
@@ -51,42 +52,42 @@ class _ContainerScreenState extends State<ContainerScreen> {
 
         // app bar action tab items.
         actions: [
-          TabItem(
+          HomeTabItem(
             tabName: 'CUSTOMER',
             routeName: 'feature1',
             onTabCallback: () {
               onTabItemPressed('feature1');
             },
           ),
-          TabItem(
+          HomeTabItem(
             tabName: 'INVENTORY',
             routeName: 'feature2',
             onTabCallback: () {
               onTabItemPressed('feature2');
             },
           ),
-          TabItem(
+          HomeTabItem(
             tabName: 'AGENCY',
             routeName: 'feature3',
             onTabCallback: () {
               onTabItemPressed('feature3');
             },
           ),
-          TabItem(
+          HomeTabItem(
             tabName: 'ACCOUNTING',
             routeName: 'feature4',
             onTabCallback: () {
               onTabItemPressed('feature4');
             },
           ),
-          TabItem(
+          HomeTabItem(
             tabName: 'EVENTS',
             routeName: 'feature5',
             onTabCallback: () {
               onTabItemPressed('feature5');
             },
           ),
-          TabItem(
+          HomeTabItem(
             tabName: 'Q&A',
             routeName: 'feature6',
             onTabCallback: () {
@@ -95,10 +96,10 @@ class _ContainerScreenState extends State<ContainerScreen> {
           ),
 
           // app bar logout information.
-          const MainLogoutInfo(logoutInfo: 'Logout: 100 Hours 59 Mins 59 Secs'),
+          const HomeLogoutInfo(logoutInfo: 'Logout: 100 Hours 59 Mins 59 Secs'),
 
           // app bar login account icon.
-          MainAccountIcon(
+          HomeAccountIcon(
               accountIcon:
                   Image.asset(AllImages.flutterLogo, width: 30, height: 30),
               accountId: 'AidenKooG',

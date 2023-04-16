@@ -42,6 +42,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/16 : Added drawer ui to be shown when a button in the screen corresponding to each tab is pressed
 - 2023/04/16 : Added circle loading indicator to be shown when login button is pressed
 - 2023/04/16 : Added circle loading indicator about each tab event in home and Added code that refreshes webpage when home title is pressed
+- 2023/04/16 : Did code refactoring
 
 #### How To Setup Environment
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class TabItem extends StatelessWidget {
+class HomeTabItem extends StatelessWidget {
   final String tabName;
   final String routeName;
   final VoidCallback onTabCallback;
 
-  const TabItem(
+  const HomeTabItem(
       {Key? key,
       required this.tabName,
       required this.routeName,

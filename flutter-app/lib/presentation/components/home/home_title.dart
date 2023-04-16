@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MainTitle extends StatelessWidget {
+class HomeTitle extends StatelessWidget {
   final String mainTitle;
   final Image mainLogo;
   final VoidCallback onTabCallback;
 
-  const MainTitle(
+  const HomeTitle(
       {Key? key,
       required this.mainTitle,
       required this.mainLogo,

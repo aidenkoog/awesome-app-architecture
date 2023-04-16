@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/presentation/components/home/home_content.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
-import '../components/custom_outlined_button.dart';
-import '../components/home/home_left_panel.dart';
-import '../components/home/home_right_panel.dart';
+import '../../components/custom/custom_outlined_button.dart';
 
-const featureName = 'EVENTS';
+const featureName = "ACCOUNTING";
 
-class Feature5 extends StatelessWidget {
+class AccountingScreen extends StatelessWidget {
   final String routeName;
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  const Feature5({
+  const AccountingScreen({
     Key? key,
     required this.routeName,
     required this.parentScaffoldKey,
@@ -35,25 +34,10 @@ class Feature5 extends StatelessWidget {
           )),
 
       // main left and right panels.
-      Expanded(
-          flex: 1,
-          child: Row(
-            children: const [
-              MainLeftPanel(
-                  sectionName: featureName,
-                  description: featureName,
-                  subDecription: featureName),
-              SizedBox(
-                width: 25,
-              ),
-              MainRightPanel(
-                  sectionName: '$featureName SETTING',
-                  description: '$featureName SETTING',
-                  subDecription: '$featureName SETTING')
-            ],
-          ))
+      const HomeContent(featureName: featureName)
     ]);
   }
 
+  // handler for download excel button.
   _onDownloadExcel() => openEndDrawerUi(parentScaffoldKey);
 }
