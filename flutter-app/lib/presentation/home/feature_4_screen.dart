@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
 import '../components/custom_outlined_button.dart';
 import '../components/home/home_left_panel.dart';
@@ -8,10 +9,12 @@ const featureName = "ACCOUNTING";
 
 class Feature4 extends StatelessWidget {
   final String routeName;
+  final GlobalKey<ScaffoldState> parentScaffoldKey;
 
   const Feature4({
     Key? key,
     required this.routeName,
+    required this.parentScaffoldKey,
   }) : super(key: key);
 
   @override
@@ -24,7 +27,7 @@ class Feature4 extends StatelessWidget {
           child: Row(
             // ignore: prefer_const_literals_to_create_immutables
             children: [
-              const CustomOutlinedButton(
+              CustomOutlinedButton(
                   buttonName: 'DOWNLOAD EXCEL',
                   color: Colors.green,
                   callback: _onDownloadExcel),
@@ -51,6 +54,7 @@ class Feature4 extends StatelessWidget {
           ))
     ]);
   }
-}
 
-_onDownloadExcel() {}
+  // handler for download excel button.
+  _onDownloadExcel() => openEndDrawerUi(parentScaffoldKey);
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_left_panel.dart';
 import 'package:flutter_web_navigation/presentation/components/home/home_right_panel.dart';
+import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
 import '../components/custom_outlined_button.dart';
 
@@ -55,7 +56,5 @@ class _Feature1State extends State<Feature1> {
   }
 
   // show ui for adding customer information.
-  void _onAddCustomer() {
-    widget.parentScaffoldKey.currentState!.openEndDrawer();
-  }
+  _onAddCustomer() => openEndDrawerUi(widget.parentScaffoldKey);
 }

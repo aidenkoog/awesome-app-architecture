@@ -45,22 +45,22 @@ class RouteHandeler {
 
             case RouteData.feature2:
               return Feature2(
-                routeName: routeName,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature3:
               return Feature3(
-                routeName: routeName,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.feature4:
               return Feature4(
                 routeName: routeName,
+                parentScaffoldKey: scaffoldKey,
               );
 
             case RouteData.feature5:
               return Feature5(
                 routeName: routeName,
+                parentScaffoldKey: scaffoldKey,
               );
 
             case RouteData.feature6:
