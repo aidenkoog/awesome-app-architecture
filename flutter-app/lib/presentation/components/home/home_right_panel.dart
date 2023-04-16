@@ -19,7 +19,7 @@ class HomeRightPanel extends StatelessWidget {
     return Expanded(
         flex: 6,
         child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 20, 100, 100),
+          margin: const EdgeInsets.fromLTRB(20, 20, 100, 70),
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -39,9 +39,12 @@ class HomeRightPanel extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
               Image.asset(AllImages.flutterLogo, width: 300, height: 300),
+              const SizedBox(
+                height: 30,
+              ),
               Text(
                 sectionName,
                 style: const TextStyle(
@@ -51,7 +54,7 @@ class HomeRightPanel extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 100,
+                height: 30,
               ),
               Text(
                 description,
