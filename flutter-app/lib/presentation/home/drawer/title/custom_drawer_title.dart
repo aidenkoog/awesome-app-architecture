@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../utils/images.dart';
 
 class CustomDrawerTitle extends StatelessWidget {
@@ -13,6 +12,7 @@ class CustomDrawerTitle extends StatelessWidget {
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.all(18),
         child: Row(children: [
+          // drawer title.
           Expanded(
               flex: 5,
               child: Text(
@@ -22,6 +22,8 @@ class CustomDrawerTitle extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                     fontSize: 30),
               )),
+
+          // drawer exit icon.
           Expanded(
               flex: 5,
               child: Container(

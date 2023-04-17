@@ -1,14 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/input_box/custom_input_box.dart';
-import 'package:flutter_web_navigation/presentation/components/intro/intro_logo.dart';
-import 'package:flutter_web_navigation/presentation/components/intro/intro_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
-
-import '../components/custom/button/custom_normal_button.dart';
-import '../components/custom/loading/custom_loading.dart';
+import '../components/button/custom_normal_button.dart';
+import '../components/input_box/custom_input_box.dart';
+import '../components/loading/custom_loading.dart';
+import 'components/intro_logo.dart';
+import 'components/intro_title.dart';
 
 class IntroScreen extends StatefulWidget {
   IntroScreen({Key? key}) : super(key: key);

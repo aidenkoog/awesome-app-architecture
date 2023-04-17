@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import 'home_left_panel.dart';
-import 'home_right_panel.dart';
+import 'panel/home_left_panel.dart';
+import 'panel/home_right_panel.dart';
 
 class HomeContent extends StatelessWidget {
   final String featureName;

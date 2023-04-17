@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/textfield/custom_text_field.dart';
-import 'package:flutter_web_navigation/presentation/components/qna/qna_answer.dart';
-import 'package:flutter_web_navigation/presentation/components/qna/qna_content.dart';
-import 'package:flutter_web_navigation/presentation/components/qna/qna_header.dart';
+import 'package:flutter_web_navigation/presentation/home/qna/components/qna_answer.dart';
+import 'package:flutter_web_navigation/presentation/home/qna/components/qna_content.dart';
+import 'package:flutter_web_navigation/presentation/home/qna/components/qna_header.dart';
 
-import '../custom/button/custom_normal_button.dart';
+import '../../../components/button/custom_normal_button.dart';
 
 class QnaForm extends StatelessWidget {
   const QnaForm({Key? key}) : super(key: key);

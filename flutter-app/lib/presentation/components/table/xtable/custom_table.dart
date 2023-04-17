@@ -3,16 +3,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:xtable/xtable.dart';
 
-// under construction
-class HomeTable extends StatefulWidget {
+class CustomTable extends StatefulWidget {
   final bool isMainTable;
-  const HomeTable({Key? key, required this.isMainTable}) : super(key: key);
+  const CustomTable({Key? key, required this.isMainTable}) : super(key: key);
 
   @override
-  State<HomeTable> createState() => _HomeTableState();
+  State<CustomTable> createState() => _CustomTableState();
 }
 
-class _HomeTableState extends State<HomeTable> {
+class _CustomTableState extends State<CustomTable> {
   late List<DatatableHeader> _headers;
 
   List<int> _perPages = [7, 10, 15, 20];

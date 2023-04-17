@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/drawer/form/custom_drawer_content_form.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/drawer/tab/custom_drawer_tab_container.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/drawer/title/custom_drawer_title.dart';
+import 'package:flutter_web_navigation/presentation/home/drawer/tab/custom_drawer_tab_container.dart';
+
+import 'form/custom_drawer_content_form.dart';
+import 'title/custom_drawer_title.dart';
 
 class CustomDrawerContent extends StatefulWidget {
   const CustomDrawerContent({Key? key}) : super(key: key);

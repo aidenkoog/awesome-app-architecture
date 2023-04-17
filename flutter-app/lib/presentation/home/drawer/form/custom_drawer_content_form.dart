@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../button/custom_normal_button.dart';
+import '../../../components/button/custom_normal_button.dart';
 import '../form/custom_radio_button.dart';
 import 'custom_input_form.dart';
 

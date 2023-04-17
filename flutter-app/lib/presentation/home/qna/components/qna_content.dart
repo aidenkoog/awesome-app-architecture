@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../custom/textfield/custom_text_field.dart';
+
+import '../../../components/textfield/custom_text_field.dart';
 
 class QnaContent extends StatelessWidget {
   const QnaContent({Key? key}) : super(key: key);

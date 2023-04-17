@@ -16,6 +16,8 @@ class CustomLoading extends StatelessWidget {
         SizedBox(
           height: 230,
         ),
+
+        // animated loading indicator.
         SpinKitRing(
           color: Colors.lightBlue,
           lineWidth: 10,
@@ -24,6 +26,8 @@ class CustomLoading extends StatelessWidget {
         SizedBox(
           height: 85,
         ),
+
+        // loading message.
         Text(
           'Loading...',
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),

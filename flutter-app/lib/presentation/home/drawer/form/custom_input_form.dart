@@ -19,6 +19,7 @@ class _CustomInputFormState extends State<CustomInputForm> {
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
+            // label.
             Expanded(
                 flex: 1,
                 child: Container(
@@ -28,6 +29,8 @@ class _CustomInputFormState extends State<CustomInputForm> {
                       style: const TextStyle(
                           color: Colors.black87, fontWeight: FontWeight.w600),
                     ))),
+
+            // text input box.
             Expanded(
                 flex: 5,
                 child: Container(

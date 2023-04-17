@@ -25,6 +25,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
         alignment: Alignment.centerLeft,
         child: Row(
           children: [
+            // label.
             Expanded(
                 flex: 1,
                 child: Container(
@@ -34,6 +35,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                       style: const TextStyle(
                           color: Colors.black87, fontWeight: FontWeight.w600),
                     ))),
+
+            // radio button layout.
             Expanded(
                 flex: 1,
                 child: Container(
