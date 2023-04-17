@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
 
-import '../../components/home/home_content.dart';
-
-const featureName = 'Q&A';
+import '../../components/home/content/home_content.dart';
 
 class QnaScreen extends StatelessWidget {
   final String routeName;
@@ -24,7 +23,7 @@ class QnaScreen extends StatelessWidget {
           )),
 
       // main left and right panels.
-      const HomeContent(featureName: featureName)
+      HomeContent(featureName: routeQnaForDisplay)
     ]);
   }
 }

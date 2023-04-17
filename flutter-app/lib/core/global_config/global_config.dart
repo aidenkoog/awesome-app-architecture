@@ -1,2 +1,2 @@
 // Under construction
-const bool DEBUG = true;
+const bool kDebugMode = true;

@@ -1,7 +1,7 @@
 echo '################################'
 echo 'run project'
 
-flutter run
+flutter run -d chrome
 
 echo '################################'
 echo 'finished'

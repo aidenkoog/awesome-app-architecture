@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
+import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
 import 'package:flutter_web_navigation/presentation/components/custom/custom_drawer.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_account_icon.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_logout_info.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_tab_item.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_title.dart';
+import 'package:flutter_web_navigation/presentation/components/home/navigator/home_account_icon.dart';
+import 'package:flutter_web_navigation/presentation/components/home/navigator/home_logout_info.dart';
+import 'package:flutter_web_navigation/presentation/components/home/navigator/home_tab_item.dart';
+import 'package:flutter_web_navigation/presentation/components/home/navigator/home_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
 import '../components/custom/custom_loading.dart';
@@ -53,45 +54,45 @@ class _ContainerScreenState extends State<ContainerScreen> {
         // app bar action tab items.
         actions: [
           HomeTabItem(
-            tabName: 'CUSTOMER',
-            routeName: 'feature1',
+            tabName: routeCustomerForDisplay,
+            routeName: routeKeyCustomer,
             onTabCallback: () {
-              onTabItemPressed('feature1');
+              onTabItemPressed(routeKeyCustomer);
             },
           ),
           HomeTabItem(
-            tabName: 'INVENTORY',
-            routeName: 'feature2',
+            tabName: routeInventoryForDisplay,
+            routeName: routeKeyInventory,
             onTabCallback: () {
-              onTabItemPressed('feature2');
+              onTabItemPressed(routeKeyInventory);
             },
           ),
           HomeTabItem(
-            tabName: 'AGENCY',
-            routeName: 'feature3',
+            tabName: routeAgencyForDisplay,
+            routeName: routeKeyAgency,
             onTabCallback: () {
-              onTabItemPressed('feature3');
+              onTabItemPressed(routeKeyAgency);
             },
           ),
           HomeTabItem(
-            tabName: 'ACCOUNTING',
-            routeName: 'feature4',
+            tabName: routeAccountingForDisplay,
+            routeName: routeKeyAccounting,
             onTabCallback: () {
-              onTabItemPressed('feature4');
+              onTabItemPressed(routeKeyAccounting);
             },
           ),
           HomeTabItem(
-            tabName: 'EVENTS',
-            routeName: 'feature5',
+            tabName: routeEventsForDisplay,
+            routeName: routeKeyEvents,
             onTabCallback: () {
-              onTabItemPressed('feature5');
+              onTabItemPressed(routeKeyEvents);
             },
           ),
           HomeTabItem(
-            tabName: 'Q&A',
-            routeName: 'feature6',
+            tabName: routeQnaForDisplay,
+            routeName: routeKeyQna,
             onTabCallback: () {
-              onTabItemPressed('feature6');
+              onTabItemPressed(routeKeyQna);
             },
           ),
 

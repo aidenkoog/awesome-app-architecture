@@ -79,7 +79,7 @@ class _IntroScreenState extends State<IntroScreen> {
           isLoading = false;
         });
         await HiveDataStorageService.logUserIn();
-        AppRouterDelegate().setPathName(RouteData.feature1.name);
+        AppRouterDelegate().setPathName(RouteData.customer.name);
       });
     }
   }

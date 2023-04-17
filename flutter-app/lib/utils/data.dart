@@ -11,28 +11,39 @@ class SubNavigationRoutes {
 
 // route pages list.
 List<SubNavigationRoutes> routeList = [
+  // customer
   SubNavigationRoutes(
-      title: RouteData.feature1.name.toUpperCase(),
+      title: RouteData.customer.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature1),
+      route: RouteData.customer),
+
+  // inventory
   SubNavigationRoutes(
-      title: RouteData.feature2.name.toUpperCase(),
+      title: RouteData.inventory.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature2),
+      route: RouteData.inventory),
+
+  // agency
   SubNavigationRoutes(
-      title: RouteData.feature3.name.toUpperCase(),
+      title: RouteData.agency.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature3),
+      route: RouteData.agency),
+
+  // accounting
   SubNavigationRoutes(
-      title: RouteData.feature4.name.toUpperCase(),
+      title: RouteData.accounting.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature4),
+      route: RouteData.accounting),
+
+  // events
   SubNavigationRoutes(
-      title: RouteData.feature5.name.toUpperCase(),
+      title: RouteData.events.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature5),
+      route: RouteData.events),
+
+  // qna
   SubNavigationRoutes(
-      title: RouteData.feature6.name.toUpperCase(),
+      title: RouteData.qna.name.toUpperCase(),
       icon: Icons.settings,
-      route: RouteData.feature6),
+      route: RouteData.qna),
 ];

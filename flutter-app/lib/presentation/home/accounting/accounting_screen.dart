@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_content.dart';
+import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
+import 'package:flutter_web_navigation/presentation/components/home/content/home_content.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
 import '../../components/custom/custom_outlined_button.dart';
-
-const featureName = "ACCOUNTING";
 
 class AccountingScreen extends StatelessWidget {
   final String routeName;
@@ -34,7 +33,7 @@ class AccountingScreen extends StatelessWidget {
           )),
 
       // main left and right panels.
-      const HomeContent(featureName: featureName)
+      HomeContent(featureName: routeAccountingForDisplay)
     ]);
   }
 

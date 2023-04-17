@@ -35,7 +35,7 @@ class AppRouterDelegate extends RouterDelegate<RoutePath>
         MaterialPage(
           key: const ValueKey('main'),
           child: ContainerScreen(
-            routeName: pathName ?? RouteData.feature1.name,
+            routeName: pathName ?? RouteData.customer.name,
           ),
         )
       ];
@@ -86,12 +86,12 @@ class AppRouterDelegate extends RouterDelegate<RoutePath>
       if (configuration.pathName != null) {
         if (isLoggedIn == true) {
           if (configuration.pathName == RouteData.intro.name) {
-            pathName = RouteData.feature1.name;
+            pathName = RouteData.customer.name;
             isError = false;
           } else {
             pathName = configuration.pathName != RouteData.intro.name
                 ? configuration.pathName
-                : RouteData.feature1.name;
+                : RouteData.customer.name;
             isError = false;
           }
         } else {

@@ -11,12 +11,12 @@ enum RouteData {
   unkownRoute,
   notFound,
   intro,
-  feature1,
-  feature2,
-  feature3,
-  feature4,
-  feature5,
-  feature6
+  customer,
+  inventory,
+  agency,
+  accounting,
+  events,
+  qna
 }
 
 class RouteHandeler {
@@ -39,31 +39,31 @@ class RouteHandeler {
 
         if (routeData != RouteData.notFound) {
           switch (routeData) {
-            case RouteData.feature1:
+            case RouteData.customer:
               return CustomerScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
-            case RouteData.feature2:
+            case RouteData.inventory:
               return InventoryScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
-            case RouteData.feature3:
+            case RouteData.agency:
               return AgencyScreen(
                   routeName: routeName, parentScaffoldKey: scaffoldKey);
 
-            case RouteData.feature4:
+            case RouteData.accounting:
               return AccountingScreen(
                 routeName: routeName,
                 parentScaffoldKey: scaffoldKey,
               );
 
-            case RouteData.feature5:
+            case RouteData.events:
               return EventScreen(
                 routeName: routeName,
                 parentScaffoldKey: scaffoldKey,
               );
 
-            case RouteData.feature6:
+            case RouteData.qna:
               return QnaScreen(
                 routeName: routeName,
               );

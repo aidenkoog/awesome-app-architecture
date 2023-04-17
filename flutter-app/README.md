@@ -8,9 +8,25 @@ This project is to make template code that can be applied to any app development
 - Structure Summary
   - ✨ assets
   - ✨ core
+    - ✨ errors
+    - ✨ global_config
+    - ✨ network
+    - ✨ usecases
   - ✨ data
+    - ✨ dummy
+    - ✨ models
+    - ✨ repositores
+    - ✨ sources
   - ✨ domain
+    - ✨ entities
+    - ✨ repositories
+    - ✨ usecases
   - ✨ presentation
+    - ✨ components
+    - ✨ container
+    - ✨ exception
+    - ✨ home
+    - ✨ intro
   - ✨ routes
   - ✨ services
   - ✨ utils
@@ -30,8 +46,6 @@ samples, guidance on mobile development, and a full API reference.
 
 #### Release Note
 
-- 2023/02/22 : Initialized flutter project.
-- 2023/02/23 : Updated presentation, domain and data hierarchy.
 - 2023/04/10 : Updated flutter clean architecture template source code (Deleted previous initial project source code)
 - 2023/04/13 : Added fake login and multiple screens operated by route
 - 2023/04/14 : Componentized tab widgets at the top of the main screen
@@ -44,6 +58,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/16 : Added circle loading indicator about each tab event in home and Added code that refreshes webpage when home title is pressed
 - 2023/04/16 : Did code refactoring
 - 2023/04/16 : Added xtable component to home's left panel (Known issue: table crash occurs when clicking data cell area)
+- 2023/04/17 : Did code refactoring / Added m_log utility
 
 #### How To Setup Environment
 

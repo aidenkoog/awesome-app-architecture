@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../utils/images.dart';
+import '../../../../utils/images.dart';
 
 class HomeRightPanel extends StatelessWidget {
   final String sectionName;

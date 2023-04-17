@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/home/home_table.dart';
+import 'package:flutter_web_navigation/presentation/components/home/table/home_table.dart';
 
 class HomeLeftPanel extends StatelessWidget {
   final String sectionName;

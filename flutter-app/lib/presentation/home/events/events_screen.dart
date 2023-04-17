@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
 import '../../components/custom/custom_outlined_button.dart';
-import '../../components/home/home_content.dart';
-
-const featureName = 'EVENTS';
+import '../../components/home/content/home_content.dart';
 
 class EventScreen extends StatelessWidget {
   final String routeName;
@@ -34,7 +33,7 @@ class EventScreen extends StatelessWidget {
           )),
 
       // main left and right panels.
-      const HomeContent(featureName: featureName)
+      HomeContent(featureName: routeEventsForDisplay)
     ]);
   }
 
