@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
 import '../../../utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
-import '../home_content.dart';
+import '../base/home_content.dart';
 
 class InventoryScreen extends StatelessWidget {
   final String routeName;

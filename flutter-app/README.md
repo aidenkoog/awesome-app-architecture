@@ -63,7 +63,8 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/17 : Added getx controller templates
 - 2023/04/17 : Updated drawer ui items and componentized them
 - 2023/04/17 : Added Q&A textfield form
-- 2023/04/17 : Update source code hierarchy
+- 2023/04/17 : Updated source code hierarchy
+- 2023/04/17 : Fixed compile error caused by wrong references
 
 #### How To Setup Environment
 
