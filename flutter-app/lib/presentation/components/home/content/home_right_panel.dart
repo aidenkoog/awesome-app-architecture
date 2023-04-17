@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/presentation/components/qna/qna_form.dart';
 import '../../../../utils/images.dart';
 
 class HomeRightPanel extends StatelessWidget {
@@ -22,7 +23,7 @@ class HomeRightPanel extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Colors.white.withOpacity(0.5),
+              color: Colors.white.withOpacity(0.9),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
@@ -36,38 +37,40 @@ class HomeRightPanel extends StatelessWidget {
               ]),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const SizedBox(
                 height: 50,
               ),
-              Image.asset(AllImages.flutterLogo, width: 300, height: 300),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                sectionName,
-                style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.blueGrey),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Text(
-                description,
-                style:
-                    const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-                textAlign: TextAlign.center,
-              ),
-              InkWell(
-                  onTap: () {},
-                  child: Text(
-                    subDecription,
-                    style: TextStyle(fontSize: 18, color: Colors.green[900]),
-                    textAlign: TextAlign.center,
-                  )),
+              const QnaForm(),
+              // Image.asset(AllImages.flutterLogo, width: 300, height: 300),
+              // const SizedBox(
+              //   height: 30,
+              // ),
+              // Text(
+              //   sectionName,
+              //   style: const TextStyle(
+              //       fontSize: 40,
+              //       fontWeight: FontWeight.w900,
+              //       color: Colors.blueGrey),
+              //   textAlign: TextAlign.center,
+              // ),
+              // const SizedBox(
+              //   height: 30,
+              // ),
+              // Text(
+              //   description,
+              //   style:
+              //       const TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+              //   textAlign: TextAlign.center,
+              // ),
+              // InkWell(
+              //     onTap: () {},
+              //     child: Text(
+              //       subDecription,
+              //       style: TextStyle(fontSize: 18, color: Colors.green[900]),
+              //       textAlign: TextAlign.center,
+              //     )),
             ],
           ),
         ));

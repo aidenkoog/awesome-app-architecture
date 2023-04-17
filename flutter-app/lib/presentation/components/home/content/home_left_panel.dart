@@ -22,7 +22,7 @@ class HomeLeftPanel extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.white.withOpacity(0.5),
+                color: Colors.white.withOpacity(0.9),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),

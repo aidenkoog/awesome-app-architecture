@@ -62,6 +62,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/17 : Did code refactoring / Added m_log utility
 - 2023/04/17 : Added getx controller templates
 - 2023/04/17 : Updated drawer ui items and componentized them
+- 2023/04/17 : Added Q&A textfield form
 
 #### How To Setup Environment
 
