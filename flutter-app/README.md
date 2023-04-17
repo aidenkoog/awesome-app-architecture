@@ -61,6 +61,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/16 : Added xtable component to home's left panel (Known issue: table crash occurs when clicking data cell area)
 - 2023/04/17 : Did code refactoring / Added m_log utility
 - 2023/04/17 : Added getx controller templates
+- 2023/04/17 : Updated drawer ui items and componentized them
 
 #### How To Setup Environment
 

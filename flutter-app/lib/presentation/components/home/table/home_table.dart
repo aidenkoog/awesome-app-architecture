@@ -345,17 +345,17 @@ class _HomeTableState extends State<HomeTable> {
                     )
                   ],
                   headerDecoration: const BoxDecoration(
-                      color: Colors.grey,
+                      color: Colors.white,
                       border: Border(
-                          bottom: BorderSide(color: Colors.red, width: 1))),
+                          bottom: BorderSide(color: Colors.grey, width: 1))),
                   selectedDecoration: BoxDecoration(
                     border: Border(
                         bottom:
                             BorderSide(color: Colors.green[300]!, width: 1)),
-                    color: Colors.green,
+                    color: Colors.grey,
                   ),
-                  headerTextStyle: const TextStyle(color: Colors.white),
-                  rowTextStyle: const TextStyle(color: Colors.green),
+                  headerTextStyle: const TextStyle(color: Colors.black87),
+                  rowTextStyle: const TextStyle(color: Colors.black87),
                   selectedTextStyle: const TextStyle(color: Colors.white),
                 ),
               ),

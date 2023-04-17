@@ -3,16 +3,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
 import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
-import 'package:flutter_web_navigation/presentation/components/custom/custom_drawer.dart';
 import 'package:flutter_web_navigation/presentation/components/home/navigator/home_account_icon.dart';
 import 'package:flutter_web_navigation/presentation/components/home/navigator/home_logout_info.dart';
 import 'package:flutter_web_navigation/presentation/components/home/navigator/home_tab_item.dart';
 import 'package:flutter_web_navigation/presentation/components/home/navigator/home_title.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
 
-import '../components/custom/custom_loading.dart';
+import '../components/custom/loading/custom_loading.dart';
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html' as html;
+
+import '../components/custom/drawer/custom_drawer.dart';
 
 class ContainerScreen extends StatefulWidget {
   final String routeName;

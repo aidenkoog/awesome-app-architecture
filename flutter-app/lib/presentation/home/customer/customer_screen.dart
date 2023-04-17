@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 
-import '../../components/custom/custom_outlined_button.dart';
+import '../../components/custom/button/custom_outlined_button.dart';
 import '../../components/home/content/home_content.dart';
 
 class CustomerScreen extends StatefulWidget {
