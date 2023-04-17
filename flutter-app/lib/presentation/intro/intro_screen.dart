@@ -72,7 +72,7 @@ class _IntroScreenState extends State<IntroScreen> {
       setState(() {
         isLoading = true;
       });
-      Timer(const Duration(seconds: 3), () async {
+      Timer(const Duration(seconds: 1), () async {
         setState(() {
           isLoading = false;
         });

@@ -47,6 +47,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   xtable: ^0.0.4
   m_log: ^0.0.4
+  context_menus: ^1.0.2
 
 dev_dependencies:
   flutter_test:
