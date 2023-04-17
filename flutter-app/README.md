@@ -13,6 +13,7 @@ This project is to make template code that can be applied to any app development
     - ✨ network
     - ✨ usecases
   - ✨ data
+    - ✨ adapters
     - ✨ dummy
     - ✨ models
     - ✨ repositores
@@ -59,6 +60,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/16 : Did code refactoring
 - 2023/04/16 : Added xtable component to home's left panel (Known issue: table crash occurs when clicking data cell area)
 - 2023/04/17 : Did code refactoring / Added m_log utility
+- 2023/04/17 : Added getx controller templates
 
 #### How To Setup Environment
 
