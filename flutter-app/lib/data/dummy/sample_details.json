@@ -1,0 +1,32 @@
+[
+  {
+    "categoryName": "table content",
+    "webCategoryId": 1,
+    "mobileCategoryId": 2,
+    "controlList": [
+      {
+        "title": "table content area",
+        "description": "Visualize customer, inventory, accounting, agency and q&a",
+        "image": "../../assets/images/treemap.png",
+        "displayType": "tab",
+        "controlId": 4,
+        "subItems": []
+      }
+    ]
+  },
+  {
+    "categoryName": "main setting area",
+    "mobileCategoryId": 7,
+    "webCategoryId": 7,
+    "controlList": [
+      {
+        "title": "main setting area",
+        "description": "Visualize setting form corresponding to selected table content",
+        "image": "../../assets/images/treemap.png",
+        "displayType": "tab",
+        "controlId": 1,
+        "subItems": []
+      }
+    ]
+  }
+]

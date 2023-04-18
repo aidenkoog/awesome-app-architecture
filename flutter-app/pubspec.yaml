@@ -48,6 +48,7 @@ dependencies:
   xtable: ^0.0.4
   m_log: ^0.0.4
   context_menus: ^1.0.2
+  desktop_window: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +74,23 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: HeeboBold
+      fonts:
+        - asset: assets/fonts/Heebo-Bold.ttf
+    - family: HeeboMedium
+      fonts:
+        - asset: assets/fonts/Heebo-Medium.ttf
+    - family: Roboto-Bold
+      fonts:
+        - asset: assets/fonts/Roboto-Bold.ttf
+    - family: Roboto-Medium
+      fonts:
+        - asset: assets/fonts/Roboto-Medium.ttf
+    - family: Roboto-Regular
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

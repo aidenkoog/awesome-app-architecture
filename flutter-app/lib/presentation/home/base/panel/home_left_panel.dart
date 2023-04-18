@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/table/xtable/custom_table.dart';
+import '../../../components/table/xtable/custom_x_table.dart';
 
 class HomeLeftPanel extends StatelessWidget {
   final String sectionName;
@@ -35,7 +35,7 @@ class HomeLeftPanel extends StatelessWidget {
                     ),
                   ),
                 ]),
-            child: const CustomTable(
+            child: const CustomXTable(
               isMainTable: true,
             )));
   }

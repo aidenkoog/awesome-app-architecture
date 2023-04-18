@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/core.dart';
 import 'package:flutter_web_navigation/services/hive_storage_service.dart';
+import '../../temp/model.dart';
 import '../components/button/custom_normal_button.dart';
 import '../components/input_box/custom_input_box.dart';
 import '../components/loading/custom_loading.dart';
@@ -73,11 +74,13 @@ class _IntroScreenState extends State<IntroScreen> {
         isLoading = true;
       });
       Timer(const Duration(seconds: 1), () async {
+        //await updateControlItems();
+        await HiveDataStorageService.logUserIn();
+
         setState(() {
+          AppRouterDelegate().setPathName(RouteData.customer.name);
           isLoading = false;
         });
-        await HiveDataStorageService.logUserIn();
-        AppRouterDelegate().setPathName(RouteData.customer.name);
       });
     }
   }

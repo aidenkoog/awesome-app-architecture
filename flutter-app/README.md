@@ -66,6 +66,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/17 : Updated source code hierarchy
 - 2023/04/17 : Fixed compile error caused by wrong references
 - 2023/04/17 : Added popup menu (context menu) to be shown when logout menu is pressed
+- 2023/04/18 : Applied reactive ui concept
 
 #### How To Setup Environment
 

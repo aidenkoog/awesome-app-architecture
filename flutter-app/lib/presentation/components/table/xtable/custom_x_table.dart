@@ -3,34 +3,34 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:xtable/xtable.dart';
 
-class CustomTable extends StatefulWidget {
+class CustomXTable extends StatefulWidget {
   final bool isMainTable;
-  const CustomTable({Key? key, required this.isMainTable}) : super(key: key);
+  const CustomXTable({Key? key, required this.isMainTable}) : super(key: key);
 
   @override
-  State<CustomTable> createState() => _CustomTableState();
+  State<CustomXTable> createState() => _CustomXTableState();
 }
 
-class _CustomTableState extends State<CustomTable> {
+class _CustomXTableState extends State<CustomXTable> {
   late List<DatatableHeader> _headers;
 
   List<int> _perPages = [7, 10, 15, 20];
   int _total = 30;
   int? _currentPerPage = 7;
   List<bool>? _expanded;
-  final String? _searchKey = "id";
+  String? _searchKey = "id";
 
   int _currentPage = 1;
   bool _isSearch = false;
   final List<Map<String, dynamic>> _sourceOriginal = [];
   List<Map<String, dynamic>> _sourceFiltered = [];
   List<Map<String, dynamic>> _source = [];
-  final List<Map<String, dynamic>> _selecteds = [];
+  List<Map<String, dynamic>> _selecteds = [];
   // ignore: unused_field
   final String _selectableKey = "id";
 
   String? _sortColumn;
-  final bool _sortAscending = true;
+  bool _sortAscending = true;
   bool _isLoading = true;
   final bool _showSelect = false;
   var random = Random();
@@ -228,57 +228,57 @@ class _CustomTableState extends State<CustomTable> {
                     }
                     return _DropDownContainer(data: data);
                   },
-                  // onChangedRow: (value, header) {
-                  //   /// print(value);
-                  //   /// print(header);
-                  // },
-                  // onSubmittedRow: (value, header) {
-                  //   /// print(value);
-                  //   /// print(header);
-                  // },
-                  // onTabRow: (data) {},
-                  // onSort: (value) {
-                  //   setState(() => _isLoading = true);
+                  onChangedRow: (value, header) {
+                    /// print(value);
+                    /// print(header);
+                  },
+                  onSubmittedRow: (value, header) {
+                    /// print(value);
+                    /// print(header);
+                  },
+                  onTabRow: (data) {},
+                  onSort: (value) {
+                    setState(() => _isLoading = true);
 
-                  //   setState(() {
-                  //     _sortColumn = value;
-                  //     _sortAscending = !_sortAscending;
-                  //     if (_sortAscending) {
-                  //       _sourceFiltered.sort((a, b) =>
-                  //           b["$_sortColumn"].compareTo(a["$_sortColumn"]));
-                  //     } else {
-                  //       _sourceFiltered.sort((a, b) =>
-                  //           a["$_sortColumn"].compareTo(b["$_sortColumn"]));
-                  //     }
-                  //     var _rangeTop = _currentPerPage! < _sourceFiltered.length
-                  //         ? _currentPerPage!
-                  //         : _sourceFiltered.length;
-                  //     _source = _sourceFiltered.getRange(0, _rangeTop).toList();
-                  //     _searchKey = value;
+                    setState(() {
+                      _sortColumn = value;
+                      _sortAscending = !_sortAscending;
+                      if (_sortAscending) {
+                        _sourceFiltered.sort((a, b) =>
+                            b["$_sortColumn"].compareTo(a["$_sortColumn"]));
+                      } else {
+                        _sourceFiltered.sort((a, b) =>
+                            a["$_sortColumn"].compareTo(b["$_sortColumn"]));
+                      }
+                      var _rangeTop = _currentPerPage! < _sourceFiltered.length
+                          ? _currentPerPage!
+                          : _sourceFiltered.length;
+                      _source = _sourceFiltered.getRange(0, _rangeTop).toList();
+                      _searchKey = value;
 
-                  //     _isLoading = false;
-                  //   });
-                  // },
+                      _isLoading = false;
+                    });
+                  },
                   expanded: _expanded,
                   sortAscending: _sortAscending,
                   sortColumn: _sortColumn,
                   isLoading: _isLoading,
-                  // onSelect: (value, item) {
-                  //   if (value!) {
-                  //     setState(() => _selecteds.add(item));
-                  //   } else {
-                  //     setState(
-                  //         () => _selecteds.removeAt(_selecteds.indexOf(item)));
-                  //   }
-                  // },
-                  // onSelectAll: (value) {
-                  //   if (value!) {
-                  //     setState(() => _selecteds =
-                  //         _source.map((entry) => entry).toList().cast());
-                  //   } else {
-                  //     setState(() => _selecteds.clear());
-                  //   }
-                  // },
+                  onSelect: (value, item) {
+                    if (value!) {
+                      setState(() => _selecteds.add(item));
+                    } else {
+                      setState(
+                          () => _selecteds.removeAt(_selecteds.indexOf(item)));
+                    }
+                  },
+                  onSelectAll: (value) {
+                    if (value!) {
+                      setState(() => _selecteds =
+                          _source.map((entry) => entry).toList().cast());
+                    } else {
+                      setState(() => _selecteds.clear());
+                    }
+                  },
                   footers: [
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
