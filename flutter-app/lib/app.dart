@@ -7,6 +7,7 @@ import 'package:flutter_web_navigation/temp/model.dart';
 import 'package:get/get.dart';
 
 import 'assets/messages.dart';
+import 'utils/theme_util.dart';
 
 class App extends StatefulWidget {
   final bool isLoggedIn;
@@ -36,6 +37,7 @@ class _AppState extends State<App> {
       _sampleListModel.paletteBorderColors = <Color>[];
       _sampleListModel.changeTheme(_sampleListModel.currentThemeData!);
     }
+    Color currentPaletteColor = _sampleListModel.currentPaletteColor;
 
     return GetMaterialApp.router(
       // disable debug mode banner.
@@ -43,25 +45,10 @@ class _AppState extends State<App> {
       title: 'Flutter AidenKooG\'s Admin System',
 
       // light theme.
-      theme: ThemeData.from(
-              colorScheme: const ColorScheme.light().copyWith(
-                  primary: _sampleListModel.currentPaletteColor,
-                  secondary: _sampleListModel.currentPaletteColor))
-          .copyWith(
-              scrollbarTheme: const ScrollbarThemeData().copyWith(
-                  thumbColor: MaterialStateProperty.all(
-                      const Color.fromRGBO(128, 128, 128, 0.3)))),
+      theme: getLightThemeSetting(currentPaletteColor),
 
       // dark theme.
-      darkTheme: ThemeData.from(
-              colorScheme: const ColorScheme.dark().copyWith(
-                  primary: _sampleListModel.currentPaletteColor,
-                  secondary: _sampleListModel.currentPaletteColor,
-                  onPrimary: Colors.white))
-          .copyWith(
-              scrollbarTheme: const ScrollbarThemeData().copyWith(
-                  thumbColor: MaterialStateProperty.all(
-                      const Color.fromRGBO(255, 255, 255, 0.3)))),
+      darkTheme: getDarkThemeSetting(currentPaletteColor),
 
       // locale setting. (refs. currently, not working)
       translations: Messages(),

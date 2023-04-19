@@ -7,7 +7,7 @@
       {
         "title": "table content area",
         "description": "Visualize customer, inventory, accounting, agency and q&a",
-        "image": "../../assets/images/treemap.png",
+        "image": "../lib/assets/images/treemap.png",
         "displayType": "tab",
         "controlId": 4,
         "subItems": []
@@ -22,7 +22,7 @@
       {
         "title": "main setting area",
         "description": "Visualize setting form corresponding to selected table content",
-        "image": "../../assets/images/treemap.png",
+        "image": "../lib/assets/images/treemap.png",
         "displayType": "tab",
         "controlId": 1,
         "subItems": []

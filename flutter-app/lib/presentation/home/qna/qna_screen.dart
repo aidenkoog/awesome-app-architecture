@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
+import 'package:flutter_web_navigation/core/global_config/route_constants.dart';
 import '../base/home_content.dart';
 
 class QnaScreen extends StatelessWidget {

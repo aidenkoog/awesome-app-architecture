@@ -59,7 +59,8 @@ class _IntroScreenState extends State<IntroScreen> {
                       ),
 
                       // sign-in button.
-                      CustomNormalButton(buttonText: 'Sign In', callback: logIn)
+                      CustomNormalButton(
+                          buttonText: 'Sign In', callback: signIn)
                     ],
                   ),
           ),
@@ -68,13 +69,14 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  logIn() async {
+  // sign in
+  void signIn() async {
     if (widget._formKey.currentState!.validate()) {
       setState(() {
         isLoading = true;
       });
       Timer(const Duration(seconds: 1), () async {
-        //await updateControlItems();
+        await updateControlItems();
         await HiveDataStorageService.logUserIn();
 
         setState(() {

@@ -535,7 +535,7 @@ Future<void> updateControlItems() async {
   final bool isWeb =
       kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux;
   final String jsonText =
-      await rootBundle.loadString('../data/dummy/sample_details.json');
+      await rootBundle.loadString('../lib/data/dummy/sample_details.json');
   List<SubItem> firstLevelSubItems = <SubItem>[];
   List<SubItem> secondLevelSubItems = <SubItem>[];
   List<SubItem> thirdLevelSubItems = <SubItem>[];

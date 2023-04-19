@@ -17,6 +17,7 @@ class CustomPopupMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
         child: childWidget,
+        offset: const Offset(60, 50),
         onSelected: (value) => {onSelected(value)},
         itemBuilder: (BuildContext context) {
           return popupMenuItemList;

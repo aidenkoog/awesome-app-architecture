@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/core/route_config/route_constants.dart';
+import 'package:flutter_web_navigation/core/global_config/route_constants.dart';
 import '../../../utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
 import '../base/home_content.dart';
