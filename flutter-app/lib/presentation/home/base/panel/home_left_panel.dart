@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../components/table/xtable/custom_x_table.dart';
-
 class HomeLeftPanel extends StatelessWidget {
   final String sectionName;
   final String description;
@@ -26,17 +24,11 @@ class HomeLeftPanel extends StatelessWidget {
                 color: Colors.white.withOpacity(0.9),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10.0,
-                    spreadRadius: 8,
-                    offset: const Offset(
-                      5.0,
-                      5.0,
-                    ),
-                  ),
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10.0,
+                      spreadRadius: 8,
+                      offset: const Offset(5.0, 5.0))
                 ]),
-            child: const CustomXTable(
-              isMainTable: true,
-            )));
+            child: Container()));
   }
 }

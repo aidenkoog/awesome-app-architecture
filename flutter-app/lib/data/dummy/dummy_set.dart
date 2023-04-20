@@ -1,1 +1,0 @@
-const dummySet = "{name: \"AidenKooG\"}";

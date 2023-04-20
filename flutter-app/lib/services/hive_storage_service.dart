@@ -1,4 +1,4 @@
-import 'package:flutter_web_navigation/services/hive/db.dart';
+import 'package:flutter_web_navigation/services/hive/local_database.dart';
 
 class HiveDataStorageService {
   static final HiveDataStorageService _instance = HiveDataStorageService._();
@@ -9,16 +9,16 @@ class HiveDataStorageService {
 
   HiveDataStorageService._();
 
-  static logUserIn() async {
-    await _hiveDataProvider.insertData("user", {"loggedIn": true});
+  static signIn() async {
+    await _hiveDataProvider.insertData("user", {"signIn": true});
   }
 
   static Future<bool> getUser() async {
     Map response = await _hiveDataProvider.readData("user");
-    return ((response.isNotEmpty ? response["loggedIn"] : false) ?? false);
+    return ((response.isNotEmpty ? response["signIn"] : false) ?? false);
   }
 
-  static logOutUser() async {
+  static signOut() async {
     await _hiveDataProvider.deleteData("user");
   }
 }

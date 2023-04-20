@@ -25,24 +25,14 @@ class HomeRightPanel extends StatelessWidget {
               color: Colors.white.withOpacity(0.9),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10.0,
-                  spreadRadius: 8,
-                  offset: const Offset(
-                    5.0,
-                    5.0,
-                  ),
-                ),
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 10.0,
+                    spreadRadius: 8,
+                    offset: const Offset(5.0, 5.0))
               ]),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              SizedBox(
-                height: 50,
-              ),
-              QnaForm(),
-            ],
-          ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [SizedBox(height: 50), QnaForm()]),
         ));
   }
 }

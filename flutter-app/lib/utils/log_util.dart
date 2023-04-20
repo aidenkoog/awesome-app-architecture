@@ -1,26 +1,16 @@
-import 'package:m_log/m_log.dart';
+// ignore_for_file: avoid_print
 
-// debug
-void logd(String tagName, String logMessage) {
-  MLog.d(tag: tagName, content: logMessage);
-}
+void logd(String tagName, String logMessage) =>
+    print('[debug] $tagName: $logMessage');
 
-// error
-void loge(String tagName, String logMessage) {
-  MLog.e(tag: tagName, content: logMessage);
-}
+void loge(String tagName, String logMessage) =>
+    print('[error] $tagName: $logMessage');
 
-// information
-void logi(String tagName, String logMessage) {
-  MLog.i(tag: tagName, content: logMessage);
-}
+void logi(String tagName, String logMessage) =>
+    print('[info] $tagName: $logMessage');
 
-// verbose
-void logv(String tagName, String logMessage) {
-  MLog.v(tag: tagName, content: logMessage);
-}
+void logv(String tagName, String logMessage) =>
+    print('[verbose] $tagName: $logMessage');
 
-// window
-void logw(String tagName, String logMessage) {
-  MLog.w(tag: tagName, content: logMessage);
-}
+void logw(String tagName, String logMessage) =>
+    print('[warning] $tagName: $logMessage');

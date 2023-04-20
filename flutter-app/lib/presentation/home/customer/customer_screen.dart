@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/core/global_config/route_constants.dart';
+import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
 import '../base/home_content.dart';
@@ -22,20 +22,16 @@ class _CustomScreenState extends State<CustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      // button container.
       Container(
           alignment: Alignment.topLeft,
           margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
           child: CustomOutlinedButton(
-              buttonName: "+ ADD CUSTOMER",
+              buttonName: customerDrawerShowBtnText,
               color: Colors.red,
               callback: _onAddCustomer)),
-
-      // main left and right panels.
-      HomeContent(featureName: routeCustomerForDisplay)
+      const HomeContent(featureName: routeKeyCustomer)
     ]);
   }
 
-  // show ui for adding customer information.
   _onAddCustomer() => openEndDrawerUi(widget.parentScaffoldKey);
 }

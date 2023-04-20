@@ -1,12 +1,9 @@
-import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/core.dart';
-import 'package:flutter_web_navigation/temp/model.dart';
+import 'package:flutter_web_navigation/presentation/theme/theme_model.dart';
 import 'package:get/get.dart';
 
-import 'assets/messages.dart';
 import 'utils/theme_util.dart';
 
 class App extends StatefulWidget {
@@ -18,66 +15,34 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  late SampleModel _sampleListModel;
+  late ThemeModel _themeModel;
 
   @override
   void initState() {
-    _sampleListModel = SampleModel.instance;
-    _initializeProperties();
+    _themeModel = ThemeModel.instance;
+    _themeModel.initializeProperties();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_sampleListModel.isWebFullView) {
-      _sampleListModel.currentThemeData = ThemeData.from(
+    if (_themeModel.isWebFullView) {
+      _themeModel.currentThemeData = ThemeData.from(
           colorScheme: const ColorScheme.light().copyWith(
-              primary: _sampleListModel.currentPaletteColor,
-              secondary: _sampleListModel.currentPaletteColor));
-      _sampleListModel.paletteBorderColors = <Color>[];
-      _sampleListModel.changeTheme(_sampleListModel.currentThemeData!);
+              primary: _themeModel.currentPaletteColor,
+              secondary: _themeModel.currentPaletteColor));
+      _themeModel.paletteBorderColors = <Color>[];
+      _themeModel.changeTheme(_themeModel.currentThemeData!);
     }
-    Color currentPaletteColor = _sampleListModel.currentPaletteColor;
+    Color currentPaletteColor = _themeModel.currentPaletteColor;
 
     return GetMaterialApp.router(
-      // disable debug mode banner.
       debugShowCheckedModeBanner: false,
-      title: 'Flutter AidenKooG\'s Admin System',
-
-      // light theme.
+      title: appTitle,
       theme: getLightThemeSetting(currentPaletteColor),
-
-      // dark theme.
       darkTheme: getDarkThemeSetting(currentPaletteColor),
-
-      // locale setting. (refs. currently, not working)
-      translations: Messages(),
-      locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en', 'US'),
-
-      // route setting.
-      // pass login related information obtained from main.dart to AppRouterDelegate.
       routeInformationParser: RoutesInformationParser(),
       routerDelegate: AppRouterDelegate(isLoggedIn: widget.isLoggedIn),
     );
-  }
-
-  // initialize local properties.
-  void _initializeProperties() {
-    final SampleModel model = SampleModel.instance;
-    model.isWebFullView =
-        kIsWeb || Platform.isWindows || Platform.isMacOS || Platform.isLinux;
-    if (kIsWeb) {
-      model.isWeb = true;
-    } else {
-      model.isAndroid = Platform.isAndroid;
-      model.isIOS = Platform.isIOS;
-      model.isLinux = Platform.isLinux;
-      model.isWindows = Platform.isWindows;
-      model.isMacOS = Platform.isMacOS;
-      model.isDesktop =
-          Platform.isLinux || Platform.isMacOS || Platform.isWindows;
-      model.isMobile = Platform.isAndroid || Platform.isIOS;
-    }
   }
 }

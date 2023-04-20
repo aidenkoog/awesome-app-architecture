@@ -35,7 +35,6 @@ class HttpDataSourceImpl implements HttpDataSource {
     }
   }
 
-  Future<ResultModel> _registerCustomer(Customer customer) async {
-    return ResultModel.fromJson(json.decode(''));
-  }
+  Future<ResultModel> _registerCustomer(Customer customer) async =>
+      ResultModel.fromJson(json.decode(''));
 }

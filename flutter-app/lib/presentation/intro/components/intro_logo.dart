@@ -9,9 +9,7 @@ class IntroLogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 25.0, bottom: 20),
-      child: Center(
-        child: SizedBox(width: 200, height: 150, child: logoImage),
-      ),
+      child: Center(child: SizedBox(width: 200, height: 150, child: logoImage)),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_web_navigation/presentation/home/qna/components/qna_answ
 import 'package:flutter_web_navigation/presentation/home/qna/components/qna_content.dart';
 import 'package:flutter_web_navigation/presentation/home/qna/components/qna_header.dart';
 
+import '../../../../assets/strings/strings.dart';
 import '../../../components/button/custom_normal_button.dart';
 
 class QnaForm extends StatelessWidget {
@@ -14,29 +15,18 @@ class QnaForm extends StatelessWidget {
         flex: 1,
         child: Container(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                // qna header title.
-                const QnaHeader(
-                    phoneNumber: '000-0000-0000', agencyName: 'SEOUL AGENCY'),
-
-                // qna divider between title and content.
-                const SizedBox(
-                    child: Divider(color: Colors.grey, thickness: 1.5)),
-
-                // qna content.
-                const QnaContent(),
-
-                // qna answer.
-                const QnaAnswer(),
-
-                // register button.
-                Container(
-                    margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    alignment: Alignment.centerRight,
-                    child: CustomNormalButton(
-                        buttonText: 'Next', callback: () => {}))
-              ],
-            )));
+            child: Column(children: [
+              const QnaHeader(
+                  phoneNumber: qnaHeaderTitle, agencyName: qnaAgencyName),
+              const SizedBox(
+                  child: Divider(color: Colors.grey, thickness: 1.5)),
+              const QnaContent(),
+              const QnaAnswer(),
+              Container(
+                  margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  alignment: Alignment.centerRight,
+                  child: CustomNormalButton(
+                      buttonText: qnaNextBtnText, callback: () => {}))
+            ])));
   }
 }

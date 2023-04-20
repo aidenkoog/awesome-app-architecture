@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../assets/strings/strings.dart';
 import '../../../components/textfield/custom_text_field.dart';
 
 class QnaAnswer extends StatelessWidget {
@@ -8,21 +9,15 @@ class QnaAnswer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      // answer textfield title.
       Container(
-        margin: const EdgeInsets.fromLTRB(0, 30, 0, 20),
-        alignment: Alignment.centerLeft,
-        child: const Text(
-          'Answer',
-          style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w900, color: Colors.black),
-        ),
-      ),
-
-      // answer textfield.
-      const CustomTextField(
-        contentMessage: '',
-      ),
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 20),
+          alignment: Alignment.centerLeft,
+          child: const Text(qnaAnswerInputBoxTitle,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.black))),
+      const CustomTextField(contentMessage: qnaAnswerInputBoxContentText)
     ]);
   }
 }

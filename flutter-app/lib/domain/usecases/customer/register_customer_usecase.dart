@@ -11,9 +11,8 @@ class RegisterCustomerUseCase implements UseCase<Customer, Params> {
   RegisterCustomerUseCase(this.repository);
 
   @override
-  Future<Either<Failure, Customer>> call(Params params) async {
-    return await repository.registerCustomer(params as Customer);
-  }
+  Future<Either<Failure, Customer>> call(Params params) async =>
+      await repository.getCustomerList();
 }
 
 class Params extends Equatable {

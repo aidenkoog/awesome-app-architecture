@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-typedef OnSelectedPopupMenuItemCallback = void Function(Object?);
+typedef OnSelectedPopupMenuItemCallback = void Function(int);
 
 class CustomPopupMenuButton extends StatelessWidget {
   final dynamic childWidget;
@@ -18,9 +18,7 @@ class CustomPopupMenuButton extends StatelessWidget {
     return PopupMenuButton(
         child: childWidget,
         offset: const Offset(60, 50),
-        onSelected: (value) => {onSelected(value)},
-        itemBuilder: (BuildContext context) {
-          return popupMenuItemList;
-        });
+        onSelected: (value) => {onSelected(value as int)},
+        itemBuilder: (BuildContext context) => popupMenuItemList);
   }
 }

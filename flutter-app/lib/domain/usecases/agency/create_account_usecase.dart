@@ -11,9 +11,8 @@ class CreateAccountUseCase implements UseCase<Customer, Params> {
   CreateAccountUseCase(this.repository);
 
   @override
-  Future<Either<Failure, Customer>> call(Params params) async {
-    return await repository.getCustomerList();
-  }
+  Future<Either<Failure, Customer>> call(Params params) async =>
+      await repository.getCustomerList();
 }
 
 class Params extends Equatable {

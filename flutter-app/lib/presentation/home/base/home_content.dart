@@ -12,20 +12,16 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         flex: 1,
-        child: Row(
-          children: [
-            HomeLeftPanel(
-                sectionName: featureName,
-                description: featureName,
-                subDecription: featureName),
-            const SizedBox(
-              width: 25,
-            ),
-            HomeRightPanel(
-                sectionName: '$featureName SETTING',
-                description: '$featureName SETTING',
-                subDecription: '$featureName SETTING')
-          ],
-        ));
+        child: Row(children: [
+          HomeLeftPanel(
+              sectionName: featureName,
+              description: featureName,
+              subDecription: featureName),
+          const SizedBox(width: 25),
+          HomeRightPanel(
+              sectionName: '$featureName SETTING',
+              description: '$featureName SETTING',
+              subDecription: '$featureName SETTING')
+        ]));
   }
 }

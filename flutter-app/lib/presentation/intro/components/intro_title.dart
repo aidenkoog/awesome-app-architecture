@@ -8,18 +8,15 @@ class IntroTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120,
-      width: 350,
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Center(
-            child: Text(introTitle,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 25,
-                )),
-          )),
-    );
+        height: 120,
+        width: 350,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Center(
+                child: Text(introTitle,
+                    style: const TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 25)))));
   }
 }

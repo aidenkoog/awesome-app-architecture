@@ -9,11 +9,11 @@ export 'presentation/container/container_screen.dart';
 
 // routes
 export 'routes/route_path.dart';
-export 'routes/route_handeler.dart';
+export 'routes/route_handler.dart';
 export 'routes/route_delegate.dart';
 export 'routes/route_information_parser.dart';
 export 'routes/custom_transition_delegate.dart';
 
 // utils
-export 'utils/images.dart';
-export 'utils/data.dart';
+export 'utils/image_util.dart';
+export 'utils/route_util.dart';

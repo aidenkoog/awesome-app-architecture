@@ -21,25 +21,22 @@ class CustomInputBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80,
-      width: 350,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: TextFormField(
-          validator: (String? str) {
-            if (str!.isEmpty) {
-              return errorMessage;
-            }
-            return null;
-          },
-          controller: isPassword ? passwordController : emailController,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: placeHolder,
-              hintText: focusedPlaceHolder),
-        ),
-      ),
-    );
+        height: 80,
+        width: 350,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: TextFormField(
+                validator: (String? str) {
+                  if (str!.isEmpty) {
+                    return errorMessage;
+                  }
+                  return null;
+                },
+                controller: isPassword ? passwordController : emailController,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: placeHolder,
+                    hintText: focusedPlaceHolder))));
   }
 }

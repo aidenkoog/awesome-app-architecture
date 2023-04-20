@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../assets/strings/strings.dart';
 import '../../../components/textfield/custom_text_field.dart';
 
 class QnaContent extends StatelessWidget {
@@ -8,38 +9,24 @@ class QnaContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      // content textfield title.
       Container(
-        alignment: Alignment.centerLeft,
-        margin: const EdgeInsets.fromLTRB(0, 30, 0, 20),
-        child: Expanded(
-            child: Row(
-          children: const [
-            Text(
-              'Content',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.black),
-            ),
-            SizedBox(
-              width: 7,
-            ),
-            Text(
-              '(000-0000-0000)',
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.black),
-            )
-          ],
-        )),
-      ),
-
-      // content textfield.
-      const CustomTextField(
-        contentMessage: '',
-      )
+          alignment: Alignment.centerLeft,
+          margin: const EdgeInsets.fromLTRB(0, 30, 0, 20),
+          child: Expanded(
+              child: Row(children: const [
+            Text(qnaContentInputBoxTitle,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black)),
+            SizedBox(width: 7),
+            Text(qnaContentInputBoxTitle2,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.black))
+          ]))),
+      const CustomTextField(contentMessage: qnaContentInputBoxContentText)
     ]);
   }
 }
