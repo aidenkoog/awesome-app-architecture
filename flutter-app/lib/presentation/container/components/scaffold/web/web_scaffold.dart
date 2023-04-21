@@ -55,7 +55,11 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
                 backgroundColor: widget.model.paletteColor,
                 flexibleSpace: loadAppBarTitle(),
                 actions: loadAppBarActionItems())),
-        body: isLoading ? const CustomLoading() : const MainContentCard());
+        body: isLoading
+            ? CustomLoading(
+                loadingBarColor: widget.model.paletteColor,
+                textColor: widget.model.paletteColor)
+            : const MainContentCard());
   }
 
   loadAppBarTitle() {

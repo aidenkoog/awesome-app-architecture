@@ -69,6 +69,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/18 : Applied reactive ui concept
 - 2023/04/19 : Did code refactoring (1st)
 - 2023/04/20 : Did code refactoring (final)
+- 2023/04/21 : Added grid data sheet ui.
 
 #### How To Setup Environment Before Developing App
 
@@ -89,6 +90,12 @@ It's mandantory to set up the development environment and build the app by follo
 - flutter run
 
 #### How To Build Environment
+
+- Flutter channel
+  - master
+  - beta
+  - stable
+  - dev
 
 ```
  # Web

@@ -7,7 +7,9 @@ import '../../../../assets/strings/strings.dart';
 import '../../../components/button/custom_normal_button.dart';
 
 class QnaForm extends StatelessWidget {
-  const QnaForm({Key? key}) : super(key: key);
+  final Color? buttonBackgroundColor;
+  const QnaForm({Key? key, required this.buttonBackgroundColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,10 @@ class QnaForm extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   alignment: Alignment.centerRight,
                   child: CustomNormalButton(
-                      buttonText: qnaNextBtnText, callback: () => {}))
+                      buttonText: qnaNextBtnText,
+                      callback: () => {},
+                      backgroundColor: buttonBackgroundColor ??
+                          const Color.fromRGBO(0, 116, 227, 1)))
             ])));
   }
 }

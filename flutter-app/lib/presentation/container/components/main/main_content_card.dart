@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_web_navigation/presentation/components/button/custom_outlined_button.dart';
+import 'package:flutter_web_navigation/presentation/components/datagrid/datagrid_paging.dart';
 
+import '../../../../assets/strings/strings.dart';
 import '../../../../assets/strings/values.dart';
 import '../../../theme/theme_model.dart';
 import '../../../../utils/image_util.dart';
@@ -58,11 +61,11 @@ class _MainContentCardState extends State<MainContentCard> {
 
       for (int i = 0; i < mainContentCardCount; i++) {
         if (i == 0) {
-          firstColumnWidgets.add(_getCardItemWidget());
+          firstColumnWidgets.add(_getCardItemWidget(true));
           firstColumnWidgets
               .add(Padding(padding: EdgeInsets.only(top: padding)));
         } else {
-          secondColumnWidgets.add(_getCardItemWidget());
+          secondColumnWidgets.add(_getCardItemWidget(false));
           secondColumnWidgets
               .add(Padding(padding: EdgeInsets.only(top: padding)));
         }
@@ -86,11 +89,11 @@ class _MainContentCardState extends State<MainContentCard> {
 
       for (int i = 0; i < mainContentCardCount; i++) {
         if (i == 0) {
-          firstColumnWidgets.add(_getCardItemWidget());
+          firstColumnWidgets.add(_getCardItemWidget(true));
           firstColumnWidgets
               .add(Padding(padding: EdgeInsets.only(top: padding)));
         } else {
-          secondColumnWidgets.add(_getCardItemWidget());
+          secondColumnWidgets.add(_getCardItemWidget(false));
           secondColumnWidgets
               .add(Padding(padding: EdgeInsets.only(top: padding)));
         }
@@ -113,7 +116,11 @@ class _MainContentCardState extends State<MainContentCard> {
       final List<Widget> verticalOrderedWidgets = <Widget>[];
 
       for (int i = 0; i < mainContentCardCount; i++) {
-        verticalOrderedWidgets.add(_getCardItemWidget());
+        if (i == 0) {
+          verticalOrderedWidgets.add(_getCardItemWidget(true));
+        } else {
+          verticalOrderedWidgets.add(_getCardItemWidget(false));
+        }
         verticalOrderedWidgets
             .add(Padding(padding: EdgeInsets.only(top: padding)));
       }
@@ -130,98 +137,141 @@ class _MainContentCardState extends State<MainContentCard> {
             child: organizedCardWidget));
   }
 
-  Widget _getCardItemWidget() {
-    return Container(
-        padding: const EdgeInsets.only(bottom: 10),
-        decoration: BoxDecoration(
-            color: model.cardColor,
-            border: Border.all(
-                color: const Color.fromRGBO(0, 0, 0, 0.12), width: 1.1),
-            borderRadius: const BorderRadius.all(Radius.circular(12))),
-        width: _cardWidth,
-        height: _cardHeight,
-        child: Column(children: <Widget>[
-          Container(
-              padding: const EdgeInsets.only(top: 15, bottom: 2),
-              child: Text('CONTENT',
-                  style: TextStyle(
-                      color: model.backgroundColor,
-                      fontSize: 16,
-                      fontFamily: 'Roboto-Bold'))),
-          Divider(
-              color: model.themeData.colorScheme.brightness == Brightness.dark
-                  ? const Color.fromRGBO(61, 61, 61, 1)
-                  : const Color.fromRGBO(238, 238, 238, 1),
-              thickness: 3),
-          Column(children: _getDetailCardItemWidgetList())
-        ]));
+  Widget _getCardBtnItemWidget(bool? isLeftCard) {
+    return isLeftCard == true
+        ? Container(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: CustomOutlinedButton(
+                buttonName: 'TEST BTN',
+                color: model.paletteColor,
+                callback: () {}))
+        : Container(padding: const EdgeInsets.only(bottom: 55));
   }
 
-  List<Widget> _getDetailCardItemWidgetList() {
+  Widget _getCardItemWidget(bool? isLeftCard) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      _getCardBtnItemWidget(isLeftCard),
+      Container(
+          padding: const EdgeInsets.only(bottom: 10),
+          decoration: BoxDecoration(
+              color: model.cardColor,
+              border: Border.all(
+                  color: const Color.fromRGBO(0, 0, 0, 0.12), width: 1.1),
+              borderRadius: const BorderRadius.all(Radius.circular(12))),
+          width: _cardWidth,
+          height: _cardHeight,
+          child: Column(children: <Widget>[
+            isLeftCard == true
+                ? Container(
+                    width: _cardWidth - 50,
+                    margin: const EdgeInsets.only(top: 6),
+                    child: TextField(
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      decoration: const InputDecoration(
+                          hintText: searchBoxHintText,
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              borderSide: BorderSide(style: BorderStyle.solid)),
+                          suffixIcon: Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Icon(Icons.search))),
+                    ))
+                : Container(
+                    padding: const EdgeInsets.only(top: 18, bottom: 18),
+                    alignment: Alignment.center,
+                    child: Text('AidenKooG Card Layout',
+                        style: TextStyle(
+                            color: model.backgroundColor,
+                            fontSize: 16,
+                            fontFamily: 'Roboto-Bold'))),
+            Divider(
+                color: model.themeData.colorScheme.brightness == Brightness.dark
+                    ? const Color.fromRGBO(61, 61, 61, 1)
+                    : const Color.fromRGBO(238, 238, 238, 1),
+                thickness: 3),
+            Column(children: _getDetailCardItemWidgetList(isLeftCard))
+          ]))
+    ]);
+  }
+
+  Widget _getDetailDefaultCardItemWidget() {
+    return Container(
+        color: model.cardColor,
+        child: Material(
+            color: model.cardColor,
+            child: InkWell(
+                splashFactory: InkRipple.splashFactory,
+                hoverColor: Colors.grey.withOpacity(0.2),
+                child: ListTile(
+                    contentPadding: const EdgeInsets.fromLTRB(
+                        12, 2, 0, cardItemCount > 3 ? 6 : 0),
+                    leading:
+                        Image.asset(AllImages.flutterLogo, fit: BoxFit.cover),
+                    title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(children: <Widget>[
+                            Text('ITEM',
+                                textAlign: TextAlign.left,
+                                softWrap: true,
+                                textScaleFactor: 1,
+                                overflow: TextOverflow.fade,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    letterSpacing: 0.1,
+                                    color: model.paletteColor,
+                                    fontFamily: 'Roboto-Bold')),
+                            if (!model.isWebFullView && Platform.isIOS)
+                              Container()
+                          ]),
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: model.backgroundColor,
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(5),
+                                      bottomRight: Radius.circular(5),
+                                      topLeft: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5))),
+                              padding: model.isWeb && model.isMobileResolution
+                                  ? const EdgeInsets.fromLTRB(6, 1.5, 6, 5.5)
+                                  : const EdgeInsets.fromLTRB(6, 2.7, 6, 2.7),
+                              margin: model.isWeb && model.isMobileResolution
+                                  ? const EdgeInsets.fromLTRB(0, 0, 6, 0)
+                                  : const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                              child: const Text('ITEM',
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto-Medium',
+                                      color: Colors.white,
+                                      fontSize: 10.5)))
+                        ]),
+                    subtitle: const Padding(
+                        padding: EdgeInsets.fromLTRB(0.0, 7.0, 12.0, 0.0),
+                        child: Text('DESCRIPTION',
+                            textAlign: TextAlign.left,
+                            softWrap: true,
+                            textScaleFactor: 1,
+                            overflow: TextOverflow.fade,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                                color: Color.fromRGBO(128, 128, 128, 1))))))));
+  }
+
+  List<Widget> _getDetailCardItemWidgetList(bool? isLeftCard) {
     final List<Widget> items = <Widget>[];
 
-    for (int i = 0; i < cardItemCount; i++) {
+    if (isLeftCard == true) {
       items.add(Container(
           color: model.cardColor,
-          child: Material(
-              color: model.cardColor,
-              child: InkWell(
-                  splashFactory: InkRipple.splashFactory,
-                  hoverColor: Colors.grey.withOpacity(0.2),
-                  child: ListTile(
-                      contentPadding: const EdgeInsets.fromLTRB(
-                          12, 2, 0, cardItemCount > 3 ? 6 : 0),
-                      leading:
-                          Image.asset(AllImages.flutterLogo, fit: BoxFit.cover),
-                      title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                              Text('ITEM',
-                                  textAlign: TextAlign.left,
-                                  softWrap: true,
-                                  textScaleFactor: 1,
-                                  overflow: TextOverflow.fade,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      letterSpacing: 0.1,
-                                      color: model.textColor,
-                                      fontFamily: 'Roboto-Bold')),
-                              if (!model.isWebFullView && Platform.isIOS)
-                                Container()
-                            ]),
-                            Container(
-                                decoration: const BoxDecoration(
-                                    color: Color.fromRGBO(55, 153, 30, 1),
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(5),
-                                        bottomRight: Radius.circular(5),
-                                        topLeft: Radius.circular(5),
-                                        bottomLeft: Radius.circular(5))),
-                                padding: model.isWeb && model.isMobileResolution
-                                    ? const EdgeInsets.fromLTRB(6, 1.5, 6, 5.5)
-                                    : const EdgeInsets.fromLTRB(6, 2.7, 6, 2.7),
-                                margin: model.isWeb && model.isMobileResolution
-                                    ? const EdgeInsets.fromLTRB(0, 0, 6, 0)
-                                    : const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                                child: const Text('ITEM',
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto-Medium',
-                                        color: Colors.white,
-                                        fontSize: 10.5)))
-                          ]),
-                      subtitle: const Padding(
-                          padding: EdgeInsets.fromLTRB(0.0, 7.0, 12.0, 0.0),
-                          child: Text('DESCRIPTION',
-                              textAlign: TextAlign.left,
-                              softWrap: true,
-                              textScaleFactor: 1,
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 12,
-                                  color:
-                                      Color.fromRGBO(128, 128, 128, 1)))))))));
+          child:
+              PagingDataGrid(cardWidth: _cardWidth, cardHeight: _cardHeight)));
+      return items;
+    }
+
+    for (int i = 0; i < cardItemCount; i++) {
+      items.add(_getDetailDefaultCardItemWidget());
     }
     return items;
   }

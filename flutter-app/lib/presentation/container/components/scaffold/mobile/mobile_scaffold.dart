@@ -130,7 +130,9 @@ class _HomeMobileScaffoldState extends State<HomeMobileScaffold> {
                     Container(
                         color: model.webBackgroundColor,
                         child: isLoading
-                            ? const CustomLoading()
+                            ? CustomLoading(
+                                loadingBarColor: widget.model.paletteColor,
+                                textColor: widget.model.paletteColor)
                             : const MainContentCard())
                   ]))
                 ])));

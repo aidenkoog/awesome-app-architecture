@@ -48,6 +48,14 @@ dependencies:
   context_menus: ^1.0.2
   desktop_window: ^0.4.0
   universal_html: ^2.2.1
+  syncfusion_flutter_datagrid: ^21.1.41
+  syncfusion_localizations: ^21.1.41
+  flutter_localizations:
+    sdk: flutter
+  path_provider: ^2.0.14
+  path_provider_platform_interface: ^2.0.6
+  syncfusion_flutter_datagrid_export: ^21.1.41
+  syncfusion_flutter_pdf: ^21.1.41
 
 dev_dependencies:
   flutter_test:

@@ -122,3 +122,6 @@ const mobileNavDrawerSubDescription = 'Portal . Debugging version';
 const mobileNavDrawerNavMenuTitle = 'Menu';
 const mobileNavDrawerFooterAuthorText = 'AidenKooG';
 const mobileNavDrawerFooterVersionText = 'Version 1.0.0';
+
+// search box
+const searchBoxHintText = 'Please enter a keyword to search for';

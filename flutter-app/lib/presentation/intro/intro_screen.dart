@@ -6,6 +6,7 @@ import 'package:flutter_web_navigation/utils/navigation_util.dart';
 import '../components/button/custom_normal_button.dart';
 import '../components/input_box/custom_input_box.dart';
 import '../components/loading/custom_loading.dart';
+import '../theme/theme_model.dart';
 import 'components/intro_logo.dart';
 import 'components/intro_title.dart';
 
@@ -20,6 +21,13 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   Widget? render;
   bool isSignInStarted = false;
+  late ThemeModel themeModel;
+
+  @override
+  void initState() {
+    themeModel = ThemeModel.instance;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +38,18 @@ class _IntroScreenState extends State<IntroScreen> {
               child: Form(
                   key: widget._formKey,
                   child: isSignInStarted
-                      ? const CustomLoading()
+                      ? CustomLoading(
+                          loadingBarColor: themeModel.paletteColor,
+                          textColor: themeModel.paletteColor,
+                        )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                              const IntroTitle(introTitle: introTitle),
+                              IntroTitle(
+                                  introTitle: introTitle,
+                                  titleColor: themeModel.paletteColor),
                               IntroLogo(
                                   logoImage:
                                       Image.asset(AllImages.flutterLogo)),
@@ -44,14 +57,17 @@ class _IntroScreenState extends State<IntroScreen> {
                                   placeHolder: idPlaceHolder,
                                   focusedPlaceHolder: idFocusPlaceHolder,
                                   errorMessage: idErrorMessage,
+                                  themeColor: themeModel.paletteColor,
                                   isPassword: false),
                               CustomInputBox(
                                   placeHolder: pwPlaceHolder,
                                   focusedPlaceHolder: pwFocusPlaceHolder,
                                   errorMessage: pwErrorMessage,
+                                  themeColor: themeModel.paletteColor,
                                   isPassword: true),
                               CustomNormalButton(
                                   buttonText: signInBtnText,
+                                  backgroundColor: themeModel.paletteColor,
                                   callback: () {
                                     signIn((state) {
                                       switch (state) {

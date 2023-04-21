@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
   final String buttonName;
-  final MaterialColor color;
+  final Color color;
   final VoidCallback callback;
 
   const CustomOutlinedButton(

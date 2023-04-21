@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class CustomNormalButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback callback;
+  final Color backgroundColor;
 
   const CustomNormalButton(
-      {Key? key, required this.buttonText, required this.callback})
+      {Key? key,
+      required this.buttonText,
+      required this.callback,
+      required this.backgroundColor})
       : super(key: key);
 
   @override
@@ -14,10 +18,13 @@ class CustomNormalButton extends StatelessWidget {
         height: 50,
         width: 320,
         decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+            color: backgroundColor, borderRadius: BorderRadius.circular(20)),
         child: TextButton(
             onPressed: () => callback(),
             child: Text(buttonText,
-                style: const TextStyle(color: Colors.white, fontSize: 18))));
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold))));
   }
 }

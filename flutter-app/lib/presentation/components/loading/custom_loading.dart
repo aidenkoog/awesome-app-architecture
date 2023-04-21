@@ -4,8 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../assets/strings/strings.dart';
 
 class CustomLoading extends StatelessWidget {
+  final Color loadingBarColor;
+  final Color textColor;
   const CustomLoading({
     Key? key,
+    required this.textColor,
+    required this.loadingBarColor,
   }) : super(key: key);
 
   @override
@@ -14,12 +18,13 @@ class CustomLoading extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
-          SizedBox(height: 230),
-          SpinKitRing(color: Colors.lightBlue, lineWidth: 10, size: 180),
-          SizedBox(height: 85),
+            children: <Widget>[
+          const SizedBox(height: 180),
+          SpinKitRing(color: loadingBarColor, lineWidth: 10, size: 180),
+          const SizedBox(height: 85),
           Text(loadingText,
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700))
+              style: TextStyle(
+                  fontSize: 25, fontWeight: FontWeight.w800, color: textColor))
         ]));
   }
 }

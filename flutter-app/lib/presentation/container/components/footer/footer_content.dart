@@ -32,18 +32,18 @@ class Footer extends StatelessWidget {
                     Row(children: <Widget>[
                       InkWell(
                           onTap: () => launchUrl(Uri.parse(homepageLink)),
-                          child: const Text(homepageTitle,
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 12))),
+                          child: Text(homepageTitle,
+                              style: TextStyle(
+                                  color: model.paletteColor, fontSize: 12))),
                       Text(' | ',
                           style: TextStyle(
                               fontSize: 12,
                               color: model.textColor.withOpacity(0.7))),
                       InkWell(
                           onTap: () => launchUrl(Uri.parse(githubLink)),
-                          child: const Text(githubTitle,
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 12))),
+                          child: Text(githubTitle,
+                              style: TextStyle(
+                                  color: model.paletteColor, fontSize: 12))),
                     ]),
                     Container(
                         padding: const EdgeInsets.only(top: 10),
@@ -62,7 +62,7 @@ class Footer extends StatelessWidget {
                           color: model.themeData.colorScheme.brightness ==
                                   Brightness.dark
                               ? Colors.white
-                              : Colors.black))),
+                              : Colors.black54))),
             ]));
   }
 }
