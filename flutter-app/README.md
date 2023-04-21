@@ -72,6 +72,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/21 : Added grid data sheet ui
 - 2023/04/21 : Changed admin webpage logo image
 - 2023/04/21 : Applied routing logic by tab navigation
+- 2023/04/21 : Fix height fixel crash issue occurred when window height size decreases
 
 #### How To Setup Environment Before Developing App
 

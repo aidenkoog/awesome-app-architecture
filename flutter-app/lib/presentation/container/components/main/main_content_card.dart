@@ -19,7 +19,6 @@ class MainContentCard extends StatefulWidget {
 class _MainContentCardState extends State<MainContentCard> {
   ThemeModel model = ThemeModel.instance;
   late double _cardWidth;
-  late double _cardHeight;
 
   @override
   void initState() {
@@ -29,9 +28,7 @@ class _MainContentCardState extends State<MainContentCard> {
 
   @override
   Widget build(BuildContext context) {
-    return model.isWeb
-        ? Scrollbar(thumbVisibility: model.isWeb, child: _getMainContentCards())
-        : _getMainContentCards();
+    return Scrollbar(thumbVisibility: true, child: _getMainContentCards());
   }
 
   Widget _getMainContentCards() {
@@ -48,11 +45,9 @@ class _MainContentCardState extends State<MainContentCard> {
     if (deviceWidth > devWidthBig) {
       padding = deviceWidth * 0.011;
       _cardWidth = (deviceWidth * 0.9) / 2;
-      _cardHeight = 700;
 
       if (deviceWidth > devWidthMoreBig) {
         _cardWidth = deviceWidth / 2;
-        _cardHeight = 1500;
         sidePadding = (_cardWidth / 2) * 0.125;
         padding = 30;
       }
@@ -82,7 +77,6 @@ class _MainContentCardState extends State<MainContentCard> {
     } else if (deviceWidth >= devWidthSmall) {
       padding = deviceWidth * 0.018;
       _cardWidth = (deviceWidth * 0.9) / 2;
-      _cardHeight = 700;
 
       final List<Widget> firstColumnWidgets = <Widget>[];
       final List<Widget> secondColumnWidgets = <Widget>[];
@@ -109,7 +103,6 @@ class _MainContentCardState extends State<MainContentCard> {
       }
     } else {
       _cardWidth = deviceWidth * 0.9;
-      _cardHeight = 500;
       padding = deviceWidth * 0.035;
       sidePadding = (deviceWidth * 0.1) / 2;
 
@@ -147,7 +140,6 @@ class _MainContentCardState extends State<MainContentCard> {
                   color: const Color.fromRGBO(0, 0, 0, 0.12), width: 1.1),
               borderRadius: const BorderRadius.all(Radius.circular(12))),
           width: _cardWidth,
-          height: _cardHeight,
           child: Column(children: <Widget>[
             isLeftCard == true
                 ? Container(
@@ -253,8 +245,7 @@ class _MainContentCardState extends State<MainContentCard> {
     if (isLeftCard == true) {
       items.add(Container(
           color: model.cardColor,
-          child:
-              PagingDataGrid(cardWidth: _cardWidth, cardHeight: _cardHeight)));
+          child: PagingDataGrid(cardWidth: _cardWidth)));
       return items;
     }
     for (int i = 0; i < cardItemCount; i++) {

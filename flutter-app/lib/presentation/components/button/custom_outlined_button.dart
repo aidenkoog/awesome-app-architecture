@@ -20,7 +20,7 @@ class CustomOutlinedButton extends StatelessWidget {
             textStyle: const TextStyle(fontWeight: FontWeight.w600),
             foregroundColor: color,
             side: BorderSide(color: color, width: 2),
-            padding: const EdgeInsets.all(20)),
+            padding: const EdgeInsets.all(18)),
         onPressed: () => callback());
   }
 }

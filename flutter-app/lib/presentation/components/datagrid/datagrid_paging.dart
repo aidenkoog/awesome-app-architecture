@@ -18,11 +18,8 @@ import '../datagrid/common/export/save_file_mobile.dart'
 
 class PagingDataGrid extends SampleView {
   final double cardWidth;
-  final double cardHeight;
 
-  const PagingDataGrid(
-      {Key? key, required this.cardWidth, required this.cardHeight})
-      : super(key: key);
+  const PagingDataGrid({Key? key, required this.cardWidth}) : super(key: key);
 
   @override
   _PagingDataGridState createState() => _PagingDataGridState();
@@ -170,8 +167,8 @@ class _PagingDataGridState extends SampleViewState {
         builder: (BuildContext context, BoxConstraints constraint) {
       return Column(children: <Widget>[
         SizedBox(
-            width: pagingDataGridWidget.cardWidth - 50,
-            height: pagingDataGridWidget.cardHeight - 150,
+            width: pagingDataGridWidget.cardWidth * 0.935,
+            height: pagingDataGridWidget.cardWidth * 0.72,
             child: _buildDataGrid()),
         Container(
             height: dataPagerHeight,

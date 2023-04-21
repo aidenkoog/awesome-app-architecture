@@ -24,8 +24,8 @@ class RouteHandler {
   factory RouteHandler() => _instance;
   RouteHandler._();
 
-  Widget getRouteWidget(
-      String? routeName, GlobalKey<ScaffoldState> scaffoldKey) {
+  Widget getRouteWidget(String? routeName, GlobalKey<ScaffoldState> scaffoldKey,
+      ScrollController controller) {
     RouteData routeData;
 
     if (routeName != null) {
@@ -40,38 +40,55 @@ class RouteHandler {
           switch (routeData) {
             case RouteData.customer:
               return CustomerScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                routeName: routeName,
+                parentScaffoldKey: scaffoldKey,
+                controller: controller,
+              );
 
             case RouteData.inventory:
               return InventoryScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
 
             case RouteData.agency:
               return AgencyScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
 
             case RouteData.accounting:
               return AccountingScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
 
             case RouteData.events:
               return EventScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
 
             case RouteData.qna:
               return QnaScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
 
             default:
               return CustomerScreen(
-                  routeName: routeName, parentScaffoldKey: scaffoldKey);
+                  routeName: routeName,
+                  parentScaffoldKey: scaffoldKey,
+                  controller: controller);
           }
         } else {
           return const UnknownRoute();
         }
       } else {
         return CustomerScreen(
-            routeName: routeName, parentScaffoldKey: scaffoldKey);
+            routeName: routeName,
+            parentScaffoldKey: scaffoldKey,
+            controller: controller);
       }
     } else {
       return const UnknownRoute();

@@ -14,7 +14,6 @@ import '../../../../theme/theme_model.dart';
 import '../../../../../utils/navigation_util.dart';
 import '../../../../components/context_menu/custom_popup_menu_button.dart';
 import '../../drawer/palette/theme_setting_builder.dart';
-import '../../main/main_content_card.dart';
 import '../../navigation/web/web_nav_btn.dart';
 import '../../navigation/web/web_nav_icon.dart';
 import '../../navigation/web/web_nav_settings_icon.dart';
@@ -66,8 +65,8 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
             ? CustomLoading(
                 loadingBarColor: widget.model.paletteColor,
                 textColor: widget.model.paletteColor)
-            : RouteHandler()
-                .getRouteWidget(widget.routeName, widget.scaffoldKey));
+            : RouteHandler().getRouteWidget(
+                widget.routeName, widget.scaffoldKey, widget.controller));
   }
 
   loadAppBarTitle() {

@@ -17,3 +17,7 @@ const cardItemCount = 2;
 
 // main tab navigation delay time
 const mainNavTabNavigationDelayTime = 1000;
+
+// main content button layout
+const mainContentBtnLayoutTopMargin = 10.0;
+const mainContentBtnLayoutLeftMargin = 82.0;
