@@ -4,4 +4,5 @@ class AllImages {
   AllImages._();
 
   static const String flutterLogo = 'assets/images/flutter-logo.jpg';
+  static const String adminLogo = '../lib/assets/images/admin_logo.png';
 }

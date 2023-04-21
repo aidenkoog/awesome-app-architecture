@@ -69,7 +69,8 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/18 : Applied reactive ui concept
 - 2023/04/19 : Did code refactoring (1st)
 - 2023/04/20 : Did code refactoring (final)
-- 2023/04/21 : Added grid data sheet ui.
+- 2023/04/21 : Added grid data sheet ui
+- 2023/04/21 : Changed admin webpage logo image
 
 #### How To Setup Environment Before Developing App
 

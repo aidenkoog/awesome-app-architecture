@@ -51,8 +51,7 @@ class _IntroScreenState extends State<IntroScreen> {
                                   introTitle: introTitle,
                                   titleColor: themeModel.paletteColor),
                               IntroLogo(
-                                  logoImage:
-                                      Image.asset(AllImages.flutterLogo)),
+                                  logoImage: Image.asset(AllImages.adminLogo)),
                               CustomInputBox(
                                   placeHolder: idPlaceHolder,
                                   focusedPlaceHolder: idFocusPlaceHolder,

@@ -208,7 +208,7 @@ class _MainContentCardState extends State<MainContentCard> {
                     contentPadding: const EdgeInsets.fromLTRB(
                         12, 2, 0, cardItemCount > 3 ? 6 : 0),
                     leading:
-                        Image.asset(AllImages.flutterLogo, fit: BoxFit.cover),
+                        Image.asset(AllImages.adminLogo, fit: BoxFit.cover),
                     title: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
