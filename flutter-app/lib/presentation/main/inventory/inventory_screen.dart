@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import '../../../utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
-import '../base/home_content.dart';
+import '../../container/components/main/main_content_card.dart';
 
 class InventoryScreen extends StatelessWidget {
   final String routeName;
@@ -19,7 +19,7 @@ class InventoryScreen extends StatelessWidget {
     return Column(children: <Widget>[
       Container(
           alignment: Alignment.topLeft,
-          margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
+          margin: const EdgeInsets.only(top: 13, left: 80),
           child: Row(children: [
             const SizedBox(width: 8),
             CustomOutlinedButton(
@@ -40,9 +40,9 @@ class InventoryScreen extends StatelessWidget {
             CustomOutlinedButton(
                 buttonName: inventoryDownloadSampleBtnText,
                 color: Colors.green,
-                callback: _onDownloadSample),
+                callback: _onDownloadSample)
           ])),
-      const HomeContent(featureName: routeKeyInventory)
+      MainContentCard(routeName: routeName)
     ]);
   }
 

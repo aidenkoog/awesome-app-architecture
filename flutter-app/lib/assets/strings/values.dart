@@ -14,3 +14,6 @@ const popupMenuItemServiceGuideIndex = 5;
 // main content card count
 const mainContentCardCount = 2;
 const cardItemCount = 2;
+
+// main tab navigation delay time
+const mainNavTabNavigationDelayTime = 1000;

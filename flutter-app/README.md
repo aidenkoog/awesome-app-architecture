@@ -71,6 +71,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/20 : Did code refactoring (final)
 - 2023/04/21 : Added grid data sheet ui
 - 2023/04/21 : Changed admin webpage logo image
+- 2023/04/21 : Applied routing logic by tab navigation
 
 #### How To Setup Environment Before Developing App
 

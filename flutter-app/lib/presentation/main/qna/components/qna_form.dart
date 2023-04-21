@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/home/qna/components/qna_answer.dart';
-import 'package:flutter_web_navigation/presentation/home/qna/components/qna_content.dart';
-import 'package:flutter_web_navigation/presentation/home/qna/components/qna_header.dart';
+import 'package:flutter_web_navigation/presentation/main/qna/components/qna_answer.dart';
+import 'package:flutter_web_navigation/presentation/main/qna/components/qna_content.dart';
+import 'package:flutter_web_navigation/presentation/main/qna/components/qna_header.dart';
 
 import '../../../../assets/strings/strings.dart';
 import '../../../components/button/custom_normal_button.dart';

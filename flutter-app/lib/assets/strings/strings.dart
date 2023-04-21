@@ -22,7 +22,7 @@ const routeKeyInventory = 'inventory';
 const routeKeyAgency = 'agency';
 const routeKeyAccounting = 'accounting';
 const routeKeyEvents = 'events';
-const routeKeyQna = 'q&a';
+const routeKeyQna = 'qna';
 Map homeNavBtnTextMap = {
   routeKeyCustomer: 'CUSTOMER',
   routeKeyInventory: 'INVENTORY',

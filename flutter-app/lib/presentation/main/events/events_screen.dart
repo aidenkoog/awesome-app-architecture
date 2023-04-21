@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
-import '../base/home_content.dart';
+import '../../container/components/main/main_content_card.dart';
 
-class AccountingScreen extends StatelessWidget {
+class EventScreen extends StatelessWidget {
   final String routeName;
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  const AccountingScreen({
+  const EventScreen({
     Key? key,
     required this.routeName,
     required this.parentScaffoldKey,
@@ -19,14 +19,14 @@ class AccountingScreen extends StatelessWidget {
     return Column(children: <Widget>[
       Container(
           alignment: Alignment.topLeft,
-          margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
+          margin: const EdgeInsets.only(top: 13, left: 85),
           child: Row(children: [
             CustomOutlinedButton(
-                buttonName: accountingDownloadExcelBtnText,
+                buttonName: eventsDownloadExcelBtnText,
                 color: Colors.green,
                 callback: _onDownloadExcel)
           ])),
-      const HomeContent(featureName: routeKeyAccounting)
+      MainContentCard(routeName: routeName)
     ]);
   }
 

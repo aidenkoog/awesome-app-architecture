@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
-import '../base/home_content.dart';
+import '../../container/components/main/main_content_card.dart';
 
 class AgencyScreen extends StatelessWidget {
   final String routeName;
@@ -19,7 +19,7 @@ class AgencyScreen extends StatelessWidget {
     return Column(children: <Widget>[
       Container(
           alignment: Alignment.topLeft,
-          margin: const EdgeInsets.fromLTRB(100, 40, 0, 0),
+          margin: const EdgeInsets.only(top: 13, left: 80),
           child: Row(children: [
             CustomOutlinedButton(
                 buttonName: agencyBtn1Text,
@@ -34,9 +34,11 @@ class AgencyScreen extends StatelessWidget {
             CustomOutlinedButton(
                 buttonName: agencyBtn3Text,
                 color: Colors.red,
-                callback: _onClickAgency3),
+                callback: _onClickAgency3)
           ])),
-      const HomeContent(featureName: routeKeyAgency)
+      MainContentCard(
+        routeName: routeName,
+      )
     ]);
   }
 

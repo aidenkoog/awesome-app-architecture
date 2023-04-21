@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/home/customer/customer_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/accounting/accounting_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/inventory/inventory_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/agency/agency_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/events/events_screen.dart';
-import 'package:flutter_web_navigation/presentation/home/qna/qna_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/customer/customer_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/accounting/accounting_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/inventory/inventory_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/agency/agency_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/events/events_screen.dart';
+import 'package:flutter_web_navigation/presentation/main/qna/qna_screen.dart';
 import 'package:flutter_web_navigation/presentation/exception/unknown_screen.dart';
 
 enum RouteData {
@@ -52,20 +52,15 @@ class RouteHandler {
 
             case RouteData.accounting:
               return AccountingScreen(
-                routeName: routeName,
-                parentScaffoldKey: scaffoldKey,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.events:
               return EventScreen(
-                routeName: routeName,
-                parentScaffoldKey: scaffoldKey,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             case RouteData.qna:
               return QnaScreen(
-                routeName: routeName,
-              );
+                  routeName: routeName, parentScaffoldKey: scaffoldKey);
 
             default:
               return CustomerScreen(

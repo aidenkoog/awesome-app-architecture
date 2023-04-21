@@ -19,6 +19,7 @@ import '../../navigation/mobile/mobile_nav_title.dart';
 import '../../popup_menu/popup_menu_items.dart';
 
 class HomeMobileScaffold extends StatefulWidget {
+  final String routeName;
   final GlobalKey<ScaffoldState> scaffoldKey;
   final ThemeModel model;
   final ScrollController controller;
@@ -27,7 +28,8 @@ class HomeMobileScaffold extends StatefulWidget {
       {Key? key,
       required this.scaffoldKey,
       required this.model,
-      required this.controller})
+      required this.controller,
+      required this.routeName})
       : super(key: key);
 
   @override
@@ -133,7 +135,9 @@ class _HomeMobileScaffoldState extends State<HomeMobileScaffold> {
                             ? CustomLoading(
                                 loadingBarColor: widget.model.paletteColor,
                                 textColor: widget.model.paletteColor)
-                            : const MainContentCard())
+                            : MainContentCard(
+                                routeName: widget.routeName,
+                              ))
                   ]))
                 ])));
   }

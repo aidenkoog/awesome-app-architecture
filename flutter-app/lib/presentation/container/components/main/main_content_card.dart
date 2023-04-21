@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/presentation/components/button/custom_outlined_button.dart';
 import 'package:flutter_web_navigation/presentation/components/datagrid/datagrid_paging.dart';
 
 import '../../../../assets/strings/strings.dart';
@@ -10,7 +9,8 @@ import '../../../theme/theme_model.dart';
 import '../../../../utils/image_util.dart';
 
 class MainContentCard extends StatefulWidget {
-  const MainContentCard({Key? key}) : super(key: key);
+  final String routeName;
+  const MainContentCard({Key? key, required this.routeName}) : super(key: key);
 
   @override
   _MainContentCardState createState() => _MainContentCardState();
@@ -137,20 +137,8 @@ class _MainContentCardState extends State<MainContentCard> {
             child: organizedCardWidget));
   }
 
-  Widget _getCardBtnItemWidget(bool? isLeftCard) {
-    return isLeftCard == true
-        ? Container(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: CustomOutlinedButton(
-                buttonName: 'TEST BTN',
-                color: model.paletteColor,
-                callback: () {}))
-        : Container(padding: const EdgeInsets.only(bottom: 55));
-  }
-
   Widget _getCardItemWidget(bool? isLeftCard) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      _getCardBtnItemWidget(isLeftCard),
       Container(
           padding: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
@@ -181,7 +169,7 @@ class _MainContentCardState extends State<MainContentCard> {
                 : Container(
                     padding: const EdgeInsets.only(top: 18, bottom: 18),
                     alignment: Alignment.center,
-                    child: Text('AidenKooG Card Layout',
+                    child: Text(widget.routeName.toUpperCase(),
                         style: TextStyle(
                             color: model.backgroundColor,
                             fontSize: 16,
@@ -213,7 +201,7 @@ class _MainContentCardState extends State<MainContentCard> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Row(children: <Widget>[
-                            Text('ITEM',
+                            Text(widget.routeName.toUpperCase(),
                                 textAlign: TextAlign.left,
                                 softWrap: true,
                                 textScaleFactor: 1,
@@ -240,20 +228,21 @@ class _MainContentCardState extends State<MainContentCard> {
                               margin: model.isWeb && model.isMobileResolution
                                   ? const EdgeInsets.fromLTRB(0, 0, 6, 0)
                                   : const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                              child: const Text('ITEM',
+                              child: const Text('UI',
                                   style: TextStyle(
                                       fontFamily: 'Roboto-Medium',
                                       color: Colors.white,
                                       fontSize: 10.5)))
                         ]),
-                    subtitle: const Padding(
-                        padding: EdgeInsets.fromLTRB(0.0, 7.0, 12.0, 0.0),
-                        child: Text('DESCRIPTION',
+                    subtitle: Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 7.0, 12.0, 0.0),
+                        child: Text(
+                            widget.routeName.toUpperCase() + 'DESCRIPTION',
                             textAlign: TextAlign.left,
                             softWrap: true,
                             textScaleFactor: 1,
                             overflow: TextOverflow.fade,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 12,
                                 color: Color.fromRGBO(128, 128, 128, 1))))))));
@@ -261,7 +250,6 @@ class _MainContentCardState extends State<MainContentCard> {
 
   List<Widget> _getDetailCardItemWidgetList(bool? isLeftCard) {
     final List<Widget> items = <Widget>[];
-
     if (isLeftCard == true) {
       items.add(Container(
           color: model.cardColor,
@@ -269,7 +257,6 @@ class _MainContentCardState extends State<MainContentCard> {
               PagingDataGrid(cardWidth: _cardWidth, cardHeight: _cardHeight)));
       return items;
     }
-
     for (int i = 0; i < cardItemCount; i++) {
       items.add(_getDetailDefaultCardItemWidget());
     }

@@ -39,10 +39,12 @@ class _ContainerScreenState extends State<ContainerScreen> {
             ? HomeMobileScaffold(
                 scaffoldKey: widget.scaffoldKey,
                 model: model,
-                controller: widget.controller)
+                controller: widget.controller,
+                routeName: widget.routeName)
             : HomeWebScaffold(
                 scaffoldKey: widget.scaffoldKey,
                 model: model,
-                controller: widget.controller));
+                controller: widget.controller,
+                routeName: widget.routeName));
   }
 }
