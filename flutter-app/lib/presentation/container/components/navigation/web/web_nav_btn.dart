@@ -27,9 +27,11 @@ class NavigationItemButton extends StatelessWidget {
                 padding: EdgeInsets.only(top: 10, left: isMaxxSize ? 20 : 0),
                 child: Container(
                     width: 115,
-                    height: 32,
-                    decoration:
-                        BoxDecoration(border: Border.all(color: Colors.white)),
+                    height: 35,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8.0))),
                     child: StatefulBuilder(
                         builder: (BuildContext context, StateSetter setState) {
                       return MouseRegion(
@@ -43,6 +45,8 @@ class NavigationItemButton extends StatelessWidget {
                           },
                           child: InkWell(
                               hoverColor: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(7.0)),
                               onTap: () => callback(),
                               child: Padding(
                                   padding:
