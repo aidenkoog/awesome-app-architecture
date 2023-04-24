@@ -1,22 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/values.dart';
-import 'package:flutter_web_navigation/presentation/container/components/navigation/mobile/mobile_nav_icon.dart';
-import 'package:flutter_web_navigation/presentation/container/components/navigation/mobile/mobile_nav_info.dart';
 import 'package:flutter_web_navigation/presentation/container/components/navigation/mobile/mobile_nav_opacity_title.dart';
 import 'package:flutter_web_navigation/presentation/container/components/navigation/mobile/mobile_nav_settings_icon.dart';
+import 'package:flutter_web_navigation/presentation/container/components/scaffold/mobile/mobile_appbar_title_items.dart';
 
 import '../../../../../assets/strings/strings.dart';
 import '../../../../theme/theme_model.dart';
 import '../../../../../utils/auth_util.dart';
 import '../../../../../utils/navigation_util.dart';
-import '../../../../components/context_menu/custom_popup_menu_button.dart';
 import '../../../../components/loading/custom_loading.dart';
 import '../../drawer/palette/theme_setting_builder.dart';
 import '../../main/main_content_card.dart';
 import '../../navigation/mobile/mobile_nav_drawer.dart';
-import '../../navigation/mobile/mobile_nav_title.dart';
-import '../../popup_menu/popup_menu_items.dart';
 
 class HomeMobileScaffold extends StatefulWidget {
   final String routeName;
@@ -93,53 +89,41 @@ class _HomeMobileScaffoldState extends State<HomeMobileScaffold> {
             child: CustomScrollView(
                 controller: widget.controller,
                 physics: const ClampingScrollPhysics(),
-                slivers: <Widget>[
-                  SliverToBoxAdapter(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                        const MobileNavigationTitle(
-                            subDescription: homeSubDescription,
-                            title: homeTitle),
-                        Row(children: [
-                          const MobileNavigationInfo(
-                              infoText: homeLoginInfoText),
-                          CustomPopupMenuButton(
-                              popupMenuItemList: getPopupMenuItems(context),
-                              childWidget: const MobileNavigationIcon(
-                                  icon: Icon(Icons.supervised_user_circle,
-                                      color: Colors.white)),
-                              onSelected: (value) {
-                                switch (value) {
-                                  case popupMenuItemLogoutIndex:
-                                    setState(() => isLoading = true);
-                                    signOut((signOutCompleted) {
-                                      setState(
-                                          () => isLoading = !signOutCompleted);
-                                      signOutCompleted
-                                          ? navigateByLogout()
-                                          : {};
-                                    });
-                                    break;
-                                }
-                              })
-                        ])
-                      ])),
-                  SliverPersistentHeader(
-                      pinned: true, delegate: _PersistentHeaderDelegate(model)),
-                  SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                    Container(
-                        color: model.webBackgroundColor,
-                        child: isLoading
-                            ? CustomLoading(
-                                loadingBarColor: widget.model.paletteColor,
-                                textColor: widget.model.paletteColor)
-                            : MainContentCard(
-                                routeName: widget.routeName,
-                              ))
-                  ]))
-                ])));
+                slivers: getSilvers(widget.model))));
+  }
+
+  getSilvers(ThemeModel model) {
+    return <Widget>[
+      SliverToBoxAdapter(
+          child: getMobileAppBarTitleItems(
+              context, (menuIndex) => handleAccountMenuEvent(menuIndex))),
+      SliverPersistentHeader(
+          pinned: true, delegate: _PersistentHeaderDelegate(model)),
+      SliverList(
+          delegate: SliverChildListDelegate(<Widget>[
+        Container(
+            color: model.webBackgroundColor,
+            child: isLoading
+                ? CustomLoading(
+                    loadingBarColor: widget.model.paletteColor,
+                    textColor: widget.model.paletteColor)
+                : MainContentCard(routeName: widget.routeName))
+      ]))
+    ];
+  }
+
+  void handleAccountMenuEvent(menuIndex) {
+    if (menuIndex == null) return;
+    if (menuIndex is! int) return;
+    switch (menuIndex) {
+      case popupMenuItemLogoutIndex:
+        setState(() => isLoading = true);
+        signOut((signOutCompleted) {
+          setState(() => isLoading = !signOutCompleted);
+          signOutCompleted ? navigateByLogout() : {};
+        });
+        break;
+    }
   }
 }
 
@@ -159,20 +143,21 @@ class _PersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
             child: Column(children: <Widget>[
               Container(
                   padding: const EdgeInsets.fromLTRB(20, 0, 20, 0), height: 70),
-              Container(
-                  height: 20,
-                  decoration: BoxDecoration(
-                      color: _themeModel!.webBackgroundColor,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0)),
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: _themeModel!.webBackgroundColor,
-                            offset: const Offset(0, 2.0),
-                            blurRadius: 0.25)
-                      ]))
+              Container(height: 20, decoration: getBoxDecoration())
             ])));
+  }
+
+  getBoxDecoration() {
+    BoxDecoration(
+        color: _themeModel!.webBackgroundColor,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12.0), topRight: Radius.circular(12.0)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: _themeModel!.webBackgroundColor,
+              offset: const Offset(0, 2.0),
+              blurRadius: 0.25)
+        ]);
   }
 
   @override

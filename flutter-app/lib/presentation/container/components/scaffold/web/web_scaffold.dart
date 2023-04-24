@@ -102,10 +102,10 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
     }
   }
 
-  void handleAccountMenuEvent(value) {
-    if (value == null) return;
-    if (value is! int) return;
-    switch (value) {
+  void handleAccountMenuEvent(menuIndex) {
+    if (menuIndex == null) return;
+    if (menuIndex is! int) return;
+    switch (menuIndex) {
       case popupMenuItemLogoutIndex:
         setState(() => isLoading = true);
         signOut((signOutCompleted) {

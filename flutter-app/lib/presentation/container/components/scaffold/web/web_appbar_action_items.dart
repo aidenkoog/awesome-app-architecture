@@ -45,8 +45,8 @@ loadAppBarActionItems(BuildContext context, ThemeModel model,
             model: model,
             icon:
                 const Icon(Icons.supervised_user_circle, color: Colors.white)),
-        onSelected: (value) =>
-            selectedNavItemCallback(homeNavItemAccountIcon, value)),
+        onSelected: (menuIndex) =>
+            selectedNavItemCallback(homeNavItemAccountIcon, menuIndex)),
     NavigationItemSettingsIcon(
         model: model,
         icon: const Icon(Icons.settings, color: Colors.white),

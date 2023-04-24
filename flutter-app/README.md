@@ -76,6 +76,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/21 : Applied tab navigation button radius
 - 2023/04/24 : Did code refactoring related to intro
 - 2023/04/24 : Did code refactoring related to web scaffold
+- 2023/04/24 : Did code refactoring related to mobile scaffold
 
 #### How To Setup Environment Before Developing App
 
