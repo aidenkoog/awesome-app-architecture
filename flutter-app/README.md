@@ -74,6 +74,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/21 : Applied routing logic by tab navigation
 - 2023/04/21 : Fix height fixel crash issue occurred when window height size decreases
 - 2023/04/21 : Applied tab navigation button radius
+- 2023/04/21 : Did code refactoring related to intro
 
 #### How To Setup Environment Before Developing App
 
