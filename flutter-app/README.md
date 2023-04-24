@@ -72,11 +72,12 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/21 : Added grid data sheet ui
 - 2023/04/21 : Changed admin webpage logo image
 - 2023/04/21 : Applied routing logic by tab navigation
-- 2023/04/21 : Fix height fixel crash issue occurred when window height size decreases
+- 2023/04/21 : Fixed height fixel crash issue occurred when window height size decreases
 - 2023/04/21 : Applied tab navigation button radius
 - 2023/04/24 : Did code refactoring related to intro
 - 2023/04/24 : Did code refactoring related to web scaffold
 - 2023/04/24 : Did code refactoring related to mobile scaffold
+- 2023/04/24 : Did code refactoring about main screens, scaffold for web & mobile and center main content
 
 #### How To Setup Environment Before Developing App
 

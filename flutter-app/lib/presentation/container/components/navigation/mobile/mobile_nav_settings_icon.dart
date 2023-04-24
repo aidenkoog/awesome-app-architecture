@@ -11,8 +11,6 @@ class MobileNavSettingsIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 10,
-        width: 40,
         child: IconButton(
             icon: const Icon(Icons.settings, color: Colors.white),
             onPressed: () => openEndDrawerUi(scaffoldKey)));

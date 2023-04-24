@@ -9,5 +9,5 @@ class MobileNavigationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
-      Padding(padding: const EdgeInsets.fromLTRB(8, 8, 0, 0), child: icon);
+      Padding(padding: const EdgeInsets.fromLTRB(8, 0, 0, 0), child: icon);
 }

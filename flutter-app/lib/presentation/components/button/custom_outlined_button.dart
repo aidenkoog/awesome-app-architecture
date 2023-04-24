@@ -15,12 +15,12 @@ class CustomOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-        child: Text(buttonName, style: const TextStyle(fontSize: 18)),
+        child: Text(buttonName, style: const TextStyle(fontSize: 13)),
         style: OutlinedButton.styleFrom(
             textStyle: const TextStyle(fontWeight: FontWeight.w600),
             foregroundColor: color,
             side: BorderSide(color: color, width: 2),
-            padding: const EdgeInsets.all(18)),
+            padding: const EdgeInsets.all(14)),
         onPressed: () => callback());
   }
 }

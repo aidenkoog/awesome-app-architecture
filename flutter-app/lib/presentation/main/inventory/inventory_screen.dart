@@ -1,71 +1,120 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
-import '../../../assets/strings/values.dart';
-import '../../../utils/drawer_util.dart';
+import 'package:flutter_web_navigation/presentation/main/base/base_screen.dart';
+import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
-import '../../container/components/main/main_content_card.dart';
+import '../../container/components/main/main_content.dart';
 
-class InventoryScreen extends StatelessWidget {
-  final ScrollController controller;
-  final String routeName;
-  final GlobalKey<ScaffoldState> parentScaffoldKey;
+class InventoryScreen extends BaseScreen {
+  InventoryScreen(
+      {Key? key,
+      required String routeName,
+      required GlobalKey<ScaffoldState> parentScaffoldKey,
+      required ScrollController controller})
+      : super(
+            key: key,
+            controller: controller,
+            routeName: routeName,
+            parentScaffoldKey: parentScaffoldKey);
 
-  const InventoryScreen({
-    Key? key,
-    required this.routeName,
-    required this.parentScaffoldKey,
-    required this.controller,
-  }) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _InventoryScreenState();
+}
+
+class _InventoryScreenState extends BaseScreenState<InventoryScreen> {
+  Widget? render;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        transform: Matrix4.translationValues(0, -1, 0),
-        child: Scrollbar(
-            controller: controller,
-            thumbVisibility: true,
-            child: CustomScrollView(
-                controller: controller,
-                physics: const ClampingScrollPhysics(),
-                slivers: <Widget>[
-                  SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                    Column(children: <Widget>[
-                      Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(
-                              top: mainContentBtnLayoutTopMargin,
-                              left: mainContentBtnLayoutLeftMargin),
-                          child: Row(children: [
-                            const SizedBox(width: 8),
-                            CustomOutlinedButton(
-                                buttonName: inventoryImportBtnText,
-                                color: Colors.red,
-                                callback: _onImport),
-                            const SizedBox(width: 8),
-                            CustomOutlinedButton(
-                                buttonName: inventoryExportBtnText,
-                                color: Colors.red,
-                                callback: _onExport),
-                            const SizedBox(width: 8),
-                            CustomOutlinedButton(
-                                buttonName: inventoryBatchRegBtnText,
-                                color: Colors.red,
-                                callback: _onBatchRegistration),
-                            const SizedBox(width: 8),
-                            CustomOutlinedButton(
-                                buttonName: inventoryDownloadSampleBtnText,
-                                color: Colors.green,
-                                callback: _onDownloadSample)
-                          ])),
-                      MainContentCard(routeName: routeName)
-                    ])
-                  ]))
-                ])));
+    return widget.themeModel.isMobileResolution
+        ? Container(
+            transform: Matrix4.translationValues(0, -1, 0),
+            child: getScrollableWidget(widget.themeModel))
+        : getMainLayout();
   }
 
-  _onImport() => openEndDrawerUi(parentScaffoldKey);
-  _onExport() => openEndDrawerUi(parentScaffoldKey);
-  _onBatchRegistration() => openEndDrawerUi(parentScaffoldKey);
-  _onDownloadSample() => openEndDrawerUi(parentScaffoldKey);
+  @override
+  getMainLayout() => MainContent(
+        routeName: widget.routeName,
+        scrollController: widget.controller,
+        leftTopContent: getLeftTopContent(),
+        rightTopContent: getRightTopContent(),
+      );
+
+  @override
+  getLeftTopContent() => Column(children: <Widget>[
+        widget.themeModel.isMobileResolution
+            ? Column(children: [
+                SizedBox(
+                    width: double.infinity,
+                    child: CustomOutlinedButton(
+                        buttonName: inventoryImportBtnText,
+                        color: widget.themeModel.paletteColor,
+                        callback: _onImport)),
+                const SizedBox(height: 2),
+                SizedBox(
+                    width: double.infinity,
+                    child: CustomOutlinedButton(
+                        buttonName: inventoryExportBtnText,
+                        color: widget.themeModel.paletteColor,
+                        callback: _onExport)),
+                const SizedBox(height: 2),
+                SizedBox(
+                    width: double.infinity,
+                    child: CustomOutlinedButton(
+                        buttonName: inventoryBatchRegBtnText,
+                        color: widget.themeModel.paletteColor,
+                        callback: _onBatchRegistration)),
+                const SizedBox(height: 2),
+                SizedBox(
+                    width: double.infinity,
+                    child: CustomOutlinedButton(
+                        buttonName: inventoryDownloadSampleBtnText,
+                        color: widget.themeModel.paletteColor,
+                        callback: _onDownloadSample)),
+                const SizedBox(height: 2),
+              ])
+            : Container(
+                alignment: Alignment.topLeft,
+                child: Row(children: [
+                  const SizedBox(width: 3),
+                  CustomOutlinedButton(
+                      buttonName: inventoryImportBtnText,
+                      color: widget.themeModel.paletteColor,
+                      callback: _onImport),
+                  const SizedBox(width: 3),
+                  CustomOutlinedButton(
+                      buttonName: inventoryExportBtnText,
+                      color: widget.themeModel.paletteColor,
+                      callback: _onExport),
+                  const SizedBox(width: 3),
+                  CustomOutlinedButton(
+                      buttonName: inventoryBatchRegBtnText,
+                      color: widget.themeModel.paletteColor,
+                      callback: _onBatchRegistration),
+                  const SizedBox(width: 3),
+                  CustomOutlinedButton(
+                      buttonName: inventoryDownloadSampleBtnText,
+                      color: widget.themeModel.paletteColor,
+                      callback: _onDownloadSample),
+                  const SizedBox(height: 2),
+                ])),
+      ]);
+
+  @override
+  getRightTopContent() => widget.themeModel.isMobileResolution
+      ? Container(
+          alignment: Alignment.topLeft, padding: const EdgeInsets.all(60))
+      : super.getRightTopContent();
+
+  @override
+  getScrollController() => widget.controller;
+
+  @override
+  getThemeModel() => widget.themeModel;
+
+  _onImport() => openEndDrawerUi(widget.parentScaffoldKey);
+  _onExport() => openEndDrawerUi(widget.parentScaffoldKey);
+  _onBatchRegistration() => openEndDrawerUi(widget.parentScaffoldKey);
+  _onDownloadSample() => openEndDrawerUi(widget.parentScaffoldKey);
 }

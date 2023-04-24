@@ -19,5 +19,12 @@ const cardItemCount = 2;
 const mainNavTabNavigationDelayTime = 1000;
 
 // main content button layout
-const mainContentBtnLayoutTopMargin = 10.0;
+const mainContentBtnLayoutTopMargin = 0.0;
 const mainContentBtnLayoutLeftMargin = 82.0;
+
+// main content widget identifier
+const leftCard = 'left_card';
+const rightCard = 'right_card';
+const web_big_size = 'web_big_size';
+const web_mid_size = 'web_mid_size';
+const mobile_size = 'mobile_size';

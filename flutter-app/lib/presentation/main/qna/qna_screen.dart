@@ -1,42 +1,50 @@
 import 'package:flutter/material.dart';
-import '../../../assets/strings/values.dart';
-import '../../container/components/main/main_content_card.dart';
+import 'package:flutter_web_navigation/presentation/main/base/base_screen.dart';
+import '../../container/components/main/main_content.dart';
 
-class QnaScreen extends StatelessWidget {
-  final ScrollController controller;
-  final String routeName;
-  final GlobalKey<ScaffoldState> parentScaffoldKey;
+class QnaScreen extends BaseScreen {
+  QnaScreen(
+      {Key? key,
+      required String routeName,
+      required GlobalKey<ScaffoldState> parentScaffoldKey,
+      required ScrollController controller})
+      : super(
+            key: key,
+            controller: controller,
+            routeName: routeName,
+            parentScaffoldKey: parentScaffoldKey);
 
-  const QnaScreen({
-    Key? key,
-    required this.routeName,
-    required this.parentScaffoldKey,
-    required this.controller,
-  }) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _QnaScreenState();
+}
+
+class _QnaScreenState extends BaseScreenState<QnaScreen> {
+  Widget? render;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        transform: Matrix4.translationValues(0, -1, 0),
-        child: Scrollbar(
-            controller: controller,
-            thumbVisibility: true,
-            child: CustomScrollView(
-                controller: controller,
-                physics: const ClampingScrollPhysics(),
-                slivers: <Widget>[
-                  SliverList(
-                      delegate: SliverChildListDelegate(<Widget>[
-                    Column(children: <Widget>[
-                      Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(
-                              top: mainContentBtnLayoutTopMargin,
-                              left: mainContentBtnLayoutLeftMargin),
-                          child: Row(children: const [])),
-                      MainContentCard(routeName: routeName)
-                    ])
-                  ]))
-                ])));
+    return widget.themeModel.isMobileResolution
+        ? Container(
+            transform: Matrix4.translationValues(0, -1, 0),
+            child: getScrollableWidget(widget.themeModel))
+        : getMainLayout();
   }
+
+  @override
+  getMainLayout() => MainContent(
+        routeName: widget.routeName,
+        scrollController: widget.controller,
+        leftTopContent: getLeftTopContent(),
+        rightTopContent: getRightTopContent(),
+      );
+
+  @override
+  getRightTopContent() => Container(
+      alignment: Alignment.topLeft, padding: const EdgeInsets.all(20));
+
+  @override
+  getScrollController() => widget.controller;
+
+  @override
+  getThemeModel() => widget.themeModel;
 }

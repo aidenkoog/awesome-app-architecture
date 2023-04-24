@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../../assets/strings/strings.dart';
 import '../../../../theme/theme_model.dart';
-import '../../../../../utils/navigation_util.dart';
 import 'mobile_nav_drawer_menu_item.dart';
 
-Widget getMobileNavMenuDrawer(ThemeModel model) {
+typedef OnSelectMobileNavMenuCallback = void Function(String);
+
+Widget getMobileNavMenuDrawer(
+    ThemeModel model, OnSelectMobileNavMenuCallback callback) {
   return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
     return SizedBox(
@@ -72,32 +74,27 @@ Widget getMobileNavMenuDrawer(ThemeModel model) {
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyCustomer],
-                              callback: () =>
-                                  navigateWithDelay(routeKeyCustomer)),
+                              callback: () => callback(routeKeyCustomer)),
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyInventory],
-                              callback: () =>
-                                  navigateWithDelay(routeKeyInventory)),
+                              callback: () => callback(routeKeyInventory)),
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyAgency],
-                              callback: () =>
-                                  navigateWithDelay(routeKeyAgency)),
+                              callback: () => callback(routeKeyAgency)),
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyAccounting],
-                              callback: () =>
-                                  navigateWithDelay(routeKeyAccounting)),
+                              callback: () => callback(routeKeyAccounting)),
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyEvents],
-                              callback: () =>
-                                  navigateWithDelay(routeKeyEvents)),
+                              callback: () => callback(routeKeyEvents)),
                           MobileNavDrawerMenuItem(
                               model: model,
                               menuText: homeNavBtnTextMap[routeKeyQna],
-                              callback: () => navigateWithDelay(routeKeyQna))
+                              callback: () => callback(routeKeyQna)),
                         ]))
                   ])),
                   Padding(

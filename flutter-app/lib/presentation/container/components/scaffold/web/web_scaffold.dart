@@ -55,8 +55,11 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
                 elevation: 0.0,
                 backgroundColor: widget.model.paletteColor,
                 flexibleSpace: loadAppBarTitle(),
-                actions: loadAppBarActionItems(context, widget.model,
-                    (navItem, extras) => onSelectedNavItem(navItem, extras)))),
+                actions: loadAppBarActionItems(
+                    context,
+                    widget.model,
+                    (navItem, extras) =>
+                        handleNavItemSelectEvent(navItem, extras)))),
         body: isLoading
             ? CustomLoading(
                 loadingBarColor: widget.model.paletteColor,
@@ -73,7 +76,7 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
         callback: () => reloadWebpage());
   }
 
-  void onSelectedNavItem(String navItem, Object? extras) {
+  void handleNavItemSelectEvent(String navItem, Object? extras) {
     switch (navItem) {
       case homeNavItemAccountIcon:
         handleAccountMenuEvent(extras);

@@ -18,8 +18,11 @@ import '../datagrid/common/export/save_file_mobile.dart'
 
 class PagingDataGrid extends SampleView {
   final double cardWidth;
+  final bool isSoloCard;
 
-  const PagingDataGrid({Key? key, required this.cardWidth}) : super(key: key);
+  const PagingDataGrid(
+      {Key? key, required this.cardWidth, required this.isSoloCard})
+      : super(key: key);
 
   @override
   _PagingDataGridState createState() => _PagingDataGridState();
@@ -59,10 +62,12 @@ class _PagingDataGridState extends SampleViewState {
         columnWidthMode: (isWebOrDesktop && !model.isMobileResolution) ||
                 isLandscapeInMobileView
             ? ColumnWidthMode.fill
-            : ColumnWidthMode.none,
+            : ColumnWidthMode.fill,
         columns: <GridColumn>[
           GridColumn(
-              width: (isWebOrDesktop && model.isMobileResolution)
+              width: (isWebOrDesktop &&
+                      model.isMobileResolution &&
+                      !(widget as PagingDataGrid).isSoloCard)
                   ? 80.0
                   : double.nan,
               columnName: 'id',
@@ -75,7 +80,9 @@ class _PagingDataGridState extends SampleViewState {
                           fontWeight: FontWeight.bold,
                           color: model.paletteColor)))),
           GridColumn(
-              width: (isWebOrDesktop && model.isMobileResolution)
+              width: (isWebOrDesktop &&
+                      model.isMobileResolution &&
+                      !(widget as PagingDataGrid).isSoloCard)
                   ? 150.0
                   : double.nan,
               columnWidthMode: (isWebOrDesktop && model.isMobileResolution)
@@ -92,7 +99,9 @@ class _PagingDataGridState extends SampleViewState {
                           fontWeight: FontWeight.bold,
                           color: model.paletteColor)))),
           GridColumn(
-              width: (isWebOrDesktop && model.isMobileResolution)
+              width: (isWebOrDesktop &&
+                      model.isMobileResolution &&
+                      !(widget as PagingDataGrid).isSoloCard)
                   ? 120.0
                   : double.nan,
               columnName: 'name',
@@ -105,7 +114,9 @@ class _PagingDataGridState extends SampleViewState {
                           fontWeight: FontWeight.bold,
                           color: model.paletteColor)))),
           GridColumn(
-              width: (isWebOrDesktop && model.isMobileResolution)
+              width: (isWebOrDesktop &&
+                      model.isMobileResolution &&
+                      !(widget as PagingDataGrid).isSoloCard)
                   ? 110.0
                   : double.nan,
               columnName: 'freight',
@@ -118,7 +129,9 @@ class _PagingDataGridState extends SampleViewState {
                           fontWeight: FontWeight.bold,
                           color: model.paletteColor)))),
           GridColumn(
-            width: (isWebOrDesktop && model.isMobileResolution)
+            width: (isWebOrDesktop &&
+                    model.isMobileResolution &&
+                    !(widget as PagingDataGrid).isSoloCard)
                 ? 120.0
                 : double.nan,
             columnName: 'city',
@@ -132,7 +145,9 @@ class _PagingDataGridState extends SampleViewState {
             ),
           ),
           GridColumn(
-              width: (isWebOrDesktop && model.isMobileResolution)
+              width: (isWebOrDesktop &&
+                      model.isMobileResolution &&
+                      !(widget as PagingDataGrid).isSoloCard)
                   ? 120.0
                   : double.nan,
               columnName: 'price',
@@ -168,7 +183,9 @@ class _PagingDataGridState extends SampleViewState {
       return Column(children: <Widget>[
         SizedBox(
             width: pagingDataGridWidget.cardWidth * 0.935,
-            height: pagingDataGridWidget.cardWidth * 0.72,
+            height: pagingDataGridWidget.isSoloCard
+                ? pagingDataGridWidget.cardWidth * 0.4
+                : pagingDataGridWidget.cardWidth * 0.72,
             child: _buildDataGrid()),
         Container(
             height: dataPagerHeight,
