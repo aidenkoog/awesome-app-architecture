@@ -12,14 +12,9 @@ import 'package:flutter_web_navigation/utils/html_util.dart';
 import '../../../../../assets/strings/strings.dart';
 import '../../../../theme/theme_model.dart';
 import '../../../../../utils/navigation_util.dart';
-import '../../../../components/context_menu/custom_popup_menu_button.dart';
 import '../../drawer/palette/theme_setting_builder.dart';
-import '../../navigation/web/web_nav_btn.dart';
-import '../../navigation/web/web_nav_icon.dart';
-import '../../navigation/web/web_nav_settings_icon.dart';
-import '../../navigation/web/web_nav_text.dart';
 import '../../navigation/web/web_nav_title.dart';
-import '../../popup_menu/popup_menu_items.dart';
+import 'web_appbar_action_items.dart';
 
 class HomeWebScaffold extends StatefulWidget {
   final String routeName;
@@ -60,7 +55,8 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
                 elevation: 0.0,
                 backgroundColor: widget.model.paletteColor,
                 flexibleSpace: loadAppBarTitle(),
-                actions: loadAppBarActionItems())),
+                actions: loadAppBarActionItems(context, widget.model,
+                    (navItem, extras) => onSelectedNavItem(navItem, extras)))),
         body: isLoading
             ? CustomLoading(
                 loadingBarColor: widget.model.paletteColor,
@@ -77,66 +73,48 @@ class _HomeWebScaffoldState extends State<HomeWebScaffold> {
         callback: () => reloadWebpage());
   }
 
-  loadAppBarActionItems() {
-    return <Widget>[
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyCustomer],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyCustomer)),
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyInventory],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyInventory)),
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyAgency],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyAgency)),
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyAccounting],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyAccounting)),
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyEvents],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyEvents)),
-      NavigationItemButton(
-          title: homeNavBtnTextMap[routeKeyQna],
-          model: widget.model,
-          callback: () => navigateMainScreen(routeKeyQna)),
-      NavigationItemText(model: widget.model, text: homeLoginInfoText),
-      CustomPopupMenuButton(
-          popupMenuItemList: getPopupMenuItems(context),
-          childWidget: NavigationItemIcon(
-              model: widget.model,
-              icon: const Icon(Icons.supervised_user_circle,
-                  color: Colors.white)),
-          onSelected: (value) {
-            switch (value) {
-              case popupMenuItemLogoutIndex:
-                setState(() => isLoading = true);
-                signOut((signOutCompleted) {
-                  setState(() => isLoading = !signOutCompleted);
-                  signOutCompleted ? navigateByLogout() : {};
-                });
-                break;
-            }
-          }),
-      NavigationItemSettingsIcon(
-          model: widget.model,
-          icon: const Icon(Icons.settings, color: Colors.white),
-          callback: () => widget.scaffoldKey.currentState!.openEndDrawer())
-    ];
+  void onSelectedNavItem(String navItem, Object? extras) {
+    switch (navItem) {
+      case homeNavItemAccountIcon:
+        handleAccountMenuEvent(extras);
+        break;
+      case homeNavItemSettings:
+        showSettingsDrawer();
+        break;
+      case routeKeyCustomer:
+      case routeKeyInventory:
+      case routeKeyAgency:
+      case routeKeyAccounting:
+      case routeKeyEvents:
+      case routeKeyQna:
+        setState(() => isLoading = true);
+        if (tabNavTimer != null) {
+          tabNavTimer!.cancel();
+        }
+        tabNavTimer =
+            Timer(const Duration(milliseconds: mainNavTabNavigationDelayTime),
+                () async {
+          setState(() => isLoading = false);
+          AppRouterDelegate().setPathName(navItem);
+        });
+        break;
+      default:
+    }
   }
 
-  void navigateMainScreen(String routeName) {
-    setState(() => isLoading = true);
-    if (tabNavTimer != null) {
-      tabNavTimer!.cancel();
+  void handleAccountMenuEvent(value) {
+    if (value == null) return;
+    if (value is! int) return;
+    switch (value) {
+      case popupMenuItemLogoutIndex:
+        setState(() => isLoading = true);
+        signOut((signOutCompleted) {
+          setState(() => isLoading = !signOutCompleted);
+          signOutCompleted ? navigateByLogout() : {};
+        });
+        break;
     }
-    tabNavTimer = Timer(
-        const Duration(milliseconds: mainNavTabNavigationDelayTime), () async {
-      setState(() => isLoading = false);
-      AppRouterDelegate().setPathName(routeName);
-    });
   }
+
+  void showSettingsDrawer() => widget.scaffoldKey.currentState!.openEndDrawer();
 }

@@ -32,6 +32,8 @@ Map homeNavBtnTextMap = {
   routeKeyQna: 'Q&A'
 };
 const homeLoginInfoText = 'Logout: 100H 59H 59S';
+const homeNavItemSettings = 'settings';
+const homeNavItemAccountIcon = 'account_icon';
 
 // home: customer
 const customerDrawerShowBtnText = '+ ADD CUSTOMER';
