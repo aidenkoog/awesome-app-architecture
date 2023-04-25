@@ -4,27 +4,35 @@ class CustomNormalButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback callback;
   final Color backgroundColor;
+  final double height;
+  final double width;
+  final double fontSize;
 
   const CustomNormalButton(
       {Key? key,
       required this.buttonText,
       required this.callback,
-      required this.backgroundColor})
+      required this.backgroundColor,
+      required this.height,
+      required this.width,
+      required this.fontSize})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 50,
-        width: 320,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
-            color: backgroundColor, borderRadius: BorderRadius.circular(20)),
+            border: Border.all(color: backgroundColor, width: 1.1),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8)),
         child: TextButton(
             onPressed: () => callback(),
             child: Text(buttonText,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+                style: TextStyle(
+                    color: backgroundColor,
+                    fontSize: fontSize,
                     fontWeight: FontWeight.bold))));
   }
 }

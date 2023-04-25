@@ -36,6 +36,7 @@ class _QnaScreenState extends BaseScreenState<QnaScreen> {
         scrollController: widget.controller,
         leftTopContent: getLeftTopContent(),
         rightTopContent: getRightTopContent(),
+        rightCardContent: getRightCardContent(),
       );
 
   @override

@@ -56,6 +56,7 @@ dependencies:
   path_provider_platform_interface: ^2.0.6
   syncfusion_flutter_datagrid_export: ^21.1.41
   syncfusion_flutter_pdf: ^21.1.41
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:

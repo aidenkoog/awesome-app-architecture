@@ -8,14 +8,16 @@ import '../../../theme/theme_model.dart';
 
 class MainContent extends StatefulWidget {
   final String routeName;
-  final Widget? leftTopContent;
-  final Widget? rightTopContent;
+  final Widget leftTopContent;
+  final Widget rightTopContent;
+  final Widget rightCardContent;
   final ScrollController scrollController;
   const MainContent(
       {Key? key,
       required this.routeName,
       required this.leftTopContent,
       required this.rightTopContent,
+      required this.rightCardContent,
       required this.scrollController})
       : super(key: key);
 
@@ -167,9 +169,7 @@ class _MainContentState extends State<MainContent> {
 
   _getLeftCardItemWidget() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SizedBox(
-          width: _cardWidth,
-          child: widget.leftTopContent ?? Container(width: _cardWidth)),
+      SizedBox(width: _cardWidth, child: widget.leftTopContent),
       Container(
           padding: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
@@ -208,9 +208,7 @@ class _MainContentState extends State<MainContent> {
 
   _getRightCardItemWidget() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      SizedBox(
-          width: _cardWidth,
-          child: widget.rightTopContent ?? Container(width: _cardWidth)),
+      SizedBox(width: _cardWidth, child: widget.rightTopContent),
       Container(
           padding: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
@@ -233,7 +231,7 @@ class _MainContentState extends State<MainContent> {
                     ? const Color.fromRGBO(61, 61, 61, 1)
                     : const Color.fromRGBO(238, 238, 238, 1),
                 thickness: 3),
-            Column(children: const [Text('AidenKooG')])
+            Column(children: [widget.rightCardContent])
           ]))
     ]);
   }

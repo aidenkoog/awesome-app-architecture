@@ -49,9 +49,13 @@ class _IntroComponentState extends State<IntroComponent> {
               themeColor: themeModel.paletteColor,
               isPassword: true),
           CustomNormalButton(
-              buttonText: signInBtnText,
-              backgroundColor: themeModel.paletteColor,
-              callback: widget.callback)
+            buttonText: signInBtnText,
+            backgroundColor: themeModel.paletteColor,
+            callback: widget.callback,
+            fontSize: 18,
+            height: 50,
+            width: 320,
+          )
         ]);
   }
 }

@@ -39,6 +39,7 @@ class _AgencyScreenState extends BaseScreenState<AgencyScreen> {
         scrollController: widget.controller,
         leftTopContent: getLeftTopContent(),
         rightTopContent: getRightTopContent(),
+        rightCardContent: getRightCardContent(),
       );
 
   @override

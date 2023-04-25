@@ -39,6 +39,7 @@ class _AccountingScreenState extends BaseScreenState<AccountingScreen> {
         scrollController: widget.controller,
         leftTopContent: getLeftTopContent(),
         rightTopContent: getRightTopContent(),
+        rightCardContent: getRightCardContent(),
       );
 
   @override

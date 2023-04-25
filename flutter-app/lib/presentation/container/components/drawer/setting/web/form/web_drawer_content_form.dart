@@ -78,8 +78,13 @@ class _WebDrawerContentFormState extends State<WebDrawerContentForm> {
                   alignment: Alignment.centerRight,
                   margin: const EdgeInsets.fromLTRB(0, 0, 70, 0),
                   child: CustomNormalButton(
-                      buttonText: customerDrawerNextBtnText,
-                      callback: () => {}))
+                    buttonText: customerDrawerNextBtnText,
+                    callback: () => {},
+                    backgroundColor: Colors.blueGrey,
+                    fontSize: 18,
+                    height: 50,
+                    width: 320,
+                  ))
             ])));
   }
 }

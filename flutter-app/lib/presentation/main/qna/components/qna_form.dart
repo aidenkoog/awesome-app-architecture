@@ -28,10 +28,14 @@ class QnaForm extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                   alignment: Alignment.centerRight,
                   child: CustomNormalButton(
-                      buttonText: qnaNextBtnText,
-                      callback: () => {},
-                      backgroundColor: buttonBackgroundColor ??
-                          const Color.fromRGBO(0, 116, 227, 1)))
+                    buttonText: qnaNextBtnText,
+                    callback: () => {},
+                    backgroundColor: buttonBackgroundColor ??
+                        const Color.fromRGBO(0, 116, 227, 1),
+                    fontSize: 18,
+                    height: 50,
+                    width: 320,
+                  ))
             ])));
   }
 }

@@ -39,6 +39,7 @@ class _InventoryScreenState extends BaseScreenState<InventoryScreen> {
         scrollController: widget.controller,
         leftTopContent: getLeftTopContent(),
         rightTopContent: getRightTopContent(),
+        rightCardContent: getRightCardContent(),
       );
 
   @override

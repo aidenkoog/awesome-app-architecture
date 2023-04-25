@@ -37,6 +37,9 @@ class BaseScreenState<T extends StatefulWidget> extends State<T> {
   getRightTopContent() => Container(
       alignment: Alignment.topLeft, padding: const EdgeInsets.all(14));
 
+  getRightCardContent() => Container(
+      alignment: Alignment.topLeft, padding: const EdgeInsets.all(300));
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();

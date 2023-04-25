@@ -39,6 +39,7 @@ class _EventScreenState extends BaseScreenState<EventScreen> {
         scrollController: widget.controller,
         leftTopContent: getLeftTopContent(),
         rightTopContent: getRightTopContent(),
+        rightCardContent: getRightCardContent(),
       );
 
   @override
