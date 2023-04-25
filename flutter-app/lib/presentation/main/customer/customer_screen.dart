@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
@@ -7,7 +5,6 @@ import 'package:flutter_web_navigation/presentation/main/base/base_screen.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_card.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_header_card.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_tab_bar.dart';
-import 'package:flutter_web_navigation/presentation/main/customer/components/tabbar.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
 import '../../container/components/main/main_content.dart';
