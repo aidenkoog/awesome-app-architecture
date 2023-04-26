@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
+import 'package:flutter_web_navigation/presentation/components/tooltip/custom_tool_tip.dart';
 import 'package:flutter_web_navigation/presentation/main/base/base_screen.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_card.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_header_card.dart';

@@ -80,6 +80,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/24 : Did code refactoring about main screens, scaffold for web & mobile and center main content
 - 2023/04/25 : Added customer setting ui positioned on right panel
 - 2023/04/25 : Fixed build error
+- 2023/04/26 : Added custom tooltip widget and applied it to customer setting ui
 
 #### How To Setup Environment Before Developing App
 

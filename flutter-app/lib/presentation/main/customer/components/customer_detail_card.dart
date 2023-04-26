@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
+import 'package:flutter_web_navigation/presentation/components/tooltip/custom_tool_tip.dart';
 
 class CustomerDetailCard extends StatelessWidget {
   final Color color;
@@ -18,6 +19,8 @@ class CustomerDetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<TooltipState> toolTipKey = GlobalKey<TooltipState>();
+
     return Container(
         width: 200,
         height: 90,
@@ -33,13 +36,19 @@ class CustomerDetailCard extends StatelessWidget {
             Text(title, style: TextStyle(color: color, fontSize: 11)),
             const SizedBox(width: 5),
             hasTitleButton
-                ? CustomNormalButton(
-                    buttonText: 'OK',
-                    callback: () {},
-                    backgroundColor: color,
-                    height: 20,
-                    width: 40,
-                    fontSize: 10)
+                ? CustomToolTip(
+                    childWidget: CustomNormalButton(
+                        buttonText: 'OK',
+                        callback: () =>
+                            toolTipKey.currentState?.ensureTooltipVisible(),
+                        backgroundColor: color,
+                        height: 20,
+                        width: 40,
+                        fontSize: 10),
+                    color: color,
+                    toolTipMessage:
+                        'Test Tooltip by AidenKooG\nHere, An additional information is going to be written\nEx. Contacts, Address etc',
+                    toolTipKey: toolTipKey)
                 : Container()
           ]),
           const SizedBox(height: 8),
