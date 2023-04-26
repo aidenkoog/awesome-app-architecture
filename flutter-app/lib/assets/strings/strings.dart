@@ -73,6 +73,7 @@ const inventoryDownloadSampleBtnText = 'DOWNLOAD SAMPLE';
 const agencyBtn1Text = 'AGENCY 1';
 const agencyBtn2Text = 'AGENCY 2';
 const agencyBtn3Text = 'AGENCY 3';
+const createAccountBtnText = '+ Create Account';
 
 // home: accounting
 const accountingDownloadExcelBtnText = 'DOWNLOAD EXCEL';

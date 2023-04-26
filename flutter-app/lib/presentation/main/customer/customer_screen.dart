@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
 import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
-import 'package:flutter_web_navigation/presentation/components/tooltip/custom_tool_tip.dart';
 import 'package:flutter_web_navigation/presentation/main/base/base_screen.dart';
-import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_card.dart';
+import 'package:flutter_web_navigation/presentation/components/card/custom_detail_card.dart';
 import 'package:flutter_web_navigation/presentation/main/customer/components/customer_detail_header_card.dart';
-import 'package:flutter_web_navigation/presentation/main/customer/components/customer_tab_bar.dart';
+import 'package:flutter_web_navigation/presentation/components/tabbar/custom_tab_bar.dart';
 import 'package:flutter_web_navigation/utils/drawer_util.dart';
 import '../../components/button/custom_outlined_button.dart';
 import '../../container/components/main/main_content.dart';
-import 'components/customer_detail_item.dart';
+import '../../components/form/custom_detail_item.dart';
 
 class CustomerScreen extends BaseScreen {
   CustomerScreen(
@@ -129,37 +128,37 @@ class _CustomerScreenState extends BaseScreenState<CustomerScreen> {
         const SizedBox(height: 10),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: 'COMPLETED',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
                 label: 'STATE',
                 labelFontColor: widget.themeModel.paletteColor),
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: 'COMPLETED',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
                 label: 'DATE',
                 labelFontColor: widget.themeModel.paletteColor),
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: '1 / 0 Unit',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
                 label: 'DEVICE',
                 labelFontColor: widget.themeModel.paletteColor),
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: '1 / 0 Unit',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
                 label: 'DEVICE 2',
                 labelFontColor: widget.themeModel.paletteColor),
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: 'KYUNGGI, KOREA',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
                 label: 'ADDRESS',
                 labelFontColor: widget.themeModel.paletteColor),
-            CustomerDetailItem(
+            CustomDetailItem(
                 content: 'Tel. 000-0000-0000',
                 contentFontColor: widget.themeModel.paletteColor,
                 iconColor: widget.themeModel.paletteColor,
@@ -168,13 +167,13 @@ class _CustomerScreenState extends BaseScreenState<CustomerScreen> {
           ]),
           Column(children: [
             Row(children: [
-              CustomerDetailCard(
+              CustomDetailCard(
                   color: widget.themeModel.paletteColor,
                   title: 'CARD 1',
                   description: 'Extra Data',
                   contentTitle: 'CONTENT TITLE',
                   hasTitleButton: false),
-              CustomerDetailCard(
+              CustomDetailCard(
                   color: widget.themeModel.paletteColor,
                   title: 'CARD 2',
                   description: null,
@@ -183,13 +182,13 @@ class _CustomerScreenState extends BaseScreenState<CustomerScreen> {
             ]),
             const SizedBox(height: 5),
             Row(children: [
-              CustomerDetailCard(
+              CustomDetailCard(
                   color: widget.themeModel.paletteColor,
                   title: 'CARD 3',
                   description: null,
                   contentTitle: 'CONTENT TITLE',
                   hasTitleButton: false),
-              CustomerDetailCard(
+              CustomDetailCard(
                   color: widget.themeModel.paletteColor,
                   title: 'CARD 4',
                   description: null,
@@ -198,7 +197,7 @@ class _CustomerScreenState extends BaseScreenState<CustomerScreen> {
             ])
           ])
         ]),
-        CustomerTabBar(tabColor: widget.themeModel.paletteColor)
+        CustomTabBar(tabColor: widget.themeModel.paletteColor, tabLength: 3)
       ]));
 
   @override

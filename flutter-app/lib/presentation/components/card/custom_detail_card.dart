@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
 import 'package:flutter_web_navigation/presentation/components/tooltip/custom_tool_tip.dart';
 
-class CustomerDetailCard extends StatelessWidget {
+class CustomDetailCard extends StatelessWidget {
   final Color color;
   final String title;
   final String contentTitle;
   final String? description;
   final bool hasTitleButton;
-  const CustomerDetailCard(
+  const CustomDetailCard(
       {Key? key,
       required this.color,
       required this.title,

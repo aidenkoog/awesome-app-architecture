@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_navigation/assets/strings/strings.dart';
+import 'package:flutter_web_navigation/presentation/components/button/custom_normal_button.dart';
 import 'package:flutter_web_navigation/presentation/components/datagrid/datagrid_paging.dart';
+import 'package:flutter_web_navigation/presentation/components/input_box/custom_input_box.dart';
 import 'package:flutter_web_navigation/presentation/container/components/search/search_input_bar.dart';
 
 import '../../../../assets/strings/values.dart';
@@ -167,9 +169,160 @@ class _MainContentState extends State<MainContent> {
     }
   }
 
+  _getDivider() {
+    return Divider(
+        color: model.themeData.colorScheme.brightness == Brightness.dark
+            ? const Color.fromRGBO(61, 61, 61, 1)
+            : const Color.fromRGBO(238, 238, 238, 1),
+        thickness: 2);
+  }
+
+  _getHeaderItem(String headerTitle) => Container(
+      alignment: Alignment.center,
+      height: 35,
+      child: Text(headerTitle,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)));
+
+  _getItem(String itemTitle) => Container(
+      alignment: Alignment.center,
+      width: 50,
+      height: 35,
+      child: Text(itemTitle,
+          style: TextStyle(
+              color: model.paletteColor,
+              fontSize: 14,
+              fontWeight: FontWeight.w600)));
+
+  _getInventoryHeader() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _getHeaderItem('HEADER1'),
+            _getHeaderItem('HEADER2'),
+            _getHeaderItem('HEADER3'),
+            _getHeaderItem('HEADER4'),
+            _getHeaderItem('HEADER5'),
+            _getHeaderItem('HEADER6'),
+            _getHeaderItem('HEADER7')
+          ]);
+
+  _getInventoryItem() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _getItem('ITEM1'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0')
+          ]);
+
+  _getInventoryItem2() => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _getItem('ITEM2'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0'),
+            _getItem('0')
+          ]);
+
+  _getInventoryContainer() => Container(
+      margin: const EdgeInsets.only(top: 5, bottom: 5),
+      padding: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          color: model.cardColor,
+          border: Border.all(
+              color: const Color.fromRGBO(0, 0, 0, 0.12), width: 1.1),
+          borderRadius: const BorderRadius.all(Radius.circular(12))),
+      width: _cardWidth,
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                height: 45,
+                decoration: BoxDecoration(
+                    color: model.paletteColor,
+                    border: Border.all(
+                        color: const Color.fromRGBO(0, 0, 0, 0.12), width: 1.1),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12))),
+                child: _getInventoryHeader()),
+            SizedBox(height: 42, child: _getInventoryItem()),
+            _getDivider(),
+            SizedBox(height: 30, child: _getInventoryItem2())
+          ]));
+
+  _getAccountingSearchFilterContainer() => Container(
+      alignment: Alignment.centerLeft,
+      height: 100,
+      padding: const EdgeInsets.all(10),
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+                alignment: Alignment.center,
+                child: CustomInputBox(
+                    placeHolder: '01/1998',
+                    focusedPlaceHolder: '01/1998',
+                    errorMessage: '',
+                    isPassword: false,
+                    themeColor: model.paletteColor)),
+            Container(
+                alignment: Alignment.center,
+                child: Icon(Icons.check_circle_rounded,
+                    color: model.paletteColor, size: 60)),
+            Text('~',
+                style: TextStyle(
+                    color: model.paletteColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15)),
+            CustomInputBox(
+                placeHolder: '01/1998',
+                focusedPlaceHolder: '01/1998',
+                errorMessage: '',
+                isPassword: false,
+                themeColor: model.paletteColor),
+            Icon(Icons.check_circle_rounded,
+                color: model.paletteColor, size: 30),
+            CustomInputBox(
+                placeHolder: 'FILTER 1',
+                focusedPlaceHolder: 'FILTER 1',
+                errorMessage: '',
+                isPassword: false,
+                themeColor: model.paletteColor),
+            Container(
+                alignment: Alignment.center,
+                child: CustomInputBox(
+                    placeHolder: 'FILTER 2',
+                    focusedPlaceHolder: 'FILTER 2',
+                    errorMessage: '',
+                    isPassword: false,
+                    themeColor: model.paletteColor)),
+            CustomNormalButton(
+                buttonText: 'CLEAR',
+                callback: () {},
+                backgroundColor: model.paletteColor,
+                height: 50,
+                width: 100,
+                fontSize: 15)
+          ]));
+
   _getLeftCardItemWidget() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       SizedBox(width: _cardWidth, child: widget.leftTopContent),
+      widget.routeName == routeKeyInventory
+          ? _getInventoryContainer()
+          : Container(),
       Container(
           padding: const EdgeInsets.only(bottom: 10),
           decoration: BoxDecoration(
@@ -190,7 +343,9 @@ class _MainContentState extends State<MainContent> {
                                 color: model.backgroundColor,
                                 fontSize: 25,
                                 fontFamily: 'Roboto-Bold')))
-                    : const SizedBox(height: 5),
+                    : widget.routeName == routeKeyAccounting
+                        ? _getAccountingSearchFilterContainer()
+                        : const SizedBox(height: 5),
             _hasSearchInputBar()
                 ? Divider(
                     color: model.themeData.colorScheme.brightness ==

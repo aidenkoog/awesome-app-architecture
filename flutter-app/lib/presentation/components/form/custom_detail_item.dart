@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomerDetailItem extends StatelessWidget {
+class CustomDetailItem extends StatelessWidget {
   final Color iconColor;
   final Color labelFontColor;
   final Color contentFontColor;
   final String label;
   final String content;
-  const CustomerDetailItem(
+  const CustomDetailItem(
       {Key? key,
       required this.label,
       required this.content,

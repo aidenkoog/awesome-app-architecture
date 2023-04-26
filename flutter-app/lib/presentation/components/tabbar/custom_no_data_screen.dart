@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CustomerNoDataScreen extends StatelessWidget {
+class CustomNoDataScreen extends StatelessWidget {
   final Color tabColor;
-  const CustomerNoDataScreen({Key? key, required this.tabColor})
+  const CustomNoDataScreen({Key? key, required this.tabColor})
       : super(key: key);
 
   @override
