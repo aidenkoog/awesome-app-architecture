@@ -52,23 +52,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
-            buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android App"]
+            buildConfigField("String", "URL_DOMAIN_SSL_2", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Mobile App"]
         }
         debug {
             applicationIdSuffix ""
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
-            buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android App DEV"]
+            buildConfigField("String", "URL_DOMAIN_SSL_2", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Mobile App DEV"]
         }
         stage {
             debuggable true
             applicationIdSuffix ""
             signingConfig signingConfigs.aidenkoog
             buildConfigField("String", "URL_DOMAIN_SSL", "\"\"")
-            buildConfigField("String", "URL_TCP", "\"\"")
-            manifestPlaceholders = [appLabel: "Android App STAGE"]
+            buildConfigField("String", "URL_DOMAIN_SSL_2", "\"\"")
+            manifestPlaceholders = [appLabel: "Android Mobile App STAGE"]
         }
     }
 
