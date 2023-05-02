@@ -1,0 +1,47 @@
+{
+  "closed": 1,
+  "data": [
+    {
+      "id": "9000",
+      "closed": true,
+      "title": "Issue ",
+      "createdAt": "2022-09-08T05:52:03Z",
+      "url": "https://github.com/aidenkoog/android-aidl-service-library-sample/issues/1",
+      "number": 10,
+      "assignees": {
+        "nodes": []
+      },
+      "repository": {
+        "name": "Repo",
+        "url": "https://github.com/aidenkoog/app-architecture",
+        "owner": {
+          "login": "AidenKooG",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/80380809?v=4",
+          "url": "https://github.com/aidenkoog"
+        }
+      }
+    },
+    {
+      "id": "9001",
+      "closed": true,
+      "title": "Issue2 ",
+      "createdAt": "2022-09-08T05:52:03Z",
+      "url": "https://github.com/aidenkoog/android-aidl-service-library-sample/issues/1",
+      "number": 10,
+      "assignees": {
+        "nodes": []
+      },
+      "repository": {
+        "name": "Repo",
+        "url": "https://github.com/aidenkoog/app-architecture",
+        "owner": {
+          "login": "AidenKooG",
+          "avatarUrl": "https://avatars.githubusercontent.com/u/80380809?v=4",
+          "url": "https://github.com/aidenkoog"
+        }
+      }
+    }
+  ],
+  "open": 1,
+  "totalCount": 5
+}

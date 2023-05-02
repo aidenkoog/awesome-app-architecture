@@ -1,0 +1,29 @@
+{
+  "closed": 2,
+  "data": [
+    {
+      "id": "1000",
+      "title": "---",
+      "url": "#",
+      "state": "OPEN",
+      "mergedBy": null,
+      "createdAt": "2022-11-30T10:30:01Z",
+      "number": 1,
+      "changedFiles": 1,
+      "additions": 4,
+      "deletions": 0,
+      "baseRepository": {
+        "name": "AidenKooG",
+        "url": "https://github.com/UndavalliJagadeesh/CoviBoard_flask",
+        "owner": {
+          "avatarUrl": "https://avatars.githubusercontent.com/u/80380809?v=4",
+          "login": "AidenKooG",
+          "url": "https://github.com/aidenkoog"
+        }
+      }
+    }
+  ],
+  "merged": 1,
+  "open": 0,
+  "totalCount": 1
+}

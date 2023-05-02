@@ -1,0 +1,9 @@
+{
+  "data": [
+    {
+      "login": "Person 1",
+      "avatarUrl": "https://avatars.githubusercontent.com/u/80380809?v=4",
+      "__typename": "Organization"
+    }
+  ]
+}

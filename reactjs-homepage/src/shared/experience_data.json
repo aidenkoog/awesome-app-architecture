@@ -1,0 +1,16 @@
+{
+  "description": "",
+  "header_image_path": "experience.svg",
+  "sections": [
+    {
+      "title": "Work",
+      "experiences": []
+    },
+    {
+      "title": "Toy Projects",
+      "experiences": []
+    }
+  ],
+  "subtitle": "Work and Toy Projects",
+  "title": "Experience"
+}

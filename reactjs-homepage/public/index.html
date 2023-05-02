@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/profile.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="AidenKooG's Portfolio" content="Portfolio content" />
+    <meta property="og:title" content="AidenKooG, DongwanKoo portfolio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/aidenkoog" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/title.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/title.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/title.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/title.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.js"></script>
+    <script src="./canvasjs.min.js"></script>
+
+    <title>AidenKooG's Portfolio</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceWorker.js")
+            .then((reg) => {
+              console.log("worker registered");
+            })
+            .catch((error) => {
+              console.log("error generated", error);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
