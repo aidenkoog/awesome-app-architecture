@@ -27,11 +27,12 @@ A collection of templates to discuss and showcase different architectural tools 
 
 - **Android**
 
-  - Template: https://github.com/aidenkoog/app-architecture/tree/master/android_wear_os/app/src/main/java/io/github/aidenkoog/android_wear_os
+  - Template (Wear OS, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android_wear_os
+  - Template (Mobile, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android
 
 - **Flutter**
 
-  - Template: https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
+  - Template (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
 
 #### Description
 
