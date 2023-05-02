@@ -23,7 +23,7 @@ A collection of templates to discuss and showcase different architectural tools 
 - **Homepage**
 
   - Template (Vanila JS): https://github.com/aidenkoog/app-architecture/tree/master/vanila-js
-  - Template (React + Javascript): Under construction
+  - Template (React + Javascript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs-homepage
 
 - **Android**
 
