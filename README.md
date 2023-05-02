@@ -15,16 +15,21 @@ A collection of templates to discuss and showcase different architectural tools 
     - Template (Javascript): https://github.com/aidenkoog/pretty-architecture-samples/tree/master/react_native/src
     - Template (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
 
-* **React Web** Front-end
+- **React Web** Front-end
 
   - Template (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs/src
   - Template (Typescript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs-typescript/src
+
+- **Homepage**
+
+  - Template (Vanila JS): https://github.com/aidenkoog/app-architecture/tree/master/vanila-js
+  - Template (React + Javascript): Under construction
 
 - **Android**
 
   - Template: https://github.com/aidenkoog/app-architecture/tree/master/android_wear_os/app/src/main/java/io/github/aidenkoog/android_wear_os
 
-* **Flutter**
+- **Flutter**
 
   - Template: https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
 
