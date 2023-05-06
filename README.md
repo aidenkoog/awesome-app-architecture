@@ -32,8 +32,8 @@ A collection of templates to discuss and showcase different architectural tools 
 
 - **Flutter**
 
-  - Template (web): https://github.com/aidenkoog/app-architecture/tree/master/flutter-web/lib
-  - Template (app): https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
+  - Template (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter-web/lib
+  - Template (App, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
 
 #### Description
 
