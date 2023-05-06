@@ -1,5 +1,6 @@
-name: flutter_app
+name: flutter_web_navigation
 description: A new Flutter project.
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -11,15 +12,13 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # build by specifying --build-name and --build-number, respectively.
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
-# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-# In Windows, build-name is used as the major, minor, and patch parts
-# of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.19.6 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,16 +33,30 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  data_connection_checker: ^0.3.4
-  dartz: ^0.10.1
+  flutter_easyloading: ^3.0.5
+  font_awesome_flutter: ^10.4.0
   get: ^4.6.5
-  http: ^0.13.6
-  flutter_animate: ^4.1.1+1
-  google_fonts: ^4.0.4
-  sqflite: ^2.2.8+1
-  path: ^1.8.2
-  loading_animation_widget: ^1.2.0+4
-  skeleton_text: ^3.0.0
+  http: ^0.13.5
+  get_it: ^7.2.0
+  data_connection_checker:
+    git:
+      url: https://github.com/chornthorn/data_connection_checker.git
+      ref: master
+  dartz: ^0.10.1
+  equatable: ^2.0.5
+  flutter_spinkit: ^5.1.0
+  context_menus: ^1.0.2
+  desktop_window: ^0.4.0
+  universal_html: ^2.2.1
+  syncfusion_flutter_datagrid: ^21.1.41
+  syncfusion_localizations: ^21.1.41
+  flutter_localizations:
+    sdk: flutter
+  path_provider: ^2.0.14
+  path_provider_platform_interface: ^2.0.6
+  syncfusion_flutter_datagrid_export: ^21.1.41
+  syncfusion_flutter_pdf: ^21.1.41
+  provider: ^6.0.5
 
 dev_dependencies:
   flutter_test:
@@ -54,17 +67,38 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^1.0.0
+  url_strategy: ^0.2.0
+  hive: ^2.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
-# The following section is specific to Flutter packages.
+# The following section is specific to Flutter.
 flutter:
+  assets:
+    - assets/images/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: HeeboBold
+      fonts:
+        - asset: assets/fonts/Heebo-Bold.ttf
+    - family: HeeboMedium
+      fonts:
+        - asset: assets/fonts/Heebo-Medium.ttf
+    - family: Roboto-Bold
+      fonts:
+        - asset: assets/fonts/Roboto-Bold.ttf
+    - family: Roboto-Medium
+      fonts:
+        - asset: assets/fonts/Roboto-Medium.ttf
+    - family: Roboto-Regular
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -72,7 +106,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
+  # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
