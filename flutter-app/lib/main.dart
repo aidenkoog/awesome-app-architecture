@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_navigation/app.dart';
-import 'package:url_strategy/url_strategy.dart';
-import 'services/hive_storage_service.dart';
+import 'package:get/get.dart';
 
-void main() async {
-  setPathUrlStrategy();
-  WidgetsFlutterBinding.ensureInitialized();
-  bool isUserLoggedIn = await HiveDataStorageService.getUser();
-  runApp(App(
-    isLoggedIn: isUserLoggedIn,
-  ));
+import 'presentation/pages/splash/splash_page.dart';
+
+void main() => runApp(const App());
+
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData(useMaterial3: true),
+      theme: ThemeData(useMaterial3: true),
+      getPages: [
+        GetPage(name: '/', page: () => const SplashPage()),
+      ],
+    );
+  }
 }
