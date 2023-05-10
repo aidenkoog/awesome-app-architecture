@@ -104,6 +104,12 @@
       "languageVersion": "2.15"
     },
     {
+      "name": "get_storage",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/get_storage-2.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "google_fonts",
       "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/google_fonts-4.0.4",
       "packageUri": "lib/",
@@ -314,7 +320,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-05-06T14:34:15.566869Z",
+  "generated": "2023-05-10T08:53:38.233985Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
