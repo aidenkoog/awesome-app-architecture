@@ -3,13 +3,13 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-59.0.0",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/_fe_analyzer_shared-60.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
     },
     {
       "name": "analyzer",
-      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/analyzer-5.11.1",
+      "rootUri": "file:///Users/admin/.pub-cache/hosted/pub.dev/analyzer-5.12.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -548,7 +548,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-05-11T08:30:45.801625Z",
+  "generated": "2023-05-11T09:20:57.983267Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
