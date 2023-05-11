@@ -23,6 +23,7 @@ It is written based on Kotlin.
 - 2023/05/01 : Added exception handler for RxJava / Added Logger setup code to MainApplication.
 - 2023/05/11 : Arranged utility classes which were already implemented and Added toast utility functions.
 - 2023/05/11 : Upgrade dependency version.
+- 2023/05/11 : Created new media player project.
 
 #### Link
 
