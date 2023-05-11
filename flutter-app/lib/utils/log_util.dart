@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_print
-
 void logd(String tagName, String logMessage) =>
     print('[debug] $tagName: $logMessage');
 
