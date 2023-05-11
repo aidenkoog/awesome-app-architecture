@@ -41,6 +41,8 @@
 - 2023/05/06: Designed the entire structure (Draft 2) / Added splash, home, favorite and detail UI, functions.
 - 2023/05/10: Added template function to add getx controller and code which initializes GetStorage.
 - 2023/05/11: Renewed Flutter mobile app project source code.
+- 2023/05/11: Fixed dependency issue.
+- 2023/05/11: Added test code which can test scroll direction events of list view.
 
 #### Link
 

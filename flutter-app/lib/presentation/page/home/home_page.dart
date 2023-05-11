@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:flutter_app_architecture/presentation/page/home/scroll_event_test_page.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
@@ -16,6 +17,10 @@ class HomePage extends GetView<HomePageController> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      ElevatedButton(
+          onPressed: () => Get.to(const ScrollEventTestPage(title: '')),
+          child: const Text(testBtn,
+              style: TextStyle(fontWeight: FontWeight.bold))),
       Row(children: [
         SizedBox(
                 width: Get.width - 100,

@@ -9,6 +9,7 @@ const bookmarksTabTitle = "BookMarks";
 const searchPlaceHolder = "Please enter your keyword to search.";
 const searchBtnTitle = "Go";
 const noDisplaySiteName = "--";
+const testBtn = "Test";
 
 // detail
 const detailPageTitle = "User detail";
