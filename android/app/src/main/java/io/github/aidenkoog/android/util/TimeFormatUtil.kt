@@ -1,6 +1,6 @@
 @file:Suppress("KotlinConstantConditions", "SameParameterValue")
 
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.annotation.SuppressLint
 import android.text.format.DateFormat
@@ -18,12 +18,15 @@ object TimeFormatUtil {
                 "PM " + (if (hour > 12) if ((hour - 12) < 10) "0" + (hour - 12) else hour - 12
                 else "0$hour") + ":" + (if (minute < 10) "0$minute" else minute)
             }
+
             hour == 0 -> {
                 "AM " + (hour + 12) + ":" + (if (minute < 10) "0$minute" else minute)
             }
+
             hour == 12 -> {
                 "PM " + hour + ":" + (if (minute < 10) "0$minute" else minute)
             }
+
             else -> {
                 "AM " + (if (hour < 10) "0$hour" else hour) + ":" + (if (minute < 10) "0$minute" else minute)
             }
@@ -36,12 +39,15 @@ object TimeFormatUtil {
                 "오후 " + (if (hour > 12) if ((hour - 12) < 10) "0" + (hour - 12) else hour - 12
                 else "0$hour") + ":" + (if (minute < 10) "0$minute" else minute)
             }
+
             hour == 0 -> {
                 "오전 " + "12:" + (if (minute < 10) "0$minute" else minute)
             }
+
             hour == 12 -> {
                 "오후 " + "12:" + (if (minute < 10) "0$minute" else minute)
             }
+
             else -> {
                 "오전 " + (if (hour < 10) "0$hour" else hour) + ":" + (if (minute < 10) "0$minute" else minute)
             }
@@ -53,7 +59,6 @@ object TimeFormatUtil {
         val splitDateFormatTime = dateFormatTime.split(":")
         val hour = splitDateFormatTime[0].toInt()
         val minute = splitDateFormatTime[1].toInt()
-        // 오전, 오후를 영어 (AM, PM) 으로 처리한다.
         return get12hTimeFormat(hour, minute)
     }
 
@@ -62,7 +67,6 @@ object TimeFormatUtil {
         val splitDateFormatTime = dateFormatTime.split(":")
         val hour = splitDateFormatTime[0].toInt()
         val minute = splitDateFormatTime[1].toInt()
-        // 오전, 오후를 한국어 처리한다.
         return get12hKoreanTimeFormat(hour, minute)
     }
 
@@ -94,24 +98,31 @@ object TimeFormatUtil {
             1 -> {
                 result = "일"
             }
+
             2 -> {
                 result = "월"
             }
+
             3 -> {
                 result = "화"
             }
+
             4 -> {
                 result = "수"
             }
+
             5 -> {
                 result = "목"
             }
+
             6 -> {
                 result = "금"
             }
+
             7 -> {
                 result = "토"
             }
+
             else -> {
                 result = ""
             }
@@ -131,24 +142,31 @@ object TimeFormatUtil {
             1 -> {
                 result = "일"
             }
+
             2 -> {
                 result = "월"
             }
+
             3 -> {
                 result = "화"
             }
+
             4 -> {
                 result = "수"
             }
+
             5 -> {
                 result = "목"
             }
+
             6 -> {
                 result = "금"
             }
+
             7 -> {
                 result = "토"
             }
+
             else -> {
                 result = ""
             }
@@ -162,12 +180,11 @@ object TimeFormatUtil {
 
     fun getDaysInMonth(date: LocalDateTime): Int {
         return when (date.monthValue - 1) {
-            Calendar.JANUARY, Calendar.MARCH, Calendar.MAY,
-            Calendar.JULY, Calendar.AUGUST, Calendar.OCTOBER, Calendar.DECEMBER -> 31
+            Calendar.JANUARY, Calendar.MARCH, Calendar.MAY, Calendar.JULY, Calendar.AUGUST, Calendar.OCTOBER, Calendar.DECEMBER -> 31
+
             Calendar.APRIL, Calendar.JUNE, Calendar.SEPTEMBER, Calendar.NOVEMBER -> 30
-            Calendar.FEBRUARY -> if (date.year % 4 == 0
-                && date.year % 100 != 0 || date.year % 400 == 0
-            ) 29 else 28
+            Calendar.FEBRUARY -> if (date.year % 4 == 0 && date.year % 100 != 0 || date.year % 400 == 0) 29 else 28
+
             else -> throw IllegalArgumentException("Invalid Month")
         }
     }

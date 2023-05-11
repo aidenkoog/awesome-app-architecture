@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.Manifest
 import android.app.Activity
@@ -10,7 +10,7 @@ import com.orhanobut.logger.Logger
 import java.util.*
 
 object PermissionUtil {
-    const val REQUEST_ESSENTIAL_PERMISSION = 100
+    private const val REQUEST_ESSENTIAL_PERMISSION = 100
 
     private val ESSENTIAL_PERMISSION = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
         if (BuildConfig.BUILD_TYPE != "release") {

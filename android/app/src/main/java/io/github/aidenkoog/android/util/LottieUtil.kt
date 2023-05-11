@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.animation.Animator
 import android.view.View
@@ -18,7 +18,7 @@ object LottieUtil {
     }
 
     fun setLottieRenderMode(view: LottieAnimationView, renderMode: RenderMode) {
-        view.setRenderMode(renderMode)
+        view.renderMode = renderMode
     }
 
     fun playLottie(view: LottieAnimationView) {

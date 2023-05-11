@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.content.Context
 import android.net.ConnectivityManager

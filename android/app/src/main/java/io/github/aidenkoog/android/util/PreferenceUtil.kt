@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.content.Context
 import android.text.TextUtils
@@ -16,15 +16,19 @@ object PreferenceUtil {
             is String -> {
                 edit.putString(strPrefName, obj)
             }
+
             is Boolean -> {
                 edit.putBoolean(strPrefName, obj)
             }
+
             is Int -> {
                 edit.putInt(strPrefName, obj)
             }
+
             is Float -> {
                 edit.putFloat(strPrefName, obj)
             }
+
             is Long -> {
                 edit.putLong(strPrefName, obj)
             }

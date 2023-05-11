@@ -1,4 +1,4 @@
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import com.google.gson.Gson
 import com.google.gson.TypeAdapter

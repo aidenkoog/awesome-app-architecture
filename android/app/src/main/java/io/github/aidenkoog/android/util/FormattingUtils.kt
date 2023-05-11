@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.github.aidenkoog.android.utils.utils
+package io.github.aidenkoog.android.util
 
 import android.text.style.RelativeSizeSpan
 import androidx.core.text.buildSpannedString
