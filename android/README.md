@@ -22,6 +22,7 @@ It is written based on Kotlin.
 - 2023/02/22 : Increased outdated version of dependencies / Added google service json file / Arranged source code.
 - 2023/05/01 : Added exception handler for RxJava / Added Logger setup code to MainApplication.
 - 2023/05/11 : Arranged utility classes which were already implemented and Added toast utility functions.
+- 2023/05/11 : Upgrade dependency version.
 
 #### Link
 
