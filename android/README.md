@@ -26,6 +26,7 @@ It is written based on Kotlin.
 - 2023/05/11 : Upgrade dependency version.
 - 2023/05/11 : Created new media player project.
 - 2023/05/12 : Initalized coroutine flow project. (project + activity main layout)
+- 2023/05/12 : Added view binding option, main view model.
 
 #### Link
 
