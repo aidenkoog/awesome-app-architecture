@@ -1,2 +1,3 @@
 include ':app'
 include ':mediaplayer'
+include ':coroutine_flow'
