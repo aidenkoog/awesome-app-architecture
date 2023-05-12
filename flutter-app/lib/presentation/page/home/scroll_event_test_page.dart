@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -15,14 +16,42 @@ class ScrollEventTestPage extends StatefulWidget {
 class _ScrollEventTestPageState extends State<ScrollEventTestPage> {
   late ScrollController _scrollController;
 
+  bool isForward = false;
+  bool isReverse = false;
+
+  var alignment = Alignment.centerLeft;
+  Timer? timer;
+
   void _handleScrollDirectionEvents() {
     try {
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
-        print("debug: reverse!!!");
+        if (timer != null) {
+          timer!.cancel();
+        }
+        timer = Timer(const Duration(milliseconds: 300), () async {
+          setState(() {
+            alignment = alignment == Alignment.centerLeft
+                ? Alignment.centerRight
+                : Alignment.centerLeft;
+            isForward = false;
+            isReverse = true;
+          });
+        });
       } else if (_scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
-        print("debug: forward!!!");
+        if (timer != null) {
+          timer!.cancel();
+        }
+        timer = Timer(const Duration(milliseconds: 300), () async {
+          setState(() {
+            alignment = alignment == Alignment.centerRight
+                ? Alignment.centerLeft
+                : Alignment.centerRight;
+            isForward = true;
+            isReverse = false;
+          });
+        });
       }
     } catch (_) {}
   }
@@ -35,6 +64,15 @@ class _ScrollEventTestPageState extends State<ScrollEventTestPage> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      isForward = false;
+      isReverse = false;
+    });
+  }
+
+  @override
   void dispose() {
     _scrollController.dispose();
     super.dispose();
@@ -42,46 +80,30 @@ class _ScrollEventTestPageState extends State<ScrollEventTestPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(controller: _scrollController, children: <Widget>[
-      Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Square(),
-            Square2(),
-            Square(),
-            Square2(),
-            Square(),
-            Square2(),
-            Square(),
-            Square2(),
-            Square(),
-            Square2(),
-            Square()
-          ])
+    return ListView(controller: _scrollController, children: [
+      const Expanded(
+          child: FlutterLogo(
+        size: 200,
+      )),
+      const Expanded(
+          child: FlutterLogo(
+        size: 200,
+      )),
+      Expanded(
+          child: AnimatedAlign(
+              alignment: alignment,
+              duration: const Duration(milliseconds: 800),
+              child: const FlutterLogo(
+                size: 200,
+              ))),
+      const Expanded(
+          child: FlutterLogo(
+        size: 200,
+      )),
+      const Expanded(
+          child: FlutterLogo(
+        size: 200,
+      )),
     ]);
-  }
-}
-
-class Square extends StatelessWidget {
-  const Square({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 200,
-        height: 100,
-        decoration: BoxDecoration(color: Colors.yellow, border: Border.all()));
-  }
-}
-
-class Square2 extends StatelessWidget {
-  const Square2({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: 200,
-        height: 100,
-        decoration: BoxDecoration(color: Colors.blue, border: Border.all()));
   }
 }

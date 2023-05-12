@@ -43,6 +43,7 @@
 - 2023/05/11: Renewed Flutter mobile app project source code.
 - 2023/05/11: Fixed dependency issue.
 - 2023/05/11: Added test code which can test scroll direction events of list view.
+- 2023/05/11: Updated test animation code executed when page is scrolled.
 
 #### Link
 
