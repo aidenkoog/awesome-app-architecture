@@ -3,4 +3,5 @@
     <string name="start_btn_title">Start</string>
     <string name="pause_btn_title">Pause</string>
     <string name="clear_btn_title">Clear</string>
+    <string name="resume_btn_title">Resume</string>
 </resources>
