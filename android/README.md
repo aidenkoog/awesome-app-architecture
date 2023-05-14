@@ -28,6 +28,8 @@ It is written based on Kotlin.
 - 2023/05/12 : Initalized coroutine flow project. (project + activity main layout)
 - 2023/05/12 : Added view binding option, main view model.
 - 2023/05/13 : Added renderer class and data class for state.
+- 2023/05/14 : Added mapTo function's dependency.
+
 #### Link
 
 If you are interested in information about me or other activities, please access the link below.

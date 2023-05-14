@@ -1,16 +1,19 @@
 package io.github.aidenkoog.coroutine_flow
 
+import android.annotation.SuppressLint
+import com.hoc081098.flowext.mapTo
 import io.github.aidenkoog.coroutine_flow.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.merge
 
 class MainRenderer(private val binding: ActivityMainBinding) {
     fun actionFlow(): Flow<MainAction> = merge(
-//        binding.startBtn.clicks().mapTo(MainAction.START),
-//        binding.pauseBtn.clicks().mapTo(MainAction.PAUSE),
-//        binding.clearBtn.clicks().mapTo(MainAction.RESET)
+        binding.startBtn.clicks().mapTo(MainAction.START),
+        binding.pauseBtn.clicks().mapTo(MainAction.PAUSE),
+        binding.clearBtn.clicks().mapTo(MainAction.RESET)
     )
 
+    @SuppressLint("SetTextI18n")
     fun render(state: StopWatchState) {
         val mm = (state.seconds / 60).toString().padStart(2, '0')
         val ss = (state.seconds % 60).toString().padStart(2, '0')
