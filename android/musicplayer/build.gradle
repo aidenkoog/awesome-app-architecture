@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'io.github.aidenkoog.mediaplayer'
+    namespace 'io.github.aidenkoog.musicplayer'
     compileSdk 33
 
     defaultConfig {
-        applicationId "io.github.aidenkoog.mediaplayer"
+        applicationId "io.github.aidenkoog.musicplayer"
         minSdk 26
         targetSdk 33
         versionCode 1

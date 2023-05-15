@@ -30,6 +30,7 @@ It is written based on Kotlin.
 - 2023/05/13 : Added renderer class and data class for state.
 - 2023/05/14 : Added mapTo function's dependency.
 - 2023/05/15 : Completed stop watch project source code.
+- 2023/05/15 : Changed player directory name (-> MusicPlayer) and Updated version of coroutine flow project.
 
 #### Link
 

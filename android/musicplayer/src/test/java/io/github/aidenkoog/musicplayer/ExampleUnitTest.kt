@@ -1,4 +1,4 @@
-package io.github.aidenkoog.mediaplayer
+package io.github.aidenkoog.musicplayer
 
 import org.junit.Test
 

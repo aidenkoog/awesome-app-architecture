@@ -1,4 +1,4 @@
-package io.github.aidenkoog.mediaplayer
+package io.github.aidenkoog.musicplayer
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -10,7 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import io.github.aidenkoog.mediaplayer.databinding.ActivityMainBinding
+import io.github.aidenkoog.musicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
