@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.merge
 
 class MainRenderer(private val binding: ActivityMainBinding) {
-    fun actionFlow(): Flow<MainAction> = merge(
-        binding.startBtn.clicks().mapTo(MainAction.START),
-        binding.pauseBtn.clicks().mapTo(MainAction.PAUSE),
-        binding.clearBtn.clicks().mapTo(MainAction.RESET)
+    fun actionFlow(): Flow<Action> = merge(
+        binding.startBtn.clicks().mapTo(Action.START),
+        binding.pauseBtn.clicks().mapTo(Action.PAUSE),
+        binding.clearBtn.clicks().mapTo(Action.CLEAR)
     )
 
     @SuppressLint("SetTextI18n")

@@ -29,6 +29,7 @@ It is written based on Kotlin.
 - 2023/05/12 : Added view binding option, main view model.
 - 2023/05/13 : Added renderer class and data class for state.
 - 2023/05/14 : Added mapTo function's dependency.
+- 2023/05/15 : Completed stop watch project source code.
 
 #### Link
 
