@@ -1,3 +1,4 @@
 include ':app'
 include ':musicplayer'
 include ':coroutine_flow'
+include ':player_library'
