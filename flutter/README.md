@@ -1,7 +1,7 @@
 ## React JS Projects
 
-- Wear OS Launcher : https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
-- Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
+- Admin Web : https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web
+- Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/flutter/userlist
 
 #### Link
 

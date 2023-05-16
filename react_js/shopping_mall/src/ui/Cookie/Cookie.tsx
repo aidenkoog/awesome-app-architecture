@@ -17,7 +17,7 @@ export function Cookie({ cookie }: CookieProps) {
 
   return (
     <article className={styles.cookie}>
-      <span className={styles.image}>🍪</span>
+      <span className={styles.image}>🍩</span>
       <span className={styles.title}>{cookie.title}</span>
       <Toppings cookie={cookie} />
 

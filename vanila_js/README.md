@@ -1,7 +1,7 @@
-## React JS Projects
+## Vanila JS Projects
 
-- Wear OS Launcher : https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
-- Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
+- My Portfolio : https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/my_portfolio
+- Template : https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/template
 
 #### Link
 

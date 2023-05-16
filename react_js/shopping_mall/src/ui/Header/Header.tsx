@@ -9,7 +9,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <Link className={styles.logo} to="/">
-        Co0o0o0o0okie!!!1 🍪
+        Doughnut Shopping Mall 🍩
       </Link>
 
       {!user ? (

@@ -8,32 +8,32 @@ A collection of templates to discuss and showcase different architectural tools 
 
 - **React Native** Mobile App
 
-  - Template (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/src
+  - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src
 
   - Major BLE module
 
-    - Template (Javascript): https://github.com/aidenkoog/pretty-architecture-samples/tree/master/react_native/src
-    - Template (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
+    - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src
+    - Project (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
 
 - **React Web** Front-end
 
-  - Template (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs/src
-  - Template (Typescript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs-typescript/src
+  - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/admin_web/src
+  - Project (Typescript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/shopping_mall/src
 
 - **Homepage**
 
-  - Template (Vanila JS): https://github.com/aidenkoog/app-architecture/tree/master/vanila-js
-  - Template (React + Javascript): https://github.com/aidenkoog/app-architecture/tree/master/reactjs-homepage
+  - Project (Vanila JS): https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/my_portfolio
+  - Project (React + Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/my_portfolio
 
 - **Android**
 
-  - Template (Wear OS, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android_wear_os
-  - Template (Mobile, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android
+  - Project (Wear OS, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
+  - Project (Mobile, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
 
 - **Flutter**
 
-  - Template (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter-web/lib
-  - Template (App, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter-app/lib
+  - Project (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web
+  - Project (App, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/userlist
 
 #### Description
 
