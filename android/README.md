@@ -1,4 +1,4 @@
-## React JS Projects
+## Android Projects
 
 - Wear OS Launcher : https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
 - Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/android/userlist

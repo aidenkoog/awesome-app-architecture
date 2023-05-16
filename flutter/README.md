@@ -1,4 +1,4 @@
-## React JS Projects
+## Flutter Projects
 
 - Admin Web : https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web
 - Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/flutter/userlist
