@@ -1,8 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
-/**
- * CORS (Cross-Origin Resource Sharing) handling.
- */
 module.exports = function (app) {
     app.use(
         '...',

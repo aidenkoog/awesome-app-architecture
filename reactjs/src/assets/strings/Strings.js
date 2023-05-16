@@ -60,3 +60,10 @@ export const ERROR_MSG_WRONG_PHONE_NUMBER = "A malformed phone number exists in 
 export const ERROR_MSG_NO_FOUND_ADDRESS = "Address information not found."
 export const ERROR_MSG_FAILED_CURRENT_LOCATION = "An error occurred while searching the current location."
 export const ERROR_MSG_INVALID_DOMAIN = "An error occurred while setting domain information."
+
+/**
+ * etc
+ */
+export const EMERGENCY_STRING = "EMERGENCY"
+export const EMERGENCY_EVENT = "EMERGENCY Signal"
+export const CURRENT_LOCATION_EVENT = "Current Position Check"

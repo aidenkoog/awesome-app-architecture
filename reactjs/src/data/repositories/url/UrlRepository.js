@@ -46,7 +46,6 @@ export default function UrlRepository() {
                 for (const item of splitStrings) {
                     result.push(item)
                 }
-
             } else {
                 result.push(queryStrings)
             }

@@ -8,6 +8,18 @@ const LOG_TAG = "Configs"
 export const DEBUGGING_MODE = false
 
 /**
+ * Websocket.
+ */
+export const WEBSOCKET_API_URL = "http://0.0.0.0"
+export const WEBSOCKET_URL_SUFFIX = "/websocket"
+export const WEBSOCKET_SUBSCRIBE_TOPIC = "/topic/"
+
+/**
+ * time.
+ */
+export const KR_TIME_DIFF = 32400000
+
+/**
  * Polling apis.
  * MAX: 120000
  */

@@ -102,6 +102,7 @@ It is written based on JavaScript.
 - 2023/01/04 : (2nd) Fix incorrect circle range and zoom level.
 - 2023/01/04 : (3rd) Adjusted history table field spacing.
 - 2023/01/05 : Made accuracy round to one decimal place.
+- 2023/05/16 : Applied websocket module.
 
 #### How To Setup Environment
 
@@ -116,6 +117,6 @@ It's mandantory to set up the development environment and build the app by follo
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin      | LINK                                     |
-| ----------- | ---------------------------------------- |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
 | Github page | [https://aidenkoog.github.io/] |

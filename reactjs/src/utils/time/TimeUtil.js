@@ -1,10 +1,7 @@
 import moment from "moment"
-import { logDebug } from "../logger/Logger"
 
 const MILLISECONDS_1_HOUR = 3600000
 export const MILLISECONDS_24_HOUR = 86400000
-
-const LOG_TAG = "TimeUtil"
 
 /**
  * Get current time string.

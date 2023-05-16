@@ -3,11 +3,8 @@ import {
     MENU_TABLE_EVENT_TYPE, MENU_TABLE_HEADER_ADDRESS,
     MENU_TABLE_HEADER_DATE, MENU_TABLE_HEADER_PROVIDER
 } from '../../../assets/strings/Strings'
-import { outputErrorLog } from '../../../utils/logger/Logger'
 import "./MenuTable.css"
 import Ripple from 'rippl'
-
-const LOG_TAG = "MenuTableComponent"
 
 /**
  * Table component.
