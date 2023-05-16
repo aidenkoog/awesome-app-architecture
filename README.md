@@ -12,7 +12,7 @@ A collection of templates to discuss and showcase different architectural tools 
 
   - Major BLE module
 
-    - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src
+    - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src/data
     - Project (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
 
 - **React Web** Front-end
