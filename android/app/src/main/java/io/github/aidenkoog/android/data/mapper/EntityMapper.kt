@@ -1,11 +1,6 @@
 package io.github.aidenkoog.android.data.mapper
 
-import io.github.aidenkoog.android.data.source.local.entity.PhotoEntity
-import io.github.aidenkoog.android.domain.model.Photo
+import io.github.aidenkoog.android.data.source.local.entity.UserEntity
+import io.github.aidenkoog.android.domain.model.User
 
-fun Photo.toEntity() = PhotoEntity(
-    id = id,
-    title = title,
-    url = url,
-    thumbnailUrl = thumbnailUrl
-)
+fun User.toEntity() = UserEntity(id = id, title = title, userId = userId, body = body)

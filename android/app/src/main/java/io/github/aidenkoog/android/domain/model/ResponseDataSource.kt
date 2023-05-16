@@ -2,6 +2,7 @@ package io.github.aidenkoog.android.domain.model
 
 import com.google.gson.annotations.SerializedName
 
+// unused
 interface ResponseDataSource {
     data class HttpResponseBase(
         @SerializedName("code")
@@ -9,7 +10,7 @@ interface ResponseDataSource {
         @SerializedName("msg")
         var msg: String?,
         @SerializedName("data")
-        var data: Any?
+        var data: Any?,
     )
 
     data class SignIn(
@@ -17,6 +18,6 @@ interface ResponseDataSource {
     )
 
     data class Error(
-        var error: HttpResponseBase
+        var error: HttpResponseBase,
     )
 }

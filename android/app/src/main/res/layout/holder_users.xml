@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="userViewModel"
+            type="io.github.aidenkoog.android.presentation.viewmodel.UserViewModel" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/user_card_width_size"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@{userViewModel.user.title}"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/title" />
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

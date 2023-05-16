@@ -9,7 +9,7 @@ abstract class SingleUseCase<T> : UseCase() {
     internal abstract fun buildUseCaseSingle(): Single<T>
 
     fun execute(
-        onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit), onFinished: () -> Unit = {}
+        onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit), onFinished: () -> Unit = {},
     ) {
         disposeLast()
         lastDisposable = buildUseCaseSingle().subscribeOn(Schedulers.io())

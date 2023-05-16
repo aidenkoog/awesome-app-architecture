@@ -1,16 +1,16 @@
 package io.github.aidenkoog.android.util
 
-import io.github.aidenkoog.android.domain.model.Photo
+import io.github.aidenkoog.android.domain.model.User
 
 object TestUtil {
 
-    fun createPhoto(id: Long) = Photo(id = id, title = "", url = "", thumbnailUrl = "")
+    fun createUser(id: Int) = User(id = id, title = "", userId = 0, body = "")
 
-    fun makePhotoList(size: Int): MutableList<Photo> {
-        val list = ArrayList<Photo>(size)
+    fun makeUserList(size: Int): MutableList<User> {
+        val list = ArrayList<User>(size)
         list.forEach {
-            it.title = "Photo ${list.indexOf(it)}"
-            it.id = (list.indexOf(it) + 1).toLong()
+            it.title = "User ${list.indexOf(it)}"
+            it.id = (list.indexOf(it) + 1)
             list.add(it)
         }
         return list
