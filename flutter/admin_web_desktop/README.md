@@ -4,10 +4,10 @@
 
 - Main Screen
   <p align="center" style="background-color: #000">
-      <img src="screenshots/screenshot_macos.png" width="330" height="120" alt="accessibility text">
+      <img src="screenshots/screenshot_macos.png" alt="accessibility text">
   </p>
   <p align="center" style="background-color: #000">
-    <img src="screenshots/screenshot_web.png" width="330" height="120" alt="accessibility text">
+    <img src="screenshots/screenshot_web.png" alt="accessibility text">
   </p>
 
 #### Summary

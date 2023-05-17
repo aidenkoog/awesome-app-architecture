@@ -5,19 +5,19 @@
 - Login Screen
 
   <p align="center" style="background-color: #000">
-      <img src="screenshots/login.png" width="330" height="120" alt="accessibility text">
+      <img src="screenshots/login.png" alt="accessibility text">
   </p>
 
 - Main Screen
 
   <p align="center" style="background-color: #000">
-      <img src="screenshots/main.png" width="330" height="120" alt="accessibility text">
+      <img src="screenshots/main.png" alt="accessibility text">
   </p>
 
 - Main Screen (Small Device)
 
   <p align="center" style="background-color: #000">
-      <img src="screenshots/main_mobile.png" width="180" height="350" alt="accessibility text">
+      <img src="screenshots/main_mobile.png" alt="accessibility text">
   </p>
 
 #### Summary

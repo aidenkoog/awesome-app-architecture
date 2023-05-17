@@ -6,7 +6,7 @@
 
 - Main Screen (Web & Mobile)
   <p align="center" style="background-color: #000">
-      <img src="screenshots/home.png" width="180" height="350" alt="accessibility text">
+      <img src="screenshots/home.png" alt="accessibility text">
   </p>
 
 #### How to execute Flutter web, iOS and Android mobile app

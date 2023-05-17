@@ -5,13 +5,21 @@
 This project is to make template code that can be applied to any app development.
 It is written based on Kotlin.
 
+#### Screenshots
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/main.png" alt="accessibility text">
+  </p>
+
+#### Summary
+
 - Language: Kotlin
 - Structure Summary
-    - ✨ Data
-    - ✨ Di
-    - ✨ Domain
-    - ✨ Presentation
-    - ✨ Util
+  - ✨ Data
+  - ✨ Di
+  - ✨ Domain
+  - ✨ Presentation
+  - ✨ Util
 
 #### Release Note
 
@@ -34,11 +42,12 @@ It is written based on Kotlin.
   project.
 - 2023/05/15 : Initialized player library which uses exo player library.
 - 2023/05/16 : Did refactoring main app legacy module which shows user list.
+- 2023/05/17 : Added screenshot images.
 
 #### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin | LINK |
-| ------ | ------ |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
 | Github page | [https://aidenkoog.github.io/] |

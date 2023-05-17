@@ -5,31 +5,57 @@
 This project is to make template code that can be applied to any app development.
 It is written based on Kotlin.
 
+#### Screenshots
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/home.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/health.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/health_loading.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/permission.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/preparing.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/tile.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/watchface.png" alt="accessibility text">
+  </p>
+
+#### Summary
+
 - Language: Kotlin
 - Structure Summary
-    - ✨ App
-    - ✨ Data
-        - ✨ Mapper
-        - ✨ Repositories
-        - ✨ Sources
-    - ✨ Di
-    - ✨ Domain
-        - ✨ Model
-        - ✨ Repositories
-        - ✨ UseCases
-    - ✨ Presentation
-        - ✨ Base
-        - ✨ Home
-        - ✨ Intro
-        - ✨ Setting
-    - ✨ Services
-        - ✨ Fcm
-        - ✨ Health
-        - ✨ Tile
-        - ✨ WatchFace
+  - ✨ App
+  - ✨ Data
+    - ✨ Mapper
+    - ✨ Repositories
+    - ✨ Sources
+  - ✨ Di
+  - ✨ Domain
+    - ✨ Model
+    - ✨ Repositories
+    - ✨ UseCases
+  - ✨ Presentation
+    - ✨ Base
+    - ✨ Home
+    - ✨ Intro
+    - ✨ Setting
+  - ✨ Services
+    - ✨ Fcm
+    - ✨ Health
+    - ✨ Tile
+    - ✨ WatchFace
+  - ✨ Utils
     - ✨ Utils
-        - ✨ Utils
-        - ✨ Constants
+    - ✨ Constants
 
 #### Release Note
 
@@ -52,11 +78,12 @@ It is written based on Kotlin.
 - 2023/01/11 : Added RxSocketClient / Added test code to connect to server socket / Added SOS ui.
 - 2023/02/22 : Increased outdated version of dependencies.
 - 2023/05/16 : Updated up-to-date dependencies.
+- 2023/05/17 : Added screenshot images.
 
 #### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin | LINK |
-| ------ | ------ |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
 | Github page | [https://aidenkoog.github.io/] |
