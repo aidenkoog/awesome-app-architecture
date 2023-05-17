@@ -1,7 +1,4 @@
-### My portfolio website
-
-- This website showcases my career.
-  - Website is based on llie's lecture.
+## React.js My Portfolio Web Page
 
 #### Screenshot
 
@@ -12,6 +9,20 @@
   <p align="center" style="background-color: #000">
       <img src="screenshots/home_mobile.png" alt="accessibility text">
   </p>
+
+#### Summary
+
+This project shows data using the NAVER Map API.
+It is written based on JavaScript.
+
+- Language: Javascript
+- Library: React (A library for creating user interfaces.)
+- Structure Summary
+  - ✨ asset
+  - ✨ data
+  - ✨ domain
+  - ✨ utils
+  - ✨ assets
 
 #### Release Note
 
@@ -58,14 +69,20 @@
 - 2023/04/26 : Updated portfolio webpage content / files
 - 2023/04/29 : Updated resume links
 - 2023/05/02 : Added new project links
-- 2023/05/17 : Updated my portfolio project items.
-- 2023/05/17 : Added screenshot images.
+- 2023/05/17 : Converted to React from Vanila Js.
 
-#### Link:
+#### How To Setup Environment
+
+It's mandantory to set up the development environment and build the app by following the instructions below:
+
+> Visit https://ko.reactjs.org/
+> npx create-react-app reactjs
+> npm start
+
+#### Link
 
 If you are interested in information about me or other activities, please access the link below.
 
-| **Page**        | **LINK**                                             |
-| --------------- | ---------------------------------------------------- |
-| **Github page** | [https://aidenkoog.github.io/]                       |
-| **LinkedIn**    | [https://www.linkedin.com/in/dongwan-koo-2041bb13b/] |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
+| Github page | [https://aidenkoog.github.io/] |

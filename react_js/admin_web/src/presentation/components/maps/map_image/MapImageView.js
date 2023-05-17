@@ -21,8 +21,9 @@ const LOG_TAG = "MapImageView"
 export default function MapImageView(props) {
 
     const {
-        latitude, longitude, onClickZoomIn, onClickZoomOut, currentZoomLevel, domainUrl, currentAddress, shortAddress,
-        recentHistory, isZoomTriggered, isZoomUpdated, updateZoomLevel
+        latitude, longitude, onClickZoomIn, onClickZoomOut,
+        currentZoomLevel, domainUrl, currentAddress, shortAddress,
+        recentHistory, isZoomTriggered, isZoomUpdated
     } = props
 
     const [innerWidth, setInnerWidth] = useState(window.innerWidth)

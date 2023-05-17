@@ -1,4 +1,11 @@
-## React.js Architecture Project.
+## React.js Admin Web Page
+
+#### Screenshot
+
+- Main Screen
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/home.png" alt="accessibility text">
+  </p>
 
 #### Summary
 

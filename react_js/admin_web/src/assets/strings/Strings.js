@@ -4,19 +4,19 @@
  */
 export const QUERY_CURRENT_LOCATION = "Current"
 export const QUERY_REALTIME_LOCATION = "Real-time"
-export const COPY_ADDRESS = "Copy Address"
-export const HEADER_TITLE = "Location Check Service"
+export const COPY_ADDRESS = "Copy"
+export const HEADER_TITLE = "Administrator Web Page"
 export const HISTORY_SAVE = "Save History"
 
 /**
  * menu.
  */
 export const MENU_TITLE = "History"
-export const MENU_TABLE_HEADER_PROVIDER = "Provider"
+export const MENU_TABLE_HEADER_PROVIDER = "Type"
 export const MENU_TABLE_HEADER_DATE = "Date"
-export const MENU_TABLE_HEADER_ADDRESS = "Address"
+export const MENU_TABLE_HEADER_ADDRESS = "Detail Information"
 export const MENU_TABLE_EVENT_TYPE = "Category"
-export const MENU_TABLE_ERROR_RADIUS = "Error Radius"
+export const MENU_TABLE_ERROR_RADIUS = "Error"
 
 /**
  * map.

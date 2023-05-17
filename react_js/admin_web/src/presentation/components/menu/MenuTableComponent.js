@@ -69,7 +69,7 @@ function MenuTableComponent(props) {
                 {
                     historyList != null && historyList.length > 0 ?
                         historyList.map((info, index) => {
-                            return selectedHistoryIndex == index ?
+                            return selectedHistoryIndex === index ?
                                 getFocusedMenuItem(info, index) : getMenuItem(info, index)
                         })
                         :

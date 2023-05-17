@@ -1,18 +1,24 @@
 ## React Native Architecture Project.
 
-#### Continue to study and ponder to improve the code structure.
+#### Screenshot
 
+- Main Screen
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/home.png" alt="accessibility text">
+  </p>
+
+#### Continue to study and ponder to improve the code structure.
 
 This project is to make template code that can be applied to any app development.
 It is written based on JavaScript, and when the JavaScript-based template source code structure is completed, a TypeScript-based source code will also be created.
 
 - Language: Javascript
 - Structure Summary
-    - ✨ JSX Elements
-    - ✨ UseCases
-    - ✨ Repositories
-    - ✨ Modules
-    - ✨ State Management Module (Recoil)
+  - ✨ JSX Elements
+  - ✨ UseCases
+  - ✨ Repositories
+  - ✨ Modules
+  - ✨ State Management Module (Recoil)
 
 #### Release Note
 
@@ -40,7 +46,7 @@ It is written based on JavaScript, and when the JavaScript-based template source
 - 2022/11/21 : Added authentication response handler.
 - 2023/01/04 : Re-arrange entire source code. (cannot build)
 - 2023/01/04 : Delete unused source code / files. (cannot build)
-
+- 2023/05/17 : Added screenshot images.
 
 #### How To Setup Environment
 
@@ -128,7 +134,7 @@ Repository.
     initializeBleModule, getUuidList, sendBleCustomData, startScan, stopScan,
     getBleDeviceInfo
  } = BleRepository()
- 
+
  executeStartScanUseCase = (serviceUuid = SERVICE_UUID, duration = SCAN_DURATION) => {
     return new Promise((fulfill, reject) => {
         startScan(serviceUuid, duration).then(() => {
@@ -161,6 +167,6 @@ const bleScanningState = useRecoilValue(bleScanningStateAtom)
 
 If you are interested in information about me or other activities, please access the link below.
 
-| Plugin | LINK |
-| ------ | ------ |
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
 | Github page | [https://aidenkoog.github.io/] |

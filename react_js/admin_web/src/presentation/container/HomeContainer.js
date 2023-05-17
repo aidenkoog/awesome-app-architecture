@@ -543,8 +543,8 @@ export default function HomeContainer() {
     }
 
     function handleZoomControl(type) {
-        if (type === "zoomIn" && currentZoomLevel === MAX_ZOOM_LEVEL
-            || type === "zoomOut" && currentZoomLevel === MIN_ZOOM_LEVEL) { return }
+        if ((type === "zoomIn" && (currentZoomLevel === MAX_ZOOM_LEVEL))
+            || (type === "zoomOut" && (currentZoomLevel === MIN_ZOOM_LEVEL))) { return }
 
         isZoomTriggered = true
         updateCurrentZoomLevel(type === "zoomIn" ? currentZoomLevel + 1 : currentZoomLevel - 1)

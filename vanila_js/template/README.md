@@ -1,6 +1,17 @@
-# Vanila JS Webpage Project.
+### Vanila JS Webpage Project.
 
-## Summary
+#### Screenshot
+
+- Main Screen
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/home.png" alt="accessibility text">
+  </p>
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/home_mobile.png" alt="accessibility text">
+  </p>
+
+#### Summary
 
 Make Vanila JS webpage with technology, HTML + CSS + Vanila JS
 
@@ -13,7 +24,7 @@ Make Vanila JS webpage with technology, HTML + CSS + Vanila JS
     - ✨ style.css
     - ✨ main.js
 
-## Build / Execute Webpage in VS-CODE
+#### Build / Execute Webpage in VS-CODE
 
 - How To Execute Webpage.
   - First, You have to open index.html in VS-CODE.
@@ -21,7 +32,7 @@ Make Vanila JS webpage with technology, HTML + CSS + Vanila JS
     - If there's no Live-Server plugin, please install Live Server in VS-CODE.
     - Short-cut: CMD + L, O
 
-## Release Note
+#### Release Note
 
 - 2023/02/17: Uploaded draft version's project.
 - 2023/02/24: Added navigation bar event / arrow up event / home section's opacity animation.
@@ -37,3 +48,12 @@ Make Vanila JS webpage with technology, HTML + CSS + Vanila JS
 - 2023/03/10: Adjusted logo image scale / toggle button for mobile screen padding.
 - 2023/03/10: Fixed build file mistake.
 - 2023/04/30: Changed main logo image and its size.
+- 2023/05/17: Added screenshot images.
+
+#### Link
+
+If you are interested in information about me or other activities, please access the link below.
+
+| Plugin      | LINK                           |
+| ----------- | ------------------------------ |
+| Github page | [https://aidenkoog.github.io/] |

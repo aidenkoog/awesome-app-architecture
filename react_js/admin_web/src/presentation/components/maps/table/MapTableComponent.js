@@ -5,8 +5,6 @@ import {
 } from '../../../../assets/strings/Strings'
 import "./MapTable.css"
 
-const LOG_TAG = "MapTableComponent"
-
 /**
  * Table component.
  * @param {Any} props 

@@ -76,7 +76,7 @@ function addLogMessageHandler(logMessageToAdd) {
 }
 
 function getLogTag(logTag) {
-    return "[" + getCurrentDateTime() + "]::" + "[" + logTag + "]:: "
+    return `[${getCurrentDateTime()}]::[${logTag}]:: `
 }
 
 export function getCachedLogMessages() {
