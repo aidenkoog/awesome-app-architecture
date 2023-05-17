@@ -1,8 +1,26 @@
-### Flutter Architecture Project.
+### Flutter Web Admin Page
 
-#### Continue to study and ponder to improve the code structure.
+#### Screenshot
 
-This project is to make template code that can be applied to any app development.
+- Login Screen
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/login.png" width="330" height="120" alt="accessibility text">
+  </p>
+
+- Main Screen
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/main.png" width="330" height="120" alt="accessibility text">
+  </p>
+
+- Main Screen (Small Device)
+
+  <p align="center" style="background-color: #000">
+      <img src="screenshots/main_mobile.png" width="180" height="350" alt="accessibility text">
+  </p>
+
+#### Summary
 
 - Language: Dart
 - Structure Summary
@@ -82,6 +100,7 @@ samples, guidance on mobile development, and a full API reference.
 - 2023/04/25 : Fixed build error
 - 2023/04/26 : Added custom tooltip widget and applied it to customer setting ui
 - 2023/04/26 : Added inventory, agency, accounting ui
+- 2023/05/17 : Added screenshot images.
 
 #### How To Setup Environment Before Developing App
 

@@ -33,6 +33,7 @@ A collection of templates to discuss and showcase different architectural tools 
 - **Flutter**
 
   - Project (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web
+  - Project (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web_desktop
   - Project (App, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/userlist
 
 #### Description
