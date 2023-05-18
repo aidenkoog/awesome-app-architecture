@@ -24,7 +24,7 @@ class _AdministratorMainTitleState extends State<AdministratorMainTitle> {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Icon(Icons.add_circle, color: Colors.grey[600], size: 32.0),
+            const Icon(Icons.add_circle, color: Colors.black, size: 32.0),
             const Text('Admin System',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -64,11 +64,11 @@ class _AdministratorMainTitleState extends State<AdministratorMainTitle> {
                               fontWeight: FontWeight.bold, fontSize: 18)))
                 ])
           ]),
-          Row(children: [
-            const Text('Logout : 100M 59S   '),
-            const Text('admin1234',
+          Row(children: const [
+            Text('Logout : 100M 59S   '),
+            Text('admin1234',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            Icon(Icons.account_circle, color: Colors.red[700], size: 32.0)
+            Icon(Icons.account_circle, color: Colors.lightBlue, size: 32.0)
           ])
         ]));
   }

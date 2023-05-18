@@ -2,12 +2,9 @@
 
 #### Screenshot
 
-- Main Screen
+- Main Screen (Web & MacOS)
   <p align="center" style="background-color: #000">
-      <img src="screenshots/screenshot_macos.png" alt="accessibility text">
-  </p>
-  <p align="center" style="background-color: #000">
-    <img src="screenshots/screenshot_web.png" alt="accessibility text">
+    <img src="screenshots/home.png" alt="accessibility text">
   </p>
 
 #### Summary
@@ -28,6 +25,7 @@
 #### Release Note
 
 - 2023/05/17 : Initialize Flutter admin website project.
+- 2023/05/17 : Changed entire webpage theme.
 
 #### How To Setup Environment Before Developing App
 

@@ -10,7 +10,7 @@ class CustomerListTitle extends StatelessWidget {
     return Container(
         height: 40.0,
         decoration: BoxDecoration(
-            color: Colors.grey[100],
+            color: Colors.black87,
             borderRadius: BorderRadius.circular(2.0),
             boxShadow: [
               BoxShadow(

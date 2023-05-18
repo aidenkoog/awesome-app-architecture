@@ -24,7 +24,7 @@ class ConstrainedTextBox extends StatelessWidget {
         constraints: BoxConstraints(minWidth: minWidth!),
         child: Text(data!,
             style: TextStyle(
-                color: color != null ? color! : Colors.grey[500],
+                color: color != null ? color! : Colors.white,
                 fontSize: fontSize,
                 fontWeight: fontWeight),
             textAlign: textAlign));

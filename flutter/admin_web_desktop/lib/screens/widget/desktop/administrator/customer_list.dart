@@ -38,8 +38,8 @@ class CustomerList extends StatelessWidget {
                                           width: 0, color: Colors.lightBlue)
                                       : null,
                                   color: (eventController.hover == index)
-                                      ? Colors.yellow[50]
-                                      : Colors.white,
+                                      ? Colors.black38
+                                      : Colors.black,
                                   borderRadius: BorderRadius.circular(2.0),
                                   boxShadow: [
                                     BoxShadow(

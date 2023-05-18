@@ -13,7 +13,7 @@ class CustomerCard extends StatelessWidget {
       return Container(
           padding: const EdgeInsets.all(32),
           decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: Colors.black87,
               borderRadius: BorderRadius.circular(10.0),
               boxShadow: [
                 BoxShadow(
@@ -29,28 +29,28 @@ class CustomerCard extends StatelessWidget {
                   data: Get.find<CustomerController>().view.isNotEmpty
                       ? ' ${Get.find<CustomerController>().view[customerController.choice].name} '
                       : '',
-                  color: Colors.black,
+                  color: Colors.white,
                   minWidth: 0.0,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   textAlign: TextAlign.left),
-              ConstrainedTextBox(
+              const ConstrainedTextBox(
                   data: '(Customer)',
-                  color: Colors.grey[600],
+                  color: Colors.white,
                   minWidth: 0.0,
                   fontSize: 16.0,
                   textAlign: TextAlign.left)
             ]),
-            Divider(height: 1.0, color: Colors.grey[600]),
+            const Divider(height: 1.0, color: Colors.white),
             const Text(''),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Flexible(
                   flex: 2,
-                  child: Row(children: [
-                    Icon(Icons.add, size: 16, color: Colors.grey[600]),
+                  child: Row(children: const [
+                    Icon(Icons.add, size: 16, color: Colors.white),
                     ConstrainedTextBox(
                         data: 'Address',
-                        color: Colors.grey[600],
+                        color: Colors.white,
                         minWidth: 0.0,
                         fontSize: 14.0,
                         textAlign: TextAlign.left)
@@ -68,16 +68,16 @@ class CustomerCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis))
             ]),
             const Text(''),
-            Divider(height: 1.0, color: Colors.grey[600]),
+            const Divider(height: 1.0, color: Colors.white),
             const Text(''),
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Flexible(
                   flex: 2,
-                  child: Row(children: [
-                    Icon(Icons.add, size: 16, color: Colors.grey[600]),
+                  child: Row(children: const [
+                    Icon(Icons.add, size: 16, color: Colors.white),
                     ConstrainedTextBox(
                         data: 'Tel. ',
-                        color: Colors.grey[600],
+                        color: Colors.white,
                         minWidth: 0.0,
                         fontSize: 14.0,
                         textAlign: TextAlign.left)
@@ -86,11 +86,11 @@ class CustomerCard extends StatelessWidget {
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Flexible(
                   flex: 2,
-                  child: Row(children: [
-                    Icon(Icons.add, size: 16, color: Colors.grey[600]),
+                  child: Row(children: const [
+                    Icon(Icons.add, size: 16, color: Colors.white),
                     ConstrainedTextBox(
                         data: 'Agency',
-                        color: Colors.grey[600],
+                        color: Colors.white,
                         minWidth: 0.0,
                         fontSize: 14.0,
                         textAlign: TextAlign.left)
@@ -99,11 +99,11 @@ class CustomerCard extends StatelessWidget {
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               Flexible(
                   flex: 2,
-                  child: Row(children: [
-                    Icon(Icons.add, size: 16, color: Colors.grey[600]),
+                  child: Row(children: const [
+                    Icon(Icons.add, size: 16, color: Colors.white),
                     ConstrainedTextBox(
                         data: 'Person ',
-                        color: Colors.grey[600],
+                        color: Colors.white,
                         minWidth: 0.0,
                         fontSize: 14.0,
                         textAlign: TextAlign.left)
@@ -114,13 +114,13 @@ class CustomerCard extends StatelessWidget {
               Icon(Icons.circle, size: 8, color: Colors.lightBlue),
               ConstrainedTextBox(
                   data: ' Q&A',
-                  color: Colors.black,
+                  color: Colors.white,
                   minWidth: 0.0,
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   textAlign: TextAlign.left)
             ]),
-            Divider(height: 1.0, color: Colors.grey[600]),
+            const Divider(height: 1.0, color: Colors.white),
             const Text(''),
             Row(mainAxisAlignment: MainAxisAlignment.start, children: [
               ConstrainedTextBox(
@@ -129,7 +129,7 @@ class CustomerCard extends StatelessWidget {
                           .view[customerController.choice]
                           .comment
                       : '',
-                  color: Colors.black,
+                  color: Colors.white,
                   minWidth: 0.0,
                   fontSize: 12.0,
                   fontWeight: FontWeight.normal,
