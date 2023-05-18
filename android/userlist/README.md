@@ -47,6 +47,8 @@ It is written based on Kotlin.
 - 2023/05/18 : Added ktor client provider, data classes for request and response, test ui components
   and dummy api service interface.
 - 2023/05/18 : Finished api service implementation.
+- 2023/05/18 : Initialized compose app project and added ui compose code (but currently cannot build
+  it because of dependency version issue)
 
 #### Link
 
