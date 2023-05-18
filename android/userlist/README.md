@@ -44,6 +44,8 @@ It is written based on Kotlin.
 - 2023/05/16 : Did refactoring main app legacy module which shows user list.
 - 2023/05/17 : Added screenshot images.
 - 2023/05/18 : Added Ktor client project with ktor & navigation dependencies for study.
+- 2023/05/18 : Added ktor client provider, data classes for request and response, test ui components
+  and dummy api service interface.
 
 #### Link
 
