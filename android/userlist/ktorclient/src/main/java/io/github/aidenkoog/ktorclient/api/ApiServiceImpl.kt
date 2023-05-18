@@ -3,49 +3,55 @@ package io.github.aidenkoog.ktorclient.api
 import android.util.Log
 import io.github.aidenkoog.ktorclient.model.PostRequest
 import io.github.aidenkoog.ktorclient.model.PostResponse
+import io.github.aidenkoog.ktorclient.model.Resource
+import io.github.aidenkoog.ktorclient.route.HttpRoutes
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.plugins.*
+import io.ktor.client.request.*
 
 class ApiServiceImpl(private val client: HttpClient) : ApiService {
-    override suspend fun getPosts(): List<PostResponse>? {
+    override suspend fun getPosts(): Resource<List<PostResponse>> {
         return try {
-            return null
+            val response = client.get {
+                url(HttpRoutes.POSTS_API_URL)
+            }
+            Resource.Success(response.body())
+
         } catch (e: RedirectResponseException) {
-            // 3xx responses
             Log.e("debug", "Error : ${e.response.status.description}")
-            emptyList()
+            Resource.Error("${e.response}")
         } catch (e: ClientRequestException) {
-            // 4xx responses
             Log.e("debug", "Error : ${e.response.status.description}")
-            emptyList()
+            Resource.Error("${e.response}")
         } catch (e: ServerResponseException) {
-            // 5xx responses
             Log.e("debug", "Error : ${e.response.status.description}")
-            emptyList()
+            Resource.Error("${e.response}")
         } catch (e: Exception) {
             Log.e("debug", "Error : ${e.message}")
-            emptyList()
+            Resource.Error("${e.message}")
         }
     }
 
-    override suspend fun createPost(postRequest: PostRequest): PostResponse? {
+    override suspend fun createPost(postRequest: PostRequest): Resource<PostResponse> {
         return try {
-            return null
+            val response = client.post {
+                url(HttpRoutes.POSTS_API_URL)
+                setBody(postRequest)
+            }
+            Resource.Success(response.body())
         } catch (e: RedirectResponseException) {
-            // 3xx responses
-            Log.e("debug", "Error : ${e.response.status.description}")
-            null
+            Log.e("debug", "Error: ${e.response.status.description}")
+            Resource.Error("${e.response}")
         } catch (e: ClientRequestException) {
-            // 4xx responses
-            Log.e("debug", "Error : ${e.response.status.description}")
-            null
+            Log.e("debug", "Error: ${e.response.status.description}")
+            Resource.Error("${e.response}")
         } catch (e: ServerResponseException) {
-            // 5xx responses
-            Log.e("debug", "Error : ${e.response.status.description}")
-            null
+            Log.e("debug", "Error: ${e.response.status.description}")
+            Resource.Error("${e.response}")
         } catch (e: Exception) {
-            Log.e("debug", "Error : ${e.message}")
-            null
+            Log.e("debug", "Error: ${e.message}")
+            Resource.Error("${e.message}")
         }
     }
 }

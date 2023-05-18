@@ -46,6 +46,7 @@ It is written based on Kotlin.
 - 2023/05/18 : Added Ktor client project with ktor & navigation dependencies for study.
 - 2023/05/18 : Added ktor client provider, data classes for request and response, test ui components
   and dummy api service interface.
+- 2023/05/18 : Finished api service implementation.
 
 #### Link
 

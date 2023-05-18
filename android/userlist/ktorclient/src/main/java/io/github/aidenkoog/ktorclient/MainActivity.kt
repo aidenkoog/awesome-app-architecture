@@ -6,6 +6,7 @@ import android.util.Log
 import io.github.aidenkoog.ktorclient.api.ApiService
 import io.github.aidenkoog.ktorclient.api.ApiServiceImpl
 import io.github.aidenkoog.ktorclient.model.PostResponse
+import io.github.aidenkoog.ktorclient.model.Resource
 import io.github.aidenkoog.ktorclient.provider.Provider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,17 +30,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun launchTestKtorApi() {
+        Log.i("debug", ":launchTestKtorApi")
         CoroutineScope(Dispatchers.IO).launch {
-            when (val responseList: List<PostResponse>? = apiService.getPosts()) {
-                null -> {
-                    return@launch
-                }
+            when (val responseList: Resource<List<PostResponse>> = apiService.getPosts()) {
                 else -> {
-                    for (i in responseList.indices) {
-                        Log.e("debug", "response[i].id : ${responseList[i].id}")
-                        Log.e("debug", "response[i].body : ${responseList[i].body}")
-                        Log.e("debug", "response[i].title : ${responseList[i].title}")
-                        Log.e("debug", "response[i].userId : ${responseList[i].userId}")
+                    if (responseList.data == null) {
+                        Log.e("debug", "responseList data is null !!!")
+                        return@launch
+                    }
+                    for (i in responseList.data.indices) {
+                        Log.d("debug", "response[i].id : ${responseList.data[i].id}")
+                        Log.d("debug", "response[i].body : ${responseList.data[i].body}")
+                        Log.d("debug", "response[i].title : ${responseList.data[i].title}")
+                        Log.d("debug", "response[i].userId : ${responseList.data[i].userId}")
                     }
                 }
             }
