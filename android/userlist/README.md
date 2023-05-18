@@ -15,11 +15,11 @@ It is written based on Kotlin.
 
 - Language: Kotlin
 - Structure Summary
-  - ✨ Data
-  - ✨ Di
-  - ✨ Domain
-  - ✨ Presentation
-  - ✨ Util
+    - ✨ Data
+    - ✨ Di
+    - ✨ Domain
+    - ✨ Presentation
+    - ✨ Util
 
 #### Release Note
 
@@ -43,6 +43,7 @@ It is written based on Kotlin.
 - 2023/05/15 : Initialized player library which uses exo player library.
 - 2023/05/16 : Did refactoring main app legacy module which shows user list.
 - 2023/05/17 : Added screenshot images.
+- 2023/05/18 : Added Ktor client project with ktor & navigation dependencies for study.
 
 #### Link
 
