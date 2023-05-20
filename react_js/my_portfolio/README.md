@@ -12,7 +12,7 @@
 
 #### Summary
 
-This project shows data using the NAVER Map API.
+This project shows my profile, work experience, education, skills and etc.
 It is written based on JavaScript.
 
 - Language: Javascript
