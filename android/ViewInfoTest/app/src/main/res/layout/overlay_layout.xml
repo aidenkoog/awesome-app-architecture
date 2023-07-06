@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView5"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textStyle="bold|italic"-->
+    <!--        android:layout_x="80dp"-->
+    <!--        android:layout_y="126dp"-->
+    <!--        android:text="커스텀 가이드라인1" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView6"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_x="90dp"-->
+    <!--        android:textStyle="bold|italic"-->
+    <!--        android:layout_y="215dp"-->
+    <!--        android:text="커스텀 가이드라인2" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView7"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textStyle="bold|italic"-->
+    <!--        android:layout_x="132dp"-->
+    <!--        android:layout_y="280dp"-->
+    <!--        android:text="커스텀 가이드라인3" />-->
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="해외 로밍에 대한 설정 메뉴 \n가이드 라인 표시 영역입니다.\n\n1. APN 이름 작성\n\n2. 모바일 네트워크 설정\n\n3. 가이드 마무리~~~~!"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="15sp"
+        android:textStyle="bold|italic" />
+</LinearLayout>
