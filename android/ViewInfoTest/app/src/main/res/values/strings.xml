@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">OverlayGuideTestApp</string>
-    <string name="test_content">Please confirm the content below.\n1. Turn on setting switch\n2. Please set environment.\n3. Please start testing to app.</string>
-    <string name="accessibility_desc">Enabling accessibility permission is required to detect screen layout configuration and catch user input.</string>
-</resources>
