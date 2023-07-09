@@ -12,6 +12,7 @@ import android.graphics.PixelFormat
 import android.os.Build
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
@@ -173,28 +174,26 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
 
             if (isDestinationScreen && existKeyword) {
                 addCustomViews()
-//                val inflate = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//                windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
-//
-//                val params = WindowManager.LayoutParams(
-//                    WindowManager.LayoutParams.WRAP_CONTENT,
-//                    WindowManager.LayoutParams.WRAP_CONTENT,
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-//                    }
-//                    // Set to TYPE_APPLICATION_OVERLAY for Android O and higher
-//                    else WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-//                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-//                    PixelFormat.TRANSLUCENT
-//                )
-//                params.gravity = Gravity.CENTER_HORIZONTAL
-//                params.y = 370
-//                params.title = "TEST!!!!"
-//
-//                windowView = inflate.inflate(R.layout.overlay_layout, null)
-//                windowManager!!.addView(windowView, params)
-//
-//                Toast.makeText(applicationContext, "Found Screen!", Toast.LENGTH_SHORT).show()
+                val inflate = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+
+                val params = WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT,
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                    }
+                    // Set to TYPE_APPLICATION_OVERLAY for Android O and higher
+                    else WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                    PixelFormat.TRANSLUCENT
+                )
+                params.gravity = Gravity.CENTER_HORIZONTAL
+                params.y = 370
+                params.title = "TEST!!!!"
+
+                windowView = inflate.inflate(R.layout.overlay_layout, null)
+                windowManager!!.addView(windowView, params)
 
             } else {
                 windowManager?.let {
@@ -221,13 +220,6 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
         overlayedButton!!.setBackgroundColor(0x55fe4444)
         overlayedButton!!.setOnClickListener(this)
 
-//        val params = WindowManager.LayoutParams(
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-//            PixelFormat.TRANSLUCENT
-//        )
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
@@ -247,13 +239,6 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
         )
 
         topLeftView = View(this)
-//        val topLeftParams = WindowManager.LayoutParams(
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.WRAP_CONTENT,
-//            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-//            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-//            PixelFormat.TRANSLUCENT
-//        )
         val topLeftParams = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
