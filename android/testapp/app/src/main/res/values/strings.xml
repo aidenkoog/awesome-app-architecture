@@ -5,7 +5,15 @@
     <!-- This message is going to be shown in accessibility setting screen for the guide. -->
     <string name="accessibility_desc">Enabling accessibility permission is required to detect screen layout configuration and catch user input.</string>
 
+    <!-- Accessibility permission popup. -->
     <string name="accessibility_popup_title">Accessibility</string>
     <string name="accessibility_popup_desc">Accessibility permission must be granted to use this app.</string>
     <string name="accessibility_popup_btn_text">OK</string>
+
+    <!-- Notification related information for executing foreground service. -->
+    <string name="notification_content_title">TestApp</string>
+    <string name="notification_channel_id">TestApp</string>
+    <string name="notification_channel_desc">TestApp Channel Description</string>
+    <string name="notification_channel_name">TestApp Channel</string>
+    <string name="notification_content_text">TextApp, Provided testcases of a lot of apps, functions and etc.</string>
 </resources>
