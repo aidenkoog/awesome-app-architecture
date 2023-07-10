@@ -29,6 +29,12 @@ import io.github.aidenkoog.testapp.services.screen_comparison.ScreenTitle
 import io.github.aidenkoog.testapp.utils.DialogUtils
 import io.github.aidenkoog.testapp.utils.PermissionUtils
 import io.github.aidenkoog.testapp.utils.ViewNodeUtils.loadChildViews
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
 
@@ -69,6 +75,8 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
     // current settings page title.
     private var settingsScreenTitle: String? = null
     private var settingsInputEditText: String? = null
+
+    private var debounceJob: Job? = null
 
     override fun onServiceConnected() {
         super.onServiceConnected()
@@ -210,65 +218,76 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
 
         when (eventType) {
             AccessibilityEventType.INPUT_TEXT_CHANGED.eventType -> {
-                editTextNodeList.clear()
+                // TODO:
             }
 
             AccessibilityEventType.WINDOW_STATE_CHANGED.eventType -> {
-                if (!isOnSettingsApp(className = className)) {
-                    //releaseResources()
-                }
+                // TODO:
+                //if (!isOnSettingsApp(className = className)) {
+                //releaseResources()
+                //}
             }
 
             AccessibilityEventType.WINDOW_CONTENT_CHANGED.eventType -> {
-                editTextNodeList.clear()
 
-                loadChildViews(
-                    parentView = rootInActiveWindow,
-                    nodeList = editTextNodeList,
-                    compareViewStyle = ChildViewStyle.CHILD_EDIT_TEXT.viewStyle
-                )
-
-                for ((index, node) in editTextNodeList.withIndex()) {
-                    val nodeText = (node.text ?: "Not exist !!!").toString()
-                    if (index == 0) {
-                        settingsInputEditText = nodeText
-                    }
-                }
-                if (editTextNodeList.size <= 0) {
-                    settingsInputEditText = "Not exist !!!"
-                }
-
-                textViewNodeList.clear()
-
-                loadChildViews(
-                    nodeList = textViewNodeList,
-                    parentView = rootInActiveWindow,
-                    compareViewStyle = ChildViewStyle.CHILD_TEXT_VIEW.viewStyle
-                )
-                hasKeyword = false
-
-                for ((index, node) in textViewNodeList.withIndex()) {
-                    val nodeText = (node.text ?: "").toString()
-                    if (index == 0) {
-                        settingsScreenTitle = nodeText
-                        Logger.d("setting screen title: $settingsScreenTitle")
-                    }
-                    //if (!isScreenWithOverlayView(nodeText = nodeText)) continue
-                    if (index == 0) {
-                        hasKeyword = true
-                    }
-                }
-                isFoundScreen = hasKeyword
-                if (!isFoundScreen) {
-                    releaseResources()
-                    showOverlayViews()
-                } else {
-                    releaseResources()
-                    showOverlayViews()
+                debounceJob?.cancel()
+                debounceJob = CoroutineScope(Dispatchers.IO).launch {
+                    delay(300)
+                    withContext(Dispatchers.Main) { handleWindowContentChangedEvent() }
                 }
             }
 
             else -> Logger.e("other events, eventType: $eventType")
+        }
+    }
+
+    private fun handleWindowContentChangedEvent() {
+        editTextNodeList.clear()
+
+        loadChildViews(
+            parentView = rootInActiveWindow,
+            nodeList = editTextNodeList,
+            compareViewStyle = ChildViewStyle.CHILD_EDIT_TEXT.viewStyle
+        )
+
+        for ((index, node) in editTextNodeList.withIndex()) {
+            val nodeText = (node.text ?: "Not exist !!!").toString()
+            if (index == 0) {
+                settingsInputEditText = nodeText
+            }
+        }
+        if (editTextNodeList.size <= 0) {
+            settingsInputEditText = "Not exist !!!"
+        }
+
+        textViewNodeList.clear()
+
+        loadChildViews(
+            nodeList = textViewNodeList,
+            parentView = rootInActiveWindow,
+            compareViewStyle = ChildViewStyle.CHILD_TEXT_VIEW.viewStyle
+        )
+        hasKeyword = false
+
+        for ((index, node) in textViewNodeList.withIndex()) {
+            val nodeText = (node.text ?: "").toString()
+            if (index == 0) {
+                settingsScreenTitle = nodeText
+                Logger.d("setting screen title: $settingsScreenTitle")
+            }
+            //if (!isScreenWithOverlayView(nodeText = nodeText)) continue
+            if (index == 0) {
+                hasKeyword = true
+            }
+        }
+        isFoundScreen = hasKeyword
+
+        if (!isFoundScreen) {
+            releaseResources()
+            showOverlayViews()
+        } else {
+            releaseResources()
+            showOverlayViews()
         }
     }
 
