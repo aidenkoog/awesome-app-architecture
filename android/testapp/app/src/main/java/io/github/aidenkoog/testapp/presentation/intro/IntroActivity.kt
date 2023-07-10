@@ -16,17 +16,17 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.overlay_layout2)
 
         /* Accessibility permission. */
-        if (!checkAccessibilityPermission(activity = this)) {
-            makeAlert(activity = this).setTitle(resources.getString(R.string.accessibility_popup_title))
+        if (!checkAccessibilityPermission(context = this)) {
+            makeAlert(context = this).setTitle(resources.getString(R.string.accessibility_popup_title))
                 .setMessage(resources.getString(R.string.accessibility_popup_desc))
                 .setNegativeButton(
                     resources.getString(R.string.accessibility_popup_btn_text)
-                ) { _, _ -> moveToAccessibilitySettings(activity = this@IntroActivity) }.show()
+                ) { _, _ -> moveToAccessibilitySettings(context = this@IntroActivity) }.show()
         }
 
         /* Overlay view on other apps permission. */
-        if (!checkOverlayPermission(activity = this)) {
-            moveToOverlaySettings(activity = this)
+        if (!checkOverlayPermission(context = this)) {
+            moveToOverlaySettings(context = this)
         }
     }
 

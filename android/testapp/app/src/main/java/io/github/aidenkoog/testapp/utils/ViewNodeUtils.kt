@@ -5,7 +5,7 @@ import com.orhanobut.logger.Logger
 
 object ViewNodeUtils {
 
-    fun findChildViews(
+    fun loadChildViews(
         parentView: AccessibilityNodeInfo,
         nodeList: ArrayList<AccessibilityNodeInfo>,
         compareViewStyle: String
@@ -21,11 +21,11 @@ object ViewNodeUtils {
                 .contentEquals(compareViewStyle))
         ) {
             nodeList.add(parentView)
+
         } else {
             for (i in 0 until childCount) {
-                if (parentView.getChild(i) != null) {
-                    findChildViews(parentView.getChild(i), nodeList, compareViewStyle)
-                }
+                if (parentView.getChild(i) == null) continue
+                loadChildViews(parentView.getChild(i), nodeList, compareViewStyle)
             }
         }
     }

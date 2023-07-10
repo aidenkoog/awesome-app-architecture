@@ -16,4 +16,16 @@
     <string name="notification_channel_desc">TestApp Channel Description</string>
     <string name="notification_channel_name">TestApp Channel</string>
     <string name="notification_content_text">TextApp, Provided testcases of a lot of apps, functions and etc.</string>
+
+    <!-- Overlay View -->
+    <string name="overlay_view_title">[DEV] User Helper</string>
+    <string name="overlay_view_screen_title">Screen Title: %s</string>
+    <string name="overlay_view_off_title">OFF\n(Click here!)\nMove the screen if you want to show the overlay view again!</string>
+    <string name="overlay_view_input_text">Input Text: %s</string>
+    <string name="overlay_view_show_guide_toast_msg">Guide Toast Message\n(Click here!)</string>
+    <string name="overlay_view_show_guide_toast_view_id">100</string>
+    <string name="overlay_view_off_view_id">200</string>
+    <string name="overlay_view_screen_title_view_id">300</string>
+    <string name="overlay_view_input_text_view_id">400</string>
+
 </resources>

@@ -1,9 +1,9 @@
 package io.github.aidenkoog.testapp.utils
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 
 object DialogUtils {
 
-    fun makeAlert(activity: Activity): AlertDialog.Builder = AlertDialog.Builder(activity)
+    fun makeAlert(context: Context): AlertDialog.Builder = AlertDialog.Builder(context)
 }
