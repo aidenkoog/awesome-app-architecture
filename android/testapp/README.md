@@ -28,6 +28,7 @@
   package hierarchy based on clean architecture.
 - 2022/07/09 : Deleted unused source code / Did refactoring entire source code in
   CustomAccessibilityService.
+- 2022/07/10 : Arranged code / Add function which offs views and view that shows screen's title.
 
 #### Link
 
