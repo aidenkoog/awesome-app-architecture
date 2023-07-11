@@ -48,7 +48,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
     companion object {
         const val NOTIFICATION_ID = 1000
         const val NOTIFY_PENDING_INTENT_REQUEST_CODE = 0
-        const val EVENT_DEBOUNCE_DELAY = 500L
+        const val EVENT_DEBOUNCE_DELAY = 300L
 
         // overlay view item id.
         const val OVERLAY_GUIDE_TOAST = 100

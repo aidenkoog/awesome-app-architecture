@@ -70,9 +70,9 @@ object ViewNodeUtils {
                 }
             }
         } else if (styleArray.size > 1) {
-            for (i in 1 until styleArray.size) {
+            for (item in styleArray) {
                 if (childCount == 0 && (parentView.className.toString()
-                        .contentEquals(styleArray[i]))
+                        .contentEquals(item))
                 ) {
                     nodeList.add(parentView)
                 }
