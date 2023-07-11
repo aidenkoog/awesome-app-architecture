@@ -38,6 +38,7 @@
 - 2023/07/11 : Fixed issue that user input event is not detected on certain phone device.
 - 2023/07/11 : Added lottie animation view / Added build gradle code that can generate apk name
   automatically.
+- 2023/07/11 : Added an additional filter content.
 
 #### Link
 

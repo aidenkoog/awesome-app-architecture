@@ -152,12 +152,14 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
         val isKrMobileNetworkTitle = ScreenTitle.KR_MOBILE_NETWORK.title == screenTitle
         val isKrRoamingAbroadTitle = ScreenTitle.KR_ROAMING_ABROAD.title == screenTitle
         val isEnRoamingAbroadTitle = ScreenTitle.EN_ROAMING_ABROAD.title == screenTitle
+        val isKrTRoamingTelecom = ScreenTitle.KR_T_ROAMING_TELECOM.title == screenTitle
+        val isKrTRoamingDetail = ScreenTitle.KR_T_ROAMING_DETAIL.title == screenTitle
         val isKrTRoamingTitle = ScreenTitle.KR_T_ROAMING.title == screenTitle
         val isKrSearchTitle = ScreenTitle.KR_SEARCH.title == screenTitle
 
         isScreenWithOverlayView =
             isKrRoamingAbroadTitle || isKrMobileNetworkTitle || isEnRoamingAbroadTitle
-                    || isKrTRoamingTitle || isKrSearchTitle
+                    || isKrTRoamingTitle || isKrSearchTitle || isKrTRoamingTelecom || isKrTRoamingDetail
 
         Logger.d("isScreenWithOverlayView: $isScreenWithOverlayView")
         return isScreenWithOverlayView
