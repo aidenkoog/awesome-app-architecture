@@ -7,6 +7,7 @@ enum class ScreenTitle(val title: String) {
     KR_MOBILE_NETWORK("모바일 네트워크"),
     KR_DISPLAY("디스플레이"),
     KR_NORMAL("일반"),
+    KR_SEARCH("검색"),
     KR_SETTINGS("설정"),
     KR_APPLICATIONS("애플리케이션"),
     KR_SOFTWARE_UPDATE("소프트웨어 업데이트"),

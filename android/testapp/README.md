@@ -24,13 +24,15 @@
 
 #### Release Note
 
-- 2022/07/07 : Initialized Android test app project / Added accessibility custom service / Added
+- 2023/07/07 : Initialized Android test app project / Added accessibility custom service / Added
   package hierarchy based on clean architecture.
-- 2022/07/09 : Deleted unused source code / Did refactoring entire source code in
+- 2023/07/09 : Deleted unused source code / Did refactoring entire source code in
   CustomAccessibilityService.
-- 2022/07/10 : Arranged code / Add function which offs views and view that shows screen's title.
-- 2022/07/10 : Added coroutine handler for window content changed event / Added view style for user
+- 2023/07/10 : Arranged code / Add function which offs views and view that shows screen's title.
+- 2023/07/10 : Added coroutine handler for window content changed event / Added view style for user
   input detection.
+- 2023/07/11 : Did refactoring source code (Mainly focused on separating ui and function code and
+  made modularized UI code)
 
 #### Link
 

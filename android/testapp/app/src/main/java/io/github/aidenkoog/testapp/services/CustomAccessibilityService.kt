@@ -1,15 +1,13 @@
 package io.github.aidenkoog.testapp.services
 
 import android.accessibilityservice.AccessibilityService
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.PixelFormat
-import android.graphics.Typeface
-import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
@@ -19,7 +17,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
 import com.orhanobut.logger.Logger
 import io.github.aidenkoog.testapp.R
 import io.github.aidenkoog.testapp.presentation.intro.IntroActivity
@@ -28,7 +25,13 @@ import io.github.aidenkoog.testapp.services.event_type.AccessibilityEventType
 import io.github.aidenkoog.testapp.services.screen_comparison.ScreenTitle
 import io.github.aidenkoog.testapp.utils.DialogUtils
 import io.github.aidenkoog.testapp.utils.PermissionUtils
+import io.github.aidenkoog.testapp.utils.ToastUtils.makeToast
+import io.github.aidenkoog.testapp.utils.ViewNodeUtils.getDefaultLayoutParams
+import io.github.aidenkoog.testapp.utils.ViewNodeUtils.getParentLayoutParams
+import io.github.aidenkoog.testapp.utils.ViewNodeUtils.getTopLeftLayoutParams
 import io.github.aidenkoog.testapp.utils.ViewNodeUtils.loadChildViews
+import io.github.aidenkoog.testapp.utils.ViewNodeUtils.makeOverlayViewItem
+import io.github.aidenkoog.testapp.utils.ViewNodeUtils.makeOverlayViewParent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -38,23 +41,24 @@ import kotlinx.coroutines.withContext
 import kotlin.math.abs
 
 
-class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
-    View.OnClickListener {
+class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener {
 
     companion object {
         const val NOTIFICATION_ID = 1000
         const val NOTIFY_PENDING_INTENT_REQUEST_CODE = 0
+        const val EVENT_DEBOUNCE_DELAY = 500L
+
+        const val OVERLAY_GUIDE_TOAST = 100
+        const val OVERLAY_OFF = 200
+        const val OVERLAY_SCREEN_TITLE = 300
+        const val OVERLAY_INPUT_TEXT = 400
     }
+
+    private lateinit var windowManager: WindowManager
 
     // ui node list.
     private var textViewNodeList = ArrayList<AccessibilityNodeInfo>()
     private var editTextNodeList = ArrayList<AccessibilityNodeInfo>()
-
-    // flag information required to display an overlay view on a specific screen.
-    private var isFoundScreen = false
-    private var hasKeyword = false
-
-    private lateinit var windowManager: WindowManager
 
     // overlay views for display.
     private var overlayTitleButton: Button? = null
@@ -72,11 +76,12 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
     private var originalYPos = 0
     private var isOverlayViewMoving = false
 
-    // current settings page title.
+    // current saved screen title and user input text.
     private var settingsScreenTitle: String? = null
     private var settingsInputEditText: String? = null
 
-    private var debounceJob: Job? = null
+    // debounce job for handling continuous incoming events within a short period of time
+    private var eventDebounceJob: Job? = null
 
     override fun onServiceConnected() {
         super.onServiceConnected()
@@ -137,22 +142,18 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
         val isKrRoamingAbroadTitle = ScreenTitle.KR_ROAMING_ABROAD.title == screenTitle
         val isEnRoamingAbroadTitle = ScreenTitle.EN_ROAMING_ABROAD.title == screenTitle
         val isKrTRoamingTitle = ScreenTitle.KR_T_ROAMING.title == screenTitle
-        val isKrDisplayTitle = ScreenTitle.KR_DISPLAY.title == screenTitle
-        val isKrNormalTitle = ScreenTitle.KR_NORMAL.title == screenTitle
+        val isKrSearchTitle = ScreenTitle.KR_SEARCH.title == screenTitle
 
         isScreenWithOverlayView =
-            isKrRoamingAbroadTitle || isKrMobileNetworkTitle || isEnRoamingAbroadTitle || isKrTRoamingTitle || isKrDisplayTitle || isKrNormalTitle
+            isKrRoamingAbroadTitle || isKrMobileNetworkTitle || isEnRoamingAbroadTitle
+                    || isKrTRoamingTitle || isKrSearchTitle
 
         Logger.d("isScreenWithOverlayView: $isScreenWithOverlayView")
         return isScreenWithOverlayView
     }
 
-    private fun isOnSettingsApp(className: String): Boolean {
-        if ((!className.contains("settings") || !className.contains("Settings")) && className != "android.view.View") {
-            return false
-        }
-        return true
-    }
+    private fun isOnSettingsApp(className: String): Boolean =
+        !(!className.contains("settings") && !className.contains("Settings"))
 
     private fun createNotification(context: Context): Notification {
         val channel = NotificationChannel(
@@ -196,18 +197,21 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
 
         /* Accessibility permission. */
         if (!PermissionUtils.checkAccessibilityPermission(context = this)) {
-            DialogUtils.makeAlert(context = this)
-                .setTitle(resources.getString(R.string.accessibility_popup_title))
-                .setMessage(resources.getString(R.string.accessibility_popup_desc))
-                .setNegativeButton(
-                    resources.getString(R.string.accessibility_popup_btn_text)
-                ) { _, _ -> PermissionUtils.moveToAccessibilitySettings(this) }.show()
+            showPermissionDialog(
+                title = resources.getString(R.string.accessibility_popup_title),
+                message = resources.getString(R.string.accessibility_popup_desc),
+                btnText = resources.getString(R.string.accessibility_popup_btn_text)
+            )
             return
         }
 
         /* Overlay view on other apps permission. */
         if (!PermissionUtils.checkOverlayPermission(context = this)) {
-            PermissionUtils.moveToOverlaySettings(context = this)
+            showPermissionDialog(
+                title = resources.getString(R.string.overlay_popup_title),
+                message = resources.getString(R.string.overlay_popup_desc),
+                btnText = resources.getString(R.string.overlay_popup_btn_text)
+            )
             return
         }
 
@@ -217,247 +221,197 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
         Logger.d("eventType: $eventType, className: $className")
 
         when (eventType) {
-            AccessibilityEventType.INPUT_TEXT_CHANGED.eventType -> {
-                // TODO:
-            }
-
             AccessibilityEventType.WINDOW_STATE_CHANGED.eventType -> {
-                // TODO:
-                //if (!isOnSettingsApp(className = className)) {
-                //releaseResources()
-                //}
+                Logger.i("isOnSettingsApp: ${isOnSettingsApp(className = className)}")
             }
 
             AccessibilityEventType.WINDOW_CONTENT_CHANGED.eventType -> {
-
-                debounceJob?.cancel()
-                debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                    delay(300)
-                    withContext(Dispatchers.Main) { handleWindowContentChangedEvent() }
+                eventDebounceJob?.cancel()
+                eventDebounceJob = CoroutineScope(Dispatchers.IO).launch {
+                    delay(EVENT_DEBOUNCE_DELAY)
+                    withContext(Dispatchers.Main) { onWindowContentChanged() }
                 }
             }
 
-            else -> Logger.e("other events, eventType: $eventType")
+            else -> Logger.i("other events come in")
         }
     }
 
-    private fun handleWindowContentChangedEvent() {
-        editTextNodeList.clear()
+    private fun showPermissionDialog(title: String, message: String, btnText: String) {
+        DialogUtils.makeAlert(context = this)
+            .setTitle(title)
+            .setMessage(message)
+            .setNegativeButton(
+                btnText
+            ) { _, _ -> PermissionUtils.moveToAccessibilitySettings(this) }.show()
+    }
 
-        loadChildViews(
-            parentView = rootInActiveWindow,
-            nodeList = editTextNodeList,
-            compareViewStyle = ChildViewStyle.CHILD_EDIT_TEXT.viewStyle
-        )
-
-        for ((index, node) in editTextNodeList.withIndex()) {
-            val nodeText = (node.text ?: "Not exist !!!").toString()
-            if (index == 0) {
-                settingsInputEditText = nodeText
-            }
+    private fun onWindowContentChanged() {
+        loadFirstInputText()
+        releaseResources()
+        if (hasScreenKeyword()) {
+            showOverlayViews()
         }
-        if (editTextNodeList.size <= 0) {
-            settingsInputEditText = "Not exist !!!"
-        }
+    }
 
+    private fun hasScreenKeyword(): Boolean {
         textViewNodeList.clear()
-
         loadChildViews(
             nodeList = textViewNodeList,
             parentView = rootInActiveWindow,
             compareViewStyle = ChildViewStyle.CHILD_TEXT_VIEW.viewStyle
         )
-        hasKeyword = false
 
+        var hasKeyword = false
         for ((index, node) in textViewNodeList.withIndex()) {
-            val nodeText = (node.text ?: "").toString()
+            val nodeText = (node.text
+                ?: resources.getString(R.string.overlay_view_no_screen_title_msg)).toString()
             if (index == 0) {
                 settingsScreenTitle = nodeText
-                Logger.d("setting screen title: $settingsScreenTitle")
-            }
-            //if (!isScreenWithOverlayView(nodeText = nodeText)) continue
-            if (index == 0) {
-                hasKeyword = true
+                if (isScreenWithOverlayView(nodeText = nodeText)) {
+                    hasKeyword = true
+                }
             }
         }
-        isFoundScreen = hasKeyword
+        return hasKeyword
+    }
 
-        if (!isFoundScreen) {
-            releaseResources()
-            showOverlayViews()
-        } else {
-            releaseResources()
-            showOverlayViews()
+    private fun loadFirstInputText() {
+        editTextNodeList.clear()
+        loadChildViews(
+            parentView = rootInActiveWindow,
+            nodeList = editTextNodeList,
+            compareViewStyle = ChildViewStyle.CHILD_EDIT_TEXT.viewStyle
+        )
+        for ((index, node) in editTextNodeList.withIndex()) {
+            val nodeText = (node.text
+                ?: resources.getString(R.string.overlay_view_no_input_text_msg)).toString()
+            if (index == 0) {
+                settingsInputEditText = nodeText
+            }
+        }
+        if (editTextNodeList.size <= 0) {
+            settingsInputEditText = resources.getString(R.string.overlay_view_no_input_text_msg)
         }
     }
+
 
     private fun showOverlayViews() {
         if (overlayParentView != null) {
             return
         }
-
-        // title of overlay view itself.
-        overlayTitleButton = Button(this)
-        overlayTitleButton?.apply {
-            setOnTouchListener(this@CustomAccessibilityService)
-            setTypeface(this.typeface, Typeface.BOLD)
-            text = resources.getString(R.string.overlay_view_title)
-            textSize = 20f
-            gravity = Gravity.CENTER
-            setPadding(7, 7, 7, 7)
-            setBackgroundColor(0x55ff5599)
-            setTextColor(ContextCompat.getColor(this@CustomAccessibilityService, R.color.black))
-        }
-
-        // screen's title information.
-        screenTitleOverlayButton = Button(this)
-        screenTitleOverlayButton?.apply {
-            id = Integer.parseInt(resources.getString(R.string.overlay_view_screen_title_view_id))
-            setOnTouchListener(this@CustomAccessibilityService)
-            setTypeface(this.typeface, Typeface.BOLD)
-            text = String.format(
-                resources.getString(R.string.overlay_view_screen_title), settingsScreenTitle
-            )
-            gravity = Gravity.CENTER
-            setPadding(7, 7, 7, 7)
-            setBackgroundColor(0x55ffff00)
-            setTextColor(ContextCompat.getColor(this@CustomAccessibilityService, R.color.black))
-        }
-
-        // user input text.
-        userInputOverlayButton = Button(this)
-        userInputOverlayButton?.apply {
-            id = Integer.parseInt(resources.getString(R.string.overlay_view_input_text_view_id))
-            setOnTouchListener(this@CustomAccessibilityService)
-            setTypeface(this.typeface, Typeface.BOLD)
-            text = String.format(
-                resources.getString(R.string.overlay_view_input_text), settingsInputEditText
-            )
-            gravity = Gravity.CENTER
-            setPadding(7, 7, 7, 7)
-            setBackgroundColor(0x55ff1133)
-            setTextColor(ContextCompat.getColor(this@CustomAccessibilityService, R.color.black))
-        }
-
-        // guide overlay view which can show toast messages.
-        guideToastOverlayButton = Button(this)
-        guideToastOverlayButton?.apply {
-            id =
-                Integer.parseInt(resources.getString(R.string.overlay_view_show_guide_toast_view_id))
-            setOnTouchListener(this@CustomAccessibilityService)
-            setTypeface(this.typeface, Typeface.BOLD)
-            text = resources.getString(R.string.overlay_view_show_guide_toast_msg)
-            gravity = Gravity.CENTER
-            setPadding(7, 7, 7, 7)
-            setBackgroundColor(0x55ffffdd)
-            setTextColor(ContextCompat.getColor(this@CustomAccessibilityService, R.color.black))
-        }
-
-        // overlay view off button.
-        offOverlayButton = Button(this)
-        offOverlayButton?.apply {
-            id = Integer.parseInt(resources.getString(R.string.overlay_view_off_view_id))
-            setOnTouchListener(this@CustomAccessibilityService)
-            setTypeface(this.typeface, Typeface.BOLD)
-            text = resources.getString(R.string.overlay_view_off_title)
-            gravity = Gravity.CENTER
-            setPadding(7, 7, 7, 7)
-            setBackgroundColor(0x55dd99dd)
-            setTextColor(ContextCompat.getColor(this@CustomAccessibilityService, R.color.black))
-        }
-
-        // parent view which includes title, screen's title, user input text and off button view.
-        overlayParentView = LinearLayout(this)
-        overlayParentView?.apply {
-            orientation = LinearLayout.VERTICAL
-            setBackgroundColor(0x55ffffee)
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            setPadding(7, 7, 7, 7)
-            gravity = Gravity.START or Gravity.CENTER_VERTICAL
-            addView(overlayTitleButton)
-            addView(screenTitleOverlayButton)
-            addView(userInputOverlayButton)
-            addView(guideToastOverlayButton)
-            addView(offOverlayButton)
-        }
-
-        val parentViewParams = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-            PixelFormat.TRANSLUCENT
-        )
-        parentViewParams.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-        parentViewParams.x = 0
-        parentViewParams.y = 0
-        windowManager.addView(overlayParentView, parentViewParams)
-
-        val topLeftParams = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-            PixelFormat.TRANSLUCENT
-        )
-        topLeftParams.gravity = Gravity.START or Gravity.CENTER_VERTICAL
-        topLeftParams.x = 0
-        topLeftParams.y = 0
-        topLeftParams.width = 0
-        topLeftParams.height = 0
-
-        topLeftView = View(this)
-        topLeftView?.apply {
-            visibility = View.VISIBLE
-        }
-        windowManager.addView(topLeftView, topLeftParams)
+        makeOverlayViews()
+        windowManager.addView(overlayParentView, getParentLayoutParams(getDefaultLayoutParams()))
+        windowManager.addView(topLeftView, getTopLeftLayoutParams(getDefaultLayoutParams()))
     }
 
-    private fun handleTouchActionDownEvent(event: MotionEvent) {
+    private fun makeOverlayViews() {
+        overlayTitleButton = makeOverlayViewItem(
+            context = this,
+            itemId = Integer.parseInt(resources.getString(R.string.overlay_view_default_id)),
+            touchListener = this@CustomAccessibilityService,
+            itemText = resources.getString(R.string.overlay_view_title),
+            itemTextSize = 20f,
+            itemBgColor = 0x55ff5599
+        )
+
+        screenTitleOverlayButton = makeOverlayViewItem(
+            context = this,
+            itemId = Integer.parseInt(resources.getString(R.string.overlay_view_screen_title_view_id)),
+            touchListener = this@CustomAccessibilityService,
+            itemText = String.format(
+                resources.getString(R.string.overlay_view_screen_title), settingsScreenTitle
+            ),
+            itemTextSize = 15f,
+            itemBgColor = 0x55ffff00
+        )
+
+        userInputOverlayButton = makeOverlayViewItem(
+            context = this,
+            itemId = Integer.parseInt(resources.getString(R.string.overlay_view_input_text_view_id)),
+            touchListener = this@CustomAccessibilityService,
+            itemText = String.format(
+                resources.getString(R.string.overlay_view_input_text), settingsInputEditText
+            ),
+            itemTextSize = 15f,
+            itemBgColor = 0x55ff1133
+        )
+
+        guideToastOverlayButton = makeOverlayViewItem(
+            context = this,
+            itemId = Integer.parseInt(resources.getString(R.string.overlay_view_show_guide_toast_view_id)),
+            touchListener = this@CustomAccessibilityService,
+            itemText = resources.getString(R.string.overlay_view_show_guide_toast_msg),
+            itemTextSize = 15f,
+            itemBgColor = 0x55ffffdd
+        )
+
+        offOverlayButton = makeOverlayViewItem(
+            context = this,
+            itemId = Integer.parseInt(resources.getString(R.string.overlay_view_off_view_id)),
+            touchListener = this@CustomAccessibilityService,
+            itemText = resources.getString(R.string.overlay_view_off_title),
+            itemTextSize = 15f,
+            itemBgColor = 0x55dd99dd
+        )
+
+        overlayParentView = makeOverlayViewParent(
+            context = this, items = arrayOf(
+                overlayTitleButton ?: Button(this),
+                screenTitleOverlayButton ?: Button(this),
+                userInputOverlayButton ?: Button(this),
+                guideToastOverlayButton ?: Button(this),
+                offOverlayButton ?: Button(this)
+            )
+        )
+        topLeftView = View(this)
+    }
+
+    private fun onTouchActionDownEvent(event: MotionEvent) {
         val x = event.rawX
         val y = event.rawY
+
         isOverlayViewMoving = false
+
         val location = IntArray(2)
         overlayParentView!!.getLocationOnScreen(location)
+
         originalXPos = location[0]
         originalYPos = location[1]
+
         offsetX = originalXPos - x
         offsetY = originalYPos - y
     }
 
-    override fun onTouch(v: View?, event: MotionEvent): Boolean {
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouch(view: View?, event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
             Logger.i("onTouch:")
-            v?.let {
+            view?.let {
                 when (it.id) {
-                    100 -> {
-                        Toast.makeText(
-                            this, "User guideline.. step 1. step 2. step 3.", Toast.LENGTH_SHORT
-                        ).show()
-                        handleTouchActionDownEvent(event)
+                    OVERLAY_GUIDE_TOAST -> {
+                        makeToast(this, "User guideline.", Toast.LENGTH_SHORT).show()
+                        onTouchActionDownEvent(event)
                     }
 
-                    200 -> {
-                        Toast.makeText(
-                            this, "Disable overlay views", Toast.LENGTH_SHORT
-                        ).show()
+                    OVERLAY_OFF -> {
+                        makeToast(this, "Disable overlay views.", Toast.LENGTH_SHORT).show()
                         releaseResources()
                     }
 
-                    300 -> {
-                        Toast.makeText(
-                            this, "Settings Screen Title: $settingsScreenTitle", Toast.LENGTH_SHORT
-                        ).show()
-                        handleTouchActionDownEvent(event)
+                    OVERLAY_SCREEN_TITLE -> {
+                        makeToast(this, "Screen: $settingsScreenTitle", Toast.LENGTH_SHORT).show()
+                        onTouchActionDownEvent(event)
                     }
 
-                    400 -> {
-                        Toast.makeText(
-                            this, "Settings input text: $settingsInputEditText", Toast.LENGTH_SHORT
-                        ).show()
-                        handleTouchActionDownEvent(event)
+                    OVERLAY_INPUT_TEXT -> {
+                        makeToast(this, "Input: $settingsInputEditText", Toast.LENGTH_SHORT).show()
+                        onTouchActionDownEvent(event)
+                    }
+
+                    else -> {
+                        makeToast(this, "Other areas Touched !", Toast.LENGTH_SHORT).show()
+                        onTouchActionDownEvent(event)
                     }
                 }
             }
@@ -468,17 +422,23 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
             }
             val topLeftLocationOnScreen = IntArray(2)
             topLeftView!!.getLocationOnScreen(topLeftLocationOnScreen)
+
             val x = event.rawX
             val y = event.rawY
+
             val params: WindowManager.LayoutParams =
                 overlayParentView!!.layoutParams as WindowManager.LayoutParams
+
             val newX = (offsetX + x).toInt()
             val newY = (offsetY + y).toInt()
+
             if (abs(newX - originalXPos) < 1 && abs(newY - originalYPos) < 1 && !isOverlayViewMoving) {
                 return false
             }
+
             params.x = newX - topLeftLocationOnScreen[0]
             params.y = newY - topLeftLocationOnScreen[1]
+
             windowManager.updateViewLayout(overlayParentView, params)
             isOverlayViewMoving = true
 
@@ -488,36 +448,5 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener,
             }
         }
         return false
-    }
-
-    override fun onClick(view: View?) {
-        view?.let {
-            when (it.id) {
-                100 -> {
-                    Toast.makeText(
-                        this, "User guideline.. step 1. step 2. step 3.", Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                200 -> {
-                    Toast.makeText(
-                        this, "Disable overlay views", Toast.LENGTH_SHORT
-                    ).show()
-                    releaseResources()
-                }
-
-                300 -> {
-                    Toast.makeText(
-                        this, "Settings Screen Title: $settingsScreenTitle", Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                400 -> {
-                    Toast.makeText(
-                        this, "Settings input text: $settingsInputEditText", Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
     }
 }

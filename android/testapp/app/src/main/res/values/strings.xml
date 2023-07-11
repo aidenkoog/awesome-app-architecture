@@ -6,9 +6,14 @@
     <string name="accessibility_desc">Enabling accessibility permission is required to detect screen layout configuration and catch user input.</string>
 
     <!-- Accessibility permission popup. -->
-    <string name="accessibility_popup_title">Accessibility</string>
     <string name="accessibility_popup_desc">Accessibility permission must be granted to use this app.</string>
+    <string name="accessibility_popup_title">Accessibility</string>
     <string name="accessibility_popup_btn_text">OK</string>
+
+    <!-- Overlay permission popup. -->
+    <string name="overlay_popup_desc">Overlay permission must be granted to use this app.</string>
+    <string name="overlay_popup_title">Overlay Drawing</string>
+    <string name="overlay_popup_btn_text">OK</string>
 
     <!-- Notification related information for executing foreground service. -->
     <string name="notification_content_title">TestApp</string>
@@ -23,9 +28,12 @@
     <string name="overlay_view_off_title">OFF\n(Click here!)\nMove the screen if you want to show the overlay view again!</string>
     <string name="overlay_view_input_text">Input Text: %s</string>
     <string name="overlay_view_show_guide_toast_msg">Guide Toast Message\n(Click here!)</string>
+    <string name="overlay_view_default_id">0</string>
     <string name="overlay_view_show_guide_toast_view_id">100</string>
     <string name="overlay_view_off_view_id">200</string>
     <string name="overlay_view_screen_title_view_id">300</string>
     <string name="overlay_view_input_text_view_id">400</string>
+    <string name="overlay_view_no_input_text_msg">Input NOT exist !!!</string>
+    <string name="overlay_view_no_screen_title_msg">Title NOT exist !!!</string>
 
 </resources>
