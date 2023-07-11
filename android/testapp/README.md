@@ -36,6 +36,8 @@
 - 2023/07/11 : Add toast warning message when moving to settings app for permission setting and
   fixed crash issue happened when overlay permission is turned off.
 - 2023/07/11 : Fixed issue that user input event is not detected on certain phone device.
+- 2023/07/11 : Added lottie animation view / Added build gradle code that can generate apk name
+  automatically.
 
 #### Link
 

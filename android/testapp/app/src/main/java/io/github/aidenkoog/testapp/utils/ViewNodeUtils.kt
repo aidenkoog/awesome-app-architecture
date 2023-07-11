@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.PixelFormat
 import android.graphics.Typeface
 import android.view.Gravity
+import android.view.View
 import android.view.View.OnTouchListener
 import android.view.WindowManager.LayoutParams
 import android.view.accessibility.AccessibilityNodeInfo
@@ -111,7 +112,7 @@ object ViewNodeUtils {
         }
     }
 
-    fun makeOverlayViewParent(context: Context, vararg items: Button): LinearLayout {
+    fun makeOverlayViewParent(context: Context, vararg items: View): LinearLayout {
         val overlayParentView = LinearLayout(context)
         return overlayParentView.apply {
             orientation = LinearLayout.VERTICAL

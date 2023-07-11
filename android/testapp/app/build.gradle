@@ -20,8 +20,8 @@ android {
          * 3) hotfix
          * -----------------------------------------------------------------------------------------
          */
-        versionCode 105
-        versionName "1.0.5"
+        versionCode 106
+        versionName "1.0.6"
     }
 
     buildTypes {
@@ -40,6 +40,20 @@ android {
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "CooperTestApp"
+            def SEP = "_"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date()
+            def formattedDate = date.format('yyyyMMdd_HHmm')
+            def newApkName = project + SEP + buildType.toUpperCase() + SEP + versionName + SEP + versionCode + SEP + formattedDate + ".apk"
+            outputFileName = new File(newApkName)
         }
     }
 }

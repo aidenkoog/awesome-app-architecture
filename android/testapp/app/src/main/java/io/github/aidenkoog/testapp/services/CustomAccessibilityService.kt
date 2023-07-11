@@ -10,19 +10,25 @@ import android.content.Context
 import android.content.Intent
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup.LayoutParams
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import com.orhanobut.logger.Logger
 import io.github.aidenkoog.testapp.R
 import io.github.aidenkoog.testapp.presentation.intro.IntroActivity
 import io.github.aidenkoog.testapp.services.child_style.ChildViewStyle
 import io.github.aidenkoog.testapp.services.event_type.AccessibilityEventType
 import io.github.aidenkoog.testapp.services.screen_comparison.ScreenTitle
+import io.github.aidenkoog.testapp.utils.LottieUtil
 import io.github.aidenkoog.testapp.utils.PermissionUtils.checkAccessibilityPermission
 import io.github.aidenkoog.testapp.utils.PermissionUtils.checkOverlayPermission
 import io.github.aidenkoog.testapp.utils.PermissionUtils.moveToAccessibilitySettings
@@ -55,6 +61,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
         const val OVERLAY_OFF = 200
         const val OVERLAY_SCREEN_TITLE = 300
         const val OVERLAY_INPUT_TEXT = 400
+        const val OVERLAY_LOTTIE = 500
     }
 
     private lateinit var windowManager: WindowManager
@@ -64,6 +71,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
     private var editTextNodeList = ArrayList<AccessibilityNodeInfo>()
 
     // overlay views for display.
+    private var lottieView: LottieAnimationView? = null
     private var overlayTitleButton: Button? = null
     private var screenTitleOverlayButton: Button? = null
     private var userInputOverlayButton: Button? = null
@@ -301,12 +309,24 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
     }
 
     private fun makeOverlayViews() {
+
+        lottieView = LottieAnimationView(this)
+        lottieView?.let {
+            it.layoutParams = LayoutParams(450, 150)
+            it.id = OVERLAY_LOTTIE
+            it.setOnTouchListener(this@CustomAccessibilityService)
+            LottieUtil.setScaleType(it, ImageView.ScaleType.CENTER_CROP)
+            LottieUtil.setLottieRawResource(it, R.raw.progress_lottie)
+            LottieUtil.setLottieRepeatCount(it, LottieDrawable.INFINITE)
+            LottieUtil.playLottie(it)
+        }
+
         overlayTitleButton = makeOverlayViewItem(
             context = this,
             itemId = Integer.parseInt(resources.getString(R.string.overlay_view_default_id)),
             touchListener = this@CustomAccessibilityService,
             itemText = resources.getString(R.string.overlay_view_title),
-            itemTextSize = 20f,
+            itemTextSize = 16f,
             itemBgColor = 0x55ff5599
         )
 
@@ -317,7 +337,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
             itemText = String.format(
                 resources.getString(R.string.overlay_view_screen_title), settingsScreenTitle
             ),
-            itemTextSize = 15f,
+            itemTextSize = 13f,
             itemBgColor = 0x55ffff00
         )
 
@@ -328,7 +348,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
             itemText = String.format(
                 resources.getString(R.string.overlay_view_input_text), settingsInputEditText
             ),
-            itemTextSize = 15f,
+            itemTextSize = 13f,
             itemBgColor = 0x55ff1133
         )
 
@@ -337,7 +357,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
             itemId = Integer.parseInt(resources.getString(R.string.overlay_view_show_guide_toast_view_id)),
             touchListener = this@CustomAccessibilityService,
             itemText = resources.getString(R.string.overlay_view_show_guide_toast_msg),
-            itemTextSize = 15f,
+            itemTextSize = 13f,
             itemBgColor = 0x55ffffdd
         )
 
@@ -346,12 +366,13 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
             itemId = Integer.parseInt(resources.getString(R.string.overlay_view_off_view_id)),
             touchListener = this@CustomAccessibilityService,
             itemText = resources.getString(R.string.overlay_view_off_title),
-            itemTextSize = 15f,
+            itemTextSize = 13f,
             itemBgColor = 0x55dd99dd
         )
 
         overlayParentView = makeOverlayViewParent(
             context = this, items = arrayOf(
+                lottieView ?: LottieAnimationView(this),
                 overlayTitleButton ?: Button(this),
                 screenTitleOverlayButton ?: Button(this),
                 userInputOverlayButton ?: Button(this),
@@ -401,6 +422,11 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
 
                     OVERLAY_INPUT_TEXT -> {
                         makeToast(this, "Input: $settingsInputEditText", Toast.LENGTH_SHORT).show()
+                        onTouchActionDownEvent(event)
+                    }
+
+                    OVERLAY_LOTTIE -> {
+                        makeToast(this, "Lottie Animation", Toast.LENGTH_SHORT).show()
                         onTouchActionDownEvent(event)
                     }
 
