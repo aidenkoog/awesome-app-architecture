@@ -33,6 +33,8 @@
   input detection.
 - 2023/07/11 : Did refactoring source code (Mainly focused on separating ui and function code and
   made modularized UI code)
+- 2023/07/11 : Add toast warning message when moving to settings app for permission setting and
+  fixed crash issue happened when overlay permission is turned off.
 
 #### Link
 

@@ -2,6 +2,7 @@ package io.github.aidenkoog.testapp.utils
 
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
+import android.app.Service
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent

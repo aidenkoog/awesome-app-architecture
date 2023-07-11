@@ -23,8 +23,10 @@ import io.github.aidenkoog.testapp.presentation.intro.IntroActivity
 import io.github.aidenkoog.testapp.services.child_style.ChildViewStyle
 import io.github.aidenkoog.testapp.services.event_type.AccessibilityEventType
 import io.github.aidenkoog.testapp.services.screen_comparison.ScreenTitle
-import io.github.aidenkoog.testapp.utils.DialogUtils
-import io.github.aidenkoog.testapp.utils.PermissionUtils
+import io.github.aidenkoog.testapp.utils.PermissionUtils.checkAccessibilityPermission
+import io.github.aidenkoog.testapp.utils.PermissionUtils.checkOverlayPermission
+import io.github.aidenkoog.testapp.utils.PermissionUtils.moveToAccessibilitySettings
+import io.github.aidenkoog.testapp.utils.PermissionUtils.moveToOverlaySettings
 import io.github.aidenkoog.testapp.utils.ToastUtils.makeToast
 import io.github.aidenkoog.testapp.utils.ViewNodeUtils.getDefaultLayoutParams
 import io.github.aidenkoog.testapp.utils.ViewNodeUtils.getParentLayoutParams
@@ -48,6 +50,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
         const val NOTIFY_PENDING_INTENT_REQUEST_CODE = 0
         const val EVENT_DEBOUNCE_DELAY = 500L
 
+        // overlay view item id.
         const val OVERLAY_GUIDE_TOAST = 100
         const val OVERLAY_OFF = 200
         const val OVERLAY_SCREEN_TITLE = 300
@@ -196,22 +199,16 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
     override fun onAccessibilityEvent(accessibilityEvent: AccessibilityEvent) {
 
         /* Accessibility permission. */
-        if (!PermissionUtils.checkAccessibilityPermission(context = this)) {
-            showPermissionDialog(
-                title = resources.getString(R.string.accessibility_popup_title),
-                message = resources.getString(R.string.accessibility_popup_desc),
-                btnText = resources.getString(R.string.accessibility_popup_btn_text)
-            )
+        if (!checkAccessibilityPermission(context = this)) {
+            showPermissionWarningToast()
+            moveToAccessibilitySettings(context = this)
             return
         }
 
         /* Overlay view on other apps permission. */
-        if (!PermissionUtils.checkOverlayPermission(context = this)) {
-            showPermissionDialog(
-                title = resources.getString(R.string.overlay_popup_title),
-                message = resources.getString(R.string.overlay_popup_desc),
-                btnText = resources.getString(R.string.overlay_popup_btn_text)
-            )
+        if (!checkOverlayPermission(context = this)) {
+            showPermissionWarningToast()
+            moveToOverlaySettings(context = this)
             return
         }
 
@@ -220,6 +217,7 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
 
         Logger.d("eventType: $eventType, className: $className")
 
+        /* Accessibility events. */
         when (eventType) {
             AccessibilityEventType.WINDOW_STATE_CHANGED.eventType -> {
                 Logger.i("isOnSettingsApp: ${isOnSettingsApp(className = className)}")
@@ -237,14 +235,11 @@ class CustomAccessibilityService : AccessibilityService(), View.OnTouchListener 
         }
     }
 
-    private fun showPermissionDialog(title: String, message: String, btnText: String) {
-        DialogUtils.makeAlert(context = this)
-            .setTitle(title)
-            .setMessage(message)
-            .setNegativeButton(
-                btnText
-            ) { _, _ -> PermissionUtils.moveToAccessibilitySettings(this) }.show()
-    }
+    private fun showPermissionWarningToast() = makeToast(
+        context = this,
+        resources.getString(R.string.toast_warning_overlay),
+        Toast.LENGTH_SHORT
+    ).show()
 
     private fun onWindowContentChanged() {
         loadFirstInputText()

@@ -15,6 +15,9 @@
     <string name="overlay_popup_title">Overlay Drawing</string>
     <string name="overlay_popup_btn_text">OK</string>
 
+    <!-- Permission Toast Warning Message -->
+    <string name="toast_warning_overlay">Overlay permission NOT granted !!! Move to Settings</string>
+
     <!-- Notification related information for executing foreground service. -->
     <string name="notification_content_title">TestApp</string>
     <string name="notification_channel_id">TestApp</string>
