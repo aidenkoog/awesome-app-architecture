@@ -20,14 +20,24 @@ android {
          * 3) hotfix
          * -----------------------------------------------------------------------------------------
          */
-        versionCode 106
-        versionName "1.0.6"
+        versionCode 108
+        versionName "1.0.8"
     }
 
     buildTypes {
         release {
+            applicationIdSuffix ""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [appLabel: "Cooper-Test-App"]
+        }
+        debug {
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appLabel: "Cooper-Test-App-DEV"]
+        }
+        stage {
+            applicationIdSuffix ".stage"
+            manifestPlaceholders = [appLabel: "Cooper-Test-App-STAGE"]
         }
     }
     compileOptions {

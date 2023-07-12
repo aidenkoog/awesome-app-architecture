@@ -1,6 +1,6 @@
 <resources>
     <!-- Application's name -->
-    <string name="app_name">TestApp</string>
+    <string name="app_name">Cooper-Test-App</string>
 
     <!-- This message is going to be shown in accessibility setting screen for the guide. -->
     <string name="accessibility_desc">Enabling accessibility permission is required to detect screen layout configuration and catch user input.</string>
@@ -16,7 +16,7 @@
     <string name="overlay_popup_btn_text">OK</string>
 
     <!-- Permission Toast Warning Message -->
-    <string name="toast_warning_overlay">Overlay permission NOT granted !!! Move to Settings</string>
+    <string name="toast_warning_overlay">Please move to Settings App for the permission activation.</string>
 
     <!-- Notification related information for executing foreground service. -->
     <string name="notification_content_title">TestApp</string>
@@ -31,6 +31,7 @@
     <string name="overlay_view_off_title">OFF\n(Click here!)\nMove the screen if you want to show the overlay view again!</string>
     <string name="overlay_view_input_text">Input Text: %s</string>
     <string name="overlay_view_show_guide_toast_msg">Guide Toast Message\n(Click here!)</string>
+    <string name="overlay_view_legacy_on_msg">Show Legacy OverlayView\n(Click here!)</string>
     <string name="overlay_view_default_id">0</string>
     <string name="overlay_view_show_guide_toast_view_id">100</string>
     <string name="overlay_view_off_view_id">200</string>

@@ -39,6 +39,7 @@
 - 2023/07/11 : Added lottie animation view / Added build gradle code that can generate apk name
   automatically.
 - 2023/07/11 : Added an additional filter content.
+- 2023/07/12 : Did refactoring / Added app icon / separated app and app package name.
 
 #### Link
 
