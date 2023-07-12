@@ -10,7 +10,6 @@ class CustomApplication : Application() {
 
     companion object {
         private const val TAG: String = "AidenKooG"
-        private var isBackground = false
     }
 
     override fun onCreate() {
@@ -25,9 +24,5 @@ class CustomApplication : Application() {
                 return true
             }
         })
-    }
-
-    override fun onTerminate() {
-        super.onTerminate()
     }
 }

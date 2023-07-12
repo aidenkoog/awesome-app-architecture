@@ -29,15 +29,15 @@ android {
             applicationIdSuffix ""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            manifestPlaceholders = [appLabel: "Cooper-Test-App"]
+            manifestPlaceholders = [appLabel: "AidenKooG-Test-App"]
         }
         debug {
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [appLabel: "Cooper-Test-App-DEV"]
+            manifestPlaceholders = [appLabel: "AidenKooG-Test-App-DEV"]
         }
         stage {
             applicationIdSuffix ".stage"
-            manifestPlaceholders = [appLabel: "Cooper-Test-App-STAGE"]
+            manifestPlaceholders = [appLabel: "AidenKooG-Test-App-STAGE"]
         }
     }
     compileOptions {
@@ -55,7 +55,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def project = "CooperTestApp"
+            def project = "AidenKooGTestApp"
             def SEP = "_"
             def buildType = variant.buildType.name
             def versionName = variant.versionName

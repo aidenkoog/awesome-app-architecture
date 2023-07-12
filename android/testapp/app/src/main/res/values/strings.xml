@@ -1,6 +1,6 @@
 <resources>
     <!-- Application's name -->
-    <string name="app_name">Cooper-Test-App</string>
+    <string name="app_name">AidenKooG-Test-App</string>
 
     <!-- This message is going to be shown in accessibility setting screen for the guide. -->
     <string name="accessibility_desc">Enabling accessibility permission is required to detect screen layout configuration and catch user input.</string>
