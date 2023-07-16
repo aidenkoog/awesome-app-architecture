@@ -41,6 +41,7 @@
 - 2023/07/11 : Added an additional filter content.
 - 2023/07/12 : Did refactoring / Added app icon / separated app and app package name.
 - 2023/07/13 : Added notification bar control utility class.
+- 2023/07/16 : Added thread synchronizing practice code related to fcm service in testapp.
 
 #### Link
 
