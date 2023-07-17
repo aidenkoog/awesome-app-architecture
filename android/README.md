@@ -3,6 +3,7 @@
 - Wear OS Launcher : https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
 - Userlist App : https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
 - Test App : https://github.com/aidenkoog/app-architecture/tree/master/android/testapp
+- Image Viewer App : https://github.com/aidenkoog/app-architecture/tree/master/android/image_viewer
 
 #### Link
 
