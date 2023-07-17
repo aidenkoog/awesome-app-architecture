@@ -27,8 +27,9 @@ A collection of templates to discuss and showcase different architectural tools 
 
 - **Android**
 
-  - Project (Wear OS, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
-  - Project (Mobile, Kotlin): https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
+  - Project (Wear OS, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
+  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
+  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/testapp
 
 - **Flutter**
 
