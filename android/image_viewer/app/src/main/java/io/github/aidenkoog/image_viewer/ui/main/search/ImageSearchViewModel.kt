@@ -12,34 +12,48 @@ import io.github.aidenkoog.image_viewer.model.Item
 class ImageSearchViewModel : ViewModel() {
 
     private val repository = NaverImageSearchRepository()
+
+    // shared flow is kind of flow based on hot stream.
+    // there's no any value. replayCache exists.
     private val queryFlow = MutableSharedFlow<String>()
 
     private val favorites = mutableSetOf<Item>()
+
+    // asSharedFlow() is used because _favoritesFlow is created with SharedFlow.
     private val _favoritesFlow = MutableSharedFlow<List<Item>>(replay = 1)
+    val favoritesFlow = _favoritesFlow.asSharedFlow()
 
     val pagingDataFlow = queryFlow
+        // cancel previous job if there's new job that comes in.
         .flatMapLatest {
+            // call api.
             searchImages(it)
         }
-        .cachedIn(viewModelScope)
+        // cachedIn operator makes the data stream shareable
+        // and caches the loaded data with the provided CoroutineScope.
 
-    val favoritesFlow = _favoritesFlow.asSharedFlow()
+        // return Flow<PagingData<T>>
+        .cachedIn(viewModelScope) // viewModelScope provided by the lifecycle (lifecycle-viewmodel-ktx) artifact.
 
     private fun searchImages(query: String): Flow<PagingData<Item>> =
         repository.getImageSearch(query)
 
+    // start to search the keyword related to photo.
     fun handleQuery(query: String) {
         viewModelScope.launch {
             queryFlow.emit(query)
         }
     }
 
+    // favorite toggle function.
+    // there are favorite items in favorites, MutableSet.
     fun toggle(item: Item) {
         if (favorites.contains(item)) {
             favorites.remove(item)
         } else {
             favorites.add(item)
         }
+        // launch must be used to emit flow items.
         viewModelScope.launch {
             _favoritesFlow.emit(favorites.toList())
         }

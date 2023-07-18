@@ -14,13 +14,16 @@ import io.github.aidenkoog.image_viewer.ui.main.search.ImageSearchViewModel
 
 class FavouritesFragment : Fragment() {
 
+    // ImageSearchViewModel is used in both FavoriteFragment and ImageSearchFragment.
     private lateinit var imageSearchViewModel: ImageSearchViewModel
 
-    val adapter = FavouritesAdapter()
+    private val adapter = FavouritesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageSearchViewModel = ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
+        // view model.
+        imageSearchViewModel =
+            ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -29,18 +32,17 @@ class FavouritesFragment : Fragment() {
     ): View {
         val binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         val root = binding.root
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
 
+        // only when fragment ui is resumed.
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            // it's similar to observe function to livedata.
             imageSearchViewModel.favoritesFlow.collectLatest {
                 adapter.setItems(it)
             }
         }
-
         return root
-    }
-
-    companion object {
     }
 }

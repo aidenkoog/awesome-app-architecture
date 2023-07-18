@@ -18,34 +18,25 @@ class NaverImageSearchRepository {
         val logger = HttpLoggingInterceptor()
         logger.level = HttpLoggingInterceptor.Level.BASIC
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("X-Naver-Client-Id", "cjsB1l28Vh7tgocuhPuS")
-                    .addHeader("X-Naver-Client-Secret", "MHNlSOdBJu")
-                    .build()
-                chain.proceed(request)
-            }
-            .addInterceptor(logger)
-            .build()
+        val client = OkHttpClient.Builder().addInterceptor { chain ->
+            val request =
+                chain.request().newBuilder().addHeader("X-Naver-Client-Id", "cjsB1l28Vh7tgocuhPuS")
+                    .addHeader("X-Naver-Client-Secret", "MHNlSOdBJu").build()
+            chain.proceed(request)
+        }.addInterceptor(logger).build()
 
-        service = Retrofit.Builder()
-            .baseUrl("https://openapi.naver.com")
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        service = Retrofit.Builder().baseUrl("https://openapi.naver.com").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
             .create(NaverImageSearchService::class.java)
     }
 
+    // the pager object calls the load() method from the PagingSource object,
+    // providing it with the LoadParams object and receiving the LoadResult object in return.
     fun getImageSearch(query: String): Flow<PagingData<Item>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = NaverImageSearchDataSource.defaultDisplay,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = {
-                NaverImageSearchDataSource(query, service)
-            }
-        ).flow
+        return Pager(config = PagingConfig(
+            pageSize = NaverImageSearchDataSource.defaultDisplay, enablePlaceholders = false
+        ), pagingSourceFactory = {
+            NaverImageSearchDataSource(query, service)
+        }).flow  // flow variable in Pager.
     }
 }
