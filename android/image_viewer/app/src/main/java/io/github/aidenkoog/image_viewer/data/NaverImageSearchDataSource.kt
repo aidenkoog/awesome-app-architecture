@@ -21,8 +21,9 @@ class NaverImageSearchDataSource(
         }
     }
 
-    // LoadParams
-    // LoadResult
+    // Paging library concept, load's concept.
+    // LoadParams.
+    // LoadResult.
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
         val start = params.key ?: defaultStart
 

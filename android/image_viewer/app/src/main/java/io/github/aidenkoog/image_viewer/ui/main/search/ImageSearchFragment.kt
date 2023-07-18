@@ -47,7 +47,7 @@ class ImageSearchFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
 
-        // when user clicks search button.
+        // this is invoked when user clicks search button.
         binding.search.setOnClickListener {
             val query = binding.editText.text.trim().toString()
             imageSearchViewModel.handleQuery(query)

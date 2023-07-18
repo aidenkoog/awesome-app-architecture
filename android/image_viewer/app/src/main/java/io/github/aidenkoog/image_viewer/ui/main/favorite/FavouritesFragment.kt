@@ -27,8 +27,7 @@ class FavouritesFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         val root = binding.root
@@ -37,6 +36,7 @@ class FavouritesFragment : Fragment() {
         binding.recyclerView.layoutManager = GridLayoutManager(context, 3)
 
         // only when fragment ui is resumed.
+        // load favorite item data when favorite page is loaded first.
         viewLifecycleOwner.lifecycleScope.launchWhenResumed {
             // it's similar to observe function to livedata.
             imageSearchViewModel.favoritesFlow.collectLatest {

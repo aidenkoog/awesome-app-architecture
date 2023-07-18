@@ -12,6 +12,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class NaverImageSearchRepository {
+
+    // the client id and secret key needed when getting photo data from naver cloud.
+    companion object {
+        const val CLIENT_ID = "cjsB1l28Vh7tgocuhPuS"
+        const val CLIENT_SECRET_KEY = "MHNlSOdBJu"
+    }
+
     private val service: NaverImageSearchService
 
     init {
@@ -19,9 +26,11 @@ class NaverImageSearchRepository {
         logger.level = HttpLoggingInterceptor.Level.BASIC
 
         val client = OkHttpClient.Builder().addInterceptor { chain ->
+            // setup header information for calling photo related api provided from naver company.
             val request =
-                chain.request().newBuilder().addHeader("X-Naver-Client-Id", "cjsB1l28Vh7tgocuhPuS")
-                    .addHeader("X-Naver-Client-Secret", "MHNlSOdBJu").build()
+                chain.request().newBuilder()
+                    .addHeader("X-Naver-Client-Id", CLIENT_ID)
+                    .addHeader("X-Naver-Client-Secret", CLIENT_SECRET_KEY).build()
             chain.proceed(request)
         }.addInterceptor(logger).build()
 

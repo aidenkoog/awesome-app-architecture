@@ -7,5 +7,6 @@ data class ImageSearchResponse(
     val total: Int,
     val start: Int,
     val display: Int,
+    // photo data.
     val items: List<Item>
 )
