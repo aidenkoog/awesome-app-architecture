@@ -16,10 +16,13 @@ class ImageSearchViewHolder(
     fun bind(item: Item?) {
         item?.let { item ->
             Glide.with(binding.root)
+                // load thumbnail data of item.
                 .load(item.thumbnail)
                 .centerCrop()
+                // imageview.
                 .into(binding.imageView)
             binding.imageView.setOnClickListener {
+                // invoke method.
                 like.invoke(item)
             }
         }
@@ -30,6 +33,7 @@ class ImageSearchViewHolder(
             like: (Item) -> Unit,
             parent: ViewGroup
         ): ImageSearchViewHolder {
+            // inflate image_search_item layout.
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.image_search_item, parent, false)
             val binding = ImageSearchItemBinding.bind(view)
