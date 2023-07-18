@@ -20,9 +20,11 @@ class ImageSearchViewModel : ViewModel() {
     private val favorites = mutableSetOf<Item>()
 
     // asSharedFlow() is used because _favoritesFlow is created with SharedFlow.
+    // asSharedFlow is for capsulate flow related variable.
     private val _favoritesFlow = MutableSharedFlow<List<Item>>(replay = 1)
     val favoritesFlow = _favoritesFlow.asSharedFlow()
 
+    // Flow<PagingData<T>> typed variable.
     val pagingDataFlow = queryFlow
         // cancel previous job if there's new job that comes in.
         .flatMapLatest {
@@ -35,11 +37,14 @@ class ImageSearchViewModel : ViewModel() {
         // return Flow<PagingData<T>>
         .cachedIn(viewModelScope) // viewModelScope provided by the lifecycle (lifecycle-viewmodel-ktx) artifact.
 
+    // call api for getting images corresponding to keyword user input.
     private fun searchImages(query: String): Flow<PagingData<Item>> =
         repository.getImageSearch(query)
 
     // start to search the keyword related to photo.
     fun handleQuery(query: String) {
+        // coroutine builder, launch is mandantory for using flow's emit.
+        // refs. tryEmit() is able to be called without using coroutine block.
         viewModelScope.launch {
             queryFlow.emit(query)
         }
