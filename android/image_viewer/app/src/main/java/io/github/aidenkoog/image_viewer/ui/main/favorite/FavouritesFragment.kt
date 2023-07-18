@@ -1,4 +1,4 @@
-package io.github.aidenkoog.image_viewer.ui.main
+package io.github.aidenkoog.image_viewer.ui.main.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import io.github.aidenkoog.image_viewer.databinding.FragmentFavouritesBinding
+import io.github.aidenkoog.image_viewer.ui.main.search.ImageSearchViewModel
 
 class FavouritesFragment : Fragment() {
 

@@ -1,9 +1,10 @@
-package io.github.aidenkoog.image_viewer.ui.main
+package io.github.aidenkoog.image_viewer.ui.main.search
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import io.github.aidenkoog.image_viewer.model.Item
+import io.github.aidenkoog.image_viewer.ui.main.view_holder.ImageSearchViewHolder
 
 class ImageSearchAdapter(
     private val like: (Item) -> Unit

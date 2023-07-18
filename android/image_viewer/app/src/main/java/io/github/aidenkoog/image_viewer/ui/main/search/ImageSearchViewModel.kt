@@ -1,4 +1,4 @@
-package io.github.aidenkoog.image_viewer.ui.main
+package io.github.aidenkoog.image_viewer.ui.main.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,8 +10,10 @@ import io.github.aidenkoog.image_viewer.data.NaverImageSearchRepository
 import io.github.aidenkoog.image_viewer.model.Item
 
 class ImageSearchViewModel : ViewModel() {
+
     private val repository = NaverImageSearchRepository()
     private val queryFlow = MutableSharedFlow<String>()
+
     private val favorites = mutableSetOf<Item>()
     private val _favoritesFlow = MutableSharedFlow<List<Item>>(replay = 1)
 

@@ -2,17 +2,10 @@ package io.github.aidenkoog.image_viewer
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.launch
 import io.github.aidenkoog.image_viewer.databinding.ActivityMainBinding
-import io.github.aidenkoog.image_viewer.model.Item
-import io.github.aidenkoog.image_viewer.ui.main.SectionsPagerAdapter
+import io.github.aidenkoog.image_viewer.ui.main.pager.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,15 +17,18 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // view pager adapter about main and favorite screen.
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = binding.viewPager
+
         viewPager.adapter = sectionsPagerAdapter
-        val tabs: TabLayout = binding.tabs
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
+
+        // setup tab layout
+        TabLayoutMediator(binding.tabs, viewPager) { tab, position ->
             tab.text = if (position == 0) {
-                "이미지 검색"
+                resources.getString(R.string.home_image_search_tab_text)
             } else {
-                "즐겨찾기"
+                resources.getString(R.string.home_favorite_tab_text)
             }
         }.attach()
     }

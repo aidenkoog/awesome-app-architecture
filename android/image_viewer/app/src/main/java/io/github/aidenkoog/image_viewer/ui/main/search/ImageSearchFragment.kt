@@ -1,4 +1,4 @@
-package io.github.aidenkoog.image_viewer.ui.main
+package io.github.aidenkoog.image_viewer.ui.main.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import io.github.aidenkoog.image_viewer.MainActivity
 import io.github.aidenkoog.image_viewer.databinding.FragmentMainBinding
 
 class ImageSearchFragment : Fragment() {
@@ -22,7 +21,8 @@ class ImageSearchFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageSearchViewModel = ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
+        imageSearchViewModel =
+            ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
     }
 
     override fun onCreateView(

@@ -1,10 +1,9 @@
-package io.github.aidenkoog.image_viewer.ui.main
+package io.github.aidenkoog.image_viewer.ui.main.view_holder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import io.github.aidenkoog.image_viewer.R
 import io.github.aidenkoog.image_viewer.databinding.ImageSearchItemBinding
 import io.github.aidenkoog.image_viewer.model.Item
