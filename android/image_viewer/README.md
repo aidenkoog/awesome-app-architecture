@@ -6,6 +6,11 @@
       <img src="screenshots/home.png" alt="accessibility text">
   </p>
 
+#### Release Note
+
+- 2023/07/17: Initialized coroutine flow android project source code.
+- 2023/07/18: Separated ui folder hierarchy and deleted hardcoded string resources in MainActivity.
+
 #### API 세팅
 
 [네이버 이미지 API](https://developers.naver.com/docs/search/image/)를 사용합니다.
@@ -24,26 +29,26 @@ curl "https://openapi.naver.com/v1/search/image?query=%EC%A3%BC%EC%8B%9D&display
 
 ```json
 {
-    "lastBuildDate": "Mon, 14 Feb 2022 05:01:40 +0900",
-    "total": 3815005,
-    "start": 1,
-    "display": 10,
-    "items": [
-        {
-            "title": "돌아온 채권-주식 상관관계…연말 수급장 영향",
-            "link": "http://imgnews.naver.net/image/5227/2021/12/21/0000462901_001_20211221121803151.jpg",
-            "thumbnail": "https://search.pstatic.net/common/?src=http://imgnews.naver.net/image/5227/2021/12/21/0000462901_001_20211221121803151.jpg&type=b150",
-            "sizeheight": "313",
-            "sizewidth": "500"
-        },
-        {
-            "title": "[주식투자KR] KOSDAQ 예상 지수2021.12.11(토) — Steemit",
-            "link": "https://i.imgur.com/FEadgZe.png",
-            "thumbnail": "https://search.pstatic.net/sunny/?src=https://i.imgur.com/FEadgZe.png&type=b150",
-            "sizeheight": "750",
-            "sizewidth": "1500"
-        }
-    ]
+  "lastBuildDate": "Mon, 14 Feb 2022 05:01:40 +0900",
+  "total": 3815005,
+  "start": 1,
+  "display": 10,
+  "items": [
+    {
+      "title": "돌아온 채권-주식 상관관계…연말 수급장 영향",
+      "link": "http://imgnews.naver.net/image/5227/2021/12/21/0000462901_001_20211221121803151.jpg",
+      "thumbnail": "https://search.pstatic.net/common/?src=http://imgnews.naver.net/image/5227/2021/12/21/0000462901_001_20211221121803151.jpg&type=b150",
+      "sizeheight": "313",
+      "sizewidth": "500"
+    },
+    {
+      "title": "[주식투자KR] KOSDAQ 예상 지수2021.12.11(토) — Steemit",
+      "link": "https://i.imgur.com/FEadgZe.png",
+      "thumbnail": "https://search.pstatic.net/sunny/?src=https://i.imgur.com/FEadgZe.png&type=b150",
+      "sizeheight": "750",
+      "sizewidth": "1500"
+    }
+  ]
 }
 ```
 
@@ -124,7 +129,8 @@ binding.search.setOnClickListener {
 
 ### 뷰 홀더 구현
 
-이제 `ui/main/ViewHolder.kt`의 `ImageSearchViewHolder`의 `bind` 메서드를 구현해봅시다. (파일 이름은 일관성 없게 명명되었는데 여기에서는 넘어갈게요.)
+이제 `ui/main/ViewHolder.kt`의 `ImageSearchViewHolder`의 `bind` 메서드를 구현해봅시다. (파일 이름은 일관성 없게 명명되었는데 여기에서는
+넘어갈게요.)
 
 ```kotlin
 fun bind(item: Item?) {
@@ -161,10 +167,12 @@ companion object {
 }
 ```
 
-`areItemsTheSame`이 먼저 호출되고 그 다음으로 `areContentsTheSame`가 호출되기 때문에 `areItemsTheSame`이 항상 좀더 좁은 범위에서 체크를 해야합니다.
+`areItemsTheSame`이 먼저 호출되고 그 다음으로 `areContentsTheSame`가 호출되기 때문에 `areItemsTheSame`이 항상 좀더 좁은 범위에서
+체크를 해야합니다.
 
-일반적으로는 유니크한 키등을 
-`areItemsTheSame`에서 체크하는데 여기에서는 마땅한 것이 없기 때문에 썸네일 주소로 체크하겠습니다. `areContentsTheSame`은 내용이 바뀐 것이 없나 체크하는데 그냥 `==`으로 비교하면 값을 전부 비교합니다.
+일반적으로는 유니크한 키등을
+`areItemsTheSame`에서 체크하는데 여기에서는 마땅한 것이 없기 때문에 썸네일 주소로 체크하겠습니다. `areContentsTheSame`은 내용이 바뀐 것이 없나
+체크하는데 그냥 `==`으로 비교하면 값을 전부 비교합니다.
 
 ### 섹션 페이저 어댑터 구현
 
@@ -182,8 +190,7 @@ class SectionsPagerAdapter(private val fragmentActivity: FragmentActivity) :
 
 일단 `ImageSearchFragment`만 사용하게 두었습니다.
 
-생성은 `createFragment`에서 직접 하는 것을 추천합니다. 프레임워크가 필요에 따라 생성하고 관리하게 하는 것이 많은 경우에 적절합니다. 
-
+생성은 `createFragment`에서 직접 하는 것을 추천합니다. 프레임워크가 필요에 따라 생성하고 관리하게 하는 것이 많은 경우에 적절합니다.
 
 ### ImageSearchFragment의 어댑터 연동과 리사이클러 뷰 세팅
 
@@ -243,15 +250,11 @@ TabLayoutMediator(tabs, viewPager) { tab, position ->
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.FavouritesFragment">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".ui.main.FavouritesFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView"
+        android:layout_width="match_parent" android:layout_height="match_parent" />
 
 </FrameLayout>
 ```
@@ -276,7 +279,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.aidenkoog.image_viewer.model.Item
 
 class FavouritesAdapter : RecyclerView.Adapter<ImageSearchViewHolder>() {
-    private var items : List<Item> = listOf()
+    private var items: List<Item> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageSearchViewHolder {
         return ImageSearchViewHolder.create({}, parent)
@@ -322,7 +325,8 @@ class FavouritesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        imageSearchViewModel = ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
+        imageSearchViewModel =
+            ViewModelProvider(requireActivity())[ImageSearchViewModel::class.java]
     }
 
     override fun onCreateView(
