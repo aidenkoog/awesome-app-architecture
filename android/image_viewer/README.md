@@ -10,6 +10,7 @@
 
 - 2023/07/17: Initialized coroutine flow android project source code.
 - 2023/07/18: Separated ui folder hierarchy and deleted hardcoded string resources in MainActivity.
+- 2023/07/18: Added comment code for source code comprehension.
 
 #### API 세팅
 
