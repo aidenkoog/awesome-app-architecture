@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    namespace 'io.github.aidenkoog.news_app'
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        applicationId "io.github.aidenkoog.news_app"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+//        buildConfigField "String", "NEWS_API_KEY", NEWS_API_KEY
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildFeatures {
+        buildConfig true
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // Core
+    implementation deps.core_ktx
+    implementation deps.lifecycle_runtime_ktx
+    implementation deps.lifecycle_runtime_compose
+
+    // Coil
+    implementation deps.coil
+
+    // Compose
+    implementation deps.compose.activity_compose
+    implementation platform(deps.compose.bom)
+    implementation deps.compose.material3
+    implementation deps.compose.ui
+    implementation deps.compose.ui_graphics
+    implementation 'com.google.android.material:material:1.9.0'
+    debugImplementation deps.compose.ui_tooling
+    implementation deps.compose.ui_tooling_preview
+    debugImplementation deps.compose.ui_test_manifest
+
+    // Hilt
+    implementation deps.hilt.android
+    kapt deps.hilt.dagger_compiler
+    kapt deps.hilt.androidx_compiler
+    implementation deps.hilt.navigation_compose
+
+    // Navigation
+    implementation deps.navigation_compose
+
+    // Retrofit
+    implementation deps.retrofit.main
+    implementation deps.retrofit.gson_converter
+    implementation deps.retrofit.mock
+
+    // Room
+    implementation deps.room.ktx
+    kapt deps.room.compiler
+
+    // Testing
+    testImplementation deps.junit.main
+    testImplementation deps.coroutines_test
+    testImplementation deps.mockk
+    testImplementation deps.truth
+    testImplementation deps.turbine
+    androidTestImplementation platform(deps.compose.bom)
+    androidTestImplementation deps.junit.androidx_test_ext
+    androidTestImplementation deps.junit.compose_ui_test_junit4
+}

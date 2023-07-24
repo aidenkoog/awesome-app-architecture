@@ -28,6 +28,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "AidenAndroidTemplateApp"
+rootProject.name = "UntitledTemplateApp"
 
 include(":app")
