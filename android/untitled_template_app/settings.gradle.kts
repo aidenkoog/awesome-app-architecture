@@ -28,6 +28,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "UntitledTemplateApp"
+rootProject.name = "untitled_template_app"
 
 include(":app")
