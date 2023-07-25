@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Expense Management App</string>
+    <string name="retry">Retry</string>
+    <string name="currency_dollar">$</string>
+    <string name="merchant">Merchant</string>
+    <string name="date">Date</string>
+    <string name="category">Category</string>
+    <string name="total">Total</string>
+    <string name="expense_details">Expense Details</string>
+</resources>
