@@ -31,6 +31,10 @@ A collection of templates to discuss and showcase different architectural tools 
   - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
   - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/testapp
   - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/image_viewer
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/expense_management
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/news_app
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/note_app_example
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/untitled_template_app
 
 - **Flutter**
 

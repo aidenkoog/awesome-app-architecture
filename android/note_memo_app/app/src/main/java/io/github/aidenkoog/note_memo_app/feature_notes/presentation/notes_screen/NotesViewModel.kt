@@ -24,8 +24,6 @@ class NotesViewModel @Inject constructor(
     val state: State<NotesState> = _state
 
     private var lastDeletedNote: Note? = null
-
-    //
     private var getNotesJob : Job? = null
 
     init {

@@ -55,6 +55,7 @@ class NewsRepositoryImpl @Inject constructor(
                     timestamp = timestamp
                 )
             }
+            // save to db.
             .also {
                 newsDao.saveNews(it)
             }

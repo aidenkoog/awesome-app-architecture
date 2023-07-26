@@ -5,21 +5,6 @@ import androidx.compose.ui.graphics.Color
 val DarkGray = Color(0xFF202020)
 val LightGreen = Color(0xFFB7EECE)
 
-
-//    val RedOrange = Color(0xffffab91)
-//    val RedPink = Color(0xfff48fb1)
-//    val BabyBlue = Color(0xff81deea)
-//    val Violet = Color(0xffcf94da)
-//    val LightGreen = Color(0xffe7ed9b)
-
-//From coolors.co
-//    val ImperialRed = Color(0xffF21E36)
-//    val Verdigris = Color(0xff7EBDC2)
-//    val GoldMetallic = Color(0xFFFFE025)
-//    val DarkPastelGreen = Color(0xff0CCA4A)
-//    val LightOrange = Color(0xffF9DBBD)
-
-
 //Light
 val md_theme_light_primary = Color(0xFF70DBA7)
 val md_theme_light_onPrimary = Color(0xFF003823)
@@ -85,12 +70,6 @@ val md_theme_dark_outlineVariant = Color(0xFF404943)
 val md_theme_dark_scrim = Color(0xFF000000)
 
 val seed = Color(0xFFB7EECE)
-//Old colors
-//val ImperialRed = Color(0xFFF21E36)
-//val Verdigris = Color(0xFF50DBCF)
-//val GoldMetallic = Color(0xFFFFE025)
-//val DarkPastelGreen = Color(0xFF3AE185)
-//val LightOrange = Color(0xFFFFB964)
 
 val ImperialRed = Color(0xFFF21E36)
 val Verdigris = Color(0xFF5DDBBC)
