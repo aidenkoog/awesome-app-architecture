@@ -16,4 +16,121 @@
     <style name="Widget.WatchFace.Button" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">@color/color_primary_button</item>
     </style>
+
+    <!-- Custom Style Example. -->
+    <!-- Heading -->
+    <style name="Heading" parent="@android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">@dimen/heading_line_spacing_extra</item>
+    </style>
+
+    <style name="Heading.One">
+        <item name="android:textSize">@dimen/heading_one_text_size</item>
+    </style>
+
+    <style name="Heading.One.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading.One.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Heading.Two">
+        <item name="android:textSize">@dimen/heading_two_text_size</item>
+    </style>
+
+    <style name="Heading.Two.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading.Two.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Title -->
+    <style name="Title" parent="@android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">@dimen/title_one_line_spacing_extra</item>
+    </style>
+
+    <style name="Title.One">
+        <item name="android:textSize">@dimen/title_one_text_size</item>
+    </style>
+
+    <style name="Title.One.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Title.One.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Title.Two">
+        <item name="android:textSize">@dimen/title_two_text_size</item>
+    </style>
+
+    <style name="Title.Two.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Title.Two.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Body -->
+    <style name="Body" parent="@android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">@dimen/body_one_line_spacing_extra</item>
+    </style>
+
+    <style name="Body.One">
+        <item name="android:textSize">@dimen/body_one_text_size</item>
+    </style>
+
+    <style name="Body.One.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Body.One.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Body.Two">
+        <item name="android:textSize">@dimen/body_two_text_size</item>
+    </style>
+
+    <style name="Body.Two.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Body.Two.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Description -->
+    <style name="Description" parent="@android:style/Widget.TextView">
+        <item name="android:lineSpacingExtra">@dimen/description_one_line_spacing_extra</item>
+    </style>
+
+    <style name="Description.One">
+        <item name="android:textSize">@dimen/description_one_text_size</item>
+    </style>
+
+    <style name="Description.One.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Description.One.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Description.Two">
+        <item name="android:textSize">@dimen/description_two_text_size</item>
+    </style>
+
+    <style name="Description.Two.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Description.Two.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

@@ -40,4 +40,25 @@
     <dimen name="analog_complication_color_picker_size">70dp</dimen>
     <dimen name="watch_face_preview_background_padding">16dp</dimen>
     <dimen name="no_padding">0dp</dimen>
+
+    <!-- Custom Style related Attribute values. -->
+    <!-- Heading -->
+    <dimen name="heading_line_spacing_extra">8dp</dimen>
+    <dimen name="heading_one_text_size">32dp</dimen>
+    <dimen name="heading_two_text_size">28dp</dimen>
+
+    <!-- Title -->
+    <dimen name="title_one_line_spacing_extra">6dp</dimen>
+    <dimen name="title_one_text_size">20dp</dimen>
+    <dimen name="title_two_text_size">18dp</dimen>
+
+    <!-- Body -->
+    <dimen name="body_one_line_spacing_extra">5dp</dimen>
+    <dimen name="body_one_text_size">16dp</dimen>
+    <dimen name="body_two_text_size">15dp</dimen>
+
+    <!-- Description -->
+    <dimen name="description_one_line_spacing_extra">4dp</dimen>
+    <dimen name="description_one_text_size">11dp</dimen>
+    <dimen name="description_two_text_size">10dp</dimen>
 </resources>
