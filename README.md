@@ -2,7 +2,7 @@
 - As of October 18, 2023, this repository will no longer be maintained.
 - From now on, only repositories with the awesome prefix will be managed.
 
-## App architecture
+## App architecture (2022 ~ 2023)
 
 A collection of templates to discuss and showcase different architectural tools and patterns for apps in different languages.
 
