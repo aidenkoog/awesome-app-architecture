@@ -1,0 +1,35 @@
+{
+  "watchConnect": {
+    "connect": {
+      "title": "Connecting...",
+      "message": "Confirm on the band",
+      "error": {
+        "title": "Registration Error",
+        "message": "Connection is failed \nPlease check your watch."
+      }
+    },
+    "update": {
+      "title": "Updating...",
+      "message": "Bring watch closer to the phone",
+      "error": {
+        "title": "Update Error",
+        "messageUpdateFail": "Update is failed \nPlease try again.",
+        "messageUpdateNotFound": "Cannot find watch.\nBring the watch and phone close\ntogether and try again."
+      }
+    },
+    "search": {
+      "title": "Searching…",
+      "message": "Please bring watch closer to the phone"
+    }
+  },
+  "bluetooth": {
+    "searching": "Searching...",
+    "searching_content": "Please bring watch closer to the phone",
+    "connecting": "Connecting...",
+    "connecting_content": "Confirm it on device"
+  },
+  "tabBar": {
+    "home": "Home",
+    "Setting": "Setting"
+  }
+}

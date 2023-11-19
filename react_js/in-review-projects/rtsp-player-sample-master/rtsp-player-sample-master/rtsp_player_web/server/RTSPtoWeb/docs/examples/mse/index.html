@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RTSPtoWeb MSE example</title>
+  </head>
+  <body>
+    <h1>RTSPtoWeb MSE example</h1>
+
+    <input type="hidden" name="mse-url" id="mse-url"
+        value="ws://localhost:8083/stream/demo/channel/0/mse?uuid=demo&channel=0">
+
+    <video id="mse-video" autoplay muted playsinline controls
+        style="max-width: 100%; max-height: 100%;"></video>
+
+    <script src="main.js"></script>
+  </body>
+</html>

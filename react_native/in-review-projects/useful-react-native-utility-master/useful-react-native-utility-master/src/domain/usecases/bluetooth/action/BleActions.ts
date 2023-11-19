@@ -1,0 +1,4 @@
+export const ACTION_AUTHENTICATE: string = "ACTION_AUTHENTICATE"
+export const ACTION_SYNC: string = "ACTION_SYNC"
+export const ACTION_DISCONNECT: string = "ACTION_DISCONNECT"
+export const ACTION_UPGRADE_FIRMWARE: string = "ACTION_UPGRADE_FIRMWARE"
