@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/fmt_login_main">
+
+    <fragment
+        android:id="@+id/fmt_login_main"
+        android:name="io.github.aidenkoog.uiprototype.presentation.view.page.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fmt_login_main" />
+
+</navigation>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/fmt_home_main">
+
+    <fragment
+        android:id="@+id/fmt_home_main"
+        android:name="io.github.aidenkoog.uiprototype.presentation.view.page.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fmt_home_main" />
+
+</navigation>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="InputBoxEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/gray</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:background">@drawable/input_box_selector</item>
+        <item name="android:textCursorDrawable">@drawable/input_box_cursor</item>
+    </style>
+
+    <!-- Bottom sheet dialog style. -->
+    <style name="TransParentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransParentModalStyle</item>
+    </style>
+
+    <style name="TransParentModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- Custom my styles. -->
+    <!-- Heading -->
+    <style name="Heading" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineSpacingExtra">8dp</item>
+    </style>
+
+    <style name="Heading.One">
+        <item name="android:textSize">32dp</item>
+    </style>
+
+    <style name="Heading.One.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Heading.One.Regular">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Heading.One.Regular.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

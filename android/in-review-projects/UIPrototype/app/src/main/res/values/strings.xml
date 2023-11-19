@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">UI Prototype</string>
+    <string name="login_desc_text">SNS Login</string>
+    <string name="login_sub_desc_text">You can select SNS</string>
+    <string name="login_KaKao_login_btn_text">KaKao LOGIN</string>
+    <string name="login_google_login_btn_text">GOOGLE LOGIN</string>
+    <string name="nav_title_default_information_text">Default Information</string>
+    <string name="content_title">Confirm default information</string>
+    <string name="content_desc">Confirm default information and save it</string>
+    <string name="name_title">Name</string>
+    <string name="input_hint">Input hint</string>
+    <string name="option_text">(option)</string>
+    <string name="no_data_text">No data.</string>
+    <string name="test_no_item">TEST NO ITEM</string>
+</resources>
