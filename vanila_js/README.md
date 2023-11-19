@@ -1,7 +1,7 @@
 ## Vanila JS Projects
 
-- My Portfolio : https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/my_portfolio
-- Template : https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/template
+- My Portfolio : https://github.com/aidenkoog/awesome-app-architecture/tree/master/vanila_js/my_portfolio
+- Template : https://github.com/aidenkoog/awesome-app-architecture/tree/master/vanila_js/template
 
 #### Link
 

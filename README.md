@@ -8,39 +8,39 @@ A collection of templates to discuss and showcase different architectural tools 
 
 - **React Native** Mobile App
 
-  - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src
+  - Project (Javascript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_native/ble_comm_app/src
 
   - Major BLE module
 
-    - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_native/ble_comm_app/src/data
+    - Project (Javascript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_native/ble_comm_app/src/data
     - Project (Typescript): https://github.com/aidenkoog/beautiful-ble-manager-module
 
 - **React Web** Front-end
 
-  - Project (Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/admin_web/src
-  - Project (Typescript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/shopping_mall/src
+  - Project (Javascript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_js/admin_web/src
+  - Project (Typescript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_js/shopping_mall/src
 
 - **Homepage**
 
-  - Project (Vanila JS): https://github.com/aidenkoog/app-architecture/tree/master/vanila_js/my_portfolio
-  - Project (React + Javascript): https://github.com/aidenkoog/app-architecture/tree/master/react_js/my_portfolio
+  - Project (Vanila JS): https://github.com/aidenkoog/awesome-app-architecture/tree/master/vanila_js/my_portfolio
+  - Project (React + Javascript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_js/my_portfolio
 
 - **Android**
 
-  - Project (Wear OS, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/wear_os_launcher
-  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/userlist
-  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/app-architecture/tree/master/android/testapp
-  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/image_viewer
-  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/expense_management
-  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/news_app
-  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/note_app_example
-  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/app-architecture/tree/master/android/untitled_template_app
+  - Project (Wear OS, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/wear_os_launcher
+  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/userlist
+  - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/testapp
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/image_viewer
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/expense_management
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/news_app
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/note_app_example
+  - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/untitled_template_app
 
 - **Flutter**
 
-  - Project (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web
-  - Project (Web, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/admin_web_desktop
-  - Project (App, Dart): https://github.com/aidenkoog/app-architecture/tree/master/flutter/userlist
+  - Project (Web, Dart): https://github.com/aidenkoog/awesome-app-architecture/tree/master/flutter/admin_web
+  - Project (Web, Dart): https://github.com/aidenkoog/awesome-app-architecture/tree/master/flutter/admin_web_desktop
+  - Project (App, Dart): https://github.com/aidenkoog/awesome-app-architecture/tree/master/flutter/userlist
 
 #### Description
 
