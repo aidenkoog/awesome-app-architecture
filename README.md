@@ -19,6 +19,8 @@ A collection of templates to discuss and showcase different architectural tools 
 
   - Project (Javascript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_js/admin_web/src
   - Project (Typescript): https://github.com/aidenkoog/awesome-app-architecture/tree/master/react_js/shopping_mall/src
+  - Websocket module
+    - Project (Javascript): https://github.com/aidenkoog/websocket-module/tree/master
 
 - **Homepage**
 
