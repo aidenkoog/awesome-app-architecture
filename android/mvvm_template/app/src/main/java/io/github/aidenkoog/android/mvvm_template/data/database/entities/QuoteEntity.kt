@@ -7,11 +7,9 @@ import io.github.aidenkoog.android.mvvm_template.domain.model.Quote
 
 @Entity(tableName = "quote_table")
 data class QuoteEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id") val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "quote") val quote: String,
     @ColumnInfo(name = "author") val author: String
 )
 
-
-fun Quote.toDatabase() = QuoteEntity(quote = quote, author =  author)
+fun Quote.toDatabase() = QuoteEntity(quote = quote, author = author)

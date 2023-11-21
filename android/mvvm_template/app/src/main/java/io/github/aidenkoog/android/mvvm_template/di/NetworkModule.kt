@@ -15,15 +15,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://drawsomething-59328-default-rtdb.europe-west1.firebasedatabase.app/")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-    }
+    fun provideRetrofit(): Retrofit = Retrofit.Builder()
+        .baseUrl("https://drawsomething-59328-default-rtdb.europe-west1.firebasedatabase.app/")
+        .addConverterFactory(GsonConverterFactory.create()).build()
 
     @Singleton
     @Provides
-    fun provideQuoteApiClient(retrofit: Retrofit): QuoteApiClient {
-        return retrofit.create(QuoteApiClient::class.java)
-    }
+    fun provideQuoteApiClient(retrofit: Retrofit): QuoteApiClient =
+        retrofit.create(QuoteApiClient::class.java)
 }

@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.android.mvvm_template.databinding.ActivityMainBinding
 import io.github.aidenkoog.android.mvvm_template.ui.viewmodel.QuoteViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -33,7 +33,5 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.viewContainer.setOnClickListener { quoteViewModel.randomQuote() }
-
     }
-
 }

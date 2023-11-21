@@ -33,7 +33,7 @@ class GetRandomQuoteUseCaseTest {
 
     @Test
     fun `when database is not empty then return quote`() = runBlocking {
-        val quoteList = listOf(Quote("Holi", "AristiDevs"))
+        val quoteList = listOf(Quote("Test", "AidenKooG"))
 
         coEvery { quoteRepository.getAllQuotesFromDatabase() } returns quoteList
 

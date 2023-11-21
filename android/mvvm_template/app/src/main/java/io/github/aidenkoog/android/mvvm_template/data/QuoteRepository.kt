@@ -9,8 +9,7 @@ import io.github.aidenkoog.android.mvvm_template.domain.model.toDomain
 import javax.inject.Inject
 
 class QuoteRepository @Inject constructor(
-    private val api: QuoteService,
-    private val quoteDao: QuoteDao
+    private val api: QuoteService, private val quoteDao: QuoteDao
 ) {
 
     suspend fun getAllQuotesFromApi(): List<Quote> {

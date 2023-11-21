@@ -45,7 +45,7 @@ class QuoteViewModelUnitTest {
     @Test
     fun `when randomQuoteUseCase return a quote set on the livedata`() = runTest {
         //Given
-        val quote = Quote("Holi", "Aris")
+        val quote = Quote("Test", "AidenKooG")
         coEvery { getRandomQuoteUseCase() } returns quote
 
         //When
@@ -56,9 +56,9 @@ class QuoteViewModelUnitTest {
     }
 
     @Test
-    fun `if randomQuoteUseCase return null keep the last value`() = runTest{
+    fun `if randomQuoteUseCase return null keep the last value`() = runTest {
         //Given
-        val quote = Quote("Aris", "Aris")
+        val quote = Quote("AidenKooG", "AidenKooG")
         quoteViewModel.quoteModel.value = quote
         coEvery { getRandomQuoteUseCase() } returns null
 
@@ -70,15 +70,16 @@ class QuoteViewModelUnitTest {
     }
 
     @Test
-    fun `when viewmodel is created at the first time, get all quotes and set the first value`() = runTest{
-        //Given
-        val quote = listOf(Quote("Holi", "Aris"), Quote("Dame un like", "Otro Aris "))
-        coEvery { getQuotesUseCase() } returns quote
+    fun `when viewmodel is created at the first time, get all quotes and set the first value`() =
+        runTest {
+            //Given
+            val quote = listOf(Quote("Test", "AidenKooG"), Quote("Dame un like", "Test AidenKooG "))
+            coEvery { getQuotesUseCase() } returns quote
 
-        //When
-        quoteViewModel.onCreate()
+            //When
+            quoteViewModel.onCreate()
 
-        //Then
-        assert(quoteViewModel.quoteModel.value == quote.first())
-    }
+            //Then
+            assert(quoteViewModel.quoteModel.value == quote.first())
+        }
 }

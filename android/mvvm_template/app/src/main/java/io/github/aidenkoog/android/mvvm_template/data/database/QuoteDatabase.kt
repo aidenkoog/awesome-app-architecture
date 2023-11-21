@@ -6,7 +6,7 @@ import io.github.aidenkoog.android.mvvm_template.data.database.dao.QuoteDao
 import io.github.aidenkoog.android.mvvm_template.data.database.entities.QuoteEntity
 
 @Database(entities = [QuoteEntity::class], version = 1)
-abstract class QuoteDatabase: RoomDatabase() {
+abstract class QuoteDatabase : RoomDatabase() {
 
-    abstract fun getQuoteDao():QuoteDao
+    abstract fun getQuoteDao(): QuoteDao
 }
