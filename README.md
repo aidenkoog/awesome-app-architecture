@@ -32,7 +32,6 @@ A collection of templates to discuss and showcase different architectural tools 
   - Project (Wear OS, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/wear_os_launcher
   - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/userlist
   - Project (Mobile, Kotlin/Java): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/testapp
-  - Project (Mobile, Kotlin): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/mvvm_template
   - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/image_viewer
   - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/expense_management
   - Project (Mobile, Kotlin/Java, Coroutine + Flow): https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/news_app

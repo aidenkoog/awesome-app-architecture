@@ -8,7 +8,6 @@
 - Note Memo App : https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/note_memo_app
 - Untitled Template App : https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/untitled_template_app
 - Expense Management App : https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/expense_management
-- MVVM template App : https://github.com/aidenkoog/awesome-app-architecture/tree/master/android/mvvm_template 
 
 #### Link
 
