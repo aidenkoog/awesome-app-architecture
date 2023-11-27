@@ -1,37 +1,52 @@
 package io.github.aidenkoog.apptemplate
 
+import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import android.os.Bundle
 import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
 
 @HiltAndroidApp
-class CustomApplication : Application() {
+class CustomApplication : Application(), Application.ActivityLifecycleCallbacks {
 
     private var isBackground = false
 
     override fun onCreate() {
         super.onCreate()
+        /**
+         * initialize timber logger.
+         */
+        Timber.plant(Timber.DebugTree())
     }
 
-    override fun onLowMemory() {
-        super.onLowMemory()
+    private fun handleSignOutEvent() {
+        val intent = Intent("").apply { putExtra("reason", "") }
+        applicationContext.sendBroadcast(intent)
     }
 
-    override fun onTrimMemory(level: Int) {
-        super.onTrimMemory(level)
+    override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
+        Timber.i("onActivityCreated:")
     }
 
-    fun onActivityPause() {
-        isBackground = true
+    override fun onActivityStarted(activity: Activity) {
+        Timber.i("onActivityStarted:")
     }
 
-    fun onActivityResume() {
+    override fun onActivityResumed(activity: Activity) {
+        Timber.i("onActivityResumed:")
         if (isBackground) {
+            /**
+             * handle login session.
+             */
             val needSignOut = false
             if (needSignOut) {
                 handleSignOutEvent()
                 return
             }
+            /**
+             * handle varius events in addition to login.
+             */
             val needEtcProcess = false
             if (needEtcProcess) {
                 return
@@ -40,8 +55,20 @@ class CustomApplication : Application() {
         isBackground = false
     }
 
-    private fun handleSignOutEvent() {
-        val intent = Intent("").apply { putExtra("reason", "") }
-        applicationContext.sendBroadcast(intent)
+    override fun onActivityPaused(activity: Activity) {
+        Timber.i("onActivityPaused:")
+        isBackground = true
+    }
+
+    override fun onActivityStopped(activity: Activity) {
+        Timber.i("onActivityStopped:")
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle) {
+        Timber.i("onActivitySaveInstanceState:")
+    }
+
+    override fun onActivityDestroyed(activity: Activity) {
+        Timber.i("onActivityDestroyed:")
     }
 }

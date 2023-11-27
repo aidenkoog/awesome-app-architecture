@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">app template</string>
+
+    <!-- screen debug text -->
+    <string name="intro_screen_text">Hello World AidenKooG (Intro)!</string>
+    <string name="home_screen_text">Hello World AidenKooG (Home)!</string>
 </resources>
