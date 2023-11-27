@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.aidenkoog.apptemplate.R
 import io.github.aidenkoog.apptemplate.presentation.base.BaseActivity
@@ -12,12 +13,13 @@ import io.github.aidenkoog.apptemplate.presentation.home.MainActivity
 @AndroidEntryPoint
 class IntroActivity : BaseActivity() {
 
-    private val viewModel: IntroViewModel by lazy { IntroViewModel() }
+    private lateinit var viewModel: IntroViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intro_main)
 
+        viewModel = ViewModelProvider(this)[IntroViewModel::class.java]
         viewModel.startIntroSteps()
 
         /**

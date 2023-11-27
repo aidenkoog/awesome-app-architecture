@@ -22,7 +22,7 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    /*
+    /**
      * register the callback related to back button press.
      * this method can be used
      * when it's necessary to execute the custom code after detecting back press event.
@@ -40,14 +40,14 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    /*
+    /**
      * this method will be defined again in the concrete class extending this.
      * developer can put the custom logic here.
      */
     open fun onHandleBackPressed() {
     }
 
-    /*
+    /**
      * simply execute onBackPressed instead of using the deprecated onBackPressed method.
      * developer can use this if it's not necessary to put the custom code.
      */
@@ -69,7 +69,7 @@ open class BaseActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    /*
+    /**
      * dispatch to hide keypad when outside area is touched.
      */
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -123,7 +123,7 @@ open class BaseActivity : AppCompatActivity() {
         return view.windowToken ?: return null
     }
 
-    /*
+    /**
      * dispatch to edit text view.
      */
     private fun isWithinEditTextBounds(edit: EditText, yPoint: Int): Boolean {
