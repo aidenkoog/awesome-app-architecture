@@ -7,6 +7,7 @@ import io.github.aidenkoog.apptemplate.R
 import io.github.aidenkoog.apptemplate.databinding.HomeMainBinding
 import io.github.aidenkoog.apptemplate.extensions.setOnSingleClickListener
 import io.github.aidenkoog.apptemplate.presentation.base.BaseActivity
+import io.github.aidenkoog.apptemplate.presentation.dialog.DialogFactory
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
@@ -30,6 +31,10 @@ class MainActivity : BaseActivity() {
          */
         binding.homeBtn.setOnSingleClickListener {
             showToast(getString(R.string.btn_click_test_toast_msg))
+
+            val dialogBuilder = DialogFactory.Builder(this)
+            val dialog = dialogBuilder.setTitle("Test Title").setPositiveButton().create()
+            dialog.show()
         }
     }
 }
