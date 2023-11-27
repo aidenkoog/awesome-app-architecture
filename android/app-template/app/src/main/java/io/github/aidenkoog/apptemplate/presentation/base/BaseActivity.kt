@@ -11,6 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import io.github.aidenkoog.apptemplate.utils.NetworkStatus
+import io.github.aidenkoog.apptemplate.utils.NetworkStatusHelper
 import kotlin.math.abs
 
 open class BaseActivity : AppCompatActivity() {
@@ -18,8 +21,31 @@ open class BaseActivity : AppCompatActivity() {
     private var startX = 0f
     private var startY = 0f
 
+    private var networkStatusListener: OnNetworkStatusListener? = null
+
+    interface OnNetworkStatusListener {
+        fun onNetworkAvailable()
+        fun onNetworkUnavailable()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        observeNetworkStatus()
+    }
+
+    private fun observeNetworkStatus() = NetworkStatusHelper(this).observe(this) {
+        when (it) {
+            NetworkStatus.Available -> networkStatusListener?.onNetworkAvailable()
+            NetworkStatus.Unavailable -> networkStatusListener?.onNetworkUnavailable()
+        }
+    }
+
+    /**
+     * register this callback in where network status monitoring is needed.
+     */
+    open fun setOnNetworkStatusListener(listener: OnNetworkStatusListener) {
+        networkStatusListener = listener
     }
 
     /**
