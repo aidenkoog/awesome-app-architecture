@@ -4,4 +4,8 @@
     <!-- screen debug text -->
     <string name="intro_screen_text">Hello World AidenKooG (Intro)!</string>
     <string name="home_screen_text">Hello World AidenKooG (Home)!</string>
+    <string name="home_btn_text">TEST BTN</string>
+
+    <string name="btn_click_test_toast_msg">버튼 클릭 테스트</string>
+
 </resources>
