@@ -18,6 +18,9 @@ interface CoroutineUseCase {
         }
     }
 
+    /**
+     * developer can set dispatcher to block.
+     */
     suspend operator fun <T> invoke(
         dispatcher: CoroutineDispatcher,
         block: suspend () -> T,

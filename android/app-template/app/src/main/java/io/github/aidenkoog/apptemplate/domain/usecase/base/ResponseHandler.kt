@@ -67,6 +67,9 @@ suspend fun <T> Error<T>.handleError() = handleError { }
 suspend inline fun <T> Error<T>.handleError(
     crossinline block: suspend (message: String) -> Unit
 ) = apply {
+    /**
+     * Custom handling for various errors is done here.
+     */
     onError(900, 901, 902) {
         block("error 1")
         //TODO:
