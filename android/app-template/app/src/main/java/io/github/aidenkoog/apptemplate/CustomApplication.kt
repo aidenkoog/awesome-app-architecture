@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import dagger.hilt.android.HiltAndroidApp
+import io.github.aidenkoog.apptemplate.infrastructure.ActivityLifecycleCallback
 import timber.log.Timber
 
 @HiltAndroidApp
@@ -14,10 +15,13 @@ class CustomApplication : Application(), Application.ActivityLifecycleCallbacks 
 
     override fun onCreate() {
         super.onCreate()
-        /**
+        /*
          * initialize timber logger.
          */
         Timber.plant(Timber.DebugTree())
+
+        // register activity's custom lifecycle.
+        // registerActivityLifecycleCallbacks(ActivityLifecycleCallback())
     }
 
     private fun handleSignOutEvent() {
@@ -36,7 +40,7 @@ class CustomApplication : Application(), Application.ActivityLifecycleCallbacks 
     override fun onActivityResumed(activity: Activity) {
         Timber.i("onActivityResumed:")
         if (isBackground) {
-            /**
+            /*
              * handle login session.
              */
             val needSignOut = false
@@ -44,7 +48,7 @@ class CustomApplication : Application(), Application.ActivityLifecycleCallbacks 
                 handleSignOutEvent()
                 return
             }
-            /**
+            /*
              * handle varius events in addition to login.
              */
             val needEtcProcess = false
