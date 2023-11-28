@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Title" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:lineSpacingExtra">18dp</item>
+    </style>
+
+    <style name="Title.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Title.Bold.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

@@ -17,7 +17,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /**
+        /*
          * data binding with layout in which layout tag exists.
          */
         binding = DataBindingUtil.setContentView<HomeMainBinding>(
@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
             setContentView(it.root)
         }
 
-        /**
+        /*
          * custom single click listener for handling continous key events.
          */
         binding.homeBtn.setOnSingleClickListener {
@@ -36,5 +36,14 @@ class MainActivity : BaseActivity() {
             val dialog = dialogBuilder.setTitle("Test Title").setPositiveButton().create()
             dialog.show()
         }
+
+        /*
+         * set sub text title using data binding.
+         */
+        binding.viewData = ViewData(message = "Test Sub Title Text !!!")
     }
+
+    data class ViewData(
+        val message: String = "",
+    )
 }
