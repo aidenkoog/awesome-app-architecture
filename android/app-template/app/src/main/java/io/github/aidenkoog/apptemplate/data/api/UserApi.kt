@@ -2,7 +2,6 @@ package io.github.aidenkoog.apptemplate.data.api
 
 import io.github.aidenkoog.apptemplate.domain.model.Response
 import io.github.aidenkoog.apptemplate.infrastructure.retrofit.annotation.BaseUrl
-import io.github.aidenkoog.apptemplate.infrastructure.retrofit.annotation.Factory
 import io.github.aidenkoog.apptemplate.infrastructure.retrofit.params.BodyParams
 import io.github.aidenkoog.apptemplate.infrastructure.url.BaseApiUrl
 import io.reactivex.Single
