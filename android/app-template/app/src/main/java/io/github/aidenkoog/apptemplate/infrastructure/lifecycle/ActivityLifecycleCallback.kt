@@ -1,4 +1,4 @@
-package io.github.aidenkoog.apptemplate.infrastructure
+package io.github.aidenkoog.apptemplate.infrastructure.lifecycle
 
 import android.app.Activity
 import android.app.Application

@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import dagger.hilt.android.HiltAndroidApp
-import io.github.aidenkoog.apptemplate.infrastructure.ActivityLifecycleCallback
 import timber.log.Timber
 
 @HiltAndroidApp
