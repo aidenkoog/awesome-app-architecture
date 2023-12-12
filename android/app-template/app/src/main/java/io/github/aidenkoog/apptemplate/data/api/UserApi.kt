@@ -12,12 +12,18 @@ import java.util.*
 // @Factory(factory = UserApiFactory::class)
 interface UserApi {
 
+    /*
+     * getUsers is called with coroutine.
+     */
     @Headers("content-type: application/json")
     @GET("/users")
     suspend fun getUsers(
         @Query("timestamp") timestamp: Long,
     ): Response<List<Any>>
 
+    /*
+     * RxJava
+     */
     @Headers("content-type: application/json")
     @POST("/user/register")
     fun registerUser(
