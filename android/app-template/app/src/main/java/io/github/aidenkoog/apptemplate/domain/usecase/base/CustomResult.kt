@@ -1,8 +1,8 @@
 package io.github.aidenkoog.apptemplate.domain.usecase.base
 
-sealed class Result<out T> {
-    data class Success<out T>(val value: T) : Result<T>()
-    data class Failure(val exception: Exception) : Result<Nothing>()
+sealed class CustomResult<out T> {
+    data class Success<out T>(val value: T) : CustomResult<T>()
+    data class Failure(val exception: Exception) : CustomResult<Nothing>()
 
     fun subscribe(onSuccess: (T) -> Unit, onFailure: (Exception) -> Unit) {
         when (this) {

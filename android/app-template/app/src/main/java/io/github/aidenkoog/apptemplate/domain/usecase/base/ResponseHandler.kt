@@ -5,7 +5,7 @@ import io.github.aidenkoog.apptemplate.exception.ExpiredRefreshTokenException
 import io.github.aidenkoog.apptemplate.exception.NetworkException
 import timber.log.Timber
 
-class Error<T>(val result: Result<Response<T>>) {
+class Error<T>(val result: CustomResult<Response<T>>) {
     private var isAlreadyChecked = false
 
     suspend fun invokeIfNotHandled(block: suspend () -> Unit) {
@@ -16,19 +16,19 @@ class Error<T>(val result: Result<Response<T>>) {
     }
 }
 
-suspend inline fun <T> Result<Response<T>>.onResponse(
-    crossinline block: suspend (T?) -> Unit
+suspend inline fun <T> CustomResult<Response<T>>.onResponse(
+    crossinline block: suspend (T?) -> Unit,
 ): Error<T> {
-    if (this is Result.Success && this.value.isSuccess()) {
+    if (this is CustomResult.Success && this.value.isSuccess()) {
         runCatching { block(this.value.data) }
     }
     return Error(this)
 }
 
 suspend inline fun <T> Error<T>.onError(
-    crossinline block: suspend (errorCode: Int, errorMessage: String?) -> Unit
+    crossinline block: suspend (errorCode: Int, errorMessage: String?) -> Unit,
 ) = apply {
-    if (result is Result.Success && result.value.isSuccess().not()) {
+    if (result is CustomResult.Success && result.value.isSuccess().not()) {
         invokeIfNotHandled {
             block(result.value.code, result.value.message)
         }
@@ -39,7 +39,7 @@ suspend inline fun <T> Error<T>.onError(
     vararg errorCode: Int,
     crossinline block: suspend (errorMessage: String?) -> Unit,
 ) = apply {
-    if (result is Result.Success && result.value.isSuccess().not() && errorCode.any {
+    if (result is CustomResult.Success && result.value.isSuccess().not() && errorCode.any {
             it == result.value.code
         }) {
         invokeIfNotHandled {
@@ -49,9 +49,9 @@ suspend inline fun <T> Error<T>.onError(
 }
 
 suspend inline fun <T> Error<T>.onFailure(
-    crossinline block: suspend (exception: Exception) -> Unit
+    crossinline block: suspend (exception: Exception) -> Unit,
 ) = apply {
-    if (result is Result.Failure) {
+    if (result is CustomResult.Failure) {
         invokeIfNotHandled {
             block(result.exception)
         }
@@ -65,7 +65,7 @@ suspend fun <T> Error<T>.doFinally(block: suspend () -> Unit) = apply {
 suspend fun <T> Error<T>.handleError() = handleError { }
 
 suspend inline fun <T> Error<T>.handleError(
-    crossinline block: suspend (message: String) -> Unit
+    crossinline block: suspend (message: String) -> Unit,
 ) = apply {
     /**
      * Custom handling for various errors is done here.

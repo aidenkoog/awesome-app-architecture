@@ -11,10 +11,10 @@ interface CoroutineUseCase {
      */
     suspend operator fun <T> invoke(block: suspend () -> T) = supervisorScope {
         try {
-            Result.Success(block())
+            CustomResult.Success(block())
 
         } catch (e: Exception) {
-            Result.Failure(e)
+            CustomResult.Failure(e)
         }
     }
 
@@ -24,12 +24,12 @@ interface CoroutineUseCase {
     suspend operator fun <T> invoke(
         dispatcher: CoroutineDispatcher,
         block: suspend () -> T,
-    ): Result<T> = supervisorScope {
+    ): CustomResult<T> = supervisorScope {
         try {
-            Result.Success(withContext(dispatcher) { block() })
+            CustomResult.Success(withContext(dispatcher) { block() })
 
         } catch (e: Exception) {
-            Result.Failure(e)
+            CustomResult.Failure(e)
         }
     }
 }
