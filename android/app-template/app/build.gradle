@@ -66,6 +66,9 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
 
+    // CustomTestApplication, HiltAndroidTest, HiltAndroidRule
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
     /**
      * hilt
      * Link: (https://developer.android.com/training/dependency-injection/hilt-android?hl=ko)
