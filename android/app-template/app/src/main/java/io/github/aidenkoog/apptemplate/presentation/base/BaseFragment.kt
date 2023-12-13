@@ -22,9 +22,9 @@ abstract class BaseFragment : Fragment() {
                 onHandleBackPressed() // custom code
             }
         }
-        try {
+        runCatching {
             requireActivity().onBackPressedDispatcher.addCallback(this, mBackPressedCallback)
-        } catch (e: IllegalStateException) {
+        }.onFailure { e ->
             Timber.tag("backKey").e("registerBackPressedCallback: activity is null !!!")
             e.printStackTrace()
         }
@@ -34,9 +34,7 @@ abstract class BaseFragment : Fragment() {
      * To be overrided in the concrete class.
      * Developer can put the custom logic here.
      */
-    open fun onHandleBackPressed() {
-        Timber.tag(javaClass.simpleName).d("onHandleBackPressed: ")
-    }
+    open fun onHandleBackPressed() = Timber.tag(javaClass.simpleName).d("onHandleBackPressed: ")
 
     /*
      * Simply execute onBackPressed instead of using the deprecated onBackPressed method.
@@ -44,9 +42,9 @@ abstract class BaseFragment : Fragment() {
      */
     @SuppressLint("LogNotTimber")
     open fun backPressedWithDispatcher() {
-        try {
+        runCatching {
             requireActivity().onBackPressedDispatcher.onBackPressed()
-        } catch (e: IllegalStateException) {
+        }.onFailure { e ->
             Log.e("backKey", "backPressedWithDispatcher: activity is null !!!")
             e.printStackTrace()
         }
@@ -58,20 +56,16 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onStop() {
-        if (!compositeDisposable.isDisposed) {
-            compositeDisposable.clear()
-        }
+        if (!compositeDisposable.isDisposed) compositeDisposable.clear()
         super.onStop()
     }
 
-    open fun add(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
+    open fun add(disposable: Disposable) = compositeDisposable.add(disposable)
 
-    open fun clearDisposable() {
-        if (!compositeDisposable.isDisposed) {
-            Timber.d("clear disposable")
-            compositeDisposable.clear()
-        }
+    open fun clearDisposable() = if (!compositeDisposable.isDisposed) {
+        Timber.d("clear disposable")
+        compositeDisposable.clear()
+    } else {
+        Timber.d("need not call clear method")
     }
 }

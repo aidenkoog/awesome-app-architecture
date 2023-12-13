@@ -11,9 +11,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import io.github.aidenkoog.apptemplate.utils.NetworkStatus
 import io.github.aidenkoog.apptemplate.utils.NetworkStatusHelper
+import timber.log.Timber
 import kotlin.math.abs
 
 open class BaseActivity : AppCompatActivity() {
@@ -70,22 +70,21 @@ open class BaseActivity : AppCompatActivity() {
      * this method will be defined again in the concrete class extending this.
      * developer can put the custom logic here.
      */
-    open fun onHandleBackPressed() {
-    }
+    open fun onHandleBackPressed() {}
 
     /**
      * simply execute onBackPressed instead of using the deprecated onBackPressed method.
      * developer can use this if it's not necessary to put the custom code.
      */
     open fun backPressedWithDispatcher() {
-        try {
+        runCatching {
             onBackPressedDispatcher.onBackPressed()
-        } catch (e: IllegalStateException) {
-            e.printStackTrace()
-        }
+
+        }.onFailure { e -> e.printStackTrace() }
     }
 
     override fun onStart() {
+        Timber.d("onStart: ")
         super.onStart()
     }
 
@@ -161,6 +160,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        Timber.d("onResume: ")
         super.onResume()
     }
 
