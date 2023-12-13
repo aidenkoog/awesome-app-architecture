@@ -1,5 +1,9 @@
 package io.github.aidenkoog.testapp.services.screen_comparison
 
+/**
+ * in android settings app,
+ * network setting menu.
+ */
 enum class ScreenTitle(val title: String) {
     KR_ROAMING_ABROAD("해외 로밍"),
     EN_ROAMING_ABROAD("Global roaming"),
