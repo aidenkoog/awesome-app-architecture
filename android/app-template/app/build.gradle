@@ -52,22 +52,24 @@ dependencies {
     /**
      * testing
      */
-    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
     /**
      * testing related to Hilt
+     * 1) For androidTest code. (For Hilt)
+     * 2) CustomTestApplication, HiltAndroidTest, HiltAndroidRule
+     * 3) runTest
      */
-    // For androidTest code. (For Hilt)
     testImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptTest("com.google.dagger:hilt-android-compiler:2.44")
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
 
-    // CustomTestApplication, HiltAndroidTest, HiltAndroidRule
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
+    androidTestImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 
     /**
      * hilt
