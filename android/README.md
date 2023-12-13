@@ -9,6 +9,7 @@
     - wear_os_launcher-template
     - webapp_template
     - app-template
+    - rx-android-ble-practice
 
 #### Link
 
