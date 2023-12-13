@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Top close icon & view. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_close_icon_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/close_icon_view"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/oval_close_icon_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/white_close_navigation_ic_24x24"
+            app:layout_constraintBottom_toBottomOf="@id/close_icon_view"
+            app:layout_constraintEnd_toEndOf="@id/close_icon_view"
+            app:layout_constraintStart_toStartOf="@id/close_icon_view"
+            app:layout_constraintTop_toTopOf="@id/close_icon_view" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content list. -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_round_custom_bottom_sheet_popup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_close_icon_container">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/total_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/total_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="4dp"
+                android:src="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_count_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="100"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/total_image"
+                app:layout_constraintStart_toEndOf="@id/total_image"
+                app:layout_constraintTop_toTopOf="@id/total_image"
+                tools:ignore="HardcodedText"
+                tools:text="99" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="TEST"
+                app:layout_constraintBottom_toBottomOf="@id/total_count_number"
+                app:layout_constraintStart_toEndOf="@id/total_count_number"
+                app:layout_constraintTop_toTopOf="@id/total_count_number"
+                tools:ignore="HardcodedText"
+                tools:text="TEST" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/my_profile_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_round_16_white_stroke_blue_10"
+            android:padding="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/total_container">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/my_profile_img_bg"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="HongGilDong"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/my_profile_img_bg"
+                app:layout_constraintStart_toEndOf="@id/my_profile_img_bg"
+                app:layout_constraintTop_toTopOf="@id/my_profile_img_bg"
+                tools:ignore="HardcodedText"
+                tools:text="홍길동" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="100000"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/my_profile_img_bg"
+                app:layout_constraintStart_toEndOf="@id/name"
+                app:layout_constraintTop_toTopOf="@id/my_profile_img_bg"
+                tools:ignore="HardcodedText"
+                tools:text="100000" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_profile_container" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="10dp"
+            android:text="Detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            tools:ignore="HardcodedText"
+            tools:text="Detail" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/detail_list"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="true"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_title"
+            tools:itemCount="3"
+            tools:listitem="@layout/list_item_detail_popup" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/detail_empty_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="142dp"
+            android:layout_marginBottom="142dp"
+            android:text="Data NOT exist"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/separator"
+            tools:ignore="HardcodedText"
+            tools:text="Data NOT exist"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

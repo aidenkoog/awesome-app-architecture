@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewData"
+            type="io.github.aidenkoog.apptemplate.presentation.dialog.CustomBottomSheetDialog.ViewData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_round_16_white_stroke_gray20"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_bg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{viewData.name}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/image_bg"
+            app:layout_constraintStart_toEndOf="@id/image_bg"
+            app:layout_constraintTop_toTopOf="@id/image_bg"
+            tools:text="홍길동" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewData.count}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/image_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_bg"
+            tools:text="1000000" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
