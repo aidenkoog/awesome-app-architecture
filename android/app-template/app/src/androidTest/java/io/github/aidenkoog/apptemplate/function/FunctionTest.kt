@@ -5,6 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.github.aidenkoog.apptemplate.data.api.UserApi
 import io.github.aidenkoog.apptemplate.domain.usecase.base.CustomResult
+import io.github.aidenkoog.apptemplate.domain.usecase.base.handleError
 import io.github.aidenkoog.apptemplate.domain.usecase.base.onResponse
 import io.github.aidenkoog.apptemplate.infrastructure.retrofit.repository.RetrofitRepository
 import kotlinx.coroutines.CoroutineDispatcher
