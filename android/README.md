@@ -7,6 +7,8 @@
     - review_ongoing
     - testapp_template
     - wear_os_launcher-template
+    - webapp_template
+    - app-template
 
 #### Link
 
