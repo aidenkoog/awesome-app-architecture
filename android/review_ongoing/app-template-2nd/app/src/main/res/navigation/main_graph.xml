@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="io.github.aidenkoog.apptemplate2nd.ui.MainFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_tragosDetalleFragment"
+            app:destination="@id/tragosDetalleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right">
+
+            <argument
+                android:name="drink"
+                app:argType="io.github.aidenkoog.apptemplate2nd.data.model.Cocktail"
+                app:nullable="false" />
+        </action>
+        <action
+            android:id="@+id/action_mainFragment_to_favoritosFragment"
+            app:destination="@id/favoritosFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/tragosDetalleFragment"
+        android:name="io.github.aidenkoog.apptemplate2nd.ui.details.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_details">
+
+        <argument
+            android:name="drink"
+            app:argType="io.github.aidenkoog.apptemplate2nd.data.model.Cocktail"
+            app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="io.github.aidenkoog.apptemplate2nd.ui.favorites.FavoritesFragment"
+        android:label="My Favorites"
+        tools:layout="@layout/favorite_fragment">
+        <action
+            android:id="@+id/action_favoritosFragment_to_tragosDetalleFragment"
+            app:destination="@id/tragosDetalleFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/favoritosFragment">
+
+            <argument
+                android:name="drink"
+                app:argType="io.github.aidenkoog.apptemplate2nd.data.model.Cocktail"
+                app:nullable="false" />
+        </action>
+    </fragment>
+</navigation>
