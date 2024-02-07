@@ -10,6 +10,7 @@
     - webapp_template
     - app-template
     - rx-android-ble-practice
+    - websocket-module
 
 #### Link
 
