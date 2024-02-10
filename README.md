@@ -1,3 +1,7 @@
+## Notice
+
+- This repository will no longer be maintained as of February 10th.
+
 ## Awesome App architecture
 
 A collection of templates to discuss and showcase different architectural tools and patterns for apps in different languages.
